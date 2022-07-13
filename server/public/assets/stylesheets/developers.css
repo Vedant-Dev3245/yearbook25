@@ -1,0 +1,40 @@
+.developers-wrapper {
+	width: 90vw;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+
+}
+
+h1 {
+	font-size: 3rem;
+	margin-top: 2%;
+}
+
+#developers {
+	display: grid;
+	place-items: center;
+}
+
+img {
+	border-radius: 15px;
+}
+
+.dev-card {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+	margin: 3%;
+	border-radius: 10px;
+}
+
+.dev-card img {
+	width: 200px;
+	height: 200px;
+}
+
+.dev-card * {
+	margin: 0;
+}

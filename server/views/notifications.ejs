@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Notifications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/fontawesome.min.css"
+        integrity="sha384-wESLQ85D6gbsF459vf1CiZ2+rr+CsxRY0RpiF1tLlQpDnAgg6rwdsUF1+Ics2bni" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/stylesheets/profile.css">
+    <link rel="stylesheet" href="/assets/stylesheets/nominate.css">
+    <link rel="stylesheet" href="/assets/stylesheets/notifications.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <section class="landing">
+        <div class="container">
+            <h1 class="notif-heading">Notifications</h1>
+            <div class="navbar-top">
+                <div class="search-bar search-container">
+                    <form action="/<%= id %>/search" method="POST" id="search-bar-form">
+                        <input type="text" id="search" placeholder="Search by BITS Id or Name"
+                            name="user[searched_val]">
+                    </form>
+                </div>
+
+                <div class="links" id="nav-links">
+                    <ul class="nav-links">
+                        <li><a href="/<%= id %>/nominate">Nominate a friend</a></li>
+                        <li><a href="/profile/<%= id %>"><i class="fas fa-house-user"></i></a></li>
+                        <li><a href="/<%= id %>/notifications"><i class="fas fa-bell"></i></a></li>
+                        <li><a href="/profile/<%= id %>/edit"><i class="fas fa-user-edit"></i></a></li>
+                        <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i></a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="main-content notif-content">
+                <div class="notif-container">
+                     
+                    <div class="messages">
+                        <% for(let i=0; i<nomineelist.length; i++) { %>
+                        <div id="m1">
+                            <h2 class="nominee-name-message"><%= nomineelist[i].name %> has nominated you to write a
+                                caption!</h2>
+                            <a href="/<%= id %>/<%= nomineelist[i].id %>/caption"><button type="button"
+                                    class="btn btn-notif">Write/edit a Caption</button></a>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+        <div class="social">
+            <div class="sarc-logo"> </div>
+            <a href="https://www.linkedin.com/company/sarcbitspilani" target="_blank"><i
+                    class="fab fa-linkedin-in fa-2x"></i></a>
+            <a href="https://www.facebook.com/sarcbitspilani" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="https://www.instagram.com/sarcbitspilani" target="_blank" id="instagram"><i
+                    class="fab fa-instagram fa-2x"></i></a>
+            <div class="dots">
+                <div class="yellow"></div>
+                <div class="blue"></div>
+                <div class="red"></div>
+            </div>
+        </div>
+        <% if(typeof msg!=='undefined') { %>
+        <div class="modal" id="myModal" style="display: block;">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2><%= msg %></h2>
+                </div>
+
+                <div class="modal-body">
+                    <p>Try again 😶</p>
+                </div>
+            </div>
+        </div>
+        <button id="myBtn"></button>
+        <% } %>
+        <div class="developer-container">
+            <a href="../developers.html"><i class="fas fa-code" id="toggleIcon"></i></a>
+        </div>
+        <footer id="footer">
+            <div class="container">
+              <h3>SARC Yearbook Portal</h3>
+              <p>The official 2022 Yearbook Portal.</p>
+              <div class="social-links">
+                <a href="https://www.instagram.com/sarcbitspilani/" target="_blank" class="instagram"><i
+                    class='bx bxl-instagram' style='color:#d056dc'></i></a>
+                <a href="https://www.linkedin.com/company/sarcbitspilani" target="_blank" class="linkedin"><i
+                    class='bx bxl-linkedin ' style='color:#0a66c2'></i></a>
+                <a href="https://www.facebook.com/sarcbitspilani" target="_blank" class="facebook"><i
+                    class='bx bxl-facebook-circle' style='color:#1299f7'></i></a>
+                <a href="https://www.youtube.com/channel/UCisxd2_yPv0GuRUBPHMm-7Q/featured" target="_blank" class="Youtube"><i
+                    class='bx bxl-youtube' style='color:#ff0000'></i></a>
+        
+              </div>
+              <div class="copyright">
+                Made with <span style="font-size:150%;color:red;">&hearts;</span> by SARC
+              </div>
+              <div class="credits">
+                <a href="https://bootstrapmade.com/"></a></a>
+              </div>
+            </div>
+          </footer><!-- End Footer -->
+    </section>
+    <script src="https://kit.fontawesome.com/d689986894.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.rawgit.com/adriancooney/console.image/c9e6d4fd/console.image.min.js"></script>
+    <script src="/assets/scipts/app.js"></script>
+    <script src="/assets/scipts/dev.js"></script>
+    <script src="/assets/scipts/new.js"></script>
+</body>
+
+</html>
