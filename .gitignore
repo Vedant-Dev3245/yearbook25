@@ -133,3 +133,6 @@
 
 # public folder
 /server/public
+
+#idea folder
+./idea
