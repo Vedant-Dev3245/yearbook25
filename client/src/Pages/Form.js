@@ -10,7 +10,8 @@ export default function Form() {
         lastName: data.family_name,
         img: data.picture,
         quote: "",
-        id: ""
+        id: "",
+        email: data.email
     })
     function handleChange(event) {
         setFormData(prevFormData => {
@@ -24,7 +25,7 @@ export default function Form() {
         e.preventDefault();
         axios({
             method: 'post',
-            url: '',
+            url: 'http://127.0.0.1:3001/profile/add',
             data: formData
         })
             .then(function (response) {

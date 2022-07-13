@@ -135,4 +135,6 @@
 /server/public
 
 #idea folder
-./idea
+/.idea/workspace.xml
+/.idea/
+/server/.idea/
