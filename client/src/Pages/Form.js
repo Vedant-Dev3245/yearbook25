@@ -2,7 +2,7 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios";
 import { chakra, Box } from "@chakra-ui/react"
-import { Gilmer } from "../gilmer-complete-family-webfont-full/gilmer-bold/webfonts/gilmer-bold.ttf"
+// import { Gilmer } from "../gilmer-complete-family-webfont-full/gilmer-bold/webfonts/gilmer-bold.ttf"
 export default function Form() {
     const location = useLocation()
     const data = location.state;
@@ -50,7 +50,7 @@ export default function Form() {
     return (
         <Box>
             <Box>
-                <Box bg="#1D1E22" w="80%" color="white" fontFamily={Gilmer}>
+                <Box bg="#1D1E22" w="80%" color="white">
                     <form onSubmit={handleSubmit}>
                         <input onChange={handleChange} name="firstName" type="text" value={formData.firstName} />
                         <input onChange={handleChange} name="lastName" type="text" value={formData.lastName} />
