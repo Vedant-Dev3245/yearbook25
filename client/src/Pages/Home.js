@@ -1,6 +1,7 @@
 import React from "react"
 import jwtDecode from "jwt-decode"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import {Box} from "@chakra-ui/react"
 export default function Home() {
 
   const [user, setUser] = React.useState({})
@@ -8,7 +9,7 @@ export default function Home() {
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     setUser(userObject)
-    navigate('/form', {state: userObject})
+    navigate('/form', { state: userObject })
   }
   React.useEffect(() => {
     /* global google */
@@ -27,13 +28,16 @@ export default function Home() {
     google.accounts.id.prompt();
   }, [])
 
-  return (<div id="Home">
-    <div id="signInDiv"></div>
+//   return (
+//     <div id="Home">
+//       <div id="signInDiv"></div>
+//     </div>)
+// }
 
-    {user &&
-      <div>
-        <img src={user.picture} />
-        <h3>{user.name}</h3>
-      </div>}
-  </div>)
+return(
+  <Box id = "Home" h="100vh" bg = "beige">
+    <Box id = "signInDiv">
+    </Box>
+  </Box>
+)
 }
