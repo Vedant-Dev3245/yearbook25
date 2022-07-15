@@ -138,3 +138,5 @@
 /.idea/workspace.xml
 /.idea/
 /server/.idea/
+server/.DS_Store
+/server/config/passport-setup.js

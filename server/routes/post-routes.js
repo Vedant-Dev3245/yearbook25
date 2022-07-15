@@ -26,24 +26,64 @@ const upload = multer({
 
 
 router.post("/profile/add", async (req, res) => {
-    const existing_usr = await User.findOne({bitsId: req.body.id})
+    const existing_usr = await User.findOne({email: req.body.formData.email})
+    console.log(req.body)
     console.log(existing_usr)
     if (!existing_usr) {
-        const usr = new User({
-            name: req.body.firstName,
-            imageUrl: req.body.img,
-            email: req.body.email,
-            bitsId: req.body.id,
-            quote: req.body.quote,
-            discipline: "",
-        })
-        usr.save()
+        try {
+            const formData = req.body.formData
+            const imgData = req.body.img
+            const usr = new User({
+                name: formData.firstName + ' ' + formData.lastName,
+                email: formData.email,
+                bitsId: formData.id,
+                quote: formData.quote,
+                discipline: "",
+                img: imgData,
+            })
+
+            await usr.save()
+
+            return res.send({
+                status: 200,
+                details: "User profile created"
+            })
+        } catch (err) {
+            return res.send({
+                status: 500,
+                details: "Something went wrong while creating or saving user object"
+            })
+        }
     }
-    return res.send({
-        status: 200,
-        details: "SUCCESS!"
-    })
 })
+
+
+router.post("/profile/check", async (req, res) => {
+    // dummy req data = {
+    //             name: formData.firstName + ' '+ formData.lastName,
+    //             email: formData.email,
+    //             bitsId: formData.id,
+    //             quote: formData.quote,
+    //             discipline: "",
+    //             img: imgData,
+    //             }
+
+    const usr = await User.findOne({
+        email: req.body.email
+    })
+    if (usr) {
+        res.send({
+            user: usr,
+            exists: true
+        })
+    } else {
+        res.send( {
+            user: {},
+            exists: false
+        })
+    }
+})
+
 
 router.post("/addid/:id", async (req, res) => {
     const id = req.params.id;

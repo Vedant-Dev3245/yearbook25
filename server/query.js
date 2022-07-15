@@ -1,6 +1,8 @@
 var MongoClient = require("mongodb").MongoClient;
-var url =
-       "mongodb+srv://sarc2020:Alumni123@cluster0.sshdt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+// var url =
+//        "mongodb+srv://sarc2020:Alumni123@cluster0.sshdt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+var url = "mongodb+srv://sarc2020:Alumni123@cluster0.sshdt.mongodb.net/sarc_yearbook22?retryWrites=true&w=majority";
 
 //var url = "mongodb://127.0.0.1:27017"
 // use only when not on server
