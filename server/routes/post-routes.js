@@ -25,37 +25,42 @@ const upload = multer({
 });
 
 
-router.post("/profile/add", async (req, res) => {
-    const existing_usr = await User.findOne({email: req.body.formData.email})
-    console.log(req.body)
-    console.log(existing_usr)
-    if (!existing_usr) {
-        try {
-            const formData = req.body.formData
-            const imgData = req.body.img
-            const usr = new User({
-                name: formData.firstName + ' ' + formData.lastName,
-                email: formData.email,
-                bitsId: formData.id,
-                quote: formData.quote,
-                discipline: "",
-                img: imgData,
-            })
+router.post("/profile/add", upload.single("image"),async (req, res) => {
+    try {
+        const user = new User({
+            name: req.body.firstName + " " + req.body.lastName,
+            email: req.body.email,
+            bitsId: req.body.bitsId,
+            quote: req.body.quote,
+            discipline: ""
+        })
+        const buffer = await sharp(req.file.buffer).png().toBuffer()
+        user.img = buffer
+        await user.save()
+        return res.send({
+            detail: "Profile created"
+        })
 
-            await usr.save()
-
-            return res.send({
-                status: 200,
-                details: "User profile created"
-            })
-        } catch (err) {
-            return res.send({
-                status: 500,
-                details: "Something went wrong while creating or saving user object"
-            })
-        }
+    } catch (err) {
+        return res.send({
+            detail: "Something went wrong" + err
+        })
     }
 })
+
+
+    // const form = new formidable.IncomingForm();
+    // console.log(req)
+    // const form = formidable({multiples: true})
+    // form.parse(req, async (err, fields, files) => {
+    //     try {
+    //         console.log(fields)
+    //         console.log(files)
+    //         const buffer = await sharp()
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // })
 
 
 router.post("/profile/check", async (req, res) => {
@@ -67,7 +72,7 @@ router.post("/profile/check", async (req, res) => {
     //             discipline: "",
     //             img: imgData,
     //             }
-
+    console.log(req.body)
     const usr = await User.findOne({
         email: req.body.email
     })

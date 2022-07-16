@@ -65,8 +65,7 @@ export default function Form() {
           })
         axios({
             method: 'POST',
-            // url: 'http://127.0.0.1:3001/profile/add', 
-            url : '/some/api',
+            url: 'http://127.0.0.1:3001/profile/add',
             data: formData
         })
             .then(function (response) {
