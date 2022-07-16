@@ -2,7 +2,7 @@ import React from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios";
 import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery} from "@chakra-ui/react"
-import { validEmail, validID } from '../Utils.js';
+// import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
     const location = useLocation()
@@ -16,23 +16,24 @@ export default function Form() {
     })
     const [img, setImg] = React.useState();
     let form = new FormData();
+    const [imgExist, setImgExist] = React.useState(false)
     
-    const [emailErr, setEmailErr] = React.useState(false);
-    const [IDError, setIDError] = React.useState(false);
+    // const [emailErr, setEmailErr] = React.useState(false);
+    // const [IDError, setIDError] = React.useState(false);
 
-    function validate() {
-        console.log(formData)
-        if (!validEmail.test(formData.email)) {
-            setEmailErr(true);
-        } else {
-            setEmailErr(false);
-        }
-        if (validID.test(formData.id)) {
-            setIDError(true);
-        } else {
-            setIDError(false);
-        }
-    }
+    // function validate() {
+    //     console.log(formData)
+    //     if (!validEmail.test(formData.email)) {
+    //         setEmailErr(true);
+    //     } else {
+    //         setEmailErr(false);
+    //     }
+    //     if (validID.test(formData.id)) {
+    //         setIDError(true);
+    //     } else {
+    //         setIDError(false);
+    //     }
+    // }
     const [isSmallerThan900] = useMediaQuery('(max-width: 900px)')
     const [isSmallerThan1100] = useMediaQuery('(max-width: 1100px)')
     const [isSmallerThan500] = useMediaQuery('(max-width: 500px)')
@@ -50,12 +51,11 @@ export default function Form() {
         const file = e.target.files[0]
         form.append(file.name, file);
         setImg(URL.createObjectURL(file))
-        console.log(img)
+        setImgExist(true)
     }
     function handleSubmit(e) {
         e.preventDefault();
-        validate()
-        // console.log(formData)
+        console.log(formData)
         // axios({
         //     method: 'post',
         //     url: 'http://127.0.0.1:3001/profile/add',
@@ -103,7 +103,7 @@ export default function Form() {
                                             htmlFor="email"
                                             fontSize="20px"
                                         >email</FormLabel>
-                                        <Input disabled={true} opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formData.email} />
+                                        <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formData.email} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -111,7 +111,7 @@ export default function Form() {
                                             htmlFor="id"
                                             fontSize="20px"
                                         >bits id</FormLabel>
-                                        <Input w="90%" id="id" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formData.id} />
+                                        <Input w="90%" id="id" pattern = "20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formData.id} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -133,7 +133,7 @@ export default function Form() {
                 <Box spacing={2}>
                     <Box mt="8rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                         <FormLabel htmlFor="file">
-                            <Image src={img} margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
+                            <Image src={imgExist ? img : '../images/pic.png' } margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
                         </FormLabel>
                     </Box>
                     <Box fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
@@ -149,8 +149,6 @@ export default function Form() {
                         {' "' + formData.quote + '" '}
                     </Box>
                     <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
-                    {emailErr && <p>Your email is invalid</p>}
-                    {IDError && <p>Your id is invalid</p>}
                 </Box>
             </Flex>
         </Flex>
