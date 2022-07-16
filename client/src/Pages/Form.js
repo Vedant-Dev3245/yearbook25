@@ -7,7 +7,7 @@ import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText
 export default function Form() {
     const location = useLocation()
     const data = location.state;
-    const [formData, setFormData] = React.useState({
+    const [formInfo, setFormInfo] = React.useState({
         firstName: data.given_name,
         lastName: data.family_name,
         quote: "",
@@ -15,20 +15,21 @@ export default function Form() {
         email: data.email
     })
     const [img, setImg] = React.useState();
-    const formImg = new FormData();
+    const [formImage, setFormImage] = React.useState();
     const [imgExist, setImgExist] = React.useState(false)
+    const formData = new FormData();
     
     // const [emailErr, setEmailErr] = React.useState(false);
     // const [IDError, setIDError] = React.useState(false);
 
     // function validate() {
-    //     console.log(formData)
-    //     if (!validEmail.test(formData.email)) {
+    //     console.log(formInfo)
+    //     if (!validEmail.test(formInfo.email)) {
     //         setEmailErr(true);
     //     } else {
     //         setEmailErr(false);
     //     }
-    //     if (validID.test(formData.id)) {
+    //     if (validID.test(formInfo.id)) {
     //         setIDError(true);
     //     } else {
     //         setIDError(false);
@@ -40,9 +41,9 @@ export default function Form() {
 
     function handleChange(event) {
         const { name, value } = event.target
-        setFormData(prevFormData => {
+        setFormInfo(prevFormInfo => {
             return {
-                ...prevFormData,
+                ...prevFormInfo,
                 [name]: value
             }
         })
@@ -50,19 +51,22 @@ export default function Form() {
     function onImageChange(e) {
         const file = e.target.files[0]
         if(e.target && file){
-            formImg.append('file', file);
-            console.log('added')
+            formData.append('file', file);
         }
         setImg(URL.createObjectURL(file))
+        setFormImage(file)
         setImgExist(true)
     }
     function handleSubmit(e) {
         e.preventDefault();
+        Object.entries(formInfo).map(item => {
+            formData.append(item[0], item[1])
+          })
         axios({
             method: 'post',
             // url: 'http://127.0.0.1:3001/profile/add', 
             url : 'https://postman-echo.com/post',
-            data: formImg
+            data: formData
         })
             .then(function (response) {
                 console.log(response);
@@ -90,7 +94,7 @@ export default function Form() {
                                             htmlFor="firstName"
                                             fontSize="20px"
                                         >first name</FormLabel>
-                                        <Input disabled={true} opacity="1 !important" id="firstName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your first name here" name="firstName" type="text" value={formData.firstName} />
+                                        <Input disabled={true} opacity="1 !important" id="firstName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your first name here" name="firstName" type="text" value={formInfo.firstName} />
                                     </GridItem>
                                     <GridItem colSpan={1}>
                                         <FormLabel
@@ -98,7 +102,7 @@ export default function Form() {
                                             htmlFor="lastName"
                                             fontSize="20px"
                                         >last name</FormLabel>
-                                        <Input disabled={true} opacity="1 !important"  id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formData.lastName} />
+                                        <Input disabled={true} opacity="1 !important"  id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formInfo.lastName} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -106,7 +110,7 @@ export default function Form() {
                                             htmlFor="email"
                                             fontSize="20px"
                                         >email</FormLabel>
-                                        <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formData.email} />
+                                        <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formInfo.email} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -114,7 +118,7 @@ export default function Form() {
                                             htmlFor="id"
                                             fontSize="20px"
                                         >bits id</FormLabel>
-                                        <Input w="90%" id="id" pattern = "20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formData.id} />
+                                        <Input w="90%" id="id" pattern = "20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formInfo.id} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -122,8 +126,8 @@ export default function Form() {
                                             htmlFor="quote"
                                             fontSize="20px"
                                         >yearbook quote</FormLabel>
-                                        <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formData.quote} />
-                                        <FormHelperText mt="0.4rem" mb="6rem">{formData.quote.length}/280 characters used</FormHelperText>
+                                        <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
+                                        <FormHelperText mt="0.4rem" mb="6rem">{formInfo.quote.length}/280 characters used</FormHelperText>
                                     </GridItem>
 
                                 </SimpleGrid>
@@ -140,16 +144,16 @@ export default function Form() {
                         </FormLabel>
                     </Box>
                     <Box fontFamily="Gilmer" fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
-                        {formData.firstName.toUpperCase()} <br />{formData.lastName.toUpperCase()}
+                        {formInfo.firstName.toUpperCase()} <br />{formInfo.lastName.toUpperCase()}
                     </Box>
                     <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3">
-                        {formData.email}
+                        {formInfo.email}
                     </Box>
                     <Box fontSize="1.2rem" color="#B3B3B3">
-                        {formData.id}
+                        {formInfo.id}
                     </Box>
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
-                        {' "' + formData.quote + '" '}
+                        {' "' + formInfo.quote + '" '}
                     </Box>
                     <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                 </Box>
