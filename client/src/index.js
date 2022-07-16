@@ -4,7 +4,7 @@ import App from './App';
 import { ChakraProvider } from '@chakra-ui/react'
 import '@fontsource/eb-garamond/800.css'
 import theme from './Theme';
-import Fonts from './Pages/Fonts';
+import Fonts from './Fonts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

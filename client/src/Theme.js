@@ -4,7 +4,7 @@ import "@fontsource/eb-garamond"
 const theme = extendTheme({
   fonts: {
     // heading: `'EB Garamond', serif`,
-    // body: "Gilmer"
+    body: "Gilmer"      
   },
 })
 

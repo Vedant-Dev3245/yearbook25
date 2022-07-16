@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery} from "@chakra-ui/react"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, extendTheme} from "@chakra-ui/react"
 // import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -15,7 +15,7 @@ export default function Form() {
         email: data.email
     })
     const [img, setImg] = React.useState();
-    let form = new FormData();
+    const formImg = new FormData();
     const [imgExist, setImgExist] = React.useState(false)
     
     // const [emailErr, setEmailErr] = React.useState(false);
@@ -49,24 +49,27 @@ export default function Form() {
     }
     function onImageChange(e) {
         const file = e.target.files[0]
-        form.append(file.name, file);
+        if(e.target && file){
+            formImg.append('file', file);
+            console.log('added')
+        }
         setImg(URL.createObjectURL(file))
         setImgExist(true)
     }
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(formData)
-        // axios({
-        //     method: 'post',
-        //     url: 'http://127.0.0.1:3001/profile/add',
-        //     data: { formData, form }
-        // })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        axios({
+            method: 'post',
+            // url: 'http://127.0.0.1:3001/profile/add', 
+            url : 'https://postman-echo.com/post',
+            data: formImg
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
     return (
@@ -136,7 +139,7 @@ export default function Form() {
                             <Image src={imgExist ? img : '../images/pic.png' } margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
                         </FormLabel>
                     </Box>
-                    <Box fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
+                    <Box fontFamily="Gilmer" fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
                         {formData.firstName.toUpperCase()} <br />{formData.lastName.toUpperCase()}
                     </Box>
                     <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3">
@@ -145,7 +148,7 @@ export default function Form() {
                     <Box fontSize="1.2rem" color="#B3B3B3">
                         {formData.id}
                     </Box>
-                    <Box fontSize="1.4rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
+                    <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formData.quote + '" '}
                     </Box>
                     <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
