@@ -1,8 +1,7 @@
 import React from "react"
 import { useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
-// import { Gilmer } from "../gilmer-complete-family-webfont-full/gilmer-bold/webfonts/gilmer-bold.ttf"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery} from "@chakra-ui/react"
 import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -16,7 +15,8 @@ export default function Form() {
         email: data.email
     })
     const [img, setImg] = React.useState();
-
+    let form = new FormData();
+    
     const [emailErr, setEmailErr] = React.useState(false);
     const [IDError, setIDError] = React.useState(false);
 
@@ -24,17 +24,18 @@ export default function Form() {
         console.log(formData)
         if (!validEmail.test(formData.email)) {
             setEmailErr(true);
-            console.log(emailErr)
         } else {
             setEmailErr(false);
         }
-        if (!validID.test(formData.id)) {
+        if (validID.test(formData.id)) {
             setIDError(true);
-            console.log(IDError)
         } else {
             setIDError(false);
         }
     }
+    const [isSmallerThan900] = useMediaQuery('(max-width: 900px)')
+    const [isSmallerThan1100] = useMediaQuery('(max-width: 1100px)')
+    const [isSmallerThan500] = useMediaQuery('(max-width: 500px)')
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -47,6 +48,7 @@ export default function Form() {
     }
     function onImageChange(e) {
         const file = e.target.files[0]
+        form.append(file.name, file);
         setImg(URL.createObjectURL(file))
         console.log(img)
     }
@@ -54,27 +56,27 @@ export default function Form() {
         e.preventDefault();
         validate()
         // console.log(formData)
-        axios({
-            method: 'post',
-            url: 'http://127.0.0.1:3001/profile/add',
-            data: { formData, img }
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        // axios({
+        //     method: 'post',
+        //     url: 'http://127.0.0.1:3001/profile/add',
+        //     data: { formData, form }
+        // })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
 
     }
     return (
-        <Flex h="100vh" bg="black">
-            <Flex w="60%" backgroundImage="url('../images/light.png')" bgPosition="center"
+        <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black">
+            <Flex w={isSmallerThan900 ? '100%' : '60%'} backgroundImage="url('../images/light.png')" bgPosition="center"
                 bgRepeat="no-repeat" bgSize="cover" align="center" justify="center">
-                <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323" w="80%" color="white" border="3px" borderStyle="solid" borderColor="white.300" borderRadius="20px">
+                <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323" w="80%" color="white" border="3px" borderStyle="solid" borderColor="white.300" borderRadius="20px" marginBlock={isSmallerThan900 ? '2rem' : 0}>
 
-                    <Box pl="3rem">
-                        <Heading mt="5rem" fontSize="3.6rem">join your batchies</Heading>
+                    <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
+                        <Heading mt="5rem"  fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display = "inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
                         <Text color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
@@ -85,7 +87,7 @@ export default function Form() {
                                             htmlFor="firstName"
                                             fontSize="20px"
                                         >first name</FormLabel>
-                                        <Input id="firstName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your first name here" name="firstName" type="text" value={formData.firstName} />
+                                        <Input disabled={true} opacity="1 !important" id="firstName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your first name here" name="firstName" type="text" value={formData.firstName} />
                                     </GridItem>
                                     <GridItem colSpan={1}>
                                         <FormLabel
@@ -93,7 +95,7 @@ export default function Form() {
                                             htmlFor="lastName"
                                             fontSize="20px"
                                         >last name</FormLabel>
-                                        <Input id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formData.lastName} />
+                                        <Input disabled={true} opacity="1 !important"  id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formData.lastName} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -101,7 +103,7 @@ export default function Form() {
                                             htmlFor="email"
                                             fontSize="20px"
                                         >email</FormLabel>
-                                        <Input w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formData.email} />
+                                        <Input disabled={true} opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formData.email} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -117,7 +119,7 @@ export default function Form() {
                                             htmlFor="quote"
                                             fontSize="20px"
                                         >yearbook quote</FormLabel>
-                                        <Textarea w="90%" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formData.quote} />
+                                        <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formData.quote} />
                                         <FormHelperText mt="0.4rem" mb="6rem">{formData.quote.length}/280 characters used</FormHelperText>
                                     </GridItem>
 
@@ -127,9 +129,9 @@ export default function Form() {
                     </Box>
                 </Box>
             </Flex>
-            <Flex color="white" w="40%" bg="#242323" textAlign="center" justify="center" >
+            <Flex color="white" w={isSmallerThan900 ? '100%' : '40%'} bg="#242323" textAlign="center" justify="center" >
                 <Box spacing={2}>
-                    <Box mt="12rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
+                    <Box mt="8rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                         <FormLabel htmlFor="file">
                             <Image src={img} margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
                         </FormLabel>
@@ -143,10 +145,10 @@ export default function Form() {
                     <Box fontSize="1.2rem" color="#B3B3B3">
                         {formData.id}
                     </Box>
-                    <Box fontSize="2rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="50%" marginInline="auto" marginBlock="2rem" lineHeight="2.4rem">
+                    <Box fontSize="1.4rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formData.quote + '" '}
                     </Box>
-                    <Button onClick={handleSubmit} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
+                    <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                     {emailErr && <p>Your email is invalid</p>}
                     {IDError && <p>Your id is invalid</p>}
                 </Box>

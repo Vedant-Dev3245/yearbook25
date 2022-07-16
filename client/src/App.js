@@ -2,7 +2,6 @@ import React from "react"
 import Form from "./Pages/Form"
 import Home from "./Pages/Home"
 import { BrowserRouter, Routes, Route, Redirect } from "react-router-dom"
-import { ChakraProvider } from "@chakra-ui/react";
 function App() {
 
   return (
