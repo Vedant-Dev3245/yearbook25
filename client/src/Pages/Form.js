@@ -15,7 +15,7 @@ export default function Form() {
         email: data.email
     })
     const [img, setImg] = React.useState();
-    const [formImage, setFormImage] = React.useState();
+    const [formImage, setFormImage] = React.useState({file: null});
     const [imgExist, setImgExist] = React.useState(false)
     const formData = new FormData();
     
@@ -49,23 +49,24 @@ export default function Form() {
         })
     }
     function onImageChange(e) {
-        const file = e.target.files[0]
-        if(e.target && file){
-            formData.append('file', file);
+        const imageFile = e.target.files[0]
+        if(e.target && imageFile){
+            setFormImage({file: imageFile})   
         }
-        setImg(URL.createObjectURL(file))
-        setFormImage(file)
+        setImg(URL.createObjectURL(imageFile))
         setImgExist(true)
     }
     function handleSubmit(e) {
         e.preventDefault();
+        console.log(formImage.file)
+        formData.append('image', formImage.file);
         Object.entries(formInfo).map(item => {
             formData.append(item[0], item[1])
           })
         axios({
-            method: 'post',
+            method: 'POST',
             // url: 'http://127.0.0.1:3001/profile/add', 
-            url : 'https://postman-echo.com/post',
+            url : '/some/api',
             data: formData
         })
             .then(function (response) {
