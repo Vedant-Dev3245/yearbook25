@@ -1,7 +1,7 @@
 import React from "react"
-import { useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, extendTheme} from "@chakra-ui/react"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, extendTheme } from "@chakra-ui/react"
 // import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -15,10 +15,10 @@ export default function Form() {
         email: data.email
     })
     const [img, setImg] = React.useState();
-    const [formImage, setFormImage] = React.useState({file: null});
+    const [formImage, setFormImage] = React.useState({ file: null });
     const [imgExist, setImgExist] = React.useState(false)
     const formData = new FormData();
-    
+
     // const [emailErr, setEmailErr] = React.useState(false);
     // const [IDError, setIDError] = React.useState(false);
 
@@ -38,6 +38,7 @@ export default function Form() {
     const [isSmallerThan900] = useMediaQuery('(max-width: 900px)')
     const [isSmallerThan1100] = useMediaQuery('(max-width: 1100px)')
     const [isSmallerThan500] = useMediaQuery('(max-width: 500px)')
+    const navigate = useNavigate()
 
     function handleChange(event) {
         const { name, value } = event.target
@@ -50,31 +51,35 @@ export default function Form() {
     }
     function onImageChange(e) {
         const imageFile = e.target.files[0]
-        if(e.target && imageFile){
-            setFormImage({file: imageFile})   
+        if (e.target && imageFile) {
+            setFormImage({ file: imageFile })
         }
         setImg(URL.createObjectURL(imageFile))
         setImgExist(true)
     }
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(formImage.file)
+        e.target.disabled = true
         formData.append('image', formImage.file);
+
         Object.entries(formInfo).map(item => {
             formData.append(item[0], item[1])
-          })
+        })
+
         axios({
             method: 'POST',
             url: 'http://127.0.0.1:3001/profile/add',
             data: formData
         })
             .then(function (response) {
+                if (response.data.detail === "Profile created") {
+                    navigate('/profile')
+                }
                 console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
             });
-
     }
     return (
         <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black">
@@ -83,7 +88,7 @@ export default function Form() {
                 <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323" w="80%" color="white" border="3px" borderStyle="solid" borderColor="white.300" borderRadius="20px" marginBlock={isSmallerThan900 ? '2rem' : 0}>
 
                     <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
-                        <Heading mt="5rem"  fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display = "inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
+                        <Heading mt="5rem" fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display="inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
                         <Text color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
@@ -102,7 +107,7 @@ export default function Form() {
                                             htmlFor="lastName"
                                             fontSize="20px"
                                         >last name</FormLabel>
-                                        <Input disabled={true} opacity="1 !important"  id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formInfo.lastName} />
+                                        <Input disabled={true} opacity="1 !important" id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formInfo.lastName} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -110,7 +115,7 @@ export default function Form() {
                                             htmlFor="email"
                                             fontSize="20px"
                                         >email</FormLabel>
-                                        <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important"  w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formInfo.email} />
+                                        <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important" w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formInfo.email} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -118,7 +123,7 @@ export default function Form() {
                                             htmlFor="id"
                                             fontSize="20px"
                                         >bits id</FormLabel>
-                                        <Input w="90%" id="id" pattern = "20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formInfo.id} />
+                                        <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formInfo.id} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
                                         <FormLabel
@@ -140,7 +145,7 @@ export default function Form() {
                 <Box spacing={2}>
                     <Box mt="8rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                         <FormLabel htmlFor="file">
-                            <Image src={imgExist ? img : '../images/pic.png' } margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
+                            <Image src={imgExist ? img : '../images/pic.png'} margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
                         </FormLabel>
                     </Box>
                     <Box fontFamily="Gilmer" fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >

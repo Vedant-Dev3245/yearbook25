@@ -1,15 +1,34 @@
 import React from "react"
 import jwtDecode from "jwt-decode"
+import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import { Box } from "@chakra-ui/react"
+import { Box } from '@chakra-ui/react';
+
 export default function Home() {
+
+  function checkUser(userObject) {
+    axios({
+      method: 'POST',
+      url: 'http://127.0.0.1:3001/profile/check',
+      data: userObject
+    })
+      .then(function (response) {
+        if (response.data.exists) {
+          navigate('/profile', { state: userObject })
+        } else {
+          navigate('/form', { state: userObject })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     setUser(userObject)
     localStorage.setItem("user", JSON.stringify(userObject))
-    console.log(userObject)
-    navigate('/form', { state: userObject })
+    checkUser(userObject)
   }
 
   const [user, setUser] = React.useState({})
@@ -18,6 +37,7 @@ export default function Home() {
 
   React.useEffect(() => {
     /* global google */
+
     if (localStorage.getItem("user") === null) {
       google.accounts.id.initialize({
         client_id: "1050493483344-ardfhdeca71u0v4758micitopt027jnr.apps.googleusercontent.com",
@@ -33,10 +53,13 @@ export default function Home() {
       )
       google.accounts.id.prompt();
     }
+
     if (localStorage.getItem("user") !== null) {
-      setUser(localStorage.getItem('user'))
-      navigate('/form', { state: JSON.parse(localStorage.getItem("user")) })
+      const userObject = JSON.parse(localStorage.getItem("user"))
+      localStorage.setItem("user", JSON.stringify(userObject))
+      checkUser(userObject)
     }
+
 
     // to logout just run localstorage.clear(); and navigate to /
 
@@ -49,7 +72,7 @@ export default function Home() {
   // }
 
   return (
-    <Box id="Home" h="100vh" bg="beige">
+    <Box id="Home" h="100" bg="beige">
       <Box id="signInDiv">
       </Box>
     </Box>
