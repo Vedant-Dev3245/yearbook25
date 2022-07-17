@@ -157,7 +157,7 @@ export default function Form() {
                     <Box fontSize="1.2rem" color="#B3B3B3">
                         {formInfo.id}
                     </Box>
-                    <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
+                    <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formInfo.quote + '" '}
                     </Box>
                     <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
