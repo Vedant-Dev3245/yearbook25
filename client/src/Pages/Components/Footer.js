@@ -5,8 +5,7 @@ import React from 'react'
 export default function Footer() {
 
     return (
-        <Box color="white" position = 'relative' mt="4rem">
-            <Image src='../images/physicalBg.png' position = 'absolute' left="15%" z-index = "1"/>
+        <Box color="white" w="80%" marginInline="auto" bg = "url('../images/physicalBg.png')"  backgroundSize = "cover" position = 'relative' mt="7rem">
             <VStack
                 w="80%"
                 marginInline="auto"
@@ -19,9 +18,9 @@ export default function Footer() {
                 backdrop-filter="blur(40px)"
                 z-index = "2"
                 border-radius="50px" >
-                <Box fontSize="3rem" fontWeight = "700" mt = "4rem">opt-in for the <Box display="inline" fontStyle = "italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
+                <Box fontSize="3rem" fontWeight = "700" mt = "6rem">opt-in for the <Box display="inline" fontStyle = "italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
                 <Box color = "#C9C8C8" fontSize="1.4rem">get physical copy. cherish it for the years to come.</Box>
-                <Button fontSize = "1.2rem" color = "black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon />
+                <Button marginBottom="6rem !important" fontSize = "1.2rem" color = "black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon />
                 </Button>
             </VStack>
                 
