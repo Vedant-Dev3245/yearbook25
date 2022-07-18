@@ -85,7 +85,10 @@ export default function Form() {
         <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black">
             <Flex w={isSmallerThan900 ? '100%' : '60%'} backgroundImage="url('../images/light.png')" bgPosition="center"
                 bgRepeat="no-repeat" bgSize="cover" align="center" justify="center">
-                <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323" w="80%" color="white" border="3px" borderStyle="solid" borderColor="white.300" borderRadius="20px" marginBlock={isSmallerThan900 ? '2rem' : 0}>
+                <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323"
+                    w="80%" color="white" border="3px" borderStyle="solid"
+                    borderColor="white.300" borderRadius="20px"
+                    marginBlock={isSmallerThan900 ? '2rem' : 0}>
 
                     <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
                         <Heading mt="5rem" fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display="inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
