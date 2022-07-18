@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { Box, Flex, Text, Button, Spacer, Grid, GridItem, Image, Link, Center, Icon, createIcon } from '@chakra-ui/react';
-
+import Footer from "./Components/Footer";
 export default function Home() {
 
   function checkUser(userObject) {
@@ -168,6 +168,7 @@ export default function Home() {
         {/* howItWorks Ended */}
 
       </Box >
+      <Footer/>
     </>
   )
 }
