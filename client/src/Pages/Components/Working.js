@@ -26,26 +26,26 @@ export default function Working() {
                             <Text fontSize="1.2rem" transform="translateY(44%)">2</Text>
                         </Box>
                         <VStack mt="1rem" ml="3rem" alignItems="baseline">
-                        <Box fontSize="2rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">visit your frens, write quotes on their wall & nominate them 🌱 </Box>
-                        <Box fontSize="1.2rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
-                        hey let’s make something good for the graduating batch and idk why 
+                            <Box fontSize="2rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">visit your frens, write quotes on their wall & nominate them 🌱 </Box>
+                            <Box fontSize="1.2rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
+                                hey let’s make something good for the graduating batch and idk why
                             </Box>
                         </VStack>
                         <Box w="50%" h="18rem" mb="4rem !important" bgColor="#FFC62D" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(44px)" >insert profile view here</Text></Box>
 
-                        
+
                     </Box>
 
                     <Box w="40%" color="white" border="2px solid #D84222;" boxShadow="0px 0px 10px #D84222;" borderRadius="1rem" bgColor="rgba(216, 66, 34, 0.15);">
-                    <Box w="80%" h="18rem" mb="4rem !important" bgColor="#D84222" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(20px)" >insert others’ profile view ss here</Text></Box>
+                        <Box w="80%" h="18rem" mb="4rem !important" bgColor="#D84222" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(20px)" >insert others’ profile view ss here</Text></Box>
                         <Box ml="3rem" mt="4rem" bgColor="#D84222" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center">
-                        
+
                             <Text fontSize="1.2rem" transform="translateY(44%)">3</Text>
                         </Box>
                         <VStack mt="1rem" ml="3rem" alignItems="baseline" w="80%">
-                        <Box fontSize="2rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
-                        <Box fontSize="1.2rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
-                        hey let’s make something good for the graduating batch and 
+                            <Box fontSize="2rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
+                            <Box fontSize="1.2rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
+                                hey let’s make something good for the graduating batch and
                             </Box>
                         </VStack>
                     </Box>
