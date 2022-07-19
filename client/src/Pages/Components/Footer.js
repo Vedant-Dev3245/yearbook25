@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import React from 'react'
 
@@ -25,41 +25,45 @@ export default function Footer() {
                     </Button>
                 </VStack>
             </Box>
-            <Box bg="url('../images/Group.png')" p={0}>
-                <Flex justifyContent="space-between" backgroundSize="cover">
-                    <VStack>
-                        <Box fontSize="3.5rem" fontWeight="700" mt="6rem" color="white">SARC</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3" w='30%'>
+            <Box bg="url('../images/Group.png')" overflowX="hidden" mt="-8rem" borderBlock="2px solid rgba(255, 255, 255, 0.25)">
+                <Flex justifyContent="space-between" backgroundSize="cover" h="20rem" mt="4rem" ml="4rem">
+                    <VStack w="20%" alignItems="baseline" justifyContent="center">
+                        <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w='100%'>
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
                     </VStack>
-                    <VStack>
-                        <Box fontSize="1.7rem" fontWeight="700" mt="6rem" color="white">about us</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                    <VStack alignItems="baseline" justifyContent="center">
+                        <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">about us</Box>
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             initiatives</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             the podcast</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             gallery</Box>
                     </VStack>
-                    <VStack>
-                        <Box fontSize="1.7rem" fontWeight="700" mt="6rem" color="white">quick links</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                    <VStack alignItems="baseline" justifyContent="center">
+                        <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">quick links</Box>
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             initiatives</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             the podcast</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3">
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             gallery</Box>
                     </VStack>
-                    <VStack >
-                        <Box fontSize="1.7rem" fontWeight="700" mt="6rem" color="white">connect w/ us</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="6rem" color="#B3B3B3" w="40%">
+                    <VStack alignItems="baseline" justifyContent="center">
+                        <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">connect w/ us</Box>
+                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w="60%">
                             follow us on social media to receive regular updates</Box>
+                        <Flex>
+
+                        </Flex>
 
                     </VStack>
                 </Flex>
             </Box>
+            <Box marginBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display = "inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
         </>
     )
 }

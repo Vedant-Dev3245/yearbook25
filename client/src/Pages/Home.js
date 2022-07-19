@@ -73,7 +73,7 @@ export default function Home() {
   }, [])
 
   return (
-      <Box bg="#141414" pl="100px" pt="50px" pb="50px" pr="100px">
+      <Box overflowX = "hidden" bg="#141414" pl="100px" pt="50px" pb="0" pr="100px">
         <Logo />
         <Hero />
         <Working />

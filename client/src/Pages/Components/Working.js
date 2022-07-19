@@ -1,7 +1,8 @@
-import { Box, Text, Flex, Grid, Image, VStack } from '@chakra-ui/react'
+import { Box, Text, Flex, Grid, Image, VStack, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 
 export default function Working() {
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
     return (
         <Box mt="10rem">
             <Box fontSize={80} color="#fff" fontWeight={800} align={'center'}>how it <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >works?</Text> </Box>
@@ -20,8 +21,8 @@ export default function Working() {
                         </Box>
                     </Flex>
                 </Box>
-                <Flex w="80%" justifyContent="space-between" mt="2rem !important">
-                    <Box w="60%" mr="2rem" border="2px solid #FFC62D" boxShadow="0px 0px 10px #FFC62D;" borderRadius="1rem" color="white" bgColor="rgba(255, 198, 45, 0.15);">
+                <Flex flexDirection={isSmallerThan800 ? 'column !important' : 'row'} w="80%" justifyContent="space-between" mt="2rem !important">
+                    <Box w={isSmallerThan800 ? '100% !important' : '60%'} mr="2rem" border="2px solid #FFC62D" boxShadow="0px 0px 10px #FFC62D;" borderRadius="1rem" color="white" bgColor="rgba(255, 198, 45, 0.15);">
                         <Box ml="3rem" mt="4rem" bgColor="#FFC62D" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center">
                             <Text fontSize="1.2rem" transform="translateY(44%)">2</Text>
                         </Box>
@@ -36,7 +37,7 @@ export default function Working() {
 
                     </Box>
 
-                    <Box w="40%" color="white" border="2px solid #D84222;" boxShadow="0px 0px 10px #D84222;" borderRadius="1rem" bgColor="rgba(216, 66, 34, 0.15);">
+                    <Box w={isSmallerThan800 ? '100% !important' : '40%'} mt={isSmallerThan800 ? '1rem' : '0'} color="white" border="2px solid #D84222;" boxShadow="0px 0px 10px #D84222;" borderRadius="1rem" bgColor="rgba(216, 66, 34, 0.15);">
                         <Box w="80%" h="18rem" mb="4rem !important" bgColor="#D84222" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(20px)" >insert others’ profile view ss here</Text></Box>
                         <Box ml="3rem" mt="4rem" bgColor="#D84222" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center">
 
@@ -45,7 +46,7 @@ export default function Working() {
                         <VStack mt="1rem" ml="3rem" alignItems="baseline" w="80%">
                             <Box fontSize="2rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
                             <Box fontSize="1.2rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
-                                hey let’s make something good for the graduating batch and
+                                hey let's make something good for the graduating batch and
                             </Box>
                         </VStack>
                     </Box>
