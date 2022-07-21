@@ -8,6 +8,7 @@ import Logo from "./Components/Navbar"
 import Hero from "./Components/Hero"
 import Working from "./Components/Working"
 import Walkthrough from "./Components/Walkthrough";
+import FAQ from "./Components/FAQ";
 
 
 
@@ -73,12 +74,16 @@ export default function Home() {
   }, [])
 
   return (
-      <Box overflowX = "hidden" bg="#141414" pl="100px" pt="50px" pb="0" pr="100px">
-        <Logo />
-        <Hero />
-        <Working />
-        <Walkthrough/>
-        <Footer />
-      </Box>
+
+    <Box overflowX="hidden"
+      bg="#141414"
+    >
+      <Logo />
+      <Hero />
+      <Working />
+      <Walkthrough />
+      <FAQ />
+      <Footer />
+    </Box>
   )
 }

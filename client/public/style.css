@@ -34,3 +34,7 @@ input[type="email"] {
 .form {
     margin: 2rem;
 }
+
+.pad {
+    padding: 50px 100px 0px 100px;
+}

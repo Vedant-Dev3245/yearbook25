@@ -16,9 +16,7 @@ export default function Working() {
                                 hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun
                             </Box>
                         </Box>
-                        <Box w="50%" bgColor="#A7D5FF" borderTopLeftRadius="30px" borderBottomRightRadius="10px">
-                            <Text m="2rem" fontSize="1.5rem" fontWeight="600" >auth form snapshot</Text>
-                        </Box>
+                        <Image w="50%" src='../images/Auth form.png' borderTopLeftRadius="30px" borderBottomRightRadius="10px" />
                     </Flex>
                 </Box>
                 <Flex flexDirection={isSmallerThan800 ? 'column !important' : 'row'} w="80%" justifyContent="space-between" mt="2rem !important">
@@ -51,7 +49,7 @@ export default function Working() {
                         </VStack>
                     </Box>
                 </Flex>
-            </VStack>
-        </Box>
+            </VStack >
+        </Box >
     )
 }

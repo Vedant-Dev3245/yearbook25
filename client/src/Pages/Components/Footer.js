@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Flex, Text, VStack, Image } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import React from 'react'
 
@@ -56,14 +56,17 @@ export default function Footer() {
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">connect w/ us</Box>
                         <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w="60%">
                             follow us on social media to receive regular updates</Box>
-                        <Flex>
 
+                        <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
+                            <Image src="../images/facebook.png" />
+                            <Image src="../images/twitter.png" />
+                            <Image src="../images/linkedin.png" />
+                            <Image src="../images/insta.png" />
                         </Flex>
-
                     </VStack>
                 </Flex>
-            </Box>
-            <Box marginBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display = "inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
+            </Box >
+            <Box marginBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
         </>
     )
 }
