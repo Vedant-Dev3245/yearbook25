@@ -13,7 +13,8 @@ export default function Navbar() {
           <Flex justifyContent="space-between" width="100%" maxW="500px" align={'center'}>
             <Link fontSize="s" fontWeight="600" color="white" p={4} href="#">home</Link>
             <Link fontSize="s" fontWeight="600" color="white" p={4} href="https://bits-sarc.org">about</Link>
-            <Link fontSize="s" fontWeight="600" color="white" p={4}>contact</Link>
+            <Link fontSize="s" fontWeight="600" color="white" p={4}
+              href="javascript:window.scrollTo(0, document.body.scrollHeight)">contact</Link>
             <Link fontSize="s" fontWeight="600" color="white" p={4}>developers</Link>
           </Flex>
           <Box id="signInDiv" p={2}>
