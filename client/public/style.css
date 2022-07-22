@@ -42,4 +42,31 @@ input[type="email"] {
     .pad{
         padding: 1.4rem;
     }
+    .heading{
+        font-size: 2.4rem !important;
+        margin-inline: 1rem !important ;
+    }
+    .workImg{
+        width: 100% !important;
+        border-radius:  0 !important;
+    }
+    .faqQues{
+        font-size: 1.2rem !important;
+    }
+    .physical{
+        background-position: center;
+        background-size: cover;
+    }
+    .phyButton{
+        font-size: 1rem !important;
+    }
+    .physical>div{
+        margin-left: 3rem;
+    }
+    .heroText{
+        width: 50% !important;
+    }
+    .floatText>p{
+        font-size: 0.8rem !important;
+    }
 }

@@ -1,43 +1,51 @@
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     width: 12px;
-	background-color: #000000;
+    background-color: #000000;
 }
+
 body::-webkit-scrollbar-thumb {
-	border-radius: 10px;
+    border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(62, 62, 62, 0.3);
-	background-color: #D62929;
+    background-color: #D62929;
 }
 
 body::-webkit-scrollbar-track {
-	box-shadow: inset 0 0 6px rgba(47, 47, 47, 0.3);
-	border-radius: 20px;
-	background-color: #272727;
+    box-shadow: inset 0 0 6px rgba(47, 47, 47, 0.3);
+    border-radius: 20px;
+    background-color: #272727;
 }
-html{
+
+html {
     scroll-behavior: smooth;
 }
-.clockTower>div:nth-child(odd){
+
+.clockTower>div:nth-child(odd) {
     animation: float 5s infinite;
 }
-.clockTower>div:nth-child(even){
+
+.clockTower>div:nth-child(even) {
     animation: float 3s infinite;
 }
 
 @keyframes float {
-    0%{
+    0% {
         transform: translateY(0);
     }
-    50%{
+
+    50% {
         transform: translateY(20px);
     }
-    100%{
+
+    100% {
         transform: translateY(0px);
     }
 }
-.navbar{
+
+.navbar {
     border-color: #fd8e6f;
 }
-.video{
+
+.video {
     height: 29.5rem;
     border-radius: 50px;
 }

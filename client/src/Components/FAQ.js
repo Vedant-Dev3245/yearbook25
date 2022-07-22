@@ -1,11 +1,12 @@
 import React from "react";
 import {
-    Box, Text, VStack
+    Box, Text, VStack, useMediaQuery
 } from "@chakra-ui/react";
 import { useState } from "react";
 import FAQItems from "./FAQItems";
 
 export default function FAQ() {
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [faq1, setFaq1] = useState(false);
     const [faq2, setFaq2] = useState(true);
     const [faq3, setFaq3] = useState(false);
@@ -13,8 +14,8 @@ export default function FAQ() {
     const [faq5, setFaq5] = useState(false);
     return (
         <>
-            <Box fontSize={64} color="#fff" fontWeight={800} textAlign='left' ml="6rem" mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
-            <VStack mt="2rem" spacing={4}>
+            <Box className="heading" fontSize={64} color="#fff" fontWeight={800} textAlign='left' ml={isSmallerThan800 ? '1.4rem !important' : '6rem'} mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
+            <VStack mt="2rem" spacing={4} className="faqCont">
                 <FAQItems
                     marginBottom="0 !important"
                     faq="What is the difference between a token and a token pair?"

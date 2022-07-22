@@ -55,7 +55,7 @@ export default function Home() {
       google.accounts.id.renderButton(
         document.getElementById("signInDiv"),
         {
-          theme: "outline", size: "large"
+          theme: "outline", size: "medium"
         }
 
       )
