@@ -3,12 +3,12 @@ import jwtDecode from "jwt-decode"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { Box } from '@chakra-ui/react';
-import Footer from "./Components/Footer";
-import Logo from "./Components/Navbar"
-import Hero from "./Components/Hero"
-import Working from "./Components/Working"
-import Walkthrough from "./Components/Walkthrough";
-import FAQ from "./Components/FAQ";
+import Footer from "../Components/Footer";
+import Logo from "../Components/Navbar"
+import Hero from "../Components/Hero"
+import Working from "../Components/Working"
+import Walkthrough from "../Components/Walkthrough";
+import FAQ from "../Components/FAQ";
 
 
 

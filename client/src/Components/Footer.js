@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, VStack, Image } from '@chakra-ui/react'
+import { Box, Button, Flex, Text, VStack, Image, Link } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import React from 'react'
 
@@ -18,6 +18,7 @@ export default function Footer() {
                     box-shadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
                     backdrop-filter="blur(40px)"
                     z-index="2"
+                    paddingBottom="2.5rem"
                     border-radius="50px" >
                     <Box fontSize="3rem" fontWeight="700" mt="6rem">opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
                     <Box color="#C9C8C8" fontSize="1.4rem">get physical copy. cherish it for the years to come.</Box>
@@ -36,32 +37,32 @@ export default function Footer() {
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">about us</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             initiatives</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             the podcast</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             gallery</Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">quick links</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             initiatives</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             the podcast</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
+                        <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             gallery</Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
-                        <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">connect w/ us</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w="60%">
+                        <Box id="contact" fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">connect w/ us</Box>
+                        <Box paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w="60%">
                             follow us on social media to receive regular updates</Box>
 
                         <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
-                            <Image src="../images/facebook.png" />
-                            <Image src="../images/twitter.png" />
-                            <Image src="../images/linkedin.png" />
-                            <Image src="../images/insta.png" />
+                            <Link href="https://www.facebook.com" target="_blank"><Image cursor="pointer" src="../images/facebook.png" /></Link>
+                            <Link href="https://www.twitter.com" target="_blank"><Image cursor="pointer" src="../images/twitter.png" /></Link>
+                            <Link href="https://www.linkedin.com" target="_blank"><Image cursor="pointer" src="../images/linkedin.png" /></Link>
+                            <Link href="https://www.instagram.com" target="_blank">  <Image cursor="pointer" src="../images/insta.png" /></Link>
                         </Flex>
                     </VStack>
                 </Flex>

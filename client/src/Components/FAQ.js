@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Box, Image, Text
+    Box, Text, VStack
 } from "@chakra-ui/react";
 import { useState } from "react";
 import FAQItems from "./FAQItems";
@@ -13,52 +13,55 @@ export default function FAQ() {
     const [faq5, setFaq5] = useState(false);
     return (
         <>
-            <Box fontSize={64} color="#fff" fontWeight={800} align={'center'} mt="4rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
-            <FAQItems
-                faq="What is the difference between a token and a token pair?"
-                show={faq1}
-                setFaq={setFaq1}
-                text="A token is a digital asset that is issued by a company. 
+            <Box fontSize={64} color="#fff" fontWeight={800} textAlign='left' ml="6rem" mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
+            <VStack mt="2rem" spacing={4}>
+                <FAQItems
+                    marginBottom="0 !important"
+                    faq="What is the difference between a token and a token pair?"
+                    show={faq1}
+                    setFaq={setFaq1}
+                    text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform.
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
-            />
-            <FAQItems
-                faq="What is the difference between a token and a token pair?"
-                show={faq2}
-                setFaq={setFaq2}
-                text="A token is a digital asset that is issued by a company. 
+                />
+                <FAQItems
+                    faq="What is the difference between a token and a token pair?"
+                    show={faq2}
+                    setFaq={setFaq2}
+                    text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform.
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
-            />
-            <FAQItems
-                faq="What is the difference between a token and a token pair?"
-                show={faq3}
-                setFaq={setFaq3}
-                text="A token is a digital asset that is issued by a company. 
+                />
+                <FAQItems
+                    faq="What is the difference between a token and a token pair?"
+                    show={faq3}
+                    setFaq={setFaq3}
+                    text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform.
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
-            />
-            <FAQItems
-                faq="What is the difference between a token and a token pair?"
-                show={faq4}
-                setFaq={setFaq4}
-                text="A token is a digital asset that is issued by a company. 
+                />
+                <FAQItems
+                    faq="What is the difference between a token and a token pair?"
+                    show={faq4}
+                    setFaq={setFaq4}
+                    text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform.
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
-            />
-            <FAQItems
-                faq="What is the difference between a token and a token pair?"
-                show={faq5}
-                setFaq={setFaq5}
-                text="A token is a digital asset that is issued by a company. 
+                />
+                <FAQItems
+                    faq="What is the difference between a token and a token pair?"
+                    show={faq5}
+                    setFaq={setFaq5}
+                    text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform.
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
-            />
+                />
+            </VStack>
         </>
     )
 }
