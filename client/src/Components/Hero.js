@@ -60,7 +60,7 @@ export default function Hero() {
                             <Text texAlign="right">~bakshi</Text>
                         </Box>
                         <Image src="../images/Ellipse 8.png" alt="ellipse" position="absolute" left="27rem" top="10rem" />
-                        <Image w="100%" ml={isSmallerThan900 ? '4rem' : '-1rem'} src="../images/Clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} />
+                        <Image w="100%" ml={isSmallerThan900 ? '4rem' : '-1rem'} src="../images/clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} />
                     </Box>
                 </Box>
             </Flex >

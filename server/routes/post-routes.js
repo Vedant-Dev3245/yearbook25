@@ -9,6 +9,7 @@ const users = require("../users");
 var fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
+
 const sharp = require("sharp");
 const upload = multer({
     limits: {
@@ -166,13 +167,9 @@ router.post("/nominate/:id", async (req, res) => {
                               Login at yearbook.bits-sarc.org to enter the caption under the notifications tab  <br>
                              
                               PS: If you have any further queries or you wish to contribute to the yearbook in the form of pictures from campus, you may do the same via this form : https://forms.gle/bbrjoVVt6kdroFbs5
-<<<<<<< HEAD
-      
-=======
                               <br><br>
                               Regards,
                               Student Alumni Relations Cell! <br>
->>>>>>> 781b259903d5aeab6ee8ec2fc941e7d37dc2a32c
                                </p>`,
                 };
                 sgMail.send(mailOptions)
@@ -324,27 +321,30 @@ router.post("/:id1/:id2/caption", async (req, res) => {
     }
 });
 
-router.post("/:id/search", async (req, res) => {
+router.post("/:id/search/:bitsId", async (req, res) => {
     const id = req.params.id;
-    const searched_val = req.body.user.searched_val.toUpperCase();
+    const bitsId = req.params.bitsId;
+    console.log(req.body);
+
+    const searched_val = bitsId.toUpperCase();
     console.log(searched_val);
-    if (searched_val.charAt(0) === "2") {
-        console.log("gr8");
-        const userbyBitsId = await User.findOne({bitsId: searched_val});
-        if (userbyBitsId)
-            return res.redirect("/" + id + "/search/" + searched_val);
-        else {
-            let user = await User.findById(id);
-            // return res.render("profile", {
-            //       user: user,
-            //       msg: "User not found!",
-            // });
-            return res.send({
-                user: user,
-                msg: "User not found!",
-            });
-        }
-    } else {
+    // if (searched_val.charAt(0) === "2") {
+    //     console.log("gr8");
+    //     const userbyBitsId = await User.findOne({bitsId: searched_val});
+    //     if (userbyBitsId)
+    //         return res.redirect("/" + id + "/search/" + searched_val);
+    //     else {
+    //         let user = await User.findById(id);
+    //         // return res.render("profile", {
+    //         //       user: user,
+    //         //       msg: "User not found!",
+    //         // });
+    //         return res.send({
+    //             user: user,
+    //             msg: "User not found!",
+    //         });
+    //     }
+    // } else {
         const userbyName = await User.findOne({
             $text: {$search: searched_val},
         });
@@ -362,6 +362,6 @@ router.post("/:id/search", async (req, res) => {
             });
         }
     }
-});
+);
 
 module.exports = router;

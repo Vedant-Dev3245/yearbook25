@@ -77,18 +77,18 @@ router.get("/:id/search/:searched", async (req, res) => {
       let result = req.params.searched;
       // console.log(result);
 
-      if (result.charAt(0) === "2") {
-            const user = await User.findOne({ bitsId: result });
-            console.log(user);
-            // res.render("public-profile", { user: user, id: userid });
-            res.send({ user: user, id: userid });
-      } else {
-                  let newV = "\"" + result + "\"";
-                  const users = await User.find({ $text: { $search: newV  }});
+      // if (result.charAt(0) === "2") {
+      //       const user = await User.findOne({ bitsId: result });
+      //       console.log(user);
+      //       // res.render("public-profile", { user: user, id: userid });
+      //       res.send({ user: user, id: userid });
+      // } else {
+                  // let newV = "\"" + result + "\"";
+                  const users = await User.find({ $text: { $search: result }});
                   console.log(users);
                   // res.render("search-result", { users: users, id: userid });
                   res.send({ users: users, id: userid });
-      }
+      // }
 });
 
 router.get("/:id/upload", (req, res) => {

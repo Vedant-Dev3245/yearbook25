@@ -16,7 +16,7 @@ export default function Working() {
                                 hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun
                             </Box>
                         </Box>
-                        <Image className="workImg" w="50%" h="100%" src='../images/Auth form.png' borderTopLeftRadius="30px" borderBottomRightRadius="10px" mb={isSmallerThan800 ? '2rem' : 0} />
+                        <Image className="workImg" w="50%" h="100%" src='../images/Auth Form.png' borderTopLeftRadius="30px" borderBottomRightRadius="10px" mb={isSmallerThan800 ? '2rem' : 0} />
                     </Flex>
                 </Box>
                 <Flex flexDirection={isSmallerThan800 ? 'column !important' : 'row'} w="80%" justifyContent="space-between" mt="2rem !important">
