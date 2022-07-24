@@ -75,15 +75,21 @@ router.get("/getprofile/:id", async (req, res) => {
 router.get("/search/:name", async (req, res) => {
       let result = req.params.name;
       let newV = "\"" + result + "\"";
-      const query = { $text: { $search: newV } }
+      const query = {
+            $text: {
+                  $search: newV
+            }
+      };
+      const sort = { score: { $meta: "textScore" } };
       const projection = {
             _id: 1,
             name: 1,
             img: 1,
             imageUrl: 1,
-            bitsId:1
+            bitsId: 1,
+            score: { $meta: "textScore" }
           };
-      const users = await User.find(query,projection);
+      const users = await User.find(query,projection).sort(sort).limit(4)
       console.log(users);
       if (users.length == 0) {
             res.send({
@@ -91,9 +97,7 @@ router.get("/search/:name", async (req, res) => {
             })
       }
       else res.send({ users: users });
-                  // res.render("search-result", { users: users, id: userid });
                   
-      // }
 });
 
 // router.get("/:id/upload", (req, res) => {
