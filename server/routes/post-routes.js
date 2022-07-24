@@ -48,7 +48,8 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
 
     } catch (err) {
         return res.send({
-            detail: "Something went wrong" + err
+            status:"failure",
+            msg: "There was an error, Please try after some time"
         })
     }
 })
@@ -65,42 +66,49 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
 
 
 router.post("/profile/check", async (req, res) => { 
+    try {
+        console.log(req.body)
+        const email = req.body.email;
+        if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) {
+            return res.send({
+                authorised: 0
+            })
+        }
 
-    console.log(req.body)
-    const email = req.body.email;
-    if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) {
-        return res.send({
-            authorised: 0
-       })
-   }
-
-    const usr = await User.findOne({
-        email: email
-    })
-    if (usr) {
-        res.send({
-            authorised: 1,
-            user: usr,
-            exists: true
+        const usr = await User.findOne({
+            email: email
         })
-    } else {
-        res.send({
-            authorised: 1,
-            user: {},
-            exists: false
+        if (usr) {
+            res.send({
+                authorised: 1,
+                user: usr,
+                exists: true
+            })
+        } else {
+            res.send({
+                authorised: 1,
+                user: {},
+                exists: false
+            })
+  
+        }
+    } catch (err) {
+        return res.send({
+            status:"failure",
+                    msg: "There was an error, Please try after some time",
         })
     }
 })
 
 
-router.post("/addid/:id", async (req, res) => {
-    const id = req.params.id;
-    const quote = req.body.user.quote;
-    if (req.user.id === id) {
-        await User.findByIdAndUpdate(id, {quote: quote});
-    }
-    return res.redirect("/profile/" + req.params.id);
-});
+// router.post("/addid/:id", async (req, res) => {
+//     const id = req.params.id;
+//     const quote = req.body.user.quote;
+//     if (req.user.id === id) {
+//         await User.findByIdAndUpdate(id, {quote: quote});
+//     }
+//     return res.redirect("/profile/" + req.params.id);
+// });
 
 router.post("/nominate", async (req, res) => {
     const senderId = req.body.senderId;
@@ -174,41 +182,49 @@ router.post("/nominate", async (req, res) => {
 
 
 router.post("/edit/:id", upload.single("image"), async (req, res) => {
-    const user = await User.findById(req.params.id);
-    if (req.file != null) {
-        const buffer = await sharp(req.file.buffer)
-            .png()
-            .toBuffer();
-        user.img = buffer;
-        await user.save();
+    try {
+        const session = await User.startSession();
+        session.startTransaction();
+        const user = await User.findById(req.params.id);
+        console.log(req.file)
+        if (req.file != null) {
+            const buffer = await sharp(req.file.buffer)
+                .png()
+                .toBuffer();
+            user.img = buffer;
+        }
+        const id = req.params.id;
+        const disc = req.body.disc;
+        const quote = req.body.quote;
+        if (disc != "") {
+            user.discipline = disc;
+        }
+        if (quote!= "") {
+            user.quote = quote;
+}
+            await user.save();
+            await session.commitTransaction();
+            session.endSession();
+       return res.send({
+    msg:"Successfully Updated"
+})
     }
-    const id = req.params.id;
-    let disc = req.body.user.disc;
-    let quote = req.body.user.quote;
-
-    const session = await User.startSession();
-    session.startTransaction();
-    if (req.user.id === id) {
-        if (disc === "") disc = user.discipline;
-        else disc = req.body.user.disc;
-        if (quote === "") quote = user.quote;
-        else quote = req.body.user.quote;
-        await User.findByIdAndUpdate(id, {
-            discipline: disc,
-            quote: quote,
-        }).session(session);
-        await session.commitTransaction();
-        session.endSession();
-        res.redirect("/profile/" + req.user.id);
+    catch (err) {
+        return res.send({
+            status:"failure",
+            msg: "There was an error, Please try after some time"
+        })
     }
 });
 
 router.post("/writecaption", async (req, res) => {
-    const caption = req.body.caption;
-    const writerId = req.body.writerId;
-    const receiverId = req.body.receiverId;
-    const session = await User.startSession();
-    session.startTransaction();
+
+    try {
+        const caption = req.body.caption;
+        const writerId = req.body.writerId;
+        const receiverId = req.body.receiverId;
+        const session = await User.startSession();
+        session.startTransaction();
         if (caption === "") {
             session.endSession();
             return res.send({
@@ -232,51 +248,39 @@ router.post("/writecaption", async (req, res) => {
                 await session.commitTransaction();
                 session.endSession();
                 return res.send(
-                    {success: "Succesfully Updated"}
-                    );
-                } else {
-                    await receiver.updateOne({
-                            $push: {
-                                captions: {
-                                    $each: [
-                                        {
-                                            name: name,
-                                            caption: caption,
-                                        },
-                                    ],
+                    { success: "Succesfully Updated" }
+                );
+            } else {
+                await receiver.updateOne({
+                    $push: {
+                        captions: {
+                            $each: [
+                                {
+                                    name: name,
+                                    caption: caption,
                                 },
-                            },
-                        })
-                        .session(session);
-                    await session.commitTransaction();
-                    session.endSession();
-                    return res.send(
-                        {
-                          success:"Succesfully Added"
-                      }
-                    )
-                }
-            // } else {
-            //     console.log(user1.bitsId + "   " + user2.bitsId);
-            //     session.endSession();
-            //     // return res.render("caption", {
-            //     //       id: id1,
-            //     //       id2: id2,
-            //     //       name: user2.name,
-            //     //       error: "There was an error!",
-            //     //       oldcaption: "",
-            //     // });
-            //     return res.send("caption", {
-            //         id: id1,
-            //         id2: id2,
-            //         name: user2.name,
-            //         error: "There was an error!",
-            //         oldcaption: "",
-            //     });
-            // }
+                            ],
+                        },
+                    },
+                })
+                    .session(session);
+                await session.commitTransaction();
+                session.endSession();
+                return res.send(
+                    {
+                        success: "Succesfully Added"
+                    }
+                )
+            }
         }
+    }
+    catch (err) {
+        return res.send({
+            status:"failure",
+            msg: "There was an error, Please try after some time"
+        })
+    }
   
 });
-
 
 module.exports = router;

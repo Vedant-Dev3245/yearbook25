@@ -3,12 +3,20 @@ const bodyParser = require("body-parser");
 const User = require("../models/user");
 
 router.get("/getprofile/:id", async (req, res) => {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-            return res.status(400).send();
+      try {
+            const user = await User.findById(req.params.id);
+            if (!user) {
+                  return res.status(400).send();
+            }
+            // res.render("profile", { user: user  });
+            res.send({ user: user });
       }
-      // res.render("profile", { user: user  });
-      res.send({ user: user  });
+      catch (err) {
+            return res.send({
+                  status:"failure",
+                  msg: "There was an error, Please try after some time",
+            })
+        }
 });
 
 // router.get("/profile/:id/edit", (req, res) => {
@@ -73,31 +81,37 @@ router.get("/getprofile/:id", async (req, res) => {
 // });
 
 router.get("/search/:name", async (req, res) => {
-      let result = req.params.name;
-      let newV = "\"" + result + "\"";
-      const query = {
-            $text: {
-                  $search: newV
+      try {
+            let result = req.params.name;
+            let newV = "\"" + result + "\"";
+            const query = {
+                  $text: {
+                        $search: newV
+                  }
+            };
+            const sort = { score: { $meta: "textScore" } };
+            const projection = {
+                  _id: 1,
+                  name: 1,
+                  img: 1,
+                  imageUrl: 1,
+                  bitsId: 1,
+                  score: { $meta: "textScore" }
+            };
+            const users = await User.find(query, projection).sort(sort).limit(4)
+            console.log(users);
+            if (users.length == 0) {
+                  res.send({
+                        msg: "User not found"
+                  })
             }
-      };
-      const sort = { score: { $meta: "textScore" } };
-      const projection = {
-            _id: 1,
-            name: 1,
-            img: 1,
-            imageUrl: 1,
-            bitsId: 1,
-            score: { $meta: "textScore" }
-          };
-      const users = await User.find(query,projection).sort(sort).limit(4)
-      console.log(users);
-      if (users.length == 0) {
-            res.send({
-                  msg: "User not found"
+            else res.send({ users: users });
+      }catch (err) {
+            return res.send({
+                  status:"failure",
+                  msg: "There was an error, Please try after some time",
             })
-      }
-      else res.send({ users: users });
-                  
+        }        
 });
 
 // router.get("/:id/upload", (req, res) => {
