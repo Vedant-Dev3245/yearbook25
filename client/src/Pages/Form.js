@@ -137,7 +137,6 @@ export default function Form() {
                                         <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
                                         <FormHelperText mt="0.4rem" mb="6rem">{formInfo.quote.length}/280 characters used</FormHelperText>
                                     </GridItem>
-
                                 </SimpleGrid>
                             </FormControl>
                         </Box>

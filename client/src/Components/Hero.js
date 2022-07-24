@@ -3,12 +3,12 @@ import { VStack, Box, Grid, Text, Image, Flex, HStack, useMediaQuery } from "@ch
 export default function Hero() {
     const [isSmallerThan900] = useMediaQuery('(max-width:900px)')
     return (
-        <Box mt="7rem" className="pad">
+        <Box mt="1rem" className="pad">
             <Flex justifyContent="space-between" alignItems="center">
-                <VStack className="heroText" ml="1rem" width={isSmallerThan900 ? '70%' : '40%'} spacing={4} alignItems="baseline">
+                <VStack className="heroText" ml="1rem" width={isSmallerThan900 ? '80%' : '40%'} spacing={4} alignItems="baseline">
                     <Text fontSize={isSmallerThan900 ? '1.8rem' : '5rem'} color="white" lineHeight={1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)">
                         let's make the <Text display="inline" bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" bgClip="text">yearbook</Text> fun this time ⌛️</Text>
-                    <Text mt="1rem" fontWeight="600" lineHeight={isSmallerThan900 ? '1.3rem' : '2rem'} fontSize={isSmallerThan900 ? '1rem' : '1.4rem'} color="#B3B3B3">hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Text>
+                    <Text mt="1rem" fontWeight="600" lineHeight={isSmallerThan900 ? '1.3rem' : '2rem'} fontSize={isSmallerThan900 ? '0.9rem' : '1.4rem'} color="#B3B3B3">hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Text>
                     <Flex mt="3rem !important" color="white" width={isSmallerThan900 ? '100%' : '60%'} flexDirection="column">
                         <Flex justifyContent="space-between" textAlign="left">
                             <Box mr={isSmallerThan900 ? '1.4rem' : 0}>
@@ -35,16 +35,16 @@ export default function Hero() {
                 </VStack>
                 <Box ml={isSmallerThan900 ? '-1.3rem' : 0}>
                     <Box position="relative" className="clockTower" mr="4rem" w="100%">
-                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-16rem' : '10rem'} left="-2rem">
+                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-5rem' : '10rem'} left={isSmallerThan900?"5rem":"-2rem"}>
                             <Text>love for pharma grills
                                 never die. snaps</Text>
                             <Text textAlign="right">~amrit</Text></Box>
-                        <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-10rem' : '35rem'} left={isSmallerThan900 ? '4rem' : '20rem'} >
+                        <Box display={isSmallerThan900?'none':'show'} className="floatText" bg="rgba(69, 81, 255, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-10rem' : '35rem'} left={isSmallerThan900 ? '4rem' : '20rem'} >
                             <Text >“hey let’s make it please something
                                 good for the graduating”</Text>
                             <Text textAlign="right">~amrit</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '7rem' : '4rem'} left={isSmallerThan900 ? '3rem' : '25rem'}>
+                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '15rem' : '4rem'} left={isSmallerThan900 ? '10rem' : '25rem'}>
                             <Text>“hey let’s make something
                                 good for the graduating
                                 batch and idk why are
@@ -52,7 +52,7 @@ export default function Hero() {
                                 this lol jk have fun”</Text>
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '20rem' : '30rem'} left={isSmallerThan900 ? '5rem' : '-5rem'}>
+                        <Box display={isSmallerThan900?'none':'show'} className="floatText" bg="rgba(32, 148, 255, 0.5);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '20rem' : '30rem'} left={isSmallerThan900 ? '5rem' : '-5rem'}>
                             <Text >hey let’s make it
                                 please something
                                 graduating batch and

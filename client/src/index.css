@@ -6,7 +6,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(62, 62, 62, 0.3);
-    background-color: #D62929;
+    background-color: #000;
 }
 
 body::-webkit-scrollbar-track {
@@ -19,12 +19,20 @@ html {
     scroll-behavior: smooth;
 }
 
-.clockTower>div:nth-child(odd) {
+.clockTower>div:nth-child(1) {
+    animation: float 7s infinite;
+}
+
+.clockTower>div:nth-child(2) {
+    animation: float 3s infinite;
+}
+
+.clockTower>div:nth-child(3) {
     animation: float 5s infinite;
 }
 
-.clockTower>div:nth-child(even) {
-    animation: float 3s infinite;
+.clockTower>div:nth-child(4) {
+    animation: float 4s infinite;
 }
 
 @keyframes float {
@@ -33,7 +41,7 @@ html {
     }
 
     50% {
-        transform: translateY(20px);
+        transform: translateY(10px);
     }
 
     100% {
@@ -42,7 +50,7 @@ html {
 }
 
 .navbar {
-    border-color: #fd8e6f;
+    border-color: #746969;
 }
 
 .video {

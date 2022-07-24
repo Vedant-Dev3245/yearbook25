@@ -7,7 +7,8 @@ export default function Navbar() {
 		<>
 			<Image position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
 			<Box className="pad">
-				<Flex borderWidth={2} borderRadius={10} backdropBlur={10} justifyContent="space-between" paddingBlock={1} alignItems="center" className="navbar" background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
+				<Flex borderWidth={2} borderRadius={10} backdropBlur={10} justifyContent="space-between" paddingBlock={1} alignItems="center" className="navbar" 
+				background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
 					<Box display={isSmallerThan800 ? 'none' : 'flex'} justifyContent="space-between" width="100%" maxW="500px" align={'center'}>
