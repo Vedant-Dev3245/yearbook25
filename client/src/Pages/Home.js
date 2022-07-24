@@ -67,7 +67,7 @@ export default function Home() {
       localStorage.setItem("user", JSON.stringify(userObject))
       checkUser(userObject)
     }
-    localStorage.clear()
+    // localStorage.clear()
     // to logout just run localstorage.clear(); and navigate to /
 
   }, [])

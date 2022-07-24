@@ -103,7 +103,7 @@ router.post("/nominate", async (req, res) => {
     const receiverId = req.body.receiverId;
     const session = await User.startSession();
     session.startTransaction();
-    const receiver = await User.findOne({ _id: receiverId }).session(session)
+    const receiver = await User.findById(receiverId).session(session)
     const receiverEmail = receiver.email;
     // console.log(receiver)
     if (receiver.nominatedby.some((e) => e.id === senderId)) {
@@ -198,53 +198,39 @@ router.post("/edit/:id", upload.single("image"), async (req, res) => {
     }
 });
 
-router.post("/:id1/:id2/caption", async (req, res) => {
-    const caption = req.body.user.caption;
-    const id1 = req.params.id1;
-    const id2 = req.params.id2;
+router.post("/writecaption", async (req, res) => {
+    const caption = req.body.caption;
+    const writerId = req.body.writerId;
+    const receiverId = req.body.receiverId;
     const session = await User.startSession();
     session.startTransaction();
-    if (req.user.id === id1) {
         if (caption === "") {
             session.endSession();
-            // return res.render("caption", {
-            //       id: id1,
-            //       id2: id2,
-            //       name: user2.name,
-            //       error: "Please enter a valid caption!",
-            //       oldcaption: "",
-            // });
             return res.send({
-                id: id1,
-                id2: id2,
-                name: user2.name,
                 error: "Please enter a valid caption!",
-                oldcaption: "",
+          
             });
         } else {
-            const user1 = await User.findById(id1).session(session);
-            const name = user1.name;
-            const user2 = await User.findById(id2).session(session);
-            const captions = user2.captions;
-            const nominatedList = user1.nominatedby;
-            if (nominatedList.find((item) => item.id === user2.id)) {
-                if (captions.find((o) => o.name === name)) {
-                    for (let i = 0; i < captions.length; i++) {
-                        if (captions[i].name === name) {
-                            captions[i].caption = caption;
-                        }
+            const writer = await User.findById(writerId).session(session);
+            const name = writer.name;
+            const receiver = await User.findById(receiverId).session(session);
+            const captions = receiver.captions;
+            if (captions.find((o) => o.name === name)) {
+                for (let i = 0; i < captions.length; i++) {
+                    if (captions[i].name === name) {
+                        captions[i].caption = caption;
                     }
-                    await user2
-                        .updateOne({captions: captions})
-                        .session(session);
-                    await session.commitTransaction();
-                    session.endSession();
-                    return res.redirect(
-                        "/" + user1.id + "/search/" + user2.bitsId
+                }
+                await receiver
+                    .updateOne({ captions: captions })
+                    .session(session);
+                await session.commitTransaction();
+                session.endSession();
+                return res.send(
+                    {success: "Succesfully Updated"}
                     );
                 } else {
-                    await user2
-                        .updateOne({
+                    await receiver.updateOne({
                             $push: {
                                 captions: {
                                     $each: [
@@ -259,32 +245,32 @@ router.post("/:id1/:id2/caption", async (req, res) => {
                         .session(session);
                     await session.commitTransaction();
                     session.endSession();
-                    return res.redirect(
-                        "/" + user1.id + "/search/" + user2.bitsId
-                    );
+                    return res.send(
+                        {
+                          success:"Succesfully Added"
+                      }
+                    )
                 }
-            } else {
-                console.log(user1.bitsId + "   " + user2.bitsId);
-                session.endSession();
-                // return res.render("caption", {
-                //       id: id1,
-                //       id2: id2,
-                //       name: user2.name,
-                //       error: "There was an error!",
-                //       oldcaption: "",
-                // });
-                return res.send("caption", {
-                    id: id1,
-                    id2: id2,
-                    name: user2.name,
-                    error: "There was an error!",
-                    oldcaption: "",
-                });
-            }
+            // } else {
+            //     console.log(user1.bitsId + "   " + user2.bitsId);
+            //     session.endSession();
+            //     // return res.render("caption", {
+            //     //       id: id1,
+            //     //       id2: id2,
+            //     //       name: user2.name,
+            //     //       error: "There was an error!",
+            //     //       oldcaption: "",
+            //     // });
+            //     return res.send("caption", {
+            //         id: id1,
+            //         id2: id2,
+            //         name: user2.name,
+            //         error: "There was an error!",
+            //         oldcaption: "",
+            //     });
+            // }
         }
-    } else {
-        return res.redirect("/profile/" + req.user.id);
-    }
+  
 });
 
 
