@@ -34,8 +34,8 @@ export default function Interact() {
 
             </Flex>
             {/* <Wall/> */}
-            {/* <Nominate/> */}
-            <Notifs/>
+            <Nominate/>
+            {/* <Notifs/> */}
             {/* <Stats/> */}
 
         </Box>
