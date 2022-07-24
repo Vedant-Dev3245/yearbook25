@@ -1,8 +1,7 @@
 import {
     Box, Flex, Modal, ModalOverlay,
-    ModalContent, Button,
+    ModalContent,
     ModalHeader,
-    ModalFooter,
     ModalBody,
     ModalCloseButton, Text, VStack
 } from "@chakra-ui/react";
