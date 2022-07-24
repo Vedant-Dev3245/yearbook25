@@ -72,23 +72,38 @@ router.get("/:id1/:id2/caption", async (req, res) => {
       }
 });
 0
-router.get("/:id/search/:searched", async (req, res) => {
-      let userid = req.params.id;
-      let result = req.params.searched;
+router.get("/search/:name", async (req, res) => {
+      // let userid = req.params.id;
+      let result = req.params.name;
+      let newV = "\"" + result + "\"";
+      const query = { $text: { $search: newV } }
+      const projection = {
+            _id: 1,
+            name: 1,
+            img: 1,
+            imageUrl: 1,
+            bitsId:1
+          };
+
       // console.log(result);
 
-      if (result.charAt(0) === "2") {
-            const user = await User.findOne({ bitsId: result });
-            console.log(user);
-            // res.render("public-profile", { user: user, id: userid });
-            res.send({ user: user, id: userid });
-      } else {
-                  let newV = "\"" + result + "\"";
-                  const users = await User.find({ $text: { $search: newV  }});
-                  console.log(users);
-                  // res.render("search-result", { users: users, id: userid });
-                  res.send({ users: users, id: userid });
+      // if (result.charAt(0) === "2") {
+      //       const user = await User.findOne({ bitsId: result });
+      //       console.log(user);
+      //       // res.render("public-profile", { user: user, id: userid });
+      //       res.send({ user: user, id: userid });
+      // } else {
+      const users = await User.find(query,projection);
+      console.log(users);
+      if (users.length == 0) {
+            res.send({
+                  msg: "User not found"
+            })
       }
+      else res.send({ users: users });
+                  // res.render("search-result", { users: users, id: userid });
+                  
+      // }
 });
 
 router.get("/:id/upload", (req, res) => {

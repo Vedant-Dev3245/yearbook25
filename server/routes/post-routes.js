@@ -5,10 +5,10 @@ const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
 const keys = require("../config/keys");
-const users = require("../users");
 var fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
+const privileged=require("../specialUsers")
 const sharp = require("sharp");
 const upload = multer({
     limits: {
@@ -54,35 +54,33 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
     // const form = formidable({multiples: true})
     // form.parse(req, async (err, fields, files) => {
     //     try {
-    //         console.log(fields)
-    //         console.log(files)
-    //         const buffer = await sharp()
-    //     } catch (err) {
-    //         console.log(err)
+    //         console.log(fields)receiver
     //     }
     // })
 
 
-router.post("/profile/check", async (req, res) => {
-    // dummy req data = {
-    //             name: formData.firstName + ' '+ formData.lastName,
-    //             email: formData.email,
-    //             bitsId: formData.id,
-    //             quote: formData.quote,
-    //             discipline: "",
-    //             img: imgData,
-    //             }
+router.post("/profile/check", async (req, res) => { 
+
     console.log(req.body)
+    const email = req.body.email;
+    if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) {
+        return res.send({
+            authorised: 0
+       })
+   }
+
     const usr = await User.findOne({
-        email: req.body.email
+        email: email
     })
     if (usr) {
         res.send({
+            authorised: 1,
             user: usr,
             exists: true
         })
     } else {
-        res.send( {
+        res.send({
+            authorised: 1,
             user: {},
             exists: false
         })
@@ -99,64 +97,43 @@ router.post("/addid/:id", async (req, res) => {
     return res.redirect("/profile/" + req.params.id);
 });
 
-router.post("/nominate/:id", async (req, res) => {
-    const id = req.params.id;
-    const nomineeid = req.body.user.nominee.toUpperCase();
+router.post("/nominate", async (req, res) => {
+    const senderId = req.body.senderId;
+    const senderName = req.body.senderName;
+    const receiverId = req.body.receiverId;
     const session = await User.startSession();
     session.startTransaction();
-    const user1 = await User.findById(id).session(session);
-    const nominatorid = user1.id;
-    const name = user1.name;
-    const user2 = await User.findOne({bitsId: nomineeid}).session(session);
-    if (id === req.user.id) {
-        if (user2) {
-            if (user2.id === user1.id) {
-                session.endSession();
-                console.log("nononono");
-                // return res.render("nominate", {
-                //       id: id,
-                //       error: "You cannot nominate yourself!",
-                // });
-                return res.send({
-                    id: id,
-                    error: "You cannot nominate yourself!",
-                });
-            } else if (
-                user2.nominatedby.some((e) => e.id === nominatorid)
-            ) {
-                session.endSession();
-                // return res.render("nominate", {
-                //       id: id,
-                //       success: "User has already been nominated!",
-                // });
-                return res.send({
-                    id: id,
-                    success: "User has already been nominated!",
-                });
-            } else {
-                const email = user2.email;
-                await user2
-                    .updateOne({
-                        $push: {
-                            nominatedby: {
-                                $each: [
-                                    {
-                                        name: name,
-                                        id: nominatorid,
-                                    },
-                                ],
+    const receiver = await User.findOne({ _id: receiverId }).session(session)
+    const receiverEmail = receiver.email;
+    // console.log(receiver)
+    if (receiver.nominatedby.some((e) => e.id === senderId)) {
+        session.endSession();
+        return res.send({
+            status: "failure",
+            msg: "User has already been nominated!"
+        });
+    } else {
+        await receiver
+            .updateOne({
+                $push: {
+                    nominatedby: {
+                        $each: [
+                            {
+                                name: senderName,
+                                id: senderId,
                             },
-                        },
-                    })
-                    .session(session);
-                await session.commitTransaction();
+                        ],
+                    },
+                },
+            }).session(session)
+            await session.commitTransaction();
                 session.endSession();
-                const mailOptions = {
-                    from: "studentalumnirelationscell@gmail.com",
-                    to: email,
-                    subject: "Online Yearbook Portal",
-                    html: `<p>Greetings from the Student Alumni Relations Cell! <br>
-                              You have been nominated by <b>${name}</b> to write a caption for their yearbook.<br>
+        const mailOptions = {
+            from: "studentalumnirelationscell@gmail.com",
+            to: receiverEmail,
+            subject: "Online Yearbook Portal",
+            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+                              You have been nominated by <b>${senderName}</b> to write a caption for their yearbook.<br>
                               Please keep the following points in mind while writing the captions:-<br>
                               <ol>
                              <li> There is a no-limit rule to the captions you can write about your friends! </li>
@@ -166,44 +143,30 @@ router.post("/nominate/:id", async (req, res) => {
                               Login at yearbook.bits-sarc.org to enter the caption under the notifications tab  <br>
                              
                               PS: If you have any further queries or you wish to contribute to the yearbook in the form of pictures from campus, you may do the same via this form : https://forms.gle/bbrjoVVt6kdroFbs5
-<<<<<<< HEAD
-      
-=======
                               <br><br>
                               Regards,
                               Student Alumni Relations Cell! <br>
->>>>>>> 781b259903d5aeab6ee8ec2fc941e7d37dc2a32c
                                </p>`,
-                };
-                sgMail.send(mailOptions)
-                    .then((response) => {
-                        console.log(response[0].statusCode);
-                        console.log(response[0].headers);
-                        return res.send({
-                            id: id,
-                            success: "Friend nominated successfully!",
-                        });
-                        // return res.render("nominate", {
-                        //       id: id,
-                        //       success: "Friend nominated successfully!",
-                        // });
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        } else {
-            // return res.render("nominate", {
-            //       id: id,
-            //       error: "User doesn't exist. Please ask them to login first",
-            // });
-            return res.send({
-                id: id,
-                error: "User doesn't exist. Please ask them to login first",
+        };
+        sgMail.send(mailOptions)
+            .then((response) => {
+            
+                return res.send({
+                    status:"success",
+                    msg: "Friend nominated successfully!",
+                });
+            })
+            .catch((error) => {
+                session.endSession();
+                console.error(error);
+                return res.send({
+                    status:"failure",
+                    msg: "There was an error, Please try after some time",
+                });
             });
-        }
     }
-});
+})
+
 
 router.post("/edit/:id", upload.single("image"), async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -324,44 +287,5 @@ router.post("/:id1/:id2/caption", async (req, res) => {
     }
 });
 
-router.post("/:id/search", async (req, res) => {
-    const id = req.params.id;
-    const searched_val = req.body.user.searched_val.toUpperCase();
-    console.log(searched_val);
-    if (searched_val.charAt(0) === "2") {
-        console.log("gr8");
-        const userbyBitsId = await User.findOne({bitsId: searched_val});
-        if (userbyBitsId)
-            return res.redirect("/" + id + "/search/" + searched_val);
-        else {
-            let user = await User.findById(id);
-            // return res.render("profile", {
-            //       user: user,
-            //       msg: "User not found!",
-            // });
-            return res.send({
-                user: user,
-                msg: "User not found!",
-            });
-        }
-    } else {
-        const userbyName = await User.findOne({
-            $text: {$search: searched_val},
-        });
-        if (userbyName)
-            return res.redirect("/" + id + "/search/" + searched_val);
-        else {
-            let user = await User.findById(id);
-            // return res.render("profile", {
-            //       user: user,
-            //       msg: "User not found!",
-            // });
-            return res.send({
-                user: user,
-                msg: "User not found!",
-            });
-        }
-    }
-});
 
 module.exports = router;

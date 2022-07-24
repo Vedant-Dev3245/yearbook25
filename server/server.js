@@ -13,8 +13,7 @@ const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
 
-mongoose
-  .connect(process.env.DATABASEURL, {
+mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,

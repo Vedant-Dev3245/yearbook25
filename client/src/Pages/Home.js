@@ -10,7 +10,7 @@ import Working from "../Components/Working"
 import Walkthrough from "../Components/Walkthrough";
 import FAQ from "../Components/FAQ";
 
-
+const google = window.google;
 
 export default function Home() {
 
@@ -67,8 +67,7 @@ export default function Home() {
       localStorage.setItem("user", JSON.stringify(userObject))
       checkUser(userObject)
     }
-
-
+    localStorage.clear()
     // to logout just run localstorage.clear(); and navigate to /
 
   }, [])
