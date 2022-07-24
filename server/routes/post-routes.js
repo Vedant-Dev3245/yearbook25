@@ -5,11 +5,10 @@ const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
 const keys = require("../config/keys");
-const users = require("../users");
 var fs = require("fs");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
-
+const privileged=require("../specialUsers")
 const sharp = require("sharp");
 const upload = multer({
     limits: {
@@ -61,25 +60,27 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
 
 
 router.post("/profile/check", async (req, res) => { 
-    // dummy req data = {
-    //             name: formData.firstName + ' '+ formData.lastName,
-    //             email: formData.email,
-    //             bitsId: formData.id,
-    //             quote: formData.quote,
-    //             discipline: "",
-    //             img: imgData,
-    //             }
+
     console.log(req.body)
+    const email = req.body.email;
+    if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) {
+        return res.send({
+            authorised: 0
+       })
+   }
+
     const usr = await User.findOne({
-        email: req.body.email
+        email: email
     })
     if (usr) {
         res.send({
+            authorised: 1,
             user: usr,
             exists: true
         })
     } else {
-        res.send( {
+        res.send({
+            authorised: 1,
             user: {},
             exists: false
         })
@@ -100,10 +101,13 @@ router.post("/nominate", async (req, res) => {
     const senderId = req.body.senderId;
     const senderName = req.body.senderName;
     const receiverId = req.body.receiverId;
-    const receiver = await User.findOne({ _id: receiverId })
+    const session = await User.startSession();
+    session.startTransaction();
+    const receiver = await User.findOne({ _id: receiverId }).session(session)
     const receiverEmail = receiver.email;
     // console.log(receiver)
     if (receiver.nominatedby.some((e) => e.id === senderId)) {
+        session.endSession();
         return res.send({
             status: "failure",
             msg: "User has already been nominated!"
@@ -121,7 +125,9 @@ router.post("/nominate", async (req, res) => {
                         ],
                     },
                 },
-            })
+            }).session(session)
+            await session.commitTransaction();
+                session.endSession();
         const mailOptions = {
             from: "studentalumnirelationscell@gmail.com",
             to: receiverEmail,
@@ -144,12 +150,14 @@ router.post("/nominate", async (req, res) => {
         };
         sgMail.send(mailOptions)
             .then((response) => {
+            
                 return res.send({
                     status:"success",
                     msg: "Friend nominated successfully!",
                 });
             })
             .catch((error) => {
+                session.endSession();
                 console.error(error);
                 return res.send({
                     status:"failure",
