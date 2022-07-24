@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, extendTheme } from "@chakra-ui/react"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery } from "@chakra-ui/react"
 // import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -168,6 +168,3 @@ export default function Form() {
         </Flex>
     )
 }
-
-{/* <Input w="90%" id = "file" onChange={handleChange} name="img" type="file" accept="image/*" /> 
-*/}

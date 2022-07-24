@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Image, Text, Button, AspectRatio } from '@chakra-ui/react'
+import { Box, Image, Text, Button } from '@chakra-ui/react'
 export default function Walkthrough() {
 
     const [showVideo, setShowVideo] = React.useState(false)

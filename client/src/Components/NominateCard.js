@@ -1,17 +1,20 @@
 import { Box, Image, Flex, Text } from "@chakra-ui/react";
 import React from "react";
-
-export default function Cards() {
+import { ArrowForwardIcon } from "@chakra-ui/icons"
+export default function NominateCard() {
     return (
-        <Box bg="#151515"
-            p="1rem"
+        <Flex bg="#151515"
+            p="1.3rem 1rem"
             className="card"
             color="#DCEDFB"
-            margin="1rem"
+            marginRight="1rem"
+            marginBottom="1rem"
             opacity="0.8"
+            alignItems={"center"}
             backdropFilter="blur(40px)"
-            w="100%"
+            w="48%"
             borderRadius="20px"
+            justifyContent="space-between"
             marginInline="auto"
             border="1px solid rgba(255, 255, 255, 0.5)"
             fontWeight="700"
@@ -21,8 +24,9 @@ export default function Cards() {
                 <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" />
                 <Text fontWeight={"600"} fontSize="0.9rem" ml="1rem">insert name here</Text>
             </Flex>
-            <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
-                hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Box>
-        </Box>
+            <Box lineHeight="1.3rem" fontSize="1rem" color="#FFFFFF" fontWeight="400">
+                nominated you to write on their wall</Box>
+            <Box borderRadius="50%" bgColor="white" border="1.17225px solid #FFC62D" h="2rem" w="2rem"  boxShadow="0px 0px 17.5838px rgba(255, 255, 255, 0.5)"  ><ArrowForwardIcon fontSize="1.4rem" color="black"ml="0.3rem"/></Box>
+        </Flex>
     )
 }

@@ -1,21 +1,21 @@
-import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
-import Cards from "./Cards";
+import React from "react"
+import Masonry from "react-masonry-css"
+import Cards from "./Cards"
 
-
-export default function Wall() {
-    return (
-        <Box>
-            <Box fontSize="2.4rem" ml="2rem" mt="4rem">your wall</Box>
-            <Flex flexWrap="wrap" >
+export default function Wall(){
+    return(
+        <Masonry width="90%" marginInline="auto" breakpointCols={3}
+                className="my-masonry-grid"
+                columnClassName="my-masonry-grid_column">
                 <Cards />
                 <Cards />
                 <Cards />
                 <Cards />
                 <Cards />
                 <Cards />
-            </Flex>
-        </Box>
-
+                <Cards />
+                <Cards />
+                <Cards />
+            </Masonry>
     )
 }
