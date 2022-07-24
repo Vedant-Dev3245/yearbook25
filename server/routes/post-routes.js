@@ -79,13 +79,13 @@ router.post("/profile/check", async (req, res) => {
             email: email
         })
         if (usr) {
-            res.send({
+           return res.send({
                 authorised: 1,
                 user: usr,
                 exists: true
             })
         } else {
-            res.send({
+          return  res.send({
                 authorised: 1,
                 user: {},
                 exists: false
@@ -95,7 +95,7 @@ router.post("/profile/check", async (req, res) => {
     } catch (err) {
         return res.send({
             status:"failure",
-                    msg: "There was an error, Please try after some time",
+            msg: "There was an error, Please try after some time",
         })
     }
 })
@@ -111,41 +111,41 @@ router.post("/profile/check", async (req, res) => {
 // });
 
 router.post("/nominate", async (req, res) => {
-    const senderId = req.body.senderId;
-    const senderName = req.body.senderName;
-    const receiverId = req.body.receiverId;
-    const session = await User.startSession();
-    session.startTransaction();
-    const receiver = await User.findById(receiverId).session(session)
-    const receiverEmail = receiver.email;
-    // console.log(receiver)
-    if (receiver.nominatedby.some((e) => e.id === senderId)) {
-        session.endSession();
-        return res.send({
-            status: "failure",
-            msg: "User has already been nominated!"
-        });
-    } else {
-        await receiver
-            .updateOne({
-                $push: {
-                    nominatedby: {
-                        $each: [
-                            {
-                                name: senderName,
-                                id: senderId,
-                            },
-                        ],
+    try {
+        const senderId = req.body.senderId;
+        const senderName = req.body.senderName;
+        const receiverId = req.body.receiverId;
+        const session = await User.startSession();
+        session.startTransaction();
+        const receiver = await User.findById(receiverId).session(session)
+        const receiverEmail = receiver.email;
+        if (receiver.nominatedby.some((e) => e.id === senderId)) {
+            session.endSession();
+            return res.send({
+                status: "failure",
+                msg: "User has already been nominated!"
+            });
+        } else {
+            await receiver
+                .updateOne({
+                    $push: {
+                        nominatedby: {
+                            $each: [
+                                {
+                                    name: senderName,
+                                    id: senderId,
+                                },
+                            ],
+                        },
                     },
-                },
-            }).session(session)
+                }).session(session)
             await session.commitTransaction();
-                session.endSession();
-        const mailOptions = {
-            from: "studentalumnirelationscell@gmail.com",
-            to: receiverEmail,
-            subject: "Online Yearbook Portal",
-            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+            session.endSession();
+            const mailOptions = {
+                from: "studentalumnirelationscell@gmail.com",
+                to: receiverEmail,
+                subject: "Online Yearbook Portal",
+                html: `<p>Greetings from the Student Alumni Relations Cell! <br>
                               You have been nominated by <b>${senderName}</b> to write a caption for their yearbook.<br>
                               Please keep the following points in mind while writing the captions:-<br>
                               <ol>
@@ -160,23 +160,28 @@ router.post("/nominate", async (req, res) => {
                               Regards,
                               Student Alumni Relations Cell! <br>
                                </p>`,
-        };
-        sgMail.send(mailOptions)
-            .then((response) => {
+            };
+            sgMail.send(mailOptions)
+                .then((response) => {
             
-                return res.send({
-                    status:"success",
-                    msg: "Friend nominated successfully!",
+                    return res.send({
+                        status: "success",
+                        msg: "Friend nominated successfully!",
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    return res.send({
+                        status: "failure",
+                        msg: "There was an error, Please try after some time",
+                    });
                 });
+        }
+        } catch (err) {
+            return res.send({
+                status:"failure",
+                msg: "There was an error, Please try after some time",
             })
-            .catch((error) => {
-                session.endSession();
-                console.error(error);
-                return res.send({
-                    status:"failure",
-                    msg: "There was an error, Please try after some time",
-                });
-            });
     }
 })
 
