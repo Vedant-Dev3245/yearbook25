@@ -55,16 +55,12 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
     // const form = formidable({multiples: true})
     // form.parse(req, async (err, fields, files) => {
     //     try {
-    //         console.log(fields)
-    //         console.log(files)
-    //         const buffer = await sharp()
-    //     } catch (err) {
-    //         console.log(err)
+    //         console.log(fields)receiver
     //     }
     // })
 
 
-router.post("/profile/check", async (req, res) => {
+router.post("/profile/check", async (req, res) => { 
     // dummy req data = {
     //             name: formData.firstName + ' '+ formData.lastName,
     //             email: formData.email,
@@ -100,64 +96,38 @@ router.post("/addid/:id", async (req, res) => {
     return res.redirect("/profile/" + req.params.id);
 });
 
-router.post("/nominate/:id", async (req, res) => {
-    const id = req.params.id;
-    const nomineeid = req.body.user.nominee.toUpperCase();
-    const session = await User.startSession();
-    session.startTransaction();
-    const user1 = await User.findById(id).session(session);
-    const nominatorid = user1.id;
-    const name = user1.name;
-    const user2 = await User.findOne({bitsId: nomineeid}).session(session);
-    if (id === req.user.id) {
-        if (user2) {
-            if (user2.id === user1.id) {
-                session.endSession();
-                console.log("nononono");
-                // return res.render("nominate", {
-                //       id: id,
-                //       error: "You cannot nominate yourself!",
-                // });
-                return res.send({
-                    id: id,
-                    error: "You cannot nominate yourself!",
-                });
-            } else if (
-                user2.nominatedby.some((e) => e.id === nominatorid)
-            ) {
-                session.endSession();
-                // return res.render("nominate", {
-                //       id: id,
-                //       success: "User has already been nominated!",
-                // });
-                return res.send({
-                    id: id,
-                    success: "User has already been nominated!",
-                });
-            } else {
-                const email = user2.email;
-                await user2
-                    .updateOne({
-                        $push: {
-                            nominatedby: {
-                                $each: [
-                                    {
-                                        name: name,
-                                        id: nominatorid,
-                                    },
-                                ],
+router.post("/nominate", async (req, res) => {
+    const senderId = req.body.senderId;
+    const senderName = req.body.senderName;
+    const receiverId = req.body.receiverId;
+    const receiver = await User.findOne({ _id: receiverId })
+    const receiverEmail = receiver.email;
+    // console.log(receiver)
+    if (receiver.nominatedby.some((e) => e.id === senderId)) {
+        return res.send({
+            status: "failure",
+            msg: "User has already been nominated!"
+        });
+    } else {
+        await receiver
+            .updateOne({
+                $push: {
+                    nominatedby: {
+                        $each: [
+                            {
+                                name: senderName,
+                                id: senderId,
                             },
-                        },
-                    })
-                    .session(session);
-                await session.commitTransaction();
-                session.endSession();
-                const mailOptions = {
-                    from: "studentalumnirelationscell@gmail.com",
-                    to: email,
-                    subject: "Online Yearbook Portal",
-                    html: `<p>Greetings from the Student Alumni Relations Cell! <br>
-                              You have been nominated by <b>${name}</b> to write a caption for their yearbook.<br>
+                        ],
+                    },
+                },
+            })
+        const mailOptions = {
+            from: "studentalumnirelationscell@gmail.com",
+            to: receiverEmail,
+            subject: "Online Yearbook Portal",
+            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+                              You have been nominated by <b>${senderName}</b> to write a caption for their yearbook.<br>
                               Please keep the following points in mind while writing the captions:-<br>
                               <ol>
                              <li> There is a no-limit rule to the captions you can write about your friends! </li>
@@ -171,36 +141,24 @@ router.post("/nominate/:id", async (req, res) => {
                               Regards,
                               Student Alumni Relations Cell! <br>
                                </p>`,
-                };
-                sgMail.send(mailOptions)
-                    .then((response) => {
-                        console.log(response[0].statusCode);
-                        console.log(response[0].headers);
-                        return res.send({
-                            id: id,
-                            success: "Friend nominated successfully!",
-                        });
-                        // return res.render("nominate", {
-                        //       id: id,
-                        //       success: "Friend nominated successfully!",
-                        // });
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        } else {
-            // return res.render("nominate", {
-            //       id: id,
-            //       error: "User doesn't exist. Please ask them to login first",
-            // });
-            return res.send({
-                id: id,
-                error: "User doesn't exist. Please ask them to login first",
+        };
+        sgMail.send(mailOptions)
+            .then((response) => {
+                return res.send({
+                    status:"success",
+                    msg: "Friend nominated successfully!",
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                return res.send({
+                    status:"failure",
+                    msg: "There was an error, Please try after some time",
+                });
             });
-        }
     }
-});
+})
+
 
 router.post("/edit/:id", upload.single("image"), async (req, res) => {
     const user = await User.findById(req.params.id);
@@ -321,47 +279,5 @@ router.post("/:id1/:id2/caption", async (req, res) => {
     }
 });
 
-router.post("/:id/search/:bitsId", async (req, res) => {
-    const id = req.params.id;
-    const bitsId = req.params.bitsId;
-    console.log(req.body);
-
-    const searched_val = bitsId.toUpperCase();
-    console.log(searched_val);
-    // if (searched_val.charAt(0) === "2") {
-    //     console.log("gr8");
-    //     const userbyBitsId = await User.findOne({bitsId: searched_val});
-    //     if (userbyBitsId)
-    //         return res.redirect("/" + id + "/search/" + searched_val);
-    //     else {
-    //         let user = await User.findById(id);
-    //         // return res.render("profile", {
-    //         //       user: user,
-    //         //       msg: "User not found!",
-    //         // });
-    //         return res.send({
-    //             user: user,
-    //             msg: "User not found!",
-    //         });
-    //     }
-    // } else {
-        const userbyName = await User.findOne({
-            $text: {$search: searched_val},
-        });
-        if (userbyName)
-            return res.redirect("/" + id + "/search/" + searched_val);
-        else {
-            let user = await User.findById(id);
-            // return res.render("profile", {
-            //       user: user,
-            //       msg: "User not found!",
-            // });
-            return res.send({
-                user: user,
-                msg: "User not found!",
-            });
-        }
-    }
-);
 
 module.exports = router;
