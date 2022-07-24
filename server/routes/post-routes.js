@@ -35,10 +35,15 @@ router.post("/profile/add", upload.single("image"),async (req, res) => {
             discipline: ""
         })
         const buffer = await sharp(req.file.buffer).png().toBuffer()
-        user.img = buffer
-        await user.save()
+        user.img = buffer;
+        var userId;
+        await user.save(function(err,user){
+            userId = user._id;
+            console.log(userId)
+            })
         return res.send({
-            detail: "Profile created"
+            detail: "Profile created",
+            id:userId
         })
 
     } catch (err) {
