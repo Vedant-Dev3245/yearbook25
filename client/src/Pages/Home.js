@@ -21,6 +21,7 @@ export default function Home() {
       data: userObject
     })
       .then(function (response) {
+        console.log(response)
         if (response.data.exists) {
           navigate('/profile', { state: userObject })
         } else {
@@ -35,6 +36,7 @@ export default function Home() {
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     setUser(userObject)
+    console.log(userObject)
     localStorage.setItem("user", JSON.stringify(userObject))
     checkUser(userObject)
   }

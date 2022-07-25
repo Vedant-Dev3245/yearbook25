@@ -7,7 +7,7 @@ export default function Hero() {
             <Flex justifyContent="space-between" alignItems="center">
                 <VStack className="heroText" ml="1rem" width={isSmallerThan900 ? '80%' : '40%'} spacing={4} alignItems="baseline">
                     <Text fontSize={isSmallerThan900 ? '1.8rem' : '5rem'} color="white" lineHeight={1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)">
-                        let's make the <Text display="inline" bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" bgClip="text">yearbook</Text> fun this time ⌛️</Text>
+                        let's make the <Text display="inline" bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" bgClip="text">yearbook</Text> fun this time ⏳</Text>
                     <Text mt="1rem" fontWeight="600" lineHeight={isSmallerThan900 ? '1.3rem' : '2rem'} fontSize={isSmallerThan900 ? '0.9rem' : '1.4rem'} color="#B3B3B3">hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Text>
                     <Flex mt="3rem !important" color="white" width={isSmallerThan900 ? '100%' : '60%'} flexDirection="column">
                         <Flex justifyContent="space-between" textAlign="left">
