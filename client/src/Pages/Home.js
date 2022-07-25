@@ -4,13 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"
 import { Box } from '@chakra-ui/react';
 import Footer from "../Components/Footer";
-import Logo from "../Components/Navbar"
 import Hero from "../Components/Hero"
 import Working from "../Components/Working"
 import Walkthrough from "../Components/Walkthrough";
 import FAQ from "../Components/FAQ";
-
-const google = window.google;
+import Navbar from "../Components/Navbar";
+import OptIn from "../Components/OptIn";
 
 export default function Home() {
 
@@ -21,9 +20,10 @@ export default function Home() {
       data: userObject
     })
       .then(function (response) {
-        console.log(response)
+        // console.log(response)
         if (response.data.exists) {
-          navigate('/profile', { state: userObject })
+          console.log(response.data.user._id)
+          navigate(`/profile/${response.data.user._id}`)
         } else {
           navigate('/form', { state: userObject })
         }
@@ -35,13 +35,13 @@ export default function Home() {
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
-    setUser(userObject)
+    // setUser(userObject)
     console.log(userObject)
     localStorage.setItem("user", JSON.stringify(userObject))
     checkUser(userObject)
   }
 
-  const [user, setUser] = React.useState({})
+  // const [user, setUser] = React.useState({})
   const navigate = useNavigate()
 
 
@@ -61,7 +61,7 @@ export default function Home() {
         }
 
       )
-      google.accounts.id.prompt();
+      // google.accounts.id.prompt();
     }
 
     if (localStorage.getItem("user") !== null) {
@@ -79,11 +79,12 @@ export default function Home() {
     <Box overflowX="hidden"
       bg="#141414"
     >
-      <Logo />
+      <Navbar />
       <Hero />
       <Working />
       <Walkthrough />
       <FAQ />
+      <OptIn/>
       <Footer />
     </Box>
   )

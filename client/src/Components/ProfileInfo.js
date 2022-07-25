@@ -3,14 +3,15 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, VStack
+    ModalCloseButton, Text, VStack, Image
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { TbPencil } from "react-icons/tb"
 
-export default function ProfileInfo() {
+export default function ProfileInfo(props) {
     const [isOpen, setIsOpen] = React.useState(false);
+    const [image, setImage] = React.useState()
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -18,12 +19,14 @@ export default function ProfileInfo() {
     const handleOpen = () => {
         setIsOpen(true);
     };
+    console.log(props.img)
+    // setImage(URL.createObjectURL(props.img))
     return (
 
         <Flex alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="flex-start">
             <Box w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;">
                 <Box cursor={"pointer"} onClick={handleOpen} position="absolute" top="0" right="0px" p="1rem" h="4rem" w="
-                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
+                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /><Image src={image} w="100%"/>  </Box>
             </Box>
             <Modal isOpen={isOpen}>
                 <ModalOverlay />
@@ -42,13 +45,13 @@ export default function ProfileInfo() {
                 <Text color="white"
                     fontWeight={700}
                     letterSpacing="0.08rem"
-                    fontSize="2.2rem">saksham aggarwal</Text>
+                    fontSize="2.2rem">{props.name.toLowerCase()}</Text>
                 <Text color="#B3B3B3"
                     fontWeight={300}
                     opacity="0.75"
-                    fontSize="1.2rem">2020A7PS1508P | A7</Text>
+                    fontSize="1.2rem">{props.id} | {props.discipline}</Text>
                 <Box w="55%">
-                    <Text mt="1rem" color="#DAE6FF" fontWeight="700" fontSize="1.2rem">hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Text>
+                    <Text mt="1rem" color="#DAE6FF" fontWeight="700" fontSize="1.2rem">{props.quote}</Text>
                 </Box>
             </VStack>
         </Flex >

@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Box, Grid, Text, Image, Flex, HStack, useMediaQuery } from "@chakra-ui/react";
+import { VStack, Box, Text, Image, Flex, useMediaQuery } from "@chakra-ui/react";
 export default function Hero() {
     const [isSmallerThan900] = useMediaQuery('(max-width:900px)')
     return (
@@ -57,7 +57,7 @@ export default function Hero() {
                                 please something
                                 graduating batch and
                                 idk why are you</Text>
-                            <Text texAlign="right">~bakshi</Text>
+                            <Text textAlign="right">~bakshi</Text>
                         </Box>
                         <Image src="../images/Ellipse 8.png" alt="ellipse" position="absolute" left="27rem" top="10rem" />
                         <Image w="100%" ml={isSmallerThan900 ? '4rem' : '-1rem'} src="../images/clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} />

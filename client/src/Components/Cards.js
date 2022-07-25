@@ -1,7 +1,7 @@
-import { Box, Image, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-export default function Cards() {
+export default function Cards(props) {
     return (
         <Box bg="#151515"
             p="1rem"
@@ -18,11 +18,11 @@ export default function Cards() {
             boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
         >
             <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
-                <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" />
-                <Text fontWeight={"600"} fontSize="0.9rem" ml="1rem">insert name here</Text>
+                {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
+                <Text fontWeight={"600"} fontSize="0.9rem" ml="1rem">{props.name.toLowerCase()}</Text>
             </Flex>
             <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
-                hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Box>
+                {props.caption}</Box>
         </Box>
     )
 }

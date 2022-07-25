@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery } from "@chakra-ui/react"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, Alert, AlertIcon } from "@chakra-ui/react"
 // import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -17,6 +17,7 @@ export default function Form() {
     const [img, setImg] = React.useState();
     const [formImage, setFormImage] = React.useState({ file: null });
     const [imgExist, setImgExist] = React.useState(false)
+    const [error, setError] = React.useState(false)
     const formData = new FormData();
 
     // const [emailErr, setEmailErr] = React.useState(false);
@@ -59,30 +60,44 @@ export default function Form() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        e.target.disabled = true
-        formData.append('image', formImage.file);
+        if (formInfo.id !== ""
+            && formInfo.quote !== ""
+            && imgExist) {
+            e.target.disabled = true
+            formData.append('image', formImage.file);
 
-        Object.entries(formInfo).map(item => {
-            formData.append(item[0], item[1])
-        })
-
-        axios({
-            method: 'POST',
-            url: 'http://127.0.0.1:3001/profile/add',
-            data: formData
-        })
-            .then(function (response) {
-                if (response.data.detail === "Profile created") {
-                    navigate('/profile')
-                }
-                console.log(response);
+            Object.entries(formInfo).map(item => {
+                formData.append(item[0], item[1])
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+
+            axios({
+                method: 'POST',
+                url: 'http://127.0.0.1:3001/profile/add',
+                data: formData
+            })
+                .then(function (response) {
+                    if (response.data.detail === "Profile created") {
+                        navigate(`/profile/${formInfo.id}`)
+                    }
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+        else {
+            //             <Alert status='error'>
+            //     <AlertIcon />
+            //     There was an error processing your request
+            //   </Alert>
+            setError(true);
+            setTimeout(() => {
+                setError(false)
+            }, 2000);
+        }
     }
     return (
-        <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black">
+        <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black" >
             <Flex w={isSmallerThan900 ? '100%' : '60%'} backgroundImage="url('../images/light.png')" bgPosition="center"
                 bgRepeat="no-repeat" bgSize="cover" align="center" justify="center">
                 <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323"
@@ -92,15 +107,16 @@ export default function Form() {
 
                     <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
                         <Heading mt="5rem" fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display="inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
-                        <Text color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
+                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
-                                <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full">
+                                <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full" > 
                                     <GridItem colSpan={1}>
                                         <FormLabel
                                             cursor="pointer"
                                             htmlFor="firstName"
                                             fontSize="20px"
+                                            fontWeight="600"
                                         >first name</FormLabel>
                                         <Input disabled={true} opacity="1 !important" id="firstName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your first name here" name="firstName" type="text" value={formInfo.firstName} />
                                     </GridItem>
@@ -109,6 +125,7 @@ export default function Form() {
                                             cursor="pointer"
                                             htmlFor="lastName"
                                             fontSize="20px"
+                                            fontWeight="600"
                                         >last name</FormLabel>
                                         <Input disabled={true} opacity="1 !important" id="lastName" onChange={handleChange} p="1.2rem 0.8rem" w="80%" placeholder="enter your last name here" name="lastName" type="text" value={formInfo.lastName} />
                                     </GridItem>
@@ -117,6 +134,7 @@ export default function Form() {
                                             cursor="pointer"
                                             htmlFor="email"
                                             fontSize="20px"
+                                            fontWeight="600"
                                         >email</FormLabel>
                                         <Input disabled={true} pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important" w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your email here" name="email" type="text" value={formInfo.email} />
                                     </GridItem>
@@ -125,6 +143,7 @@ export default function Form() {
                                             cursor="pointer"
                                             htmlFor="id"
                                             fontSize="20px"
+                                            fontWeight="600"
                                         >bits id</FormLabel>
                                         <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formInfo.id} />
                                     </GridItem>
@@ -133,6 +152,7 @@ export default function Form() {
                                             cursor="pointer"
                                             htmlFor="quote"
                                             fontSize="20px"
+                                            fontWeight="600"
                                         >yearbook quote</FormLabel>
                                         <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
                                         <FormHelperText mt="0.4rem" mb="6rem">{formInfo.quote.length}/280 characters used</FormHelperText>
@@ -146,17 +166,18 @@ export default function Form() {
             <Flex color="white" w={isSmallerThan900 ? '100%' : '40%'} bg="#242323" textAlign="center" justify="center" >
                 <Box spacing={2}>
                     <Box mt="8rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
-                        <FormLabel htmlFor="file">
+                        <FormLabel htmlFor="file" position="relative">
                             <Image src={imgExist ? img : '../images/pic.png'} margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
+                            <Text position="absolute" display={imgExist ? "none" : "block"} top="2rem" left="25%" fontWeight="600">insert picture here</Text>
                         </FormLabel>
                     </Box>
                     <Box fontFamily="Gilmer" fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
                         {formInfo.firstName.toUpperCase()} <br />{formInfo.lastName.toUpperCase()}
                     </Box>
-                    <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3">
+                    <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3"  fontWeight="600">
                         {formInfo.email}
                     </Box>
-                    <Box fontSize="1.2rem" color="#B3B3B3">
+                    <Box fontSize="1.2rem" color="#B3B3B3"  fontWeight="600">
                         {formInfo.id}
                     </Box>
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
@@ -165,6 +186,10 @@ export default function Form() {
                     <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                 </Box>
             </Flex>
+            <Alert bg="#242323" color="white" status='error' display={error ? "block" : "none"} position="absolute" w="40%" bottom="0" right="0">
+                <AlertIcon  />
+                    Please enter all the fields.
+            </Alert>
         </Flex>
     )
 }

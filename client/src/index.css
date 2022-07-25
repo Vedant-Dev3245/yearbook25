@@ -80,11 +80,33 @@ border-radius: 50%;
 }
 
 .active{
-    border-bottom: 1px solid #2094FF;
+  transition: all 0.3s;
 }
-.active>svg{
+.wall.active{
+    border-bottom: 2px solid #2094FF;
+}
+.wall.active>svg{
     color:#2094FF;
 }
+.nomin.active{
+    border-bottom: 2px solid #653FA8;
+}
+.nomin.active>svg{
+    color: #653FA8;
+}
+.notif.active{
+    border-bottom: 2px solid #FFC62D;
+}
+.notif.active>svg{
+    color: #FFC62D;
+}
+.stats.active{
+    border-bottom: 2px solid #D84222;
+}
+.stats.active>svg{
+    color: #D84222;
+}
+
 
 .my-masonry-grid {
     display: -webkit-box; /* Not needed if autoprefixing */
@@ -102,4 +124,50 @@ border-radius: 50%;
   /* Style your items */
   .my-masonry-grid_column > div { /* change div to reference your elements you put in <Masonry> */
     margin-bottom: 1.5rem;
+  }
+
+  .selectOpt__control{
+    background-color:  #262734 !important; 
+    border: none !important;
+    
+  }
+
+  .selectProf{
+    width: 100% !important;
+  }
+  .selectOpt__single-value {
+    color: #DAE6FF !important;
+  } 
+  .selectOpt__input-container{
+    color: #DAE6FF !important;
+  }
+
+  .selectOpt__option{
+    background-color:  #262734 !important; 
+    color: wheat;
+  }
+  .selectOpt__menu-list{
+    background-color:  #262734 !important; 
+  }
+  .selectProfNom{
+    width: 40% !important;
+  }
+  .selectOptNom__single-value {
+    color: #DAE6FF !important;
+  } 
+  .selectOptNom__input-container{
+    color: #DAE6FF !important;
+  }
+
+  .selectOptNom__option{
+    background-color:  #130C1E  !important; 
+    color: wheat;
+  }
+  .selectOptNom__menu-list{
+    background-color:  #130C1E  !important; 
+  }
+  .selectOptNom__control{
+    background-color:  #130C1E  !important; 
+    border: 1px solid #6C6C6C !important;
+    
   }
