@@ -19,14 +19,11 @@ export default function Search() {
                     url: `http://127.0.0.1:3001/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
-                        console.log(response.json())
-                        return response.json()
-                    })
-                    .then((data) => {
                         let tempArray = [];
-                        data.forEach(element => {
-                            tempArray.push({ label: `${element.name}`, value: `${element.id}` });
+                        response.data.users.forEach(element => {
+                            tempArray.push({ label: `${element[0]} ${element[2]} `, value: `${element[1]}` });
                         });
+                        console.log(tempArray);
                         callback(tempArray);
                     })
                     .catch(function (error) {
