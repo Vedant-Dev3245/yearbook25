@@ -6,7 +6,13 @@ import Interact from '../Components/Interact'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
-export default function Profile() {
+// import * as fs from 'fs';
+// import * as fs from 'fs/promises'
+
+export default function Profile(props) {
+
+
+
     const params = useParams();
     const [user, setUser] = React.useState({
         captions: [],
@@ -40,9 +46,9 @@ export default function Profile() {
             <ProfileInfo
                 name={user.name}
                 quote = {user.quote}
-                // id={user.bitsId}
-                // discipline={user.bitsId[4]+user.bitsId[5]}
-                img={user.img}
+                id={user.bitsId}
+                discipline={user.bitsId[4]+user.bitsId[5]}
+                imageUrl={user.imageUrl}
                 />
             <Interact 
             captions = {user.captions}

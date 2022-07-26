@@ -171,3 +171,7 @@ border-radius: 50%;
     border: 1px solid #6C6C6C !important;
     
   }
+
+  @media (max-width:500px) {
+    
+  }

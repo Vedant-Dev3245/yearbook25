@@ -2,9 +2,9 @@ import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 import { ChevronLeftIcon, Search2Icon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom"
-import Select from "react-select"
 
-export default function ProfileNav() {
+import Search from "./Search"
+export default function ProfileNav(props) {
 
     // const reader = new FileReader();
     // reader.onload = function (event) {
@@ -17,6 +17,9 @@ export default function ProfileNav() {
         { value: 'strawberry', label: 'Strawberry' },
         { value: 'vanilla', label: 'Vanilla' }
       ]
+    
+    // const options = props.options
+    // console.log(options)
 
     const navigate = useNavigate()
     function backHome(){
@@ -29,7 +32,7 @@ export default function ProfileNav() {
                 <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} onClick={backHome} bg = "transparent" fontSize="2rem" p="0.2rem"> <ChevronLeftIcon/></Button>
                 <Text fontSize="2rem" ml="1.2rem" fontWeight="700">SARC</Text>
                 </Flex>
-                <Flex borderRadius={"0.4rem"} w="20%" border ="0.968254px solid #575757" p="0.4rem 1rem" justifyContent={"flex-start"} alignItems="center"> <Search2Icon  color='#B3B3B3' fontSize="1rem"/><Select options={options} className="selectProf" classNamePrefix="selectOpt"/>  </Flex>
+                <Flex borderRadius={"0.4rem"} w="20%" border ="0.968254px solid #575757" p="0.4rem 1rem" justifyContent={"flex-start"} alignItems="center"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search/>  </Flex>
                 
             </Flex>
         </Box>

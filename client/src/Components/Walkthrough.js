@@ -9,7 +9,7 @@ export default function Walkthrough() {
     return (
         <Box mt="10rem">
             <Box className="heading" fontSize={64} color="#fff" fontWeight={800} align={'center'}>a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >walkthrough</Text> of the platform</Box>
-            <Box w="100%" bg="url(./images/textBg.png)">
+            <Box w="100%" bg="url(./images/textBg.png)"> 
                 <Box background="url(./images/walkBg.png)" backgroundSize="cover" w="90%" h="30rem" borderRadius="50px"
                     border="3px solid rgba(255, 255, 255, 0.75);" marginInline="auto" mt="2rem">
                     <Box w='100%' h="30rem">
