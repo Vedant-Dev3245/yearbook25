@@ -44,7 +44,6 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
         await user.save(async function(err,user){
 
             const userId = user._id;
-            // const userId2=String(userId);
             
             const withoutQuotes = userId.toString().replace(/"/g, '');
             console.log(userId);
@@ -218,11 +217,7 @@ router.post("/edit/:id", upload.single("image"), async (req, res) => {
                 .toBuffer();
             user.img = buffer;
         }
-        const id = req.params.id;
         const quote = req.body.quote;
-        if (disc != "") {
-            user.discipline = disc;
-        }
         if (quote!= "") {
             user.quote = quote;
 }
@@ -244,9 +239,11 @@ router.post("/edit/:id", upload.single("image"), async (req, res) => {
 router.post("/writecaption", async (req, res) => {
 
     try {
+     
         const caption = req.body.caption;
         const writerId = req.body.writerId;
         const receiverId = req.body.receiverId;
+        console.log(caption,writerId,receiverId);
         const session = await User.startSession();
         session.startTransaction();
         if (caption === "") {
