@@ -22,7 +22,8 @@ export default function Home() {
       .then(function (response) {
         // console.log(response)
         if (response.data.exists) {
-          console.log(response.data.user._id)
+          console.log("id: " + response.data.user._id)
+          localStorage.setItem("user", response.data.user._id)
           navigate(`/profile/${response.data.user._id}`)
         } else {
           navigate('/form', { state: userObject })
@@ -37,7 +38,6 @@ export default function Home() {
     var userObject = jwtDecode(response.credential)
     // setUser(userObject)
     console.log(userObject)
-    localStorage.setItem("user", JSON.stringify(userObject))
     checkUser(userObject)
   }
 
@@ -61,18 +61,18 @@ export default function Home() {
         }
 
       )
-      // google.accounts.id.prompt();
+      google.accounts.id.prompt();
     }
 
-    if (localStorage.getItem("user") !== null) {
-      const userObject = JSON.parse(localStorage.getItem("user"))
-      localStorage.setItem("user", JSON.stringify(userObject))
-      checkUser(userObject)
-    }
+    // if (localStorage.getItem("user") !== null) {
+    //   const userObject = JSON.parse(localStorage.getItem("user"))
+    //   localStorage.setItem("user", JSON.stringify(userObject))
+    //   checkUser(userObject)
+    // }
     // localStorage.clear()
     // to logout just run localstorage.clear(); and navigate to /
 
-  }, [])
+  })
 
   return (
 

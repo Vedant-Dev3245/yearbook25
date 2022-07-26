@@ -13,7 +13,8 @@ export default function Form() {
         quote: "",
         id: "",
         email: data.email
-    })
+        //number: ""
+    }) 
     const [img, setImg] = React.useState();
     const [formImage, setFormImage] = React.useState({ file: null });
     const [imgExist, setImgExist] = React.useState(false)
@@ -77,6 +78,7 @@ export default function Form() {
             })
                 .then(function (response) {
                     if (response.data.detail === "Profile created") {
+                        localStorage.setItem("user", response.data.user._id)
                         navigate(`/profile/${formInfo.id}`)
                     }
                     console.log(response);
@@ -86,10 +88,10 @@ export default function Form() {
                 });
         }
         else {
-            //             <Alert status='error'>
-            //     <AlertIcon />
-            //     There was an error processing your request
-            //   </Alert>
+                // <Alert status='error'>
+                //     <AlertIcon />
+                //         There was an error processing your request
+                // </Alert>
             setError(true);
             setTimeout(() => {
                 setError(false)

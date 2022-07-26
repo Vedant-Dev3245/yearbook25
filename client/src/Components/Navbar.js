@@ -1,8 +1,21 @@
 import React from "react"
-import { Box, Flex, Text, Link, Image, useMediaQuery, Menu, MenuButton, MenuList, MenuItem, IconButton } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, Link, Image, useMediaQuery, Menu, MenuButton, MenuList, MenuItem, IconButton } from '@chakra-ui/react';
+import { useNavigate } from "react-router-dom"
 import { HamburgerIcon } from '@chakra-ui/icons'
 export default function Navbar() {
 	const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
+	const [loggedIn, setLoggedIn] = React.useState(false)
+	
+	if (localStorage.getItem("user") !== null && !loggedIn) {
+		setLoggedIn(true)
+	}
+	const navigate = useNavigate()
+
+	function gotoprofile(){
+		console.log(localStorage.getItem("user"))
+		navigate(`/profile/${localStorage.getItem("user")}`)
+	}
+
 	return (
 		<>
 			<Image position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
@@ -36,8 +49,12 @@ export default function Navbar() {
 							</MenuList>
 						</Menu>
 					</Box>
-					<Box id="signInDiv" p={2}>
-					</Box>
+					
+					{loggedIn ?
+					<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{bg:""}}>
+						<Text fontSize="s" fontWeight="600" color="white" p={4}>Profile</Text>
+					</Button>
+					:<Box id="signInDiv" p={2}></Box>}
 				</Flex>
 			</Box>
 		</>
