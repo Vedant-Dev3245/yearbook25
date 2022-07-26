@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import React from "react"
 import AsyncSelect from "react-select/async"
-import { Search2Icon } from "@chakra-ui/icons"
 import axios from "axios"
 
 export default function Search() {
@@ -14,6 +13,7 @@ export default function Search() {
         }
         else {
             setTimeout(() => {
+                console.log(`http://127.0.0.1:3001/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
                     url: `http://127.0.0.1:3001/searchUsers?name=${inputValue}`,

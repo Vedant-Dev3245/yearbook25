@@ -32,7 +32,7 @@ export default function ProfileNav(props) {
                 <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} onClick={backHome} bg = "transparent" fontSize="2rem" p="0.2rem"> <ChevronLeftIcon/></Button>
                 <Text fontSize="2rem" ml="1.2rem" fontWeight="700">SARC</Text>
                 </Flex>
-                <Flex borderRadius={"0.4rem"} w="20%" border ="0.968254px solid #575757" p="0.4rem 1rem" justifyContent={"flex-start"} alignItems="center"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search/>  </Flex>
+                <Flex className="searchIcon" borderRadius={"0.4rem"} w="20%" border ="0.968254px solid #575757" p="0.4rem 1rem" justifyContent={"flex-start"} alignItems="center"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search/>  </Flex>
                 
             </Flex>
         </Box>

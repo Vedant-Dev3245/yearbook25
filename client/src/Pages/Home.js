@@ -38,7 +38,7 @@ export default function Home() {
     var userObject = jwtDecode(response.credential)
     // setUser(userObject)
     // console.log(userObject)
-    localStorage.setItem("user", JSON.stringify(userObject))
+    // localStorage.setItem("user", JSON.stringify(userObject))
     checkUser(userObject)
   }
 

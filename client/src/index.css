@@ -172,6 +172,13 @@ border-radius: 50%;
     
   }
 
-  @media (max-width:500px) {
-    
+  @media (max-width:510px) {
+    .searchIcon{
+      width: 50% !important;
+      background: transparent !important;
+    }
+    .imageCont{
+      width: 12rem !important;
+      height: 12rem !important;
+    }
   }

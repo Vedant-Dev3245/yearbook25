@@ -3,11 +3,7 @@ import React from 'react'
 import Search from "./Search"
 
 export default function Nominate() {
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+    
     return (
         <Box w="90%" marginInline="auto" pb="4rem">
             <Box fontSize="3rem" fontWeight="800">invite your <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">frens</Text> to write caption for you</Box>

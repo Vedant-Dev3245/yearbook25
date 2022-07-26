@@ -34,7 +34,7 @@ export default function ProfileInfo(props) {
     }
 
    React.useEffect(() =>{
-    if (window.location.href.includes(localStorage.getItem("userDetail"))) {
+    if (window.location.href.includes(localStorage.getItem("user"))) {
         setShowEdit(true)
     }
     else {
@@ -88,7 +88,7 @@ export default function ProfileInfo(props) {
     return (
 
         <Flex alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="flex-start">
-            <Box w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;">
+            <Box className="imageCont" w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;">
                 <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /><Image src={image} w="100%" />  </Box>
             </Box>
