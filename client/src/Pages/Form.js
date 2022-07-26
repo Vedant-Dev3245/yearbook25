@@ -78,8 +78,7 @@ export default function Form() {
             })
                 .then(function (response) {
                     if (response.data.detail === "Profile created") {
-                        localStorage.setItem("user", response.data.user._id)
-                        navigate(`/profile/${formInfo.id}`)
+                        navigate(`/profile/${response.data._id}`)
                     }
                     console.log(response);
                 })

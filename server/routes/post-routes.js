@@ -5,11 +5,14 @@ const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
 const keys = require("../config/keys");
-var fs = require("fs");
+var fs = require("fs")
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
 const privileged=require("../specialUsers")
 const sharp = require("sharp");
+const { log } = require("console");
+const ObjectsToCsv = require('objects-to-csv')
+
 const upload = multer({
     limits: {
         fileSize: 3000000,
@@ -24,29 +27,46 @@ const upload = multer({
     },
 });
 
+router.post("/profile/add", upload.single("image"), async (req, res) => {
+    var users;
 
-router.post("/profile/add", upload.single("image"),async (req, res) => {
     try {
         const user = new User({
             name: req.body.firstName + " " + req.body.lastName,
             email: req.body.email,
-            bitsId: req.body.bitsId,
+            bitsId: req.body.id,
             quote: req.body.quote,
             discipline: ""
         })
         const buffer = await sharp(req.file.buffer).png().toBuffer()
         user.img = buffer;
-        var userId;
-        await user.save(function(err,user){
-            userId = user._id;
-            console.log(userId)
+        
+        await user.save(async function(err,user){
+
+            const userId = user._id;
+            // const userId2=String(userId);
+            
+            const withoutQuotes = userId.toString().replace(/"/g, '');
+            console.log(userId);
+            const csv = new ObjectsToCsv([
+                {
+                    name: user.name,
+                    id: withoutQuotes,
+                    bitsId: user.bitsId
+                }
+            ]);
+            await csv.toDisk('./allUserData.csv', { append: true,headers:false })
+
+            return res.send({
+                detail: "Profile created",
+                _id:userId
             })
-        return res.send({
-            detail: "Profile created",
-            id:userId
         })
 
+
+    
     } catch (err) {
+        console.log(err);
         return res.send({
             status:"failure",
             msg: "There was an error, Please try after some time"
@@ -199,7 +219,6 @@ router.post("/edit/:id", upload.single("image"), async (req, res) => {
             user.img = buffer;
         }
         const id = req.params.id;
-        const disc = req.body.disc;
         const quote = req.body.quote;
         if (disc != "") {
             user.discipline = disc;
