@@ -77,7 +77,7 @@ export default function Form() {
             })
                 .then(function (response) {
                     if (response.data.detail === "Profile created") {
-                        navigate(`/profile/${formInfo.id}`)
+                        navigate(`/profile/${response.data._id}`)
                     }
                     console.log(response);
                 })

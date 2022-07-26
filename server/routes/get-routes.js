@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
 const User = require("../models/user");
+var fs = require("fs");
+var users;
 
 router.get("/getprofile/:id", async (req, res) => {
       try {
@@ -19,6 +21,25 @@ router.get("/getprofile/:id", async (req, res) => {
         }
 });
 
+router.get("/searchUsers", async (req, res) => {
+      const reqName=req.query.name;
+      fs.readFile('allUserData.csv',  (err,data) => {
+            var users= data.toString() 
+            .split('\n') 
+            .map(e => e.trim()) 
+                  .map(e => e.split(',').map(e => e.trim()));
+        
+            const filteredUsers = users.filter(user => {
+                  console.log(user[0])
+                        if (user[0].toLowerCase().includes(reqName.toLowerCase())) return user;
+                  })
+            console.log(filteredUsers);
+            return res.send({ users:filteredUsers });
+      })
+});
+
+
+  
 // router.get("/profile/:id/edit", (req, res) => {
 //       // res.render("edit-details", { id: req.params.id });
 //       res.send({ id: req.params.id });
