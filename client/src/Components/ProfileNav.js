@@ -12,11 +12,7 @@ export default function ProfileNav(props) {
     //   };
     // const file = readTextFile()
     //   reader.readAsText(file);
-    const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
-      ]
+
     
     // const options = props.options
     // console.log(options)

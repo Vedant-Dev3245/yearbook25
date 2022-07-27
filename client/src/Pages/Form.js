@@ -53,6 +53,7 @@ export default function Form() {
     }
     function onImageChange(e) {
         const imageFile = e.target.files[0]
+        console.log(imageFile)
         if (e.target && imageFile) {
             setFormImage({ file: imageFile })
         }
@@ -78,6 +79,7 @@ export default function Form() {
             })
                 .then(function (response) {
                     if (response.data.detail === "Profile created") {
+                        localStorage.setItem("user", response.data._id)
                         navigate(`/profile/${response.data._id}`)
                     }
                     console.log(response);

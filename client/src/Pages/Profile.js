@@ -5,13 +5,10 @@ import ProfileNav from '../Components/ProfileNav'
 import Interact from '../Components/Interact'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-
 // import * as fs from 'fs';
 // import * as fs from 'fs/promises'
 
 export default function Profile(props) {
-
-
 
     const params = useParams();
     const [user, setUser] = React.useState({
@@ -26,7 +23,6 @@ export default function Profile(props) {
         _id: "",
         bitsId: ""
     })
-
     React.useEffect(() => {
         axios({
             method: 'GET',
@@ -49,7 +45,7 @@ export default function Profile(props) {
                 quote = {user.quote}
                 id={user.bitsId}
                 discipline={user.bitsId[4]+user.bitsId[5]}
-                imageUrl={user.imageUrl}
+                img={user.img}
                 />
             <Interact 
             captions = {user.captions}

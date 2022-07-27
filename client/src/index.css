@@ -169,8 +169,11 @@ border-radius: 50%;
   .selectOptNom__control{
     background-color:  #130C1E  !important; 
     border: 1px solid #6C6C6C !important;
-    
   }
+  .barItems{
+    margin-inline: 1rem;
+  }
+
 
   @media (max-width:510px) {
     .searchIcon{

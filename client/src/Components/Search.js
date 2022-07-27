@@ -2,10 +2,12 @@ import { Flex } from "@chakra-ui/react"
 import React from "react"
 import AsyncSelect from "react-select/async"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export default function Search() {
 
     const [option, setOption] = React.useState({})
+    const navigate = useNavigate()
 
     const fetchData = (inputValue, callback) => {
         if (!inputValue) {
@@ -34,6 +36,8 @@ export default function Search() {
     const onSearchChange = (option) => {
         if (option) {
             setOption({ option })
+            localStorage.setItem("friend", option.value )
+            navigate(`/profile/${option.value}`)
         }
     }
 
