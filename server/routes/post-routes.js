@@ -38,6 +38,7 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
             quote: req.body.quote,
             discipline: ""
         })
+        
         const buffer = await sharp(req.file.buffer).png().toBuffer()
         user.img = buffer;
         
