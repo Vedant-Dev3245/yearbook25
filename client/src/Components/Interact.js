@@ -89,7 +89,7 @@ export default function Interact(props) {
 
             </Flex>
             <Box display={wallActive ? "block" : "none"}><Wall captions = {props.captions}/></Box>
-            <Box display={nominateActive ? "block" : "none"}><Nominate/></Box>
+            <Box display={nominateActive ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
             <Box mt="14rem">

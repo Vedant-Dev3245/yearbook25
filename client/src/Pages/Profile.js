@@ -26,10 +26,13 @@ export default function Profile(props) {
     React.useEffect(() => {
         axios({
             method: 'GET',
-            url: `http://localhost:3001/getprofile/${params.id}`,
+            url: `http://127.0.0.1:3001/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)
+                if(params.id === window.localStorage.getItem("user")){
+                    window.localStorage.setItem("userName",response.data.user.name)
+                }
                 console.log(response.data.user)
             })
             .catch(function (error) {
@@ -50,6 +53,7 @@ export default function Profile(props) {
             <Interact 
             captions = {user.captions}
             nominatedby = {user.nominatedby}
+            name = {user.name}
             />
         </Box>
     )

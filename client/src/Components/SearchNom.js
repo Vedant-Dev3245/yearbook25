@@ -2,12 +2,11 @@ import { Flex, Text, Box, Input } from "@chakra-ui/react"
 import React from "react"
 import AsyncSelect from "react-select/async"
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 
-export default function Search() {
+export default function Search(props) {
 
     const [option, setOption] = React.useState({})
-
+    const [exists, setExists] = React.useState(false)
 
     const fetchData = (inputValue, callback) => {
         if (!inputValue) {
@@ -38,12 +37,14 @@ export default function Search() {
         if (option) {
             setOption({ option })
             localStorage.setItem("friend", option.value)
-            bitsid = option.label
+            bitsid = option.label.substring(option.label.length -14)
+            console.log(bitsid)
+            setExists(true)
         }
     }
     let nominateData = {
         senderId : localStorage.getItem("user"),
-        // senderName : props.name,
+        senderName : props.name,
         receiverId : localStorage.getItem("friend")
     }
     function nominate(){
@@ -58,6 +59,7 @@ export default function Search() {
         .catch(function(err){
             console.log(err);
         });
+        // console.log(nominateData)
     }
 
     return (
@@ -75,7 +77,7 @@ export default function Search() {
                     defaultOptions={false} /></Box>
             </Flex>
             <Text mt="2rem" fontSize="1.5rem" fontWeight="800">bitsid</Text>
-            <Input disabled marginBlock="1rem" p="1.2rem" w="40%" border="1px solid #6C6C6C !important" color="white" placeholder={option!=={} ? bitsid : "check bits id here"}/>
+            <Input disabled marginBlock="1rem" p="1.2rem" w="40%" border="1px solid #6C6C6C !important" color="white" value={exists ? bitsid : "check bits id here"}/>
             <Box cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="2rem" w="fit-content" fontWeight={"600"} onClick={nominate}>Nominate</Box>
         </Box>
     )
