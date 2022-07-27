@@ -30,7 +30,7 @@ export default function Profile(props) {
     React.useEffect(() => {
         axios({
             method: 'GET',
-            url: `https://yearbook-portal-backend-2022.herokuapp.com/getprofile/${params.id}`,
+            url: `http://localhost:3001/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)

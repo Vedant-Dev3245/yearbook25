@@ -38,7 +38,7 @@ export default function NominateCard(props) {
     function submitCaption(){
         axios({
             method: 'POST',
-            url: 'https://yearbook-portal-backend-2022.herokuapp.com/writecaption',
+            url: 'http://localhost:3001/writecaption',
             data: captionData
         })
             .then(function (response) {
