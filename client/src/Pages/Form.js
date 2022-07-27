@@ -73,7 +73,7 @@ export default function Form() {
 
             axios({
                 method: 'POST',
-                url: 'http://127.0.0.1:3001/profile/add',
+                url: 'https://yearbook-portal-backend-2022.herokuapp.com/profile/add',
                 data: formData
             })
                 .then(function (response) {

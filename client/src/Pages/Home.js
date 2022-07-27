@@ -16,7 +16,7 @@ export default function Home() {
   function checkUser(userObject) {
     axios({
       method: 'POST',
-      url: 'http://127.0.0.1:3001/profile/check',
+      url: 'https://yearbook-portal-backend-2022.herokuapp.com/profile/check',
       data: userObject
     })
       .then(function (response) {
