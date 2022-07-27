@@ -42,9 +42,7 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
         user.img = buffer;
         
         await user.save(async function(err,user){
-
             const userId = user._id;
-            
             const withoutQuotes = userId.toString().replace(/"/g, '');
             console.log(userId);
             const csv = new ObjectsToCsv([
