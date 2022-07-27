@@ -4,6 +4,9 @@ const User = require("../models/user");
 var fs = require("fs");
 var users;
 
+router.get("/", (req, res) => {
+      return res.send({ msg: "Backend is Up and Running" });
+})
 router.get("/getprofile/:id", async (req, res) => {
       try {
             const user = await User.findById(req.params.id);
