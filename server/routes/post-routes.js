@@ -38,13 +38,12 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
             quote: req.body.quote,
             discipline: ""
         })
+        
         const buffer = await sharp(req.file.buffer).png().toBuffer()
         user.img = buffer;
         
         await user.save(async function(err,user){
-
             const userId = user._id;
-            
             const withoutQuotes = userId.toString().replace(/"/g, '');
             console.log(userId);
             const csv = new ObjectsToCsv([

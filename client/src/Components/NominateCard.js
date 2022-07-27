@@ -38,7 +38,7 @@ export default function NominateCard(props) {
     function submitCaption(){
         axios({
             method: 'POST',
-            url: 'http://127.0.0.1:3001/writecaption',
+            url: 'http://localhost:3001/writecaption',
             data: captionData
         })
             .then(function (response) {

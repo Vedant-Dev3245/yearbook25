@@ -15,10 +15,10 @@ export default function Search() {
         }
         else {
             setTimeout(() => {
-                console.log(`http://127.0.0.1:3001/searchUsers?name=${inputValue}`)
+                console.log(`http://localhost:3001/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `http://127.0.0.1:3001/searchUsers?name=${inputValue}`,
+                    url: `http://localhost:3001/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
