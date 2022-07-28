@@ -133,7 +133,6 @@ export default function ProfileInfo(props) {
         
 
     }
-
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -205,9 +204,10 @@ export default function ProfileInfo(props) {
                 </ModalContent >
             </Modal>
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
-                <Box className="imageCont" w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;">
+                <Box className="imageCont" bg={`url(${props.imgUrl})`} w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
-                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /><Image src={props.imgUrl} w="100%" />  </Box>
+                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
+                
                 </Box>
                 <VStack alignItems="baseline" ml="3rem" mt="4rem">
                     <Text color="white"
