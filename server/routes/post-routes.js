@@ -212,17 +212,14 @@ router.post("/nominate", async (req, res) => {
 })
 
 
-router.post("/edit/:id", upload.single("image"), async (req, res) => {
+router.post("/edit/:id" ,async (req, res) => {
     try {
         const session = await User.startSession();
         session.startTransaction();
         const user = await User.findById(req.params.id);
-        console.log(req.file)
-        if (req.file != null) {
-            const buffer = await sharp(req.file.buffer)
-                .png()
-                .toBuffer();
-            user.img = buffer;
+        const imgUrl = req.body.imgUrl 
+        if (imgUrl!= null) {
+         user.imageUrl=imgUrl
         }
         const quote = req.body.quote;
         if (quote!= "") {
