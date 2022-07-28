@@ -74,7 +74,6 @@ router.get("/searchUsers", async (req, res) => {
 })
 
 
-text
 // router.get("/profile/:id/edit", (req, res) => {
 //       // res.render("edit-details", { id: req.params.id });
 //       res.send({ id: req.params.id });
