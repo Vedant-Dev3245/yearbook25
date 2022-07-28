@@ -3,19 +3,21 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, VStack, Image, FormLabel, Textarea, FormHelperText, Button, Input, FormControl
+    ModalCloseButton, Text, VStack, Image, FormLabel, Textarea, FormHelperText, Button, Input, FormControl, useMediaQuery
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { TbPencil } from "react-icons/tb"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
+import { storage } from '../Firebase'
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function ProfileInfo(props) {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [image, setImage] = React.useState()
     const [ownProfile, setOwnProfile] = React.useState()
     const [showEdit, setShowEdit] = React.useState()
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     // const [imgExist, setImgExist] = React.useState(false)
     const [formInfo, setFormInfo] = React.useState({
         quote: ""
@@ -46,14 +48,17 @@ export default function ProfileInfo(props) {
             setOwnProfile(false)
         }
     })
-    React.useEffect(() => {
-        if (props.img.type === "Buffer") {
+    // React.useEffect(() => {
+    //     if (props.img.type === "Buffer") {
 
-            let blob = new Blob(props.img.data, { type: "image/jpeg" })
-            let file = new File([blob], "name", { type: "image/jpeg" });
-            setImage(URL.createObjectURL(file))
-        }
-    }, [props.img])
+    //         let blob = new Blob(props.img.data, { type: "image/jpeg" })
+    //         let file = new File([blob], "name", { type: "image/jpeg" });
+    //         setImage(URL.createObjectURL(file))
+    //         console.log(file);
+    //         console.log(URL.createObjectURL(file))
+
+    //     }
+    // }, [props.img])
 
     function onImageChange(e) {
         const imageFile = e.target.files[0]
@@ -65,28 +70,67 @@ export default function ProfileInfo(props) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        Object.entries(formInfo).map(item => {
-            formData.append(item[0], item[1])
-        })
-     
-            formData.append('image', formImage.file);
+        if(formImage.file !== null){
+            const storageRef = ref(storage, `files/${formImage.file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, formImage.file);
+
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    // console.log('uploading..')
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        // setImgUrl(downloadURL)
+                        // console.log('uploaded')
+                        Object.entries(formInfo).map(item => {
+                            formData.append(item[0], item[1])
+                        })
+                        formData.append('imgUrl', downloadURL)
+                        let currentUser = localStorage.getItem("user")
+                        axios({
+                            method: 'POST',
+                            url: `http://localhost:3001/profile/edit/${currentUser}`,
+                            data: formData
+                        })
+                            .then(function (response) {
+                                if (response.data.msg === "Successfully Updated") {
+                                    navigate(`/profile/${formInfo.id}`)
+                                }
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+
+                    });
+                }
+            );
+        }
+        else{
+            Object.entries(formInfo).map(item => {
+                formData.append(item[0], item[1])
+            })
+            formData.append('imgUrl', "")
+            let currentUser = localStorage.getItem("user")
+            axios({
+                method: 'POST',
+                url: `http://localhost:3001/profile/edit/${currentUser}`,
+                data: formData
+            })
+                .then(function (response) {
+                    if (response.data.msg === "Successfully Updated") {
+                        navigate(`/profile/${formInfo.id}`)
+                    }
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
         
-        console.log(formData)
-        let currentUser = localStorage.getItem("user")
-        // axios({
-        //     method: 'POST',
-        //     url: `http://localhost:3001/profile/edit/${currentUser}`,
-        //     data: formData
-        // })
-        //     .then(function (response) {
-        //         if (response.data.detail === "Profile created") {
-        //             navigate(`/profile/${formInfo.id}`)
-        //         }
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
 
     }
 
@@ -126,7 +170,7 @@ export default function ProfileInfo(props) {
 
     return (
 
-        <Flex alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="space-between">
+        <Flex className="infoFlex" alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="space-between">
 
             <Modal isOpen={isOpen} onClose={1} >
                 <ModalOverlay />
@@ -160,10 +204,10 @@ export default function ProfileInfo(props) {
                     </Box>
                 </ModalContent >
             </Modal>
-            <Flex alignContent="center">
+            <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
                 <Box className="imageCont" w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
-                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /><Image src={image} w="100%" />  </Box>
+                4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /><Image src={props.imgUrl} w="100%" />  </Box>
                 </Box>
                 <VStack alignItems="baseline" ml="3rem" mt="4rem">
                     <Text color="white"
@@ -174,12 +218,12 @@ export default function ProfileInfo(props) {
                         fontWeight={300}
                         opacity="0.75"
                         fontSize="1.2rem">{props.id} | {props.discipline}</Text>
-                    <Box w="55%">
+                    <Box w={isSmallerThan800 ? "80%" : "55%"}>
                         <Text mt="1rem" color="#DAE6FF" fontWeight="700" fontSize="1.2rem">{props.quote}</Text>
                     </Box>
                 </VStack>
             </Flex>
-            <Box ml="15rem" cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate this friend"}</Box>
+            <Box ml={isSmallerThan800 ? "0" : "14rem"} mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate this friend"}</Box>
         </Flex >
     )
 }

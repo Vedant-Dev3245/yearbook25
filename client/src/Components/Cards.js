@@ -19,7 +19,7 @@ export default function Cards(props) {
         >
             <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
                 {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
-                <Text fontWeight={"600"} fontSize="0.9rem" ml="1rem">{props.name.toLowerCase()}</Text>
+                <Text fontWeight={"600"} fontSize="0.9rem">{props.name.toLowerCase()}</Text>
             </Flex>
             <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
                 {props.caption}</Box>

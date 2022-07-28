@@ -163,6 +163,9 @@ border-radius: 50%;
     background-color:  #130C1E  !important; 
     color: wheat;
   }
+  .selectOpt__input-control:focus{
+    box-shadow: none !important;
+  }
   .selectOptNom__menu-list{
     background-color:  #130C1E  !important; 
   }
@@ -183,5 +186,11 @@ border-radius: 50%;
     .imageCont{
       width: 12rem !important;
       height: 12rem !important;
+    }
+    .infoFlex{
+      flex-direction: column;
+    }
+    .selectProfNom{
+      width: 80% !important;
     }
   }

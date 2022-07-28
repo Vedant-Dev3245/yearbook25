@@ -2,6 +2,8 @@ import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
 import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, Alert, AlertIcon } from "@chakra-ui/react"
+import { storage } from '../Firebase'
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 // import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
@@ -14,7 +16,7 @@ export default function Form() {
         id: "",
         email: data.email
         //number: ""
-    }) 
+    })
     const [img, setImg] = React.useState();
     const [formImage, setFormImage] = React.useState({ file: null });
     const [imgExist, setImgExist] = React.useState(false)
@@ -53,11 +55,12 @@ export default function Form() {
     }
     function onImageChange(e) {
         const imageFile = e.target.files[0]
-        console.log(imageFile)
+        // console.log(imageFile)
         if (e.target && imageFile) {
             setFormImage({ file: imageFile })
         }
         setImg(URL.createObjectURL(imageFile))
+        // console.log(URL.createObjectURL(imageFile))
         setImgExist(true)
     }
     function handleSubmit(e) {
@@ -66,33 +69,52 @@ export default function Form() {
             && formInfo.quote !== ""
             && imgExist) {
             e.target.disabled = true
-            formData.append('image', formImage.file);
+            const storageRef = ref(storage, `files/${formImage.file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, formImage.file);
 
-            Object.entries(formInfo).map(item => {
-                formData.append(item[0], item[1])
-            })
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    // console.log('uploading..')
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        // setImgUrl(downloadURL)
+                        // console.log('uploaded')
+                        Object.entries(formInfo).map(item => {
+                            formData.append(item[0], item[1])
+                        })
+                        formData.append('imgUrl', downloadURL)
+                        axios({
+                            method: 'POST',
+                            url: 'http://localhost:3001/profile/add',
+                            data: formData
+                        })
+                            .then(function (response) {
+                                if (response.data.detail === "Profile created") {
+                                    localStorage.setItem("user", response.data._id)
+                                    navigate(`/profile/${response.data._id}`)
+                                }
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
 
-            axios({
-                method: 'POST',
-                url: 'http://localhost:3001/profile/add',
-                data: formData
-            })
-                .then(function (response) {
-                    if (response.data.detail === "Profile created") {
-                        localStorage.setItem("user", response.data._id)
-                        navigate(`/profile/${response.data._id}`)
-                    }
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    });
+                }
+            );
+
+
+
         }
         else {
-                // <Alert status='error'>
-                //     <AlertIcon />
-                //         There was an error processing your request
-                // </Alert>
+            // <Alert status='error'>
+            //     <AlertIcon />
+            //         There was an error processing your request
+            // </Alert>
             setError(true);
             setTimeout(() => {
                 setError(false)
@@ -113,7 +135,7 @@ export default function Form() {
                         <Text fontWeight="600" color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
-                                <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full" > 
+                                <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full" >
                                     <GridItem colSpan={1}>
                                         <FormLabel
                                             cursor="pointer"
@@ -170,17 +192,18 @@ export default function Form() {
                 <Box spacing={2}>
                     <Box mt="8rem"> <Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                         <FormLabel htmlFor="file" position="relative">
+                            <Text display={imgExist ? "none" : "block"} textAlign="center" fontWeight="600">insert picture here</Text>
                             <Image src={imgExist ? img : '../images/pic.png'} margin="auto" cursor="pointer" w="300px" h="300px" borderRadius="48px" />
-                            <Text position="absolute" display={imgExist ? "none" : "block"} top="2rem" left="25%" fontWeight="600">insert picture here</Text>
+
                         </FormLabel>
                     </Box>
                     <Box fontFamily="Gilmer" fontSize="3rem" mt="2rem" fontWeight="800" lineHeight="2.8rem" >
                         {formInfo.firstName.toUpperCase()} <br />{formInfo.lastName.toUpperCase()}
                     </Box>
-                    <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3"  fontWeight="600">
+                    <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600">
                         {formInfo.email}
                     </Box>
-                    <Box fontSize="1.2rem" color="#B3B3B3"  fontWeight="600">
+                    <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
                         {formInfo.id}
                     </Box>
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
@@ -190,8 +213,8 @@ export default function Form() {
                 </Box>
             </Flex>
             <Alert bg="#242323" color="white" status='error' display={error ? "block" : "none"} position="absolute" w="40%" bottom="0" right="0">
-                <AlertIcon  />
-                    Please enter all the fields.
+                <AlertIcon />
+                Please enter all the fields.
             </Alert>
         </Flex>
     )

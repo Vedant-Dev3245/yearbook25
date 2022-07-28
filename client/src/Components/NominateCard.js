@@ -2,7 +2,7 @@ import { Box, Flex,Modal, ModalOverlay,
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, Input, Button } from "@chakra-ui/react";
+    ModalCloseButton, Text, Input, Button, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import axios from "axios";
@@ -11,6 +11,8 @@ import axios from "axios";
 export default function NominateCard(props) {
 
     const [isVisible, setIsVisible] = React.useState(true)
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -61,12 +63,12 @@ export default function NominateCard(props) {
             marginRight="1rem"
             marginBottom="1rem"
             opacity="0.8"
+            w={isSmallerThan800 ? "100%" : "48%"}
             alignItems={"center"}
             backdropFilter="blur(40px)"
-            w="48%"
             borderRadius="20px"
             justifyContent="space-between"
-            marginInline="auto"
+            flexWrap="wrap"
             border="1px solid rgba(255, 255, 255, 0.5)"
             fontWeight="700"
             boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
@@ -74,7 +76,7 @@ export default function NominateCard(props) {
         >
             <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
                 {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
-                <Text fontWeight={"600"} fontSize="0.9rem" ml="1rem">{props.name}</Text>
+                <Text fontWeight={"600"} fontSize="0.9rem">{props.name}</Text>
             </Flex>
             <Box lineHeight="1.3rem" fontSize="1rem" color="#FFFFFF" fontWeight="400">
                 nominated you to write on their wall</Box>
