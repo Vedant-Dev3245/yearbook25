@@ -33,7 +33,7 @@ export default function Profile(props) {
         })
             .then(function (response) {
                 setUser(response.data.user)
-                console.log(response.data.user)
+                // console.log(response.data.user)
                     setLoading(false)
                 if (params.id === window.localStorage.getItem("user")) {
                     window.localStorage.setItem("userName", response.data.user.name)

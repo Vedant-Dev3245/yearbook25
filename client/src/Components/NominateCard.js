@@ -10,7 +10,6 @@ import axios from "axios";
 
 export default function NominateCard(props) {
 
-    const [isVisible, setIsVisible] = React.useState(true)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px')
 
     const handleClose = () => {
@@ -46,7 +45,6 @@ export default function NominateCard(props) {
             .then(function (response) {
                 console.log(response);
                 setIsOpen(false)
-                setIsVisible(false)
             })
             .catch(function (error) {
                 console.log(error);
@@ -72,7 +70,6 @@ export default function NominateCard(props) {
             border="1px solid rgba(255, 255, 255, 0.5)"
             fontWeight="700"
             boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
-            display={isVisible ? "flex" : "none"}
         >
             <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
                 {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}

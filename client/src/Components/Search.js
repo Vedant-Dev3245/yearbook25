@@ -15,7 +15,7 @@ export default function Search() {
         }
         else {
             setTimeout(() => {
-                console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
+                // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
                     url: `https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`,
