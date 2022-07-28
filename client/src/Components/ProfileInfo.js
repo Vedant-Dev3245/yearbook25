@@ -94,12 +94,13 @@ export default function ProfileInfo(props) {
         let currentUser = localStorage.getItem("user")
         axios({
             method: 'POST',
-            url: `https://yearbook-portal-backend-2022.herokuapp.com/profile/edit/${currentUser}`,
+            url: `https://yearbook-portal-backend-2022.herokuapp.com/edit/${currentUser}`,
             data: formInfo
         })
             .then(function (response) {
                 if (response.data.msg === "Successfully Updated") {
-                    navigate(`/profile/${formInfo.id}`)
+                    //add here
+                    navigate(`/profile/${currentUser}`)
                 }
                 console.log(response);
             })
