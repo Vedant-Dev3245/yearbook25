@@ -14,14 +14,14 @@ export default function Form() {
         lastName: data.family_name,
         quote: "",
         id: "",
-        email: data.email
+        email: data.email,
+        imgUrl: ""
         //number: ""
     })
     const [img, setImg] = React.useState();
-    const [formImage, setFormImage] = React.useState({ file: null });
+    const [isDisabled, setIsDisabled] = React.useState(false);
     const [imgExist, setImgExist] = React.useState(false)
     const [error, setError] = React.useState(false)
-    const formData = new FormData();
 
     // const [emailErr, setEmailErr] = React.useState(false);
     // const [IDError, setIDError] = React.useState(false);
@@ -56,12 +56,34 @@ export default function Form() {
     function onImageChange(e) {
         const imageFile = e.target.files[0]
         // console.log(imageFile)
-        if (e.target && imageFile) {
-            setFormImage({ file: imageFile })
-        }
         setImg(URL.createObjectURL(imageFile))
         // console.log(URL.createObjectURL(imageFile))
         setImgExist(true)
+        const storageRef = ref(storage, `files/${imageFile.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+            uploadTask.on("state_changed",
+                (snapshot) => {
+                    setIsDisabled(true)
+                },
+                (error) => {
+                    alert(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        console.log(downloadURL)
+                        setIsDisabled(false)
+                        setFormInfo(prevFormInfo => {
+                            return {
+                                ...prevFormInfo,
+                                imgUrl: downloadURL
+                            }
+                        })
+                        
+
+                    });
+                }
+            );
     }
     function handleSubmit(e) {
         e.preventDefault();
@@ -69,45 +91,22 @@ export default function Form() {
             && formInfo.quote !== ""
             && imgExist) {
             e.target.disabled = true
-            const storageRef = ref(storage, `files/${formImage.file.name}`);
-            const uploadTask = uploadBytesResumable(storageRef, formImage.file);
-
-            uploadTask.on("state_changed",
-                (snapshot) => {
-                    // console.log('uploading..')
-                },
-                (error) => {
-                    alert(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        // setImgUrl(downloadURL)
-                        // console.log('uploaded')
-                        Object.entries(formInfo).map(item => {
-                            formData.append(item[0], item[1])
-                        })
-                        formData.append('imgUrl', downloadURL)
-                        axios({
-                            method: 'POST',
-                            url: 'http://localhost:3001/profile/add',
-                            data: formData
-                        })
-                            .then(function (response) {
-                                if (response.data.detail === "Profile created") {
-                                    localStorage.setItem("user", response.data._id)
-                                    navigate(`/profile/${response.data._id}`)
-                                }
-                                console.log(response);
-                            })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-
-                    });
-                }
-            );
-
-
+            axios({
+                method: 'POST',
+                // url: 'some/api',
+                url: 'http://localhost:3001/profile/add',
+                data: formInfo
+            })
+                .then(function (response) {
+                    if (response.data.detail === "Profile created") {
+                        localStorage.setItem("user", response.data._id)
+                        navigate(`/profile/${response.data._id}`)
+                    }
+                    console.log(response);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
 
         }
         else {
@@ -209,7 +208,7 @@ export default function Form() {
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formInfo.quote + '" '}
                     </Box>
-                    <Button onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
+                    <Button  disabled={isDisabled} className="button" onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                 </Box>
             </Flex>
             <Alert bg="#242323" color="white" status='error' display={error ? "block" : "none"} position="absolute" w="40%" bottom="0" right="0">
