@@ -219,7 +219,7 @@ router.post("/edit/:id" ,async (req, res) => {
         session.startTransaction();
         const user = await User.findById(req.params.id);
         const imgUrl = req.body.imgUrl 
-        if (imgUrl!= null) {
+        if (imgUrl!= "") {
          user.imageUrl=imgUrl
         }
         const quote = req.body.quote;
