@@ -17,7 +17,7 @@ export default function Profile(props) {
         captions: [],
         discipline: "",
         email: "",
-        imgUrl: "",
+        imageUrl: "",
         name: "",
         nominatedby: [],
         quote: "",
@@ -33,6 +33,7 @@ export default function Profile(props) {
         })
             .then(function (response) {
                 setUser(response.data.user)
+                console.log(response.data.user)
                     setLoading(false)
                 if (params.id === window.localStorage.getItem("user")) {
                     window.localStorage.setItem("userName", response.data.user.name)
@@ -57,7 +58,7 @@ export default function Profile(props) {
                 quote={user.quote}
                 id={user.bitsId}
                 discipline={user.bitsId[4] + user.bitsId[5]}
-                imgUrl={user.imgUrl}
+                imgUrl={user.imageUrl}
             />
             <Interact
                 captions={user.captions}
