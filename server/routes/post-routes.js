@@ -214,11 +214,12 @@ router.post("/nominate", async (req, res) => {
 
 router.post("/edit/:id" ,async (req, res) => {
     try {
+        console.log(req.body);
         const session = await User.startSession();
         session.startTransaction();
         const user = await User.findById(req.params.id);
         const imgUrl = req.body.imgUrl 
-        if (imgUrl!= null) {
+        if (imgUrl!= "") {
          user.imageUrl=imgUrl
         }
         const quote = req.body.quote;
