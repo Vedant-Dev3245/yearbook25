@@ -27,22 +27,20 @@ const upload = multer({
     },
 });
 
-router.post("/profile/add", upload.single("image"), async (req, res) => {
-    var users;
+router.post("/profile/add", async (req, res) => {
 
+console.log(req.body);
     try {
         const user = new User({
             name: req.body.firstName + " " + req.body.lastName,
             email: req.body.email,
             bitsId: req.body.id,
             quote: req.body.quote,
-            discipline: ""
+            discipline: "",
+            imageUrl:req.body.imgUrl
         })
 
     
-
-        const buffer = await sharp(req.file.buffer).png().toBuffer()
-        user.img = buffer;
         
         await user.save(async function(err,user){
             const userId = user._id;

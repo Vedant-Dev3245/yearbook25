@@ -25,11 +25,7 @@ var UserSchema = new mongoose.Schema({
     },
     captions : {
         type : Array
-    },
-    img: 
-    { 
-        type : Buffer
-    } 
+    }
 })
 
     
