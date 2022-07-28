@@ -29,7 +29,7 @@ export default function Profile(props) {
         setLoading(true)
         axios({
             method: 'GET',
-            url: `http://127.0.0.1:3001/getprofile/${params.id}`,
+            url: `https://yearbook-portal-backend-2022.herokuapp.com/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)

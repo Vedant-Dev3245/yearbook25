@@ -94,7 +94,7 @@ export default function ProfileInfo(props) {
         let currentUser = localStorage.getItem("user")
         axios({
             method: 'POST',
-            url: `http://localhost:3001/profile/edit/${currentUser}`,
+            url: `https://yearbook-portal-backend-2022.herokuapp.com/profile/edit/${currentUser}`,
             data: formInfo
         })
             .then(function (response) {
@@ -131,7 +131,7 @@ let nominateData = {
 function nominate() {
     axios({
         method: 'POST',
-        url: "http://127.0.0.1:3001/nominate",
+        url: "https://yearbook-portal-backend-2022.herokuapp.com/nominate",
         data: nominateData
     })
         .then(function (res) {

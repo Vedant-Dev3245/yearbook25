@@ -15,10 +15,10 @@ export default function Search() {
         }
         else {
             setTimeout(() => {
-                console.log(`http://localhost:3001/searchUsers?name=${inputValue}`)
+                console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `http://localhost:3001/searchUsers?name=${inputValue}`,
+                    url: `https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
