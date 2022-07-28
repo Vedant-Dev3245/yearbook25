@@ -2,7 +2,7 @@ import React from "react"
 import jwtDecode from "jwt-decode"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import { Box } from '@chakra-ui/react';
+import { Alert,AlertIcon, Box } from '@chakra-ui/react';
 import Footer from "../Components/Footer";
 import Hero from "../Components/Hero"
 import Working from "../Components/Working"
@@ -13,6 +13,8 @@ import OptIn from "../Components/OptIn";
 
 export default function Home() {
 
+  const [auth, isAuth] = React.useState(true)
+
   function checkUser(userObject) {
     axios({
       method: 'POST',
@@ -20,18 +22,28 @@ export default function Home() {
       data: userObject
     })
       .then(function (response) {
-        // console.log(response)
-        if (response.data.exists) {
-          console.log("id: " + response.data.user._id)
-          localStorage.setItem("user", response.data.user._id)
-          navigate(`/profile/${response.data.user._id}`)
-        } else {
-          navigate('/form', { state: userObject })
+        
+        if(response.data.authorised===0){
+          isAuth(false)
+          setTimeout(() => {
+            isAuth(true)
+          }, 5000);
         }
+        else{
+          if (response.data.exists) {
+            console.log("id: " + response.data.user._id)
+            localStorage.setItem("user", response.data.user._id)
+            navigate(`/profile/${response.data.user._id}`)
+          } else {
+            navigate('/form', { state: userObject })
+          }
+        }
+       
       })
       .catch(function (error) {
         console.log(error);
       });
+        
   }
 
   function handleCallbackResponse(response) {
@@ -62,7 +74,7 @@ export default function Home() {
         }
 
       )
-      google.accounts.id.prompt();
+      // google.accounts.id.prompt();
     }
 
     // if (localStorage.getItem("user") !== null) {
@@ -80,6 +92,10 @@ export default function Home() {
     <Box overflowX="hidden"
       bg="#141414"
     >
+      <Alert bg="#242323" color="white" status='error' display={auth ? "none" : "block"} position="absolute" w="40%" top="12rem" right="0">
+                <AlertIcon />
+                Sorry, you are not authorised to log-in.
+            </Alert>
       <Navbar />
       <Hero />
       <Working />

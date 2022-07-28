@@ -5,13 +5,13 @@ import { HamburgerIcon } from '@chakra-ui/icons'
 export default function Navbar() {
 	const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 	const [loggedIn, setLoggedIn] = React.useState(false)
-	
+
 	if (localStorage.getItem("user") !== null && !loggedIn) {
 		setLoggedIn(true)
 	}
 	const navigate = useNavigate()
 
-	function gotoprofile(){
+	function gotoprofile() {
 		console.log(localStorage.getItem("user"))
 		navigate(`/profile/${localStorage.getItem("user")}`)
 	}
@@ -20,8 +20,8 @@ export default function Navbar() {
 		<>
 			<Image position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
 			<Box className="pad">
-				<Flex borderWidth={2} borderRadius={10} backdropBlur={10} justifyContent="space-between" paddingBlock={1} alignItems="center" className="navbar" 
-				background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
+				<Flex borderWidth={2} borderRadius={10} backdropBlur={10} justifyContent="space-between" paddingBlock={1} alignItems="center" className="navbar"
+					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
 					<Box display={isSmallerThan800 ? 'none' : 'flex'} justifyContent="space-between" width="100%" maxW="500px" align={'center'}>
@@ -42,19 +42,23 @@ export default function Navbar() {
 
 							/>
 							<MenuList color="white" bgColor="#141414">
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}>home</MenuItem>
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}>about</MenuItem>
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}>contact</MenuItem>
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}>developers</MenuItem>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600"  href="#">home</Link>
+								</MenuItem>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" href="https://bits-sarc.org" target="_blank">about</Link>
+								</MenuItem>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" 
+									href="#contact">contact</Link>
+								</MenuItem>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" >developers</Link></MenuItem>
 							</MenuList>
 						</Menu>
 					</Box>
-					
+
 					{loggedIn ?
-					<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{bg:""}}>
-						<Text fontSize="s" fontWeight="600" color="white" p={4}>Profile</Text>
-					</Button>
-					:<Box id="signInDiv" p={2}></Box>}
+						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{ bg: "" }}>
+							<Text fontSize="s" fontWeight="600" color="white" p={4}>Profile</Text>
+						</Button>
+						: <Box id="signInDiv" p={2}></Box>}
 				</Flex>
 			</Box>
 		</>

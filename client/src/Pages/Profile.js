@@ -5,12 +5,14 @@ import ProfileNav from '../Components/ProfileNav'
 import Interact from '../Components/Interact'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 // import * as fs from 'fs';
 // import * as fs from 'fs/promises'
 
 export default function Profile(props) {
 
     const params = useParams();
+    const [loading, setLoading] = React.useState(true)
     const [user, setUser] = React.useState({
         captions: [],
         discipline: "",
@@ -24,37 +26,43 @@ export default function Profile(props) {
         bitsId: ""
     })
     React.useEffect(() => {
+        setLoading(true)
         axios({
             method: 'GET',
             url: `http://127.0.0.1:3001/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)
-                if(params.id === window.localStorage.getItem("user")){
-                    window.localStorage.setItem("userName",response.data.user.name)
+                    setLoading(false)
+                if (params.id === window.localStorage.getItem("user")) {
+                    window.localStorage.setItem("userName", response.data.user.name)
                 }
-                console.log(response.data.user)
-                
             })
             .catch(function (error) {
                 console.log(error);
             });
     }, [params.id])
-    
+
     return (
-        <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden">
+        <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" filter={loading ? "blur(2px)" : 0}>
+            <Box position = "absolute" top="25%" left="50%" zIndex="2" bgColor="#130d1f" display={loading ? "block" : "none"}><ClimbingBoxLoader
+                color="#D4D4D4"
+                loading = {loading}
+                size={60}
+                speedMultiplier={0.7}
+            /></Box>
             <ProfileNav />
             <ProfileInfo
                 name={user.name}
-                quote = {user.quote}
+                quote={user.quote}
                 id={user.bitsId}
-                discipline={user.bitsId[4]+user.bitsId[5]}
+                discipline={user.bitsId[4] + user.bitsId[5]}
                 imgUrl={user.imgUrl}
-                />
-            <Interact 
-            captions = {user.captions}
-            nominatedby = {user.nominatedby}
-            name = {user.name}
+            />
+            <Interact
+                captions={user.captions}
+                nominatedby={user.nominatedby}
+                name={user.name}
             />
         </Box>
     )

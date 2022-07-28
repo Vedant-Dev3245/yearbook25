@@ -47,7 +47,7 @@ export default function ProfileInfo(props) {
             setShowEdit(false)
             setOwnProfile(false)
         }
-    })
+    },[])
     // React.useEffect(() => {
     //     if (props.img.type === "Buffer") {
 
