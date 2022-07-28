@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bodyParser = require("body-parser");
 const { User,Search} = require("../models/user");
 var fs = require("fs");
+const { query } = require("express");
 var users;
 
 router.get("/", (req, res) => {
@@ -44,33 +45,36 @@ router.get("/getprofile/:id", async (req, res) => {
 
 router.get("/searchUsers", async (req, res) => {
       try {
-            let result = req.query.name;
-            let newV = "\"" + result + "\"";
-            const query = {
-                  $text: {
-                        $search: newV
+            console.log(req.query.name);
+            let result = await Search.aggregate([
+              {
+                  "$search": {
+                  'index': 'search',
+                  "autocomplete": {
+                    "query": `${req.query.name}`,
+                    "path": "name"
                   }
-            };
-            const sort = { score: { $meta: "textScore" } };
-            const users = await Search.find(query).sort(sort).limit(6)
-            console.log(users);
-            if (users.length == 0) {
-                  res.send({
-                        msg: "User not found"
-                  })
-            }
-            else res.send({ users: users });
-      }catch (err) {
-            return res.send({
-                  status:"failure",
-                  msg: "There was an error, Please try after some time",
-            })
-        } 
+                },
+              },
+              {
+                $limit: 6
+              },
+              {
+                $project: {
+                  "_id": 0,
+                }
+              }
+            ]);
+            console.log(result);
+            res.send({users:result});
+          } catch (e) {
+            res.status(500).send({message: e.message});
+          }
 
 })
 
 
-  
+text
 // router.get("/profile/:id/edit", (req, res) => {
 //       // res.render("edit-details", { id: req.params.id });
 //       res.send({ id: req.params.id });
