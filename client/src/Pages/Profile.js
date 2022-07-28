@@ -49,7 +49,7 @@ export default function Profile(props) {
                 quote = {user.quote}
                 id={user.bitsId}
                 discipline={user.bitsId[4]+user.bitsId[5]}
-                imgUrl={user.imgUrl}
+                imgUrl={user.imageUrl}
                 />
             <Interact 
             captions = {user.captions}
