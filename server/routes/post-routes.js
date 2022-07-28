@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
-const User = require("../models/user");
+const { User,Search} = require("../models/user");
 const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
@@ -38,7 +38,9 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
             quote: req.body.quote,
             discipline: ""
         })
-        
+
+    
+
         const buffer = await sharp(req.file.buffer).png().toBuffer()
         user.img = buffer;
         
@@ -46,14 +48,22 @@ router.post("/profile/add", upload.single("image"), async (req, res) => {
             const userId = user._id;
             const withoutQuotes = userId.toString().replace(/"/g, '');
             console.log(userId);
-            const csv = new ObjectsToCsv([
-                {
-                    name: user.name,
-                    id: withoutQuotes,
-                    bitsId: user.bitsId
-                }
-            ]);
-            await csv.toDisk('./allUserData.csv', { append: true,headers:false })
+            const search = new Search({
+                uId: withoutQuotes,
+                name: user.name,
+                bitsId:user.bitsId
+            })
+            await search.save();
+            // const csv = new ObjectsToCsv([
+            //     {
+            //         name: user.name,
+            //         id: withoutQuotes,
+            //         bitsId: user.bitsId
+            //     }
+            // ]);
+            // await csv.toDisk('./allUserData.csv', { append: true,headers:false })
+
+
 
             return res.send({
                 detail: "Profile created",

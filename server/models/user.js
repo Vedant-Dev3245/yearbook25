@@ -33,6 +33,15 @@ var UserSchema = new mongoose.Schema({
 })
 
     
-UserSchema.index({name: 'text'})
+// UserSchema.index({name: 'text'})
 var User = mongoose.model('User', UserSchema);
-module.exports = User;
+
+const searchSchema = new mongoose.Schema({
+    uId: String,
+    name: String,
+    bitsId: String
+});
+searchSchema.index({name: 'text'})
+var Search = mongoose.model('Search', searchSchema);
+
+module.exports = {User,Search}

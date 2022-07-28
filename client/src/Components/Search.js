@@ -23,7 +23,7 @@ export default function Search() {
                     .then(function (response) {
                         let tempArray = [];
                         response.data.users.forEach(element => {
-                            tempArray.push({ label: `${element[0]} ${element[2]} `, value: `${element[1]}` });
+                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.uId}` });
                         });
                         callback(tempArray);
                     })

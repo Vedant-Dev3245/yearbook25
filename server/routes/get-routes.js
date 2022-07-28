@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
-const User = require("../models/user");
+const { User,Search} = require("../models/user");
 var fs = require("fs");
 var users;
 
@@ -24,22 +24,50 @@ router.get("/getprofile/:id", async (req, res) => {
         }
 });
 
-router.get("/searchUsers", async (req, res) => {
-      const reqName=req.query.name;
-      fs.readFile('allUserData.csv',  (err,data) => {
-            var users= data.toString() 
-            .split('\n') 
-            .map(e => e.trim()) 
-                  .map(e => e.split(',').map(e => e.trim()));
+// router.get("/searchUsers", async (req, res) => {
+//       const reqName=req.query.name;
+//       fs.readFile('allUserData.csv',  (err,data) => {
+//             var users= data.toString() 
+//             .split('\n') 
+//             .map(e => e.trim()) 
+//                   .map(e => e.split(',').map(e => e.trim()));
         
-            const filteredUsers = users.filter(user => {
-                  console.log(user[0])
-                        if (user[0].toLowerCase().includes(reqName.toLowerCase())) return user;
+//             const filteredUsers = users.filter(user => {
+//                   console.log(user[0])
+//                         if (user[0].toLowerCase().includes(reqName.toLowerCase())) return user;
+//                   })
+//             console.log(filteredUsers);
+//             return res.send({ users:filteredUsers });
+//       })
+// });
+
+
+router.get("/searchUsers", async (req, res) => {
+      try {
+            let result = req.query.name;
+            let newV = "\"" + result + "\"";
+            const query = {
+                  $text: {
+                        $search: newV
+                  }
+            };
+            const sort = { score: { $meta: "textScore" } };
+            const users = await Search.find(query).sort(sort).limit(6)
+            console.log(users);
+            if (users.length == 0) {
+                  res.send({
+                        msg: "User not found"
                   })
-            console.log(filteredUsers);
-            return res.send({ users:filteredUsers });
-      })
-});
+            }
+            else res.send({ users: users });
+      }catch (err) {
+            return res.send({
+                  status:"failure",
+                  msg: "There was an error, Please try after some time",
+            })
+        } 
+
+})
 
 
   
