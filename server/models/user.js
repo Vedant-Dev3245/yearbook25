@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+//this file determines the user model and schema
 var UserSchema = new mongoose.Schema({
     name : {
         type: String,
@@ -37,7 +37,7 @@ const searchSchema = new mongoose.Schema({
     name: String,
     bitsId: String
 });
-searchSchema.index({name: 'text'})
+searchSchema.index({name: 'text'})//adding name as an index for searching the Search collection
 var Search = mongoose.model('Search', searchSchema);
 
 module.exports = {User,Search}

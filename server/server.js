@@ -47,9 +47,17 @@ app.use(
 
 //app.use(passport.initialize());
 //app.use(passport.session());
+var whitelist = ['http://localhost:3000', 'https://sarc-yearbook-sarc.vercel.app'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
-app.use(cors());
-app.options('*', cors());
 app.use(express.static("public"));
 app.listen(port, () => console.log("Listening at port " + port));
 app.use(bodyParser.json());
@@ -67,6 +75,6 @@ function loggedIn(req, res, next) {
     res.redirect("/");
   }
 }
-app.use("/auth", authRoutes);
-app.use("/", getRoutes); // find another way to implement logged in
-app.use("/", postRoutes);
+// app.use("/auth", authRoutes);
+app.use("/",cors(corsOptions), getRoutes); 
+app.use("/",cors(corsOptions), postRoutes);

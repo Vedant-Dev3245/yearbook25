@@ -1,3 +1,5 @@
+//whenever making a new db add this search index to the db, this is for the search implemented in autocomplete
+
 {
   "mappings": {
     "dynamic": false,
