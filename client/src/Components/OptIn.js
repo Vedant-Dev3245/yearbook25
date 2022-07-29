@@ -10,10 +10,9 @@ export default function OptIn(){
     return(
         <Box color="white" w="80%" h="auto" 
             marginInline="auto" 
-            bg={isSmallerThan800?"url('../images/rectangle.png')":"url('../images/walkBg.png')"} 
+            bg={isSmallerThan800?"url('../images/rectangle.png')":"url('../images/Rectangle 39.png')"} 
             backgroundSize="cover" mt="7rem" className="physical" 
-            position="relative" 
-            borderRadius={60} border="2px #B3B3B3 solid"
+            position="relative" top="4rem"
             mb={100}>
                 <VStack
                     w="80%"

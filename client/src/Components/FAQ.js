@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Box, Text, VStack, useMediaQuery
+    Box, Text, VStack, useMediaQuery, Image
 } from "@chakra-ui/react";
 import { useState } from "react";
 import FAQItems from "./FAQItems";
@@ -14,8 +14,12 @@ export default function FAQ() {
     const [faq5, setFaq5] = useState(false);
     return (
         <>
-            <Box className="heading" fontSize={64} color="#fff" fontWeight={800} textAlign='left' ml={isSmallerThan800 ? '1.4rem !important' : '6rem'} mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
-            <VStack mt="2rem" spacing={4} className="faqCont">
+            <Box className="heading" fontSize={64} 
+            color="#fff" fontWeight={800} 
+            textAlign='left' 
+            ml={isSmallerThan800 ? '1.4rem !important' : '10rem'}
+            mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
+            <VStack mt="2rem" ml="5rem" mr="5rem" spacing={4} className="faqCont">
                 <FAQItems
                     marginBottom="0 !important"
                     faq="What is the difference between a token and a token pair?"
@@ -44,6 +48,7 @@ export default function FAQ() {
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
                 />
+                <Image src="../images/text2816.png" opacity="0.1" position="absolute" right="1.2rem" />                
                 <FAQItems
                     faq="What is the difference between a token and a token pair?"
                     show={faq4}

@@ -12,23 +12,23 @@ export default function Hero() {
                     <Flex mt="3rem !important" color="white" width={isSmallerThan900 ? '100%' : '60%'} flexDirection="column">
                         <Flex justifyContent="space-between" textAlign="left">
                             <Box mr={isSmallerThan900 ? '1.4rem' : 0}>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3rem'} fontWeight="800">5.3k+</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.3rem'} color="#B3B3B3" >captions</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3.52rem'} fontWeight="800">5.3k+</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.126rem'} color="#B3B3B3" fontWeight="500">captions</Text>
                             </Box>
                             <Box>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3rem'} fontWeight="800">486</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.3rem'} color="#B3B3B3" >yearbook quotes</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3.52rem'} fontWeight="800">486</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.126rem'} color="#B3B3B3" fontWeight="500">yearbook quotes</Text>
                             </Box>
                         </Flex>
-                        <Image src="../images/Ellipse 9.png" alt="ellipse" position="absolute" left="-3rem" top="40rem" />
+                        <Image pointerEvents={'none'} src="../images/Ellipse 9.png" alt="ellipse" position="absolute" left="-3rem" top="40rem" />
                         <Flex justifyContent="space-between" textAlign="left">
                             <Box mr={isSmallerThan900 ? '1.4rem' : 0}>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3rem'} fontWeight="800">4.2</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.3rem'} color="#B3B3B3" >branches</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3.52rem'} fontWeight="800">4.2</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.126rem'} color="#B3B3B3" fontWeight="500">branches</Text>
                             </Box>
                             <Box>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3rem'} fontWeight="800">250k+</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.3rem'} color="#B3B3B3" >visits in past 30d</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '3.52rem'} fontWeight="800">250k+</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '1.126rem'} color="#B3B3B3" fontWeight="500">visits in past 30 days</Text>
                             </Box>
                         </Flex>
                     </Flex>
@@ -59,8 +59,8 @@ export default function Hero() {
                                 idk why are you</Text>
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
-                        <Image src="../images/Ellipse 8.png" alt="ellipse" position="absolute" left="27rem" top="10rem" />
-                        <Image w="100%" ml={isSmallerThan900 ? '4rem' : '-1rem'} src="../images/clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} />
+                        <Image pointerEvents={'none'} src="../images/Ellipse 8.png" alt="ellipse" position="absolute" left="27rem" top="10rem" />
+                        <Image pointerEvents={'none'} w="100%" ml={isSmallerThan900 ? '4rem' : '-1rem'} src="../images/clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} />
                     </Box>
                 </Box>
             </Flex >

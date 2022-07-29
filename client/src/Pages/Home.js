@@ -91,11 +91,14 @@ export default function Home() {
 
     <Box overflowX="hidden"
       bg="#141414"
+      className="noselect"
     >
-      <Alert bg="#242323" color="white" status='error' display={auth ? "none" : "block"} position="absolute" w="40%" top="12rem" right="0">
+      <Alert bg="#242323" color="white" 
+      status='error' display={auth ? "none" : "block"} 
+      position="absolute" w="40%" top="12rem" right="0">
                 <AlertIcon />
                 Sorry, you are not authorised to log-in.
-            </Alert>
+      </Alert>
       <Navbar />
       <Hero />
       <Working />

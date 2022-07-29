@@ -18,7 +18,7 @@ export default function Navbar() {
 
 	return (
 		<>
-			<Image position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
+			<Image pointerEvents={'none'} position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
 			<Box className="pad">
 				<Flex borderWidth={2} borderRadius={10} backdropBlur={10} justifyContent="space-between" paddingBlock={1} alignItems="center" className="navbar"
 					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
@@ -56,7 +56,7 @@ export default function Navbar() {
 
 					{loggedIn ?
 						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{ bg: "" }}>
-							<Text fontSize="s" fontWeight="600" color="white" p={4}>Profile</Text>
+							<Text fontSize="s" fontWeight="700" color="white" p={4}>Profile</Text>
 						</Button>
 						: <Box id="signInDiv" p={2}></Box>}
 				</Flex>
