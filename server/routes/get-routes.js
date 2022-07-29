@@ -4,17 +4,17 @@ const { User,Search} = require("../models/user");
 var fs = require("fs");
 const { query } = require("express");
 var users;
-
+// do error handling before adding a new api
 router.get("/", (req, res) => {
       return res.send({ msg: "Backend is Up and Running" });
 })
+//basic api to get the user from object id
 router.get("/getprofile/:id", async (req, res) => {
       try {
             const user = await User.findById(req.params.id);
             if (!user) {
                   return res.status(400).send();
             }
-            // res.render("profile", { user: user  });
             res.send({ user: user });
       }
       catch (err) {
@@ -25,24 +25,8 @@ router.get("/getprofile/:id", async (req, res) => {
         }
 });
 
-// router.get("/searchUsers", async (req, res) => {
-//       const reqName=req.query.name;
-//       fs.readFile('allUserData.csv',  (err,data) => {
-//             var users= data.toString() 
-//             .split('\n') 
-//             .map(e => e.trim()) 
-//                   .map(e => e.split(',').map(e => e.trim()));
-        
-//             const filteredUsers = users.filter(user => {
-//                   console.log(user[0])
-//                         if (user[0].toLowerCase().includes(reqName.toLowerCase())) return user;
-//                   })
-//             console.log(filteredUsers);
-//             return res.send({ users:filteredUsers });
-//       })
-// });
 
-
+//searching the user by name, this happens in "Search" collection, /searchUsers?name=sarthak
 router.get("/searchUsers", async (req, res) => {
       try {
             console.log(req.query.name);
@@ -50,14 +34,14 @@ router.get("/searchUsers", async (req, res) => {
               {
                   "$search": {
                   'index': 'search',
-                  "autocomplete": {
+                  "autocomplete": { //autocomplete is implemented so that suggestions are sent to front
                     "query": `${req.query.name}`,
                     "path": "name"
                   }
                 },
               },
               {
-                $limit: 6
+                $limit: 8
               },
               {
                 $project: {
@@ -73,68 +57,7 @@ router.get("/searchUsers", async (req, res) => {
 
 })
 
-
-// router.get("/profile/:id/edit", (req, res) => {
-//       // res.render("edit-details", { id: req.params.id });
-//       res.send({ id: req.params.id });
-// });
-
-// router.get("/:id/nominate", (req, res) => {
-//       // res.render("nominate", { id: req.params.id });
-//       res.send({ id: req.params.id });
-// });
-
-// router.get("/notifications/:id", async (req, res) => {
-//       const id = req.params.id;
-//       const user = await User.findById(id);
-//       const nominees = user.nominatedby;
-//       //res.render("notifications", { id: id, nomineelist: nominees });
-//       res.send({ nomineelist: nominees })
-// });
-
-// router.get("/:id1/:id2/caption", async (req, res) => {
-//       const id1 = req.params.id1;
-//       const id2 = req.params.id2;
-
-//       const user1 = await User.findById(id1);
-//       const user2 = await User.findById(id2);
-//       let name = user1.name;
-//       const captions = user2.captions;
-//       const found = captions.find((o) => o.name === name);
-//       if (found) {
-//             const oldcaption = found.caption;
-//             name = user2.name;
-//         console.log("founddddd");
-//         console.log(id2);
-//             // return res.render("caption", {
-//             //       id: id1,
-//             //       name: name,
-//             //       id2: id2,
-//             //       oldcaption: oldcaption,
-//             // });
-//             return res.send({
-//                   id: id1,
-//                   name: name,
-//                   id2: id2,
-//                   oldcaption: oldcaption,
-//             });
-//       } else {
-//             name = user2.name;
-//             // return res.render("caption", {
-//             //       id: id1,
-//             //       name: name,
-//             //       id2: id2,
-//             //       oldcaption: "",
-//             // });
-//             return res.send({
-//                   id: id1,
-//                   name: name,
-//                   id2: id2,
-//                   oldcaption: "",
-//             });
-//       }
-// });
-
+//not using this api but helpful for searching by name in User collection
 router.get("/search/:name", async (req, res) => {
       try {
             let result = req.params.name;
@@ -153,7 +76,7 @@ router.get("/search/:name", async (req, res) => {
                   bitsId: 1,
                   score: { $meta: "textScore" }
             };
-            const users = await User.find(query, projection).sort(sort).limit(4)
+            const users = await User.find(query, projection).sort(sort).limit(4)//read about various variations of find online
             console.log(users);
             if (users.length == 0) {
                   res.send({
@@ -169,21 +92,5 @@ router.get("/search/:name", async (req, res) => {
         }        
 });
 
-// router.get("/:id/upload", (req, res) => {
-//       const id = req.params.id;
-//       // res.render("upload", { id: id });
-//       res.send({ id: id });
-// });
-
-// router.get("/:id/developers", (req, res) => {
-//       // res.render("developers", { id: req.params.id });
-//       res.send({ id: req.params.id });
-// });
-
-// router.get("/upload/:id", async (req, res) => {
-//       const user = await User.findById(req.params.id);
-//       res.set("Content-Type", "image/png");
-//       res.send(user.img);
-// });
 
 module.exports = router;

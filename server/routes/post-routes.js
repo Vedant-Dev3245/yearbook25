@@ -5,28 +5,15 @@ const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
 const keys = require("../config/keys");
-var fs = require("fs")
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
 const privileged=require("../specialUsers")
 const sharp = require("sharp");
 const { log } = require("console");
-const ObjectsToCsv = require('objects-to-csv')
 
-const upload = multer({
-    limits: {
-        fileSize: 3000000,
-    },
-    fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(JPG|jpg|jpeg|png|JPEG|PNG)$/)) {
-            return cb(
-                new Error("Please provide a jpg, jpeg or png file")
-            );
-        }
-        cb(undefined, true);
-    },
-});
+// do error handling before adding a new api
 
+//adding a new user to db, adds simultaneously to 2 collections
 router.post("/profile/add", async (req, res) => {
 
 console.log(req.body);
@@ -44,7 +31,7 @@ console.log(req.body);
         
         await user.save(async function(err,user){
             const userId = user._id;
-            const withoutQuotes = userId.toString().replace(/"/g, '');
+            const withoutQuotes = userId.toString().replace(/"/g, '');//removing """ from objectId thus generated
             console.log(userId);
             const search = new Search({
                 uId: withoutQuotes,
@@ -52,17 +39,6 @@ console.log(req.body);
                 bitsId:user.bitsId
             })
             await search.save();
-            // const csv = new ObjectsToCsv([
-            //     {
-            //         name: user.name,
-            //         id: withoutQuotes,
-            //         bitsId: user.bitsId
-            //     }
-            // ]);
-            // await csv.toDisk('./allUserData.csv', { append: true,headers:false })
-
-
-
             return res.send({
                 detail: "Profile created",
                 _id:userId
@@ -81,21 +57,13 @@ console.log(req.body);
 })
 
 
-    // const form = new formidable.IncomingForm();
-    // console.log(req)
-    // const form = formidable({multiples: true})
-    // form.parse(req, async (err, fields, files) => {
-    //     try {
-    //         console.log(fields)receiver
-    //     }
-    // })
 
-
+//checking if a profile exists earlier or not
 router.post("/profile/check", async (req, res) => { 
     try {
         console.log(req.body)
         const email = req.body.email;
-        if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) {
+        if (email.substring(0, 5) != "f2019" && !privileged.includes(email)) { //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
             return res.send({
                 authorised: 0
             })
@@ -126,16 +94,7 @@ router.post("/profile/check", async (req, res) => {
     }
 })
 
-
-// router.post("/addid/:id", async (req, res) => {
-//     const id = req.params.id;
-//     const quote = req.body.user.quote;
-//     if (req.user.id === id) {
-//         await User.findByIdAndUpdate(id, {quote: quote});
-//     }
-//     return res.redirect("/profile/" + req.params.id);
-// });
-
+//nominating a new friend to write a caption, a mail goes via sendgrid 
 router.post("/nominate", async (req, res) => {
     try {
         const senderId = req.body.senderId;
@@ -171,6 +130,7 @@ router.post("/nominate", async (req, res) => {
                 from: "studentalumnirelationscell@gmail.com",
                 to: receiverEmail,
                 subject: "Online Yearbook Portal",
+                // change the email test from here
                 html: `<p>Greetings from the Student Alumni Relations Cell! <br>
                               You have been nominated by <b>${senderName}</b> to write a caption for their yearbook.<br>
                               Please keep the following points in mind while writing the captions:-<br>
@@ -211,7 +171,7 @@ router.post("/nominate", async (req, res) => {
     }
 })
 
-
+//editing current details: only photo and quote
 router.post("/edit/:id" ,async (req, res) => {
     try {
         console.log(req.body);
@@ -241,6 +201,8 @@ router.post("/edit/:id" ,async (req, res) => {
     }
 });
 
+
+//writing caption 
 router.post("/writecaption", async (req, res) => {
 
     try {
@@ -262,6 +224,7 @@ router.post("/writecaption", async (req, res) => {
             const name = writer.name;
             const receiver = await User.findById(receiverId).session(session);
             const captions = receiver.captions;
+            //checking if a caption has already been written or not, then we'll update otherwise push a new one
             if (captions.find((o) => o.name === name)) {
                 for (let i = 0; i < captions.length; i++) {
                     if (captions[i].name === name) {
