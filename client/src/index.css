@@ -177,6 +177,9 @@ border-radius: 50%;
   .barItems{
     margin-inline: 1rem;
   }
+  .selectOpt__control:focus{
+    box-shadow: none !important;
+  }
 
 
   @media (max-width:510px) {

@@ -94,7 +94,7 @@ export default function Form() {
             axios({
                 method: 'POST',
                 // url: 'some/api',
-                url: 'https://yearbook-portal-backend-2022.herokuapp.com/profile/add',
+                url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/add',
                 data: formInfo
             })
                 .then(function (response) {

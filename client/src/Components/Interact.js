@@ -32,7 +32,11 @@ export default function Interact(props) {
         else{
             setOwnProfile(false)
         }
-     },[friend] )
+        
+     } )
+     React.useEffect(()=> {
+        makeWallActive()
+     },[])
     
 
     function makeWallActive(){
@@ -89,7 +93,7 @@ export default function Interact(props) {
                 </Flex> */}
 
             </Flex>
-            <Box display={wallActive ? "block" : "none"}><Wall captions = {props.captions}/></Box>
+            <Box display={wallActive ? "block" : "none"}><Wall ownProfile = {ownProfile} makeNominActive = {makeNominActive} captions = {props.captions}/></Box>
             <Box display={nominateActive&&ownProfile ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
