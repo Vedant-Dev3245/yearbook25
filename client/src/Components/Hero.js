@@ -3,7 +3,7 @@ import { VStack, Box, Text, Image, Flex, useMediaQuery } from "@chakra-ui/react"
 export default function Hero() {
     const [isSmallerThan900] = useMediaQuery('(max-width:900px)')
     return (
-        <Box mt="1rem" className="pad">
+        <Box mt="3rem" className="pad">
             <Flex justifyContent="space-between" alignItems="center">
                 <VStack className="heroText" ml="1rem" width={isSmallerThan900 ? '80%' : '40%'} spacing={4} alignItems="baseline">
                     <Text fontSize={isSmallerThan900 ? '1.8rem' : '5rem'} color="white" lineHeight={1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)">

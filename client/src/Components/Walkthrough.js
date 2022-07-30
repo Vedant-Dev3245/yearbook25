@@ -13,14 +13,14 @@ export default function Walkthrough() {
             <Text fontStyle="italic" display="inline" 
             fontFamily="EB Garamond" > walkthrough</Text> of the platform</Box>
 
-            <Box w="100%" bg="url(./images/textBg.png)"> 
-                <Box background="url(./images/walkBg.png)" backgroundSize="cover" w="72%" h="30rem" borderRadius="50px"
+            <Box w="100%" bg="url(./images/textBg.png)" bgRepeat={"no-repeat"}> 
+                <Box background="url(./images/walkBg.png)" backgroundSize="cover" w="72%" h="37rem" borderRadius="50px"
                     border="3px solid rgba(255, 255, 255, 0.75);" marginInline="auto" mt="2rem">
-                    <Box w='100%' h="30rem">
+                    <Box w='100%' h="37rem">
                         <Box display={showVideo === true ? 'block' : 'none'}>
                             <iframe width="100%" className='video' src="https://www.youtube.com/embed/T94PHkuydcw?" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen={true}></iframe>
                         </Box>
-                        <Button display={showVideo === true ? "none" : "block"} cursor="pointer" onClick={toggleVideo} mt="22rem" ml="3rem" p="2rem 2.6rem" borderRadius="200px"> <Image mt="-0.5rem" w="12%" src="./images/playButton.png" /> <Text mt="-1.5rem" fontWeight="800" fontSize="1.4rem" ml="2rem">play video</Text> </Button>
+                        <Button display={showVideo === true ? "none" : "block"} cursor="pointer" onClick={toggleVideo} mt="30rem" ml="3rem" p="2rem 2.6rem" borderRadius="200px"> <Image mt="-0.5rem" w="12%" src="./images/playButton.png" /> <Text mt="-1.5rem" fontWeight="800" fontSize="1.4rem" ml="2rem">play video</Text> </Button>
                     </Box>
                 </Box>
             </Box>

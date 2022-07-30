@@ -1,12 +1,13 @@
 import { Box, Flex, Text, VStack, Image, Link, useMediaQuery } from '@chakra-ui/react'
 
 import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Footer() {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box>
-            <Box bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
+            <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="4rem" ml="5rem" mb="2rem" mr="-7rem">
                     <VStack w="20%" alignItems="baseline" justifyContent="center">
                         <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
@@ -14,6 +15,12 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
+                        {/* <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
+                            <FontAwesomeIcon icon="fa-brands fa-facebook-f" />
+                            <FontAwesomeIcon icon="fa-brands fa-twitter" />
+                            <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
+                            <FontAwesomeIcon icon="fa-brands fa-instagram" />                        
+                        </Flex> */}
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">about us</Box>
