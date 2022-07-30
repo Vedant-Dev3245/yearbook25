@@ -20,6 +20,7 @@ export default function ProfileInfo(props) {
     const [ownProfile, setOwnProfile] = React.useState()
     const [showEdit, setShowEdit] = React.useState()
     const [spin, setSpin] = React.useState(false)
+    const [spin2, setSpin2] = React.useState(false)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const[msg,setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
@@ -73,6 +74,7 @@ export default function ProfileInfo(props) {
 
         uploadTask.on("state_changed",
             (snapshot) => {
+                setSpin2(true)
                 setIsDisabled(true)
             },
             (error) => {
@@ -82,6 +84,7 @@ export default function ProfileInfo(props) {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                     console.log(downloadURL)
                     setIsDisabled(false)
+                    setSpin2(false)
                     setFormInfo(prevFormInfo => {
                         return {
                             ...prevFormInfo,
@@ -180,6 +183,7 @@ export default function ProfileInfo(props) {
                                     {/* <Text color="white" textAlign={"center"}>insert image here</Text>    */}
                                     
                                     <Image src={imgExist? img : props.imgUrl} margin="auto" cursor="pointer" w="10rem" h="10rem" />
+                                    <Spinner size="lg" mt="1rem" position="absolute" display={spin2 ? "block" : "none"}/>
                                     <Box position="absolute" top="3rem" left="15%"><BiImageAdd fontSize="3rem"/></Box>
                                 </FormLabel>
                                 <FormLabel
