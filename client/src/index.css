@@ -114,7 +114,7 @@ border-radius: 50%;
     display: flex;
     margin-top: 4rem;
     margin-inline: auto; /* gutter size offset */
-    width: 90%;
+    width: 100%;
   }
   .my-masonry-grid_column {
     padding-left: 1.5rem;

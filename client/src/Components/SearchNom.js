@@ -2,12 +2,13 @@ import { Flex, Text, Box, Input, useMediaQuery, Alert, AlertIcon } from "@chakra
 import React from "react"
 import AsyncSelect from "react-select/async"
 import axios from "axios"
+import { Spinner } from '@chakra-ui/react'
 
 export default function Search(props) {
 
-    const [option, setOption] = React.useState({})
     const [exists, setExists] = React.useState(false)
     const [res, setRes] = React.useState(false)
+    const [spin, setSpin] = React.useState(false)
     const[alert,setAlert] = React.useState(false)
     const [label,setLabel] = React.useState("")
     const[bitsid, setBitsid] = React.useState("")
@@ -39,7 +40,6 @@ export default function Search(props) {
     }
     const onSearchChange = (option) => {
         if (option) {
-            setOption({option})
             localStorage.setItem("friend", option.value)
             setBitsid(option.label.substring(option.label.length -14))
             setLabel(option.label.substring(0,option.label.length -14 ))
@@ -62,21 +62,29 @@ export default function Search(props) {
             }, 3000);
         }
         else{
+            setSpin(true)
             axios({
                 method: 'POST',
-                url: "https://yearbook-portal-backend-2022.herokuapp.com/nominate",
+                url: "https://yearbook-backend-5algm.ondigitalocean.app/nominate",
                 data: nominateData
             })
             .then(function(res){
                 console.log(res);
                 setMsg( res.data.msg);
                 setRes(true)
+                setSpin(false)
             setTimeout(() => {
                 setRes(false)
             }, 3000);
             })
             .catch(function(err){
+                setMsg( err.message);
+                setRes(true)
                 console.log(err);
+                setSpin(false)
+                setTimeout(() => {
+                    setRes(false)
+                }, 3000);
             });
         }
         // console.log(nominateData)
@@ -99,6 +107,7 @@ export default function Search(props) {
             <Text mt="2rem" fontSize="1.5rem" fontWeight="800">bitsid</Text>
             <Input disabled marginBlock="1rem" p="1.2rem" w={isSmallerThan800 ? "80%" : "40%"} border="1px solid #6C6C6C !important" color="white" value={exists ? bitsid : "check bits id here"}/>
             <Box cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="2rem" w="fit-content" fontWeight={"600"} onClick={nominate}>Nominate</Box>
+            <Spinner size="lg" mt="1rem" display={spin ? "block" : "none"}/>
             <Alert bg="#242323" color="white" status='error' display={alert ? "block" : "none"} position="absolute" w="40%" bottom="5rem" left="0">
                 <AlertIcon />
                 You can not nominate yourself ;)

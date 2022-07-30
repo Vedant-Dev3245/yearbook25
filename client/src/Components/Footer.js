@@ -49,7 +49,7 @@ export default function Footer() {
                     </VStack>
                 </Flex>
             </Box>
-            <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
+            <Box paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
         </Box>
     )
 }

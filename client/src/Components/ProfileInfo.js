@@ -9,14 +9,17 @@ import React from "react";
 import { Icon } from "@chakra-ui/react";
 import { TbPencil } from "react-icons/tb"
 import axios from "axios"
+import { Spinner } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom";
-import { storage } from '../Firebase'
+import { storage } from '../Firebase'   
+import {BiImageAdd } from 'react-icons/bi'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function ProfileInfo(props) {
     const [isOpen, setIsOpen] = React.useState(false);
     const [ownProfile, setOwnProfile] = React.useState()
     const [showEdit, setShowEdit] = React.useState()
+    const [spin, setSpin] = React.useState(false)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const[msg,setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
@@ -38,7 +41,6 @@ export default function ProfileInfo(props) {
             }
         })
     }
-
 
     React.useEffect(() => {
         if (window.location.href.includes(localStorage.getItem("user"))) {
@@ -132,6 +134,7 @@ export default function ProfileInfo(props) {
         receiverId: localStorage.getItem("friend")
     }
     function nominate() {
+        setSpin(true)
         axios({
             method: 'POST',
             url: "https://yearbook-backend-5algm.ondigitalocean.app/nominate",
@@ -141,12 +144,14 @@ export default function ProfileInfo(props) {
                 console.log(res);
                 setMsg( res.data.msg);
                 setRes(true)
+                setSpin(false)
             setTimeout(() => {
                 setRes(false)
             }, 3000);
             })
             .catch(function (err) {
                 console.log(err);
+                setSpin(false)
             });
     }
 
@@ -172,8 +177,10 @@ export default function ProfileInfo(props) {
                             2020A7PS1508P great stuff
                             <FormControl mt="2rem"><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                                 <FormLabel htmlFor="file" position="relative">
-                                    <Text color="white" textAlign={"center"}>insert image here</Text>
-                                    <Image src={imgExist? img : "../images/pic.png"} margin="auto" cursor="pointer" w="8rem" h="8rem" borderRadius="48px" />
+                                    {/* <Text color="white" textAlign={"center"}>insert image here</Text>    */}
+                                    
+                                    <Image src={imgExist? img : props.imgUrl} margin="auto" cursor="pointer" w="10rem" h="10rem" />
+                                    <Box position="absolute" top="3rem" left="15%"><BiImageAdd fontSize="3rem"/></Box>
                                 </FormLabel>
                                 <FormLabel
                                     cursor="pointer"
@@ -181,11 +188,11 @@ export default function ProfileInfo(props) {
                                     fontSize="20px"
                                     fontWeight="600"
                                 >yearbook quote</FormLabel>
-                                <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
-                                <FormHelperText mt="0.4rem" mb="2rem">{formInfo.quote.length}/280 characters used
+                                <Textarea w="90%" maxLength="140" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
+                                <FormHelperText mt="0.4rem" mb="2rem">{formInfo.quote.length}/140 characters used
                                 </FormHelperText>
                                 <Flex justifyContent={"center"}>
-                                    <Button disabled={isDisabled} onClick={handleSubmit} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="1.6rem 2rem" fontSize="1.2rem" colorScheme="blackAlpha">submit</Button>
+                                    <Button disabled={isDisabled} onClick={handleSubmit} _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="1.6rem 2rem" fontSize="1.2rem" colorScheme="blackAlpha">submit</Button>
                                 </Flex>
                             </FormControl>
                         </ModalBody>
@@ -213,11 +220,13 @@ export default function ProfileInfo(props) {
                 </VStack>
             </Flex>
             <Box ml={isSmallerThan800 ? "0" : "10rem"} position= "relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate this friend"}
+            <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"}/>
             <Alert bg="#242323" color="white" status='success' display={res ? "block" : "none"} position="absolute" w="100%" bottom="-8rem" left="0" borderRadius="20px">
                 <AlertIcon />
                 {msg}
             </Alert>
             </Box>
+            
         </Flex >
     )
 }
