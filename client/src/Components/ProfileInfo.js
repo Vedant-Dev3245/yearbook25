@@ -65,7 +65,7 @@ export default function ProfileInfo(props) {
     function onImageChange(e) {
         const imageFile = e.target.files[0]
         setImg(URL.createObjectURL(imageFile))
-        imgExist(true)
+        setImgExist(true)
         const storageRef = ref(storage, `files/${imageFile.name}`);
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
