@@ -1,13 +1,13 @@
 import { Box, Flex, Text, VStack, Image, Link, useMediaQuery } from '@chakra-ui/react'
 
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
 
 export default function Footer() {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box>
-            <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
+            {/* <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="4rem" ml="5rem" mb="2rem" mr="-7rem">
                     <VStack w="20%" alignItems="baseline" justifyContent="center">
                         <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
@@ -15,12 +15,7 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
-                        {/* <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
-                            <FontAwesomeIcon icon="fa-brands fa-facebook-f" />
-                            <FontAwesomeIcon icon="fa-brands fa-twitter" />
-                            <FontAwesomeIcon icon="fa-brands fa-linkedin-in" />
-                            <FontAwesomeIcon icon="fa-brands fa-instagram" />                        
-                        </Flex> */}
+    
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">about us</Box>
@@ -46,15 +41,15 @@ export default function Footer() {
                             follow us on social media to receive regular updates</Box>
 
                         <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
-                            <Link href="https://www.facebook.com" target="_blank"><Image cursor="pointer" src="../images/facebook.png" /></Link>
-                            <Link href="https://www.twitter.com" target="_blank"><Image cursor="pointer" src="../images/twitter.png" /></Link>
-                            <Link href="https://www.linkedin.com" target="_blank"><Image cursor="pointer" src="../images/linkedin.png" /></Link>
-                            <Link href="https://www.instagram.com" target="_blank">  <Image cursor="pointer" src="../images/insta.png" /></Link>
+                            <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.instagram.com" target="_blank">  <FaInstagram color='white' fontSize={"1.8rem"}/> </Link>
                         </Flex>
                     </VStack>
                 </Flex>
-            </Box>
-            <Box paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
+            </Box> */}
+            <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
         </Box>
     )
 }

@@ -1,8 +1,8 @@
-import { Box, Text, Flex, Grid, Image, VStack, useMediaQuery } from '@chakra-ui/react'
+import { Box, Text, Flex, Image, VStack, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 
 export default function Working() {
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box mt={isSmallerThan800 ? '3rem' : '5rem'}>
             <Box className="heading" fontSize={80} color="#fff" fontWeight={800} align={'center'}>how it <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >works?</Text> </Box>
