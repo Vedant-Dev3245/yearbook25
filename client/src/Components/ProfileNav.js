@@ -39,12 +39,13 @@ export default function ProfileNav() {
 
     return (
         <Box borderBottom="1px solid rgba(255, 255, 255, 0.25)" pb="10rem" pt="3rem" bg="url(../images/profBg.png)" bgSize="cover" bgPosition="center" position="relative">
-            <Flex className="navProf" alignItems="center" w="90%" marginInline="auto" p="1.2rem 1rem" justifyContent="space-between" position="relative" zIndex="2" >
+            <Flex className="navProf" alignItems="center" w="90%" marginInline="auto" paddingBlock="1.2rem"
+            paddingInline={isSmallerThan800 ? "0.5rem" : "1rem"} justifyContent="space-between" position="relative" zIndex="2" >
                 <Flex alignItems={"center"}>
-                <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} display={ownProfile ? "none" : "flex"} onClick={backToProfile} bg = "transparent" fontSize="2rem" p="0.2rem"> <ChevronLeftIcon/></Button>
-                <Text fontSize={isSmallerThan800 ? "1.6rem" : "2rem"} ml="1.2rem" fontWeight="700" onClick={backHome} cursor= "pointer">SARC</Text>
+                <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} display={ownProfile ? "none" : "flex"} ml={ isSmallerThan800 ? "-0.5rem" : "0rem"} onClick={backToProfile} bg = "transparent" fontSize={isSmallerThan800 ? "1.6rem" : "2rem"}p="0.2rem"> <ChevronLeftIcon/></Button>
+                <Text fontSize={isSmallerThan800 ? "1.6rem" : "2rem"} ml={isSmallerThan800 ? "0rem" : "1.6rem"} fontWeight="700" onClick={backHome} cursor= "pointer">SARC</Text>
                 </Flex>
-                <Flex className="searchIcon" borderRadius={"0.4rem"} w={isSmallerThan800 ? "40%" : "20%"} border ="0.968254px solid #575757" p="0.4rem 1rem" justifyContent={"flex-start"} alignItems="center"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search/>  </Flex>
+                <Flex className="searchIcon" borderRadius={"0.4rem"} w={isSmallerThan800 ? "40%" : "20%"} border ="0.968254px solid #575757" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search/>  </Flex>
                 
             </Flex>
         </Box>
