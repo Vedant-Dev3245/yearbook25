@@ -1,4 +1,4 @@
-import { Box, Flex, Text, VStack, Image, Link, useMediaQuery } from '@chakra-ui/react'
+import { Box, Flex, Text, VStack, Link, useMediaQuery } from '@chakra-ui/react'
 
 import React from 'react'
 import {FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
@@ -7,7 +7,7 @@ export default function Footer() {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box>
-            {/* <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
+            <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="4rem" ml="5rem" mb="2rem" mr="-7rem">
                     <VStack w="20%" alignItems="baseline" justifyContent="center">
                         <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
@@ -48,7 +48,7 @@ export default function Footer() {
                         </Flex>
                     </VStack>
                 </Flex>
-            </Box> */}
+            </Box>
             <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
         </Box>
     )
