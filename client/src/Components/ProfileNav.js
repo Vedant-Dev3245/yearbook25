@@ -40,7 +40,7 @@ export default function ProfileNav() {
     return (
         <Box borderBottom="1px solid rgba(255, 255, 255, 0.25)" pb="10rem" pt="3rem" bg="url(../images/profBg.png)" bgSize="cover" bgPosition="center" position="relative">
             <Flex className="navProf" alignItems="center" w="90%" marginInline="auto" paddingBlock="1.2rem"
-            paddingInline={isSmallerThan800 ? "0.5rem" : "1rem"} justifyContent="space-between" position="relative" zIndex="2" >
+            paddingInline={isSmallerThan800 ? "0.8rem" : "1rem"} justifyContent="space-between" position="relative" zIndex="2" >
                 <Flex alignItems={"center"}>
                 <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} display={ownProfile ? "none" : "flex"} ml={ isSmallerThan800 ? "-0.5rem" : "0rem"} onClick={backToProfile} bg = "transparent" fontSize={isSmallerThan800 ? "1.6rem" : "2rem"}p="0.2rem"> <ChevronLeftIcon/></Button>
                 <Text fontSize={isSmallerThan800 ? "1.6rem" : "2rem"} ml={isSmallerThan800 ? "0rem" : "1.6rem"} fontWeight="700" onClick={backHome} cursor= "pointer">SARC</Text>

@@ -91,9 +91,9 @@ export default function NominateCard(props) {
                 {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
                 <Text fontWeight={"600"} fontSize="0.9rem">{props.name}</Text>
             </Flex>
-            <Box lineHeight="1.3rem" fontSize="1rem" color="#FFFFFF" fontWeight="400" marginInline="1rem">
+            <Box lineHeight="1.3rem" fontSize="1rem" color="#FFFFFF" fontWeight="400" marginBlock={isSmallerThan800 ? "0.6rem" : "0"} marginInline={isSmallerThan800 ? "0" : "1rem"}>
                 nominated you to write on their wall</Box>
-            <Box onClick={handleOpen} borderRadius="50%" bgColor="white" border="1.17225px solid #FFC62D" h="2rem" w="2rem" boxShadow="0px 0px 17.5838px rgba(255, 255, 255, 0.5)"  ><ArrowForwardIcon fontSize="1.4rem" cursor="pointer" color="black" ml="0.3rem" /></Box>
+            <Box onClick={handleOpen} borderRadius="50%" bgColor="white" border="1.17225px solid #FFC62D" h="2rem" w="2rem" boxShadow="0px 0px 17.5838px rgba(255, 255, 255, 0.5)" ><ArrowForwardIcon fontSize="1.4rem" cursor="pointer" color="black" ml="0.3rem" /></Box>
             <Modal isOpen={isOpen}>
             <ModalOverlay
       bg='blackAlpha.300'
