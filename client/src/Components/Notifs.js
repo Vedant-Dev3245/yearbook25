@@ -12,7 +12,7 @@ export default function Nominate(props){
     
     return(
         <Box width="90%" marginInline="auto" >
-             <Box fontSize={isSmallerThan800 ? "2rem" : "3rem"} fontWeight="800">{nominateArray.length===0 ? 'do you want to write some' : `damnn... ${nominateArray.length-1}+ pending`  } <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">captions</Text></Box>
+             <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">{nominateArray.length===0 ? 'do you want to write some' : nominateArray.length===1 ? `a friend wants you to write them a ` : `damnn... ${nominateArray.length-1}+ pending`  } <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">caption{nominateArray.length===1 ? '' : 's'}</Text></Box>
             <Text color="#B3B3B3" fontSize="1.2rem" w={isSmallerThan800 ? "100%" : "50%"} mt="0.5rem">the credit score checker allows you to calculate your credit score report and cibil score. it is a three-digit numeric expression that represents your creditworthiness.</Text>
             <Flex width={isSmallerThan800 ? "90%" : "80%"} mt="4rem" pb="4rem" flexFlow={"wrap"} justifyContent="left">
             {cards}

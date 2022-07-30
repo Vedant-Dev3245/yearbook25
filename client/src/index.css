@@ -127,7 +127,7 @@ border-radius: 50%;
   }
 
   .selectOpt__control{
-    background-color:  #262734 !important; 
+    background-color:  transparent  !important; 
     border: none !important;
     
   }
@@ -183,7 +183,7 @@ border-radius: 50%;
 
   @media (max-width:510px) {
     .searchIcon{
-      width: 50% !important;
+      width: 65% !important;
       background: transparent !important;
     }
     .imageCont{
@@ -196,6 +196,12 @@ border-radius: 50%;
     .selectProfNom{
       width: 80% !important;
     }
+    .barItems{
+      width: 70% !important;
+      justify-content: center !important;
+      
+    }
+
   }
 
 .noselect {

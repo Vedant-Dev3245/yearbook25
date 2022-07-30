@@ -74,7 +74,7 @@ export default function Interact(props) {
     
     return (
         <Box>
-            <Flex  mb="4rem" mt="3rem" w="90%" marginInline={"auto"} justifyContent={isSmallerThan800 ? "center" : "flex-start"}flexWrap="wrap" borderBottom="1px solid rgba(217, 217, 217, 0.1)">
+            <Flex  mb="4rem" mt={isSmallerThan800 ? "1rem" : "3rem"} w="90%" marginInline={"auto"} justifyContent={isSmallerThan800 ? "center" : "flex-start"}flexWrap="wrap" borderBottom="1px solid rgba(217, 217, 217, 0.1)">
                 <Flex onClick={makeWallActive} cursor="pointer" alignItems="center" p="1rem" className="wall active barItems">
                     <FiFeather filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
                     <Text ml="1rem" fontWeight="600" fontSize="1.1rem">{ownProfile ? "your wall" : "wall"}</Text>
@@ -97,7 +97,7 @@ export default function Interact(props) {
             <Box display={nominateActive&&ownProfile ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
-            <Box mt="14rem">
+            <Box mt="10rem">
             <Footer/>
             </Box>
         </Box>

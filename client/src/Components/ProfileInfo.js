@@ -21,7 +21,7 @@ export default function ProfileInfo(props) {
     const[msg,setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
     const [isDisabled, setIsDisabled] = React.useState(false)
-    // const [imgExist, setImgExist] = React.useState(false)
+    const [imgExist, setImgExist] = React.useState(false)
     const [formInfo, setFormInfo] = React.useState({
         quote: "",
         imgUrl: ""
@@ -65,6 +65,7 @@ export default function ProfileInfo(props) {
     function onImageChange(e) {
         const imageFile = e.target.files[0]
         setImg(URL.createObjectURL(imageFile))
+        imgExist(true)
         const storageRef = ref(storage, `files/${imageFile.name}`);
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
@@ -171,7 +172,8 @@ export default function ProfileInfo(props) {
                             2020A7PS1508P great stuff
                             <FormControl mt="2rem"><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                                 <FormLabel htmlFor="file" position="relative">
-                                    <Image src={img} margin="auto" cursor="pointer" w="8rem" h="8rem" borderRadius="48px" />
+                                    <Text color="white" textAlign={"center"}>insert image here</Text>
+                                    <Image src={imgExist? img : "../images/pic.png"} margin="auto" cursor="pointer" w="8rem" h="8rem" borderRadius="48px" />
                                 </FormLabel>
                                 <FormLabel
                                     cursor="pointer"
@@ -191,12 +193,12 @@ export default function ProfileInfo(props) {
                 </ModalContent >
             </Modal>
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
-                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  minWidth="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
+                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  minWidth="15rem" minHeight="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
 
                 </Box>
-                <VStack alignItems="baseline" ml="3rem" mt="4rem">
+                <VStack alignItems= {isSmallerThan800 ? "center" : "baseline"} ml={isSmallerThan800 ? "0" : "3rem"} mt={isSmallerThan800 ? "1rem" : "4rem"}>
                     <Text color="white"
                         fontWeight={700}
                         letterSpacing="0.08rem"
@@ -206,7 +208,7 @@ export default function ProfileInfo(props) {
                         opacity="0.75"
                         fontSize="1.2rem">{props.id} | {props.discipline}</Text>
                     <Box w="80%">
-                        <Text mt="1rem" color="#DAE6FF" fontWeight="700" fontSize="1.2rem">{props.quote}</Text>
+                        <Text textAlign={isSmallerThan800 ? "center" : "left"} mt={isSmallerThan800 ? "0.4rem" : "1rem"} color="#DAE6FF" fontWeight="700" fontSize="1.2rem">{props.quote}</Text>
                     </Box>
                 </VStack>
             </Flex>
