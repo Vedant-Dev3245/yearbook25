@@ -12,7 +12,7 @@ export default function Search(props) {
     const [label,setLabel] = React.useState("")
     const[bitsid, setBitsid] = React.useState("")
     const[msg,setMsg] = React.useState("")
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const fetchData = (inputValue, callback) => {
         if (!inputValue) {
             callback([]);

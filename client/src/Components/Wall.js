@@ -4,7 +4,7 @@ import Cards from "./Cards"
 import {Box, useMediaQuery, Text, Link} from "@chakra-ui/react"
 
 export default function Wall(props){
-    const [isSmallerThan800] = useMediaQuery('(max-width: 800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
     const [capt,setCapt] = React.useState([])
     const [title, setTitle] = React.useState(false)
     const breakpointColumnsObj = {

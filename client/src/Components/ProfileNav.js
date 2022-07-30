@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"
 
 import Search from "./Search"
 export default function ProfileNav() {
-    const [isSmallerThan800] = useMediaQuery('(max-width: 800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
     const [ownProfile, setOwnProfile] = React.useState()
 
     React.useEffect(() => {
