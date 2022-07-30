@@ -17,7 +17,6 @@ body::-webkit-scrollbar-track {
 
 html {
     scroll-behavior: smooth;
-      zoom: 0.85; /* Old IE only */
 }
 
 .clockTower>div:nth-child(1) {
@@ -128,7 +127,7 @@ border-radius: 50%;
   }
 
   .selectOpt__control{
-    background-color:  #262734 !important; 
+    background-color:  transparent  !important; 
     border: none !important;
     
   }
@@ -177,11 +176,14 @@ border-radius: 50%;
   .barItems{
     margin-inline: 1rem;
   }
+  .selectOpt__control--is-focused{
+    box-shadow: none !important;
+  }
 
 
   @media (max-width:510px) {
     .searchIcon{
-      width: 50% !important;
+      width: 65% !important;
       background: transparent !important;
     }
     .imageCont{
@@ -194,14 +196,30 @@ border-radius: 50%;
     .selectProfNom{
       width: 80% !important;
     }
+    .barItems{
+      width: 80% !important;
+      justify-content: center !important;
+      
+    }
+
   }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none;
+-webkit-user-select: none; 
+ -khtml-user-select: none;
+-moz-user-select: none; 
+-ms-user-select: none;
+ user-select: none;                                  
 }
+
+/* #chakra-modal-editModal{
+  width: 40rem !important;
+} */
+/* .chakra-modal__overlay{
+  width: 100vw !important;
+    height: 100vh !important;
+} */
+.chakra-modal__content-container{
+  align-items: center !important;
+} 

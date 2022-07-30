@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-export default function Search() {
+export default function Search(props) {
 
     const [option, setOption] = React.useState({})
     const navigate = useNavigate()
@@ -18,7 +18,7 @@ export default function Search() {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`,
+                    url: `https://yearbook-backend-5algm.ondigitalocean.app/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];

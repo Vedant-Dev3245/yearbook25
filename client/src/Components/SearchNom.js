@@ -7,7 +7,11 @@ export default function Search(props) {
 
     const [option, setOption] = React.useState({})
     const [exists, setExists] = React.useState(false)
+    const [res, setRes] = React.useState(false)
     const[alert,setAlert] = React.useState(false)
+    const [label,setLabel] = React.useState("")
+    const[bitsid, setBitsid] = React.useState("")
+    const[msg,setMsg] = React.useState("")
     const [isSmallerThan800] = useMediaQuery('(max-width:800px')
     const fetchData = (inputValue, callback) => {
         if (!inputValue) {
@@ -15,10 +19,10 @@ export default function Search(props) {
         }
         else {
             setTimeout(() => {
-                console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
+                // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`,
+                    url: `https://yearbook-backend-5algm.ondigitalocean.app/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
@@ -33,16 +37,18 @@ export default function Search(props) {
             });
         }
     }
-    let bitsid = ""
     const onSearchChange = (option) => {
         if (option) {
-            setOption({ option })
+            setOption({option})
             localStorage.setItem("friend", option.value)
-            bitsid = option.label.substring(option.label.length -14)
+            setBitsid(option.label.substring(option.label.length -14))
+            setLabel(option.label.substring(0,option.label.length -14 ))
             console.log(bitsid)
+            console.log(label)
             setExists(true)
         }
     }
+
     let nominateData = {
         senderId : localStorage.getItem("user"),
         senderName : props.name,
@@ -63,6 +69,11 @@ export default function Search(props) {
             })
             .then(function(res){
                 console.log(res);
+                setMsg( res.data.msg);
+                setRes(true)
+            setTimeout(() => {
+                setRes(false)
+            }, 3000);
             })
             .catch(function(err){
                 console.log(err);
@@ -76,7 +87,7 @@ export default function Search(props) {
             <Text mt="3rem" mb="1rem" fontSize="1.5rem" fontWeight="800">name</Text>
             <Flex alignItems="center" w="100%">
                 <Box w="100%"> <AsyncSelect
-                    value={option}
+                    value={{label}}
                     loadOptions={fetchData}
                     placeholder="search"
                     className="selectProfNom" classNamePrefix="selectOptNom"
@@ -91,6 +102,10 @@ export default function Search(props) {
             <Alert bg="#242323" color="white" status='error' display={alert ? "block" : "none"} position="absolute" w="40%" bottom="5rem" left="0">
                 <AlertIcon />
                 You can not nominate yourself ;)
+            </Alert>
+            <Alert bg="#242323" color="white" status='success' display={res ? "block" : "none"} position="absolute" w="40%" bottom="-5rem" left="0">
+                <AlertIcon />
+                {msg}
             </Alert>
         </Box>
     )
