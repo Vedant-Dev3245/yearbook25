@@ -189,7 +189,7 @@ export default function ProfileInfo(props) {
                 </ModalContent >
             </Modal>
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
-                <Box className="imageCont" bg={`url(${props.imgUrl})`} backgroundSize={"cover"}  w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
+                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
 

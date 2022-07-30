@@ -18,35 +18,42 @@ router.post("/profile/add", async (req, res) => {
 
 console.log(req.body);
     try {
-        const user = new User({
-            name: req.body.firstName + " " + req.body.lastName,
-            email: req.body.email,
-            bitsId: req.body.id,
-            quote: req.body.quote,
-            discipline: "",
-            imageUrl:req.body.imgUrl
-        })
-
-    
-        
-        await user.save(async function(err,user){
-            const userId = user._id;
-            const withoutQuotes = userId.toString().replace(/"/g, '');//removing """ from objectId thus generated
-            console.log(userId);
-            const search = new Search({
-                uId: withoutQuotes,
-                name: user.name,
-                bitsId:user.bitsId
-            })
-            await search.save();
+        const usr = await User.findOne({
+            email: req.body.email
+        });
+        if (usr) {
             return res.send({
-                detail: "Profile created",
-                _id:userId
+                msg: "User Exists Already"
             })
-        })
+        }
+        else {
+            const user = new User({
+                name: req.body.firstName + " " + req.body.lastName,
+                email: req.body.email,
+                bitsId: req.body.id,
+                quote: req.body.quote,
+                discipline: "",
+                imageUrl: req.body.imgUrl
+            })
+
+            await user.save(async function (err, user) {
+                const userId = user._id;
+                const withoutQuotes = userId.toString().replace(/"/g, '');//removing """ from objectId thus generated
+                console.log(userId);
+                const search = new Search({
+                    uId: withoutQuotes,
+                    name: user.name,
+                    bitsId: user.bitsId
+                })
+                await search.save();
+                return res.send({
+                    detail: "Profile created",
+                    _id: userId
+                })
+            })
 
 
-    
+        }
     } catch (err) {
         console.log(err);
         return res.send({
@@ -59,7 +66,7 @@ console.log(req.body);
 
 
 //checking if a profile exists earlier or not
-router.post("/profile/check", async (req, res) => { 
+router.post("/profile/check", async (req, res) => {
     try {
         console.log(req.body)
         const email = req.body.email;
