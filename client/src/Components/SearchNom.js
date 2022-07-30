@@ -64,7 +64,7 @@ export default function Search(props) {
         else{
             axios({
                 method: 'POST',
-                url: "https://yearbook-portal-backend-2022.herokuapp.com/nominate",
+                url: "https://yearbook-backend-5algm.ondigitalocean.app/nominate",
                 data: nominateData
             })
             .then(function(res){
