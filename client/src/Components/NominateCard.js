@@ -3,11 +3,12 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, Input, Button, useMediaQuery, Alert, AlertIcon
+    ModalCloseButton, Text, Input, Button, useMediaQuery, Alert, AlertIcon, Textarea
 } from "@chakra-ui/react";
 import React from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 export default function NominateCard(props) {
@@ -15,6 +16,7 @@ export default function NominateCard(props) {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px')
     const [msg, setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
+    const navigate = useNavigate()
 
     const handleClose = () => {
         setIsOpen(false);
@@ -50,6 +52,7 @@ export default function NominateCard(props) {
                 console.log(response);
                 setIsOpen(false)
                 setMsg(response.data.success);
+                navigate(`/profile/${props.id}`)
                 setRes(true)
                 setTimeout(() => {
                     setRes(false)
@@ -92,12 +95,15 @@ export default function NominateCard(props) {
                 nominated you to write on their wall</Box>
             <Box onClick={handleOpen} borderRadius="50%" bgColor="white" border="1.17225px solid #FFC62D" h="2rem" w="2rem" boxShadow="0px 0px 17.5838px rgba(255, 255, 255, 0.5)"  ><ArrowForwardIcon fontSize="1.4rem" cursor="pointer" color="black" ml="0.3rem" /></Box>
             <Modal isOpen={isOpen}>
-                <ModalOverlay />
+            <ModalOverlay
+      bg='blackAlpha.300'
+      backdropFilter='blur(10px)'
+    />
                 <ModalContent backdropFilter="blur(47.5676px)" bgColor="#1D1E22" color="white" p="1.4rem">
                     <ModalHeader mt="2rem" fontSize="2rem">write caption for {props.name}</ModalHeader>
                     <ModalCloseButton onClick={handleClose} />
                     <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
-                        <Input type="text" name="caption" placeholder="enter your caption!" onChange={handleChange} />
+                        <Textarea type="text" name="caption" placeholder="enter your caption!" onChange={handleChange} />
                         <Flex justifyContent="center"><Button onClick={submitCaption} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" mt="3rem" p="1.2rem 1.6rem" fontSize="1.4rem" colorScheme="blackAlpha">submit</Button></Flex>
                     </ModalBody>
                 </ModalContent >

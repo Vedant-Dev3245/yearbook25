@@ -112,7 +112,6 @@ export default function ProfileInfo(props) {
     }
 
 
-
     const handleClose = () => {
         setIsOpen(false);
     };
@@ -156,13 +155,16 @@ export default function ProfileInfo(props) {
 
         <Flex className="infoFlex" alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="space-between">
 
-            <Modal isOpen={isOpen} onClose={1} >
-                <ModalOverlay />
+            <Modal isOpen={isOpen}  id="editModal" >
+            <ModalOverlay
+      bg='blackAlpha.300'
+      backdropFilter='blur(10px)'
+    />
                 <ModalContent color="white" p="0.6rem" backgroundImage="url('../images/light.png')" backgroundSize={"cover"} borderRadius="20px">
                     <Box border="3px solid #FFFFFF" borderRadius="20px" backdropFilter="blur(47.5676px)" bgColor="#1D1E22">
                         <ModalHeader mt="2rem" fontSize="2rem">update your details</ModalHeader>
                         <ModalCloseButton onClick={handleClose} />
-                        <ModalBody mt="-0.5rem" fontSize="1rem" color="#B3B3B3">
+                        <ModalBody mt="-0.5rem" fontSize="1rem" color="#B3B3B3" mb="1rem">
                             put the instructions in the google docs here in    the form of bullet points like this: <br />
                             wish to do anything with it,<br />
                             google docs here in the form<br />
@@ -189,7 +191,7 @@ export default function ProfileInfo(props) {
                 </ModalContent >
             </Modal>
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
-                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  w="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
+                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  minWidth="15rem" h="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
 
@@ -203,12 +205,12 @@ export default function ProfileInfo(props) {
                         fontWeight={300}
                         opacity="0.75"
                         fontSize="1.2rem">{props.id} | {props.discipline}</Text>
-                    <Box w={isSmallerThan800 ? "80%" : "55%"}>
+                    <Box w="80%">
                         <Text mt="1rem" color="#DAE6FF" fontWeight="700" fontSize="1.2rem">{props.quote}</Text>
                     </Box>
                 </VStack>
             </Flex>
-            <Box ml={isSmallerThan800 ? "0" : "14rem"} position= "relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate this friend"}
+            <Box ml={isSmallerThan800 ? "0" : "10rem"} position= "relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate this friend"}
             <Alert bg="#242323" color="white" status='success' display={res ? "block" : "none"} position="absolute" w="100%" bottom="-8rem" left="0" borderRadius="20px">
                 <AlertIcon />
                 {msg}

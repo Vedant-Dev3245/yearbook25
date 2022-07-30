@@ -17,7 +17,6 @@ body::-webkit-scrollbar-track {
 
 html {
     scroll-behavior: smooth;
-      zoom: 0.85; /* Old IE only */
 }
 
 .clockTower>div:nth-child(1) {
@@ -177,7 +176,7 @@ border-radius: 50%;
   .barItems{
     margin-inline: 1rem;
   }
-  .selectOpt__control:focus{
+  .selectOpt__control--is-focused{
     box-shadow: none !important;
   }
 
@@ -200,11 +199,21 @@ border-radius: 50%;
   }
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  -webkit-touch-callout: none;
+-webkit-user-select: none; 
+ -khtml-user-select: none;
+-moz-user-select: none; 
+-ms-user-select: none;
+ user-select: none;                                  
 }
+
+/* #chakra-modal-editModal{
+  width: 40rem !important;
+} */
+/* .chakra-modal__overlay{
+  width: 100vw !important;
+    height: 100vh !important;
+} */
+.chakra-modal__content-container{
+  align-items: center !important;
+} 

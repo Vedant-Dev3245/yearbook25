@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import React from 'react'
 import ProfileInfo from '../Components/ProfileInfo'
 import ProfileNav from '../Components/ProfileNav'
@@ -45,13 +45,14 @@ export default function Profile(props) {
     }, [params.id])
 
     return (
-        <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" filter={loading ? "blur(2px)" : 0}>
-            <Box position = "absolute" top="25%" left="50%" zIndex="2" bgColor="#130d1f" display={loading ? "block" : "none"}><ScaleLoader
+        <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" >
+            <Flex justifyContent={"center"} alignItems="center" position="absolute"  zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+      backdropFilter='blur(10px)'><ScaleLoader
                 color="#D4D4D4"
                 loading = {loading}
-                size="20rem"
+                size={60}
                 speedMultiplier={0.7}
-            /></Box>
+            /></Flex>
             <ProfileNav />
             <ProfileInfo
                 name={user.name}

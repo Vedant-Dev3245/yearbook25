@@ -27,7 +27,7 @@ export default function ProfileNav() {
     }
 
     return (
-        <Box borderBottom="1px solid rgba(255, 255, 255, 0.25)" pb="10rem" pt="3rem" bg="url(./images/profBg.png)" bgSize="cover" bgPosition="center">
+        <Box borderBottom="1px solid rgba(255, 255, 255, 0.25)" pb="10rem" pt="3rem" bg="url(./images/profBg.png)" bgSize="cover" bgPosition="center" position="relative">
             <Flex className="navProf" alignItems="center" w="90%" marginInline="auto" p="1.2rem 1rem" justifyContent="space-between" position="relative" zIndex="2" >
                 <Flex alignItems={"center"}>
                 <Button _hover={{"color" : "black", "background-color": "#B3B3B3"}} onClick={backToProfile} bg = "transparent" fontSize="2rem" p="0.2rem"> <ChevronLeftIcon/></Button>
