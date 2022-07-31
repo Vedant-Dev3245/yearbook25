@@ -171,17 +171,15 @@ export default function ProfileInfo(props) {
     />
                 <ModalContent color="white" p="0.6rem" backgroundImage="url('../images/light.png')" backgroundSize={"cover"} borderRadius="20px">
                     <Box border="3px solid #FFFFFF" borderRadius="20px" backdropFilter="blur(47.5676px)" bgColor="#1D1E22">
-                        <ModalHeader mt="2rem" fontSize="2rem">update your details</ModalHeader>
+                        <ModalHeader mt={isSmallerThan800 ? "0.5rem" : "2rem"} fontSize={isSmallerThan800 ? "1.5rem" : "2rem"}>update your details</ModalHeader>
                         <ModalCloseButton onClick={handleClose} />
-                        <ModalBody mt="-0.5rem" fontSize="1rem" color="#B3B3B3" mb="1rem">
+                        <ModalBody mt="-0.5rem" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"} color="#B3B3B3" mb="1rem">
                             put the instructions in the google docs here in    the form of bullet points like this: <br />
                             wish to do anything with it,<br />
                             google docs here in the form<br />
                             2020A7PS1508P great stuff
-                            <FormControl mt="2rem"><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
-                                <FormLabel htmlFor="file" position="relative" textAlign={"center"} fontWeight="700"> please upload a 1080*1080 <br/> image to avoid cuts
-                                    {/* <Text color="white" textAlign={"center"}>insert image here</Text>    */}
-                                    
+                            <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
+                                <FormLabel htmlFor="file" position="relative" textAlign={"center"} fontWeight="700" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"}> please upload a 1080*1080 <br/> image to avoid cuts                                    
                                     <Image src={imgExist? img : props.imgUrl} margin="auto" cursor="pointer" w="10rem" h="10rem" />
                                     <Spinner size="lg" mt="1rem" position="absolute" display={spin2 ? "block" : "none"}/>
                                     <Box position="absolute" top="3rem" left="15%"><BiImageAdd fontSize="3rem"/></Box>
@@ -193,7 +191,7 @@ export default function ProfileInfo(props) {
                                     fontWeight="600"
                                 >yearbook quote</FormLabel>
                                 <Textarea w="90%" maxLength="140" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
-                                <FormHelperText mt="0.4rem" mb="2rem">{formInfo.quote.length}/140 characters used
+                                <FormHelperText mt="0.4rem" mb={isSmallerThan800 ? "1rem" : "2rem"}>{formInfo.quote.length}/140 characters used
                                 </FormHelperText>
                                 <Flex justifyContent={"center"}>
                                     <Button disabled={isDisabled} onClick={handleSubmit} _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="1.6rem 2rem" fontSize="1.2rem" colorScheme="blackAlpha">submit</Button>

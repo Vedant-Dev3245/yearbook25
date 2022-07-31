@@ -1,4 +1,4 @@
-import { Box, Input, Text,useMediaQuery } from '@chakra-ui/react'
+import { Box, Text,useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import SearchNom from "./SearchNom"
 
