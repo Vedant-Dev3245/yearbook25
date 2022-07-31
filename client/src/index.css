@@ -53,6 +53,7 @@ html {
 
 .video {
     border-radius: 50px;
+    height: 29.5rem;
 }
 
 .navProf{
@@ -197,6 +198,10 @@ border-radius: 50%;
       width: 80% !important;
       justify-content: center !important;
       
+    }
+    .video{
+      height: 15.7rem !important;
+      border-radius: 25px;;
     }
 
   }

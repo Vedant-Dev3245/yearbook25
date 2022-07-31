@@ -15,7 +15,7 @@ export default function Hero() {
 	}
     return (
         <Box mt="2rem" className="pad">
-            <Flex justifyContent="space-between" alignItems="center" mt={isSmallerThan900 ? "3rem" : 0} flexDirection={isSmallerThan900?"column":"row"}>
+            <Flex justifyContent="space-between" alignItems="center" mt={isSmallerThan900 ? "2rem" : 0} flexDirection={isSmallerThan900?"column":"row"}>
                 <VStack ml="1rem" width={isSmallerThan900 ? '90%' : '41%'} spacing={4} alignItems={isSmallerThan900 ? 'center' : 'baseline'}>
                     <Text fontSize={isSmallerThan900 ? '2.5rem' : '4rem'} color="white" lineHeight={isSmallerThan900?1.1:1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)" textAlign={isSmallerThan900 ? "center" : "left"} >
                         let's make the <Text display="inline" bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" bgClip="text">yearbook</Text> fun this time <Image display={'inline'} height={isSmallerThan900?35:59} src="../images/hourglass-not-done_23f3.png"></Image></Text>
