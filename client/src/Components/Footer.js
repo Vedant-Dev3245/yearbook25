@@ -10,8 +10,8 @@ export default function Footer() {
             <Box bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} backgroundRepeat="no-repeat" 
             backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt={isSmallerThan800 ? '0rem' : "-8rem"}
             borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
-                <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="4rem" ml="5rem" mb="2rem" mr="-7rem">
-                    <VStack w="20%" alignItems="baseline" justifyContent="center">
+                <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="3rem" ml="5rem" mb="2rem" mr="-7rem">
+                    <VStack w="23%" alignItems="baseline" justifyContent="center">
                         <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
                         <Box fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3" w={isSmallerThan800 ? '300%' : "100%"}>
                             Student Alumni Relations Cell is a student body of BITS Pilani,
