@@ -203,7 +203,9 @@ border-radius: 50%;
       height: 15.7rem !important;
       border-radius: 25px;;
     }
-
+    .my-masonry-grid_column{
+      padding-left: 0;
+    }
   }
 
 .noselect {

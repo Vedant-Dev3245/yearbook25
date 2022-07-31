@@ -38,6 +38,7 @@ input[type="email"] {
 
 .pad {
     padding: 3rem;
+    padding-right: 0rem;
 } 
 
 @media (max-width:500px) {

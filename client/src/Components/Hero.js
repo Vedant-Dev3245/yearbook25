@@ -50,7 +50,7 @@ export default function Hero() {
                     </Flex>
                 </VStack>
                 <Box marginInline={isSmallerThan900 ? "auto" : "0rem" }>
-                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "75%" : "100%"}marginInline={isSmallerThan900 ? "auto" : "0"} mt={isSmallerThan900 ? "1rem" : 0} >
+                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "100%" : "80%"} marginInline={isSmallerThan900 ? "auto" : "4rem 0rem"}  mt={isSmallerThan900 ? "1rem" : 0} >
                         <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-1rem' : '7rem'} left={isSmallerThan900?"-1rem":"-4rem"}>
                             <Text>love for pharma grills
                                 never die. snaps</Text>
@@ -68,7 +68,7 @@ export default function Hero() {
                                 this lol jk have fun”</Text>
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '13rem' : '20rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
+                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '13rem' : '28rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
                             <Text >hey let’s make it
                                 please something
                                 graduating batch and
