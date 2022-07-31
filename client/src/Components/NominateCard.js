@@ -104,7 +104,7 @@ export default function NominateCard(props) {
                     <ModalCloseButton onClick={handleClose} />
                     <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
                         <Textarea type="text" name="caption" placeholder="enter your caption!" onChange={handleChange} />
-                        <Flex justifyContent="center"><Button onClick={submitCaption} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" mt="3rem" p="1.2rem 1.6rem" fontSize="1.4rem" colorScheme="blackAlpha">submit</Button></Flex>
+                        <Flex justifyContent="center"><Button onClick={submitCaption}  _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" mt="3rem" p="1.2rem 1.6rem" fontSize="1.4rem" colorScheme="blackAlpha">submit</Button></Flex>
                     </ModalBody>
                 </ModalContent >
             </Modal>

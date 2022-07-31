@@ -58,7 +58,7 @@ export default function Navbar() {
 					</Box>
 
 					{loggedIn ?
-						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{ bg: "" }}>
+						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"  _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }}>
 							<Text fontSize="s" fontWeight="700" color="white" p={4}>Profile</Text>
 						</Button>
 						: <Box id="signInDiv" p={2}></Box>}
