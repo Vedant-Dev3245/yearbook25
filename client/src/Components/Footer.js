@@ -17,7 +17,7 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
-                        <Flex justifyContent="space-between" w={isSmallerThan800 ? "50%" : "150%"} align={'center'} mt="1rem">
+                        <Flex justifyContent="space-between" w={isSmallerThan800 ? "150%" : "50%"} align={'center'} mt="1rem">
                             <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
