@@ -10,9 +10,9 @@ export default function OptIn(){
     return(
         <Box color="white" w="80%" h="auto" 
             marginInline="auto" 
-            bg={isSmallerThan800?"url('../images/rectangle.png')":"url('../images/Rectangle 39.png')"} 
-            backgroundSize="cover" mt="7rem" className="physical" 
-            position="relative" top="4rem"
+            bg={isSmallerThan800?"url('../images/rectangle.png')":"url('../images/back.png')"} 
+            backgroundSize="cover" mt="7rem" className="physical" borderRadius="50px"
+            position="relative" top="4rem" border="2px #B3B3B3 solid"
             mb={100}>
                 <VStack
                     w="80%"
@@ -27,9 +27,9 @@ export default function OptIn(){
                     z-index="2"
                     paddingBottom="2.5rem"
                     border-radius="50px" >
-                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "3rem"} fontWeight="700" mt={isSmallerThan800?"3rem":"6rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
-                    <Box color="#C9C8C8" mt={isSmallerThan800 ? "-1rem" : 0} fontSize={isSmallerThan800 ? "1rem" : "1.4rem"}>get physical copy. cherish it for the years to come.</Box>
-                    <Button className="phyButton" marginBottom={isSmallerThan800?"2rem !important":"6rem !important"} fontSize="1.2rem" color="black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon />
+                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "2.75rem"} fontWeight="800" mt={isSmallerThan800?"3rem":"6rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
+                    <Box color="#C9C8C8" mt={isSmallerThan800 ? "-1rem" : "2rem !important"} mb={isSmallerThan800?"-1rem":"2rem !important"} fontSize={isSmallerThan800 ? "1rem" : "1.4rem"} fontWeight={600}>get physical copy. cherish it for the years to come.</Box>
+                    <Button className="phyButton"  marginBottom={isSmallerThan800?"2rem !important":"3rem !important"} fontSize="1.2rem" color="black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon />
                     </Button>
                 </VStack>
             </Box>
