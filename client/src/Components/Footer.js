@@ -57,7 +57,7 @@ export default function Footer() {
                         <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">connect w/ us</Box>
                         <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w={isSmallerThan800 ? "80%" : "40%"} >
                             if you're facing any problems, or just wish to appreciate our work, feel free to.. hehe!</Box>
-                            <Box cursor="pointer" pt="0.8rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" mt= "1.5rem !important" borderRadius="0.6rem" w="fit-content" fontWeight={"600"} color="#B3B3B3"><Link href="https://www.instagram.com" target="_blank">need help?</Link></Box>
+                            <Box cursor="pointer" pt="0.8rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" mt= "1.5rem !important" borderRadius="0.6rem" w="fit-content" fontWeight={"600"} color="#B3B3B3" backdropFilter={"blur(10px)"}> <Link href="https://www.instagram.com" target="_blank">need help?</Link></Box>
                     </VStack>
                 </Flex>
             </Box>
