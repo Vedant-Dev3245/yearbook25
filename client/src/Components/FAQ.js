@@ -19,7 +19,7 @@ export default function FAQ() {
             textAlign='left' 
             ml={isSmallerThan800 ? '1.4rem !important' : '10rem'}
             mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
-            <VStack mt="2rem" ml="5rem" mr="5rem" spacing={4} className="faqCont">
+            <VStack mt="2rem" marginInline={isSmallerThan800 ? 0 : "5rem"} spacing={4} className="faqCont">
                 <FAQItems
                     marginBottom="0 !important"
                     faq="What is the difference between a token and a token pair?"
@@ -48,7 +48,7 @@ export default function FAQ() {
                  For example, if you want to buy a token pair, you need to buy a token 
                  and a token pair. The token pair is the one that is traded on the platform."
                 />
-                <Image src="../images/text2816.png" opacity="0.1" position="absolute" right="1.2rem" />                
+                <Image src="../images/text2816.png" zIndex='1' opacity="0.2" position="absolute" right="1.2rem" />                
                 <FAQItems
                     faq="What is the difference between a token and a token pair?"
                     show={faq4}

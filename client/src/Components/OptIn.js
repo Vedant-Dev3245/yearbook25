@@ -26,12 +26,11 @@ export default function OptIn(){
                     backdrop-filter="blur(40px)"
                     z-index="2"
                     paddingBottom="2.5rem"
-                    border-radius="50px" >
-                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "2.75rem"} fontWeight="800" mt={isSmallerThan800?"3rem":"6rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
-                    <Box color="#C9C8C8" mt={isSmallerThan800 ? "-1rem" : "2rem !important"} mb={isSmallerThan800?"-1rem":"2rem !important"} fontSize={isSmallerThan800 ? "1rem" : "1.4rem"} fontWeight={600}>get physical copy. cherish it for the years to come.</Box>
-                    <Button className="phyButton"  marginBottom={isSmallerThan800?"2rem !important":"3rem !important"} fontSize="1.2rem" color="black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon />
-                    </Button>
-                </VStack>
+                     >
+                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "3rem"} fontWeight="700" mt={isSmallerThan800?"3rem":"6rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook 🥂</Box>
+                    <Box color="#C9C8C8" mt={isSmallerThan800 ? "-1rem" : 0} fontSize={isSmallerThan800 ? "1rem" : "1.4rem"}>get physical copy. cherish it for the years to come.</Box>
+                    <Button className="phyButton" marginBottom={isSmallerThan800?"2rem !important":"6rem !important"} fontSize="1.2rem" color="black" fontWeight="700">yes, i do need yearbook irl <ArrowForwardIcon /></Button>
+                    </VStack>
             </Box>
     )
 }

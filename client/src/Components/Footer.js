@@ -8,7 +8,7 @@ export default function Footer() {
     return (
         <Box>
             <Box bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} backgroundRepeat="no-repeat" 
-            backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" 
+            backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt={isSmallerThan800 ? '0rem' : "-8rem"}
             borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="3rem" ml="5rem" mb="2rem" mr="-7rem">
                     <VStack w="23%" alignItems="baseline" justifyContent="center">
