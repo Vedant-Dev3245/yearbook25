@@ -1,4 +1,4 @@
-import { Box, Flex, Text, VStack, Link, useMediaQuery } from '@chakra-ui/react'
+import { Box, Flex, Text, VStack, Link, useMediaQuery, Image } from '@chakra-ui/react'
 
 import React from 'react'
 import {FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
@@ -11,9 +11,15 @@ export default function Footer() {
             backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt={isSmallerThan800 ? '0rem' : "-6.5rem"}
             borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} pb="2rem" justifyContent="space-between" backgroundSize="cover" mt="3rem" ml={isSmallerThan800? "2rem" : "8rem"} mb="2rem" mr={isSmallerThan800? "2rem" : "-18rem"}>
-                    <VStack w={isSmallerThan800? "32%" : "23%"} alignItems="baseline" justifyContent="center">
-                        <Box fontSize="3rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
-                        <Box fontSize="1rem" fontWeight="600" mt="0rem !important" color="#B3B3B3" w={isSmallerThan800 ? '300%' : "100%"}>
+                    <VStack w={isSmallerThan800? "54%" : "23%"} alignItems="baseline" justifyContent="center">
+                        
+                        <Box  fontSize="3rem" fontWeight="700" mt="4rem" color="white" display="flex" w="100%">
+                            <Box w="50%">
+                                <Image display="inline" src = "https://user-images.githubusercontent.com/69129797/182025563-7c048460-b502-4fb5-8072-c777747d2d5f.png" w={isSmallerThan800 ? "100%" : "50%"}/>
+                                </Box>
+                                 <Text ml={isSmallerThan800 ? "0rem" : "-3rem"}>SARC</Text>
+                                 </Box>
+                        <Box fontSize="1rem" fontWeight="600" mt="0rem !important" color="#B3B3B3" w={isSmallerThan800 ? '180%' : "100%"}>
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>

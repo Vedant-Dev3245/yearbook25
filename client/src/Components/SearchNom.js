@@ -73,6 +73,8 @@ export default function Search(props) {
                 setMsg( res.data.msg);
                 setRes(true)
                 setSpin(false)
+                setLabel("")
+                setBitsid("")
             setTimeout(() => {
                 setRes(false)
             }, 3000);

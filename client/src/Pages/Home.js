@@ -2,20 +2,23 @@ import React from "react"
 import jwtDecode from "jwt-decode"
 import axios from "axios";
 import { useNavigate } from "react-router-dom"
-import { Alert,AlertIcon, Box } from '@chakra-ui/react';
+import { Alert,AlertIcon, Box, Flex } from '@chakra-ui/react';
 import Footer from "../Components/Footer";
 import Hero from "../Components/Hero"
 import Working from "../Components/Working"
 import Walkthrough from "../Components/Walkthrough";
 import FAQ from "../Components/FAQ";
 import Navbar from "../Components/Navbar";
+import ScaleLoader from "react-spinners/ScaleLoader";
 import OptIn from "../Components/OptIn";
 
 export default function Home() {
 
   const [auth, isAuth] = React.useState(true)
+  const [loading, setLoading] = React.useState(false)
 
   function checkUser(userObject) {
+    setLoading(true)
     axios({
       method: 'POST',
       url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/check',
@@ -25,13 +28,15 @@ export default function Home() {
         
         if(response.data.authorised===0){
           isAuth(false)
+          setLoading(false)
           setTimeout(() => {
             isAuth(true)
           }, 5000);
         }
         else{
           if (response.data.exists) {
-            console.log("id: " + response.data.user._id)
+            setLoading(false)
+            // console.log("id: " + response.data.user._id)
             localStorage.setItem("user", response.data.user._id)
             navigate(`/profile/${response.data.user._id}`)
           } else {
@@ -43,8 +48,16 @@ export default function Home() {
       .catch(function (error) {
         console.log(error);
       });
+
+     
         
   }
+
+  React.useEffect(()=>{
+    document.addEventListener("load", ()=>{
+      setLoading(false)
+    })
+   })
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
@@ -100,6 +113,13 @@ export default function Home() {
       bg="#141414"
       className="noselect landing"
     >
+      <Flex justifyContent={"center"} alignItems="center" position="absolute"  zIndex="26" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+      backdropFilter='blur(10px)'><ScaleLoader
+                color="#D4D4D4"
+                loading = {loading}
+                size={60}
+                speedMultiplier={0.7}
+            /></Flex>
       <Alert bg="#242323" color="white" 
       status='error' display={auth ? "none" : "block"} 
       position="absolute" w="40%" top="12rem" right="0">
