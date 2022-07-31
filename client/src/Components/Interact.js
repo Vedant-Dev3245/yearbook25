@@ -1,11 +1,10 @@
 import React from "react";
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import { FiFeather, FiAnchor, FiBell, FiActivity} from "react-icons/fi"
+import { FiFeather, FiAnchor, FiBell} from "react-icons/fi"
 import Wall from "./Wall";
 import Nominate from "./Nominate";
 import Notifs from "./Notifs"
 // import Stats from "./Stats";
-import Footer from "./Footer";
 
 export default function Interact(props) {
     
@@ -24,7 +23,6 @@ export default function Interact(props) {
             }
         }
     }
-    let friend = window.localStorage.getItem("friend")
     React.useEffect(()=> {
         if(window.location.href.includes( window.localStorage.getItem("user"))){
             setOwnProfile(true)
@@ -36,7 +34,7 @@ export default function Interact(props) {
      } )
      React.useEffect(()=> {
         makeWallActive()
-     },[])
+     },[props.id])
     
 
     function makeWallActive(){
@@ -98,7 +96,7 @@ export default function Interact(props) {
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
             <Box mt="10rem">
-            <Footer/>
+            <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
             </Box>
         </Box>
 

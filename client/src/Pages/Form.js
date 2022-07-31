@@ -178,8 +178,8 @@ export default function Form() {
                                             fontSize="20px"
                                             fontWeight="600"
                                         >yearbook quote</FormLabel>
-                                        <Textarea w="90%" maxLength="280" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
-                                        <FormHelperText mt="0.4rem" mb="6rem">{formInfo.quote.length}/280 characters used</FormHelperText>
+                                        <Textarea w="90%" maxLength="140" borderColor="#444" size="sm" resize="none" id="quote" onChange={handleChange} p="0.8rem" placeholder="enter your yearbook quote here" name="quote" value={formInfo.quote} />
+                                        <FormHelperText mt="0.4rem" mb="6rem">{formInfo.quote.length}/140 characters used</FormHelperText>
                                     </GridItem>
                                 </SimpleGrid>
                             </FormControl>
@@ -208,7 +208,7 @@ export default function Form() {
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formInfo.quote + '" '}
                     </Box>
-                    <Button  disabled={isDisabled} className="button" onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ color: "black", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
+                    <Button  disabled={isDisabled} className="button" onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                 </Box>
             </Flex>
             <Alert bg="#242323" color="white" status='error' display={error ? "block" : "none"} position="absolute" w="40%" bottom="0" right="0">

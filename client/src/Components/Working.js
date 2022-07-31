@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Grid, Image, VStack, useMediaQuery } from '@chakra-ui/react'
+import { Box, Text, Flex, Image, VStack, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 
 export default function Working() {

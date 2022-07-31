@@ -4,7 +4,7 @@ import NominateCard from "./NominateCard"
 
 export default function Nominate(props){
     const nominateArray = props.nominatedBy;
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 
     const cards = Array.from(nominateArray).map(person => {
         return <NominateCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>

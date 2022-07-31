@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function NominateCard(props) {
 
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [msg, setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
     const navigate = useNavigate()
