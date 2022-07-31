@@ -3,7 +3,7 @@ import React from 'react'
 import SearchNom from "./SearchNom"
 
 export default function Nominate(props) {
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px')
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box w="90%" marginInline="auto" pb="4rem">
             <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">invite your <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">frens</Text> to write caption for you</Box>
