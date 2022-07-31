@@ -23,7 +23,7 @@ export default function Navbar() {
 				<Flex borderWidth={2} borderRadius={10} backdropFilter={'blur(30px)'}
 					justifyContent="space-between" paddingBlock={1} 
 					alignItems="center" className="navbar"
-					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
+					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" 
 					position="fixed" w="95%" zIndex={10}
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
