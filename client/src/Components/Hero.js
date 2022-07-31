@@ -50,8 +50,8 @@ export default function Hero() {
                     </Flex>
                 </VStack>
                 <Box marginInline={isSmallerThan900 ? "auto" : "0rem" }>
-                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "80%" : "80%"} marginInline={isSmallerThan900 ? "2rem 0rem" : "4rem 0rem"}  mt={isSmallerThan900 ? "1rem" : 0} >
-                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '5rem' : '7rem'} left={isSmallerThan900?"0rem":"-4rem"}>
+                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "100%" : "80%"} marginInline={isSmallerThan900 ? "auto" : "0"} mt={isSmallerThan900 ? "1rem" : 0} >
+                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-1rem' : '7rem'} left={isSmallerThan900?"-1rem":"-4rem"}>
                             <Text>love for pharma grills
                                 never die. snaps</Text>
                             <Text textAlign="right">~amrit</Text></Box>
