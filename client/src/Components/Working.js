@@ -30,7 +30,7 @@ export default function Working() {
                                 hey let’s make something good for the graduating batch and idk why
                             </Box>
                         </VStack>
-                        <Box w={isSmallerThan800 ? '80%' : '50%'} h="18rem" mb="4rem !important" bgColor="#FFC62D" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(44px)" >insert profile view here</Text></Box>
+                        <Box w={isSmallerThan800 ? '80%' : '50%'} mt="2rem!important" bg={"url('../images/ownProfile.png')"} bgSize="cover"  h="18rem" mb="4rem !important" borderRadius="20px" margin="auto"></Box>
 
 
                     </Box>

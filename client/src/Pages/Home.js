@@ -74,6 +74,13 @@ export default function Home() {
         }
 
       )
+      google.accounts.id.renderButton(
+        document.getElementById("signInDiv2"),
+        {
+          theme: "outline", size: "medium"
+        }
+
+      )
       // google.accounts.id.prompt();
     }
 

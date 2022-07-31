@@ -30,7 +30,7 @@ export default function Wall(props){
         
 <Box w="90%" marginInline="auto" pb="4rem">
             <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} display={props.ownProfile && title ? "block" : "none"} fontWeight="800">no worries, if your wall is empty <br/> <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic" textDecoration={"underline"} cursor="pointer" onClick={props.makeNominActive} >nominate</Text>  your friends to write a caption for you</Box>
-            <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} display={!props.ownProfile && title ? "block" : "none"} fontWeight="800">hey, you should write a <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic" >caption</Text>  for your friend!</Box>
+            <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} display={!props.ownProfile && title ? "block" : "none"} fontWeight="800">hey, you should write a <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic" >caption</Text>  for your friend! <br/> ask them to <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic" >nominate</Text> you </Box>
 
             <Masonry width="100%" marginInline="auto" breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"

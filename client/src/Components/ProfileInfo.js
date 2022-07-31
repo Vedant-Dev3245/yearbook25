@@ -169,7 +169,7 @@ export default function ProfileInfo(props) {
       bg='blackAlpha.300'
       backdropFilter='blur(10px)'
     />
-                <ModalContent color="white" p="0.6rem" backgroundImage="url('../images/light.png')" backgroundSize={"cover"} borderRadius="20px">
+                <ModalContent color="white" p="0.6rem" backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')" backgroundSize={"cover"} borderRadius="20px">
                     <Box border="3px solid #FFFFFF" borderRadius="20px" backdropFilter="blur(47.5676px)" bgColor="#1D1E22">
                         <ModalHeader mt={isSmallerThan800 ? "0.5rem" : "2rem"} fontSize={isSmallerThan800 ? "1.5rem" : "2rem"}>update your details</ModalHeader>
                         <ModalCloseButton onClick={handleClose} />
@@ -211,6 +211,7 @@ export default function ProfileInfo(props) {
                     <Text color="white"
                         fontWeight={700}
                         letterSpacing="0.08rem"
+                        textAlign= {isSmallerThan800 ? "center" : ""}
                         fontSize="2.2rem">{props.name.toLowerCase()}</Text>
                     <Text color="#B3B3B3"
                         fontWeight={300}
