@@ -1,6 +1,7 @@
 import React from 'react'
-import { Box, Image, Text, Button } from '@chakra-ui/react'
+import { Box, Image, Text, Button, useMediaQuery } from '@chakra-ui/react'
 export default function Walkthrough() {
+    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 
     const [showVideo, setShowVideo] = React.useState(false)
     function toggleVideo() {
@@ -20,7 +21,7 @@ export default function Walkthrough() {
                         <Box display={showVideo === true ? 'block' : 'none'}>
                             <iframe width="100%" className='video' src="https://www.youtube.com/embed/T94PHkuydcw?" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen={true}></iframe>
                         </Box>
-                        <Button display={showVideo === true ? "none" : "block"} cursor="pointer" onClick={toggleVideo} mt="23rem" ml="3rem" p="2rem 2.6rem" borderRadius="200px"> <Image mt="-0.5rem" w="12%" src="./images/playButton.png" /> <Text mt="-1.8rem" fontWeight="800" fontSize="1.6rem" ml="2rem">play video</Text> </Button>
+                        <Button display={showVideo === true ? "none" : "block"} cursor="pointer" onClick={toggleVideo} mt={isSmallerThan800?"24rem":"22rem"} ml={isSmallerThan800?"0.7rem":"3rem"} p="2rem 2.6rem" borderRadius="200px"> <Image mt="-0.5rem" w="12%" src="./images/playButton.png" /> <Text mt="-1.8rem" fontWeight="800" fontSize="1.6rem" ml="2rem">play video</Text> </Button>
                     </Box>
                 </Box>
             </Box>

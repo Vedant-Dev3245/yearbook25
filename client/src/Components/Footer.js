@@ -17,7 +17,7 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
-                        <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
+                        <Flex justifyContent="space-between" width={isSmallerThan800?"200% !important":"50%"} align={'center'} height='20%' mt="1rem !important">
                             <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
@@ -34,7 +34,7 @@ export default function Footer() {
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             gallery</Box>
                     </VStack>
-                    <VStack alignItems="baseline" justifyContent="center" display={isSmallerThan800 ? 'none' : 'flex'}>
+                    <VStack alignItems="baseline" justifyContent="center" >
                         <Box fontSize="1.7rem" fontWeight="700" mt="4rem" color="white">quick links</Box>
                         <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             initiatives</Box>
