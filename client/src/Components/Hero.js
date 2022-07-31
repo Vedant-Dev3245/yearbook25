@@ -50,17 +50,17 @@ export default function Hero() {
                     </Flex>
                 </VStack>
                 <Box marginInline={isSmallerThan900 ? "auto" : "0rem" }>
-                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "100%" : "80%"} marginInline={isSmallerThan900 ? "auto" : "4rem 0rem"}  mt={isSmallerThan900 ? "1rem" : 0} >
-                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-1rem' : '7rem'} left={isSmallerThan900?"-1rem":"-4rem"}>
+                    <Box position="relative" className="clockTower" w={isSmallerThan900 ? "80%" : "80%"} marginInline={isSmallerThan900 ? "2rem 0rem" : "4rem 0rem"}  mt={isSmallerThan900 ? "1rem" : 0} >
+                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '5rem' : '7rem'} left={isSmallerThan900?"0rem":"-4rem"}>
                             <Text>love for pharma grills
                                 never die. snaps</Text>
                             <Text textAlign="right">~amrit</Text></Box>
-                        <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '16rem'} top={isSmallerThan900 ? '-3rem' : '22rem'} left= {isSmallerThan900 ? '11rem' : '20rem'} >
+                        <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '16rem'} top={isSmallerThan900 ? '2rem' : '22rem'} left= {isSmallerThan900 ? '13rem' : '20rem'} >
                             <Text >“hey let’s make it please something
                                 good for the graduating”</Text>
                             <Text textAlign="right">~amrit</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '15rem'} top={isSmallerThan900 ? '12rem' : '3rem'} left={isSmallerThan900 ? '11rem' : '22rem'}>
+                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '15rem'} top={isSmallerThan900 ? '14rem' : '3rem'} left={isSmallerThan900 ? '12rem' : '22rem'}>
                             <Text >“hey let’s make something
                                 good for the graduating
                                 batch and idk why are
@@ -68,7 +68,7 @@ export default function Hero() {
                                 this lol jk have fun”</Text>
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '13rem' : '28rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
+                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '18rem' : '28rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
                             <Text >hey let’s make it
                                 please something
                                 graduating batch and
