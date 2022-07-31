@@ -44,11 +44,10 @@ export default function Footer() {
                             gallery</Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
-                        <Box id="contact" fontSize="1.7rem" fontWeight="700" mt="4rem" mb="1.3rem" color="white">connect w/ us</Box>
-                        <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w="60%" position="relative" top="-0.5rem" >
+                        <Box id="contact" fontSize="1.7rem" fontWeight="700" mt="4rem" mb="0.4rem" color="white">connect w/ us</Box>
+                        <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w="60%" position="relative" top="0.6rem" >
                             follow us on social media to receive regular updates</Box>
-
-                        
+                        <Box cursor="pointer" border="1px solid #C9C9C9" bgColor="#151515" color="white" padding="0.5rem 1.5rem" borderRadius="0.5rem" w="fit-content" fontWeight={"600"} >need help ?</Box>
                     </VStack>
                 </Flex>
             </Box>
