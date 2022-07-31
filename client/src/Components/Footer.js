@@ -17,7 +17,7 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
-                        <Flex justifyContent="space-between" w={isSmallerThan800 ? "50%" : "150%"} align={'center'} mt="1rem">
+                        <Flex justifyContent="space-between" w={isSmallerThan800 ? "150%" : "50%"} align={'center'} mt="1rem">
                             <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
@@ -44,7 +44,7 @@ export default function Footer() {
                             gallery</Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
-                        <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "4.5rem"} color="white">connect w/ us</Box>
+                        <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">connect w/ us</Box>
                         <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w={isSmallerThan800 ? "80%" : "40%"} >
                             if you're facing any problems, or just wish to appreciate our work, feel free to.. hehe!</Box>
                             <Box cursor="pointer" pt="0.8rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="0.6rem" w="fit-content" fontWeight={"600"} color="#B3B3B3">need help?</Box>

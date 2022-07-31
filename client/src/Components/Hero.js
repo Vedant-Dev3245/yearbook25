@@ -14,7 +14,7 @@ export default function Hero() {
 		navigate(`/profile/${localStorage.getItem("user")}`)
 	}
     return (
-        <Box mt="3rem" className="pad">
+        <Box mt="2rem" className="pad">
             <Flex justifyContent="space-between" alignItems="center" mt={isSmallerThan900 ? "3rem" : 0} flexDirection={isSmallerThan900?"column":"row"}>
                 <VStack ml="1rem" width={isSmallerThan900 ? '90%' : '41%'} spacing={4} alignItems={isSmallerThan900 ? 'center' : 'baseline'}>
                     <Text fontSize={isSmallerThan900 ? '2.5rem' : '4rem'} color="white" lineHeight={isSmallerThan900?1.1:1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)" textAlign={isSmallerThan900 ? "center" : "left"} >
@@ -49,18 +49,18 @@ export default function Hero() {
                         </Flex>
                     </Flex>
                 </VStack>
-                <Box ml={isSmallerThan900 ? '-1.3rem' : 0}>
+                <Box ml={isSmallerThan900 ? '-1.3rem' : 0} marginInline={"-3rem"}>
                     <Box position="relative" className="clockTower" w="90%" ml={isSmallerThan900 ? "auto" : "0"} mt={isSmallerThan900 ? "1rem" : 0} >
-                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-1rem' : '7rem'} left={isSmallerThan900?"-1rem":"-4rem"}>
+                        <Box className="floatText" bg="rgba(216, 66, 34, 0.25);" p="0.6rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(216, 66, 34, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.685535px 16.4528px 0.685535px rgba(0, 0, 0, 0.15)" position="absolute" w={isSmallerThan900 ? '10rem' : '16rem'} top={isSmallerThan900 ? '-1rem' : '7rem'} left={isSmallerThan900?"-1rem":"-4rem"}>
                             <Text>love for pharma grills
                                 never die. snaps</Text>
                             <Text textAlign="right">~amrit</Text></Box>
-                        <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '20rem'} top={isSmallerThan900 ? '-3rem' : '32rem'} left= {isSmallerThan900 ? '11rem' : '12rem'} >
+                        <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" p="0.6rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '20rem'} top={isSmallerThan900 ? '-3rem' : '32rem'} left= {isSmallerThan900 ? '11rem' : '20rem'} >
                             <Text >“hey let’s make it please something
                                 good for the graduating”</Text>
                             <Text textAlign="right">~amrit</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '15rem'} top={isSmallerThan900 ? '12rem' : '3rem'} left={isSmallerThan900 ? '11rem' : '22rem'}>
+                        <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" p="0.6rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '15rem'} top={isSmallerThan900 ? '12rem' : '3rem'} left={isSmallerThan900 ? '11rem' : '22rem'}>
                             <Text >“hey let’s make something
                                 good for the graduating
                                 batch and idk why are
@@ -68,7 +68,7 @@ export default function Hero() {
                                 this lol jk have fun”</Text>
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
-                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" p="1rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '13rem' : '28rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
+                        <Box className="floatText" bg="rgba(32, 148, 255, 0.5);" p="0.6rem" color="#B3B3B3" borderRadius="20px" border="2px solid rgba(32, 148, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(32, 148, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '15rem'} top={isSmallerThan900 ? '13rem' : '28rem'} left={isSmallerThan900 ? '0rem' : '-5rem'}>
                             <Text >hey let’s make it
                                 please something
                                 graduating batch and

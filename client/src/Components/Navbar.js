@@ -25,7 +25,7 @@ export default function Navbar() {
 					alignItems="center" className="navbar"
 					marginInline={"auto"}
 					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" 
-					position="fixed" w="95%" zIndex={10}
+					position="fixed" w={isSmallerThan800?"90%":"95%"} zIndex={10}
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
 					<Box display={isSmallerThan800 ? 'none' : 'flex'} justifyContent="space-between" width="100%" maxW="500px" align={'center'}>
