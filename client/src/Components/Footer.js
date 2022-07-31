@@ -7,7 +7,9 @@ export default function Footer() {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box>
-            <Box backgroundSize="cover" backgroundRepeat="no-repeat"  bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
+            <Box bg={isSmallerThan800 ? 'none' : "url('../images/Frame 47.png')"} backgroundRepeat="no-repeat" 
+            backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt="-8rem" 
+            borderBlock={isSmallerThan800 ? 'none' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} justifyContent="space-between" backgroundSize="cover" mt="4rem" ml="5rem" mb="2rem" mr="-7rem">
                     <VStack w="20%" alignItems="baseline" justifyContent="center">
                         <Box fontSize="3.5rem" fontWeight="700" mt="4rem" color="white">SARC</Box>
@@ -15,6 +17,12 @@ export default function Footer() {
                             Student Alumni Relations Cell is a student body of BITS Pilani,
                             Pilani Campus working under the aegis of the Dean of Alumni
                             Relations Division. </Box>
+                        <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
+                            <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
+                            <Link href="https://www.instagram.com" target="_blank">  <FaInstagram color='white' fontSize={"1.8rem"}/> </Link>
+                        </Flex>
     
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
@@ -40,12 +48,7 @@ export default function Footer() {
                         <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w="60%" position="relative" top="-0.5rem" >
                             follow us on social media to receive regular updates</Box>
 
-                        <Flex justifyContent="space-between" width="50%" align={'center'} height='10%'>
-                            <Link href="https://www.facebook.com" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
-                            <Link href="https://www.twitter.com" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
-                            <Link href="https://www.linkedin.com" target="_blank"><FaLinkedin color='white' fontSize={"1.8rem"}/> </Link>
-                            <Link href="https://www.instagram.com" target="_blank">  <FaInstagram color='white' fontSize={"1.8rem"}/> </Link>
-                        </Flex>
+                        
                     </VStack>
                 </Flex>
             </Box>

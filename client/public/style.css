@@ -66,9 +66,6 @@ input[type="email"] {
     .physical>div{
         margin-left: 3rem;
     }
-    .heroText{
-        width: 50% !important;
-    }
     .floatText>p{
         font-size: 0.8rem !important;
     }

@@ -4,13 +4,13 @@ export default function Hero() {
     const [isSmallerThan900] = useMediaQuery('(max-width:900px)')
     return (
         <Box mt="3rem" className="pad">
-            <Flex justifyContent="space-between" alignItems="center">
-                <VStack className="heroText" ml="1rem" width={isSmallerThan900 ? '80%' : '41%'} spacing={4} alignItems="baseline">
+            <Flex justifyContent="space-between" alignItems="center" flexDirection={isSmallerThan900?"column":"row"}>
+                <VStack ml="1rem" width={isSmallerThan900 ? '80%' : '41%'} spacing={4} alignItems="baseline">
                     <Text fontSize={isSmallerThan900 ? '1.8rem' : '4rem'} color="white" lineHeight={1.3} fontWeight={800} bgClip="linear(to-l, #7928CA, #FF0080)">
                         let's make the <Text display="inline" bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" bgClip="text">yearbook</Text> fun this time <Image display={'inline'} height={59} src="../images/hourglass-not-done_23f3.png"></Image></Text>
                     <Text mt="1rem" fontWeight="600" lineHeight={isSmallerThan900 ? '1.3rem' : '1.5rem'} fontSize={isSmallerThan900 ? '0.9rem' : '1.2rem'} color="#B3B3B3">hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun</Text>
                     <Flex mt="3rem !important" color="white" width={isSmallerThan900 ? '100%' : '60%'} flexDirection="column">
-                        <Flex justifyContent="space-between" textAlign="left">
+                        <Flex justifyContent="space-between" textAlign="left" display={isSmallerThan900?"none":"flex"}>
                             <Box mr={isSmallerThan900 ? '1.4rem' : 0}>
                                 <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">5.3k+</Text>
                                 <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">captions</Text>
@@ -21,7 +21,7 @@ export default function Hero() {
                             </Box>
                         </Flex>
                         <Image pointerEvents={'none'} src="../images/Ellipse 9.png" alt="ellipse" position="absolute" left="-3rem" top="40rem" />
-                        <Flex justifyContent="space-between" textAlign="left">
+                        <Flex justifyContent="space-between" textAlign="left" display={isSmallerThan900?"none":"flex"} >
                             <Box mr={isSmallerThan900 ? '1.4rem' : 0}>
                                 <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">4.2</Text>
                                 <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">branches</Text>
