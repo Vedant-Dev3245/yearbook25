@@ -91,7 +91,7 @@ export default function Home() {
 
     <Box overflowX="hidden"
       bg="#141414"
-      className="noselect"
+      className="noselect landing"
     >
       <Alert bg="#242323" color="white" 
       status='error' display={auth ? "none" : "block"} 

@@ -21,12 +21,12 @@ const FAQItems = (props) => {
             <Flex justifyContent="space-between">
                 <Image src="../images/bullet.png" mt="0.6rem" w="1rem" h="1rem" ml={isSmallerThan800 ? "-1.2rem" : 0} />
                 <Flex justifyContent="space-between" w="95%">
-                    <Text fontWeight={500} opacity={1} fontSize={isSmallerThan800 ? "1rem" : "1.6rem"} fontStyle="Poppins" color="#fff" opacity={1} position='relative'>{props.faq}</Text>
+                    <Text fontWeight={500} opacity={1} fontSize={isSmallerThan800 ? "1rem" : "1.2rem"} fontStyle="Poppins" color="#fff" opacity={1} position='relative'>{props.faq}</Text>
                     {props.show ? <Image mt="0.4rem" w={isSmallerThan800 ? "1rem" : "1.2rem"} h={isSmallerThan800 ? "1rem" : "1.2rem"} src="../images/arrowDown.png" transform='rotate(180deg)' /> : <Image mt="0.4rem" w={isSmallerThan800 ? "1rem" : "1.2rem"} h={isSmallerThan800 ? "1rem" : "1.2rem"} src="../images/arrowDown.png" />}
                 </Flex>
             </Flex>
             <Collapse in={props.show} animateOpacity>
-                <Text ml={isSmallerThan800 ? "1rem" : "4rem"} 
+                <Text ml={isSmallerThan800 ? "1rem" : "3.5rem"} 
                 className=".faqAns" mr={isSmallerThan800 ? "1rem" : "4rem"} 
                 mt="1.6rem" fontWeight={400} fontSize="1rem" 
                 fontStyle="Poppins" 

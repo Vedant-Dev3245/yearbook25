@@ -14,7 +14,7 @@ export default function FAQ() {
     const [faq5, setFaq5] = useState(false);
     return (
         <>
-            <Box className="heading" fontSize={64} 
+            <Box className="heading" fontSize="3.2rem"
             color="#fff" fontWeight={800} 
             textAlign='left' 
             ml={isSmallerThan800 ? '1.4rem !important' : '10rem'}
