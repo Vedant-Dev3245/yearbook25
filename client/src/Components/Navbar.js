@@ -23,7 +23,7 @@ export default function Navbar() {
 				<Flex borderWidth={2} borderRadius={10} backdropFilter={'blur(30px)'}
 					justifyContent="space-between" paddingBlock={1} 
 					alignItems="center" className="navbar"
-					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" position="relative"
+					background="linear-gradient(90deg, rgba(251, 251, 251, 0.1) 0%, rgba(251, 251, 251, 0.1) 100%);" 
 					position="fixed" w="95%" zIndex={10}
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
@@ -58,7 +58,7 @@ export default function Navbar() {
 					</Box>
 
 					{loggedIn ?
-						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);" _hover={{ bg: "" }}>
+						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"  _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }}>
 							<Text fontSize="s" fontWeight="700" color="white" p={4}>Profile</Text>
 						</Button>
 						: <Box id="signInDiv" p={2}></Box>}

@@ -179,7 +179,7 @@ export default function ProfileInfo(props) {
                             google docs here in the form<br />
                             2020A7PS1508P great stuff
                             <FormControl mt="2rem"><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
-                                <FormLabel htmlFor="file" position="relative">
+                                <FormLabel htmlFor="file" position="relative" textAlign={"center"} fontWeight="700"> please upload a 1080*1080 <br/> image to avoid cuts
                                     {/* <Text color="white" textAlign={"center"}>insert image here</Text>    */}
                                     
                                     <Image src={imgExist? img : props.imgUrl} margin="auto" cursor="pointer" w="10rem" h="10rem" />
@@ -204,7 +204,7 @@ export default function ProfileInfo(props) {
                 </ModalContent >
             </Modal>
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
-                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundSize={"cover"}  minWidth="15rem" minHeight="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
+                <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundPosition={"center"} backgroundSize={"cover"}  minWidth="15rem" minHeight="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
 
