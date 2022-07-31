@@ -20,7 +20,9 @@ export default function Navbar() {
 		<>
 			<Image pointerEvents={'none'} position={'absolute'} x={0} y={0} src="../images/Ellipse 7.png" />
 			<Box className="pad" >
-				<Flex borderWidth={2} borderRadius={10} backdropFilter={'blur(30px)'}
+				<Flex  borderRadius={10} backdropFilter={'blur(30px)'}
+				border= "0.01rem solid #FFFFFF"
+				boxShadow="0px 0px 10px rgba(255, 255, 255, 0.6)"
 					justifyContent="space-between" paddingBlock={1} 
 					alignItems="center" className="navbar"
 					marginInline={"auto"}
