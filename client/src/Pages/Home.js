@@ -15,7 +15,7 @@ import OptIn from "../Components/OptIn";
 export default function Home() {
 
   const [auth, isAuth] = React.useState(true)
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   function checkUser(userObject) {
     setLoading(true)
@@ -54,10 +54,12 @@ export default function Home() {
   }
 
   React.useEffect(()=>{
-    document.addEventListener("load", ()=>{
-      setLoading(false)
-    })
-   })
+   
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+   
+   },[])
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)

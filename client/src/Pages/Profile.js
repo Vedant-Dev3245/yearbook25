@@ -3,14 +3,15 @@ import React from 'react'
 import ProfileInfo from '../Components/ProfileInfo'
 import ProfileNav from '../Components/ProfileNav'
 import Interact from '../Components/Interact'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import ScaleLoader from "react-spinners/ScaleLoader";
 // import * as fs from 'fs';
 // import * as fs from 'fs/promises'
 
 export default function Profile(props) {
-
+    
+    const navigate = useNavigate()
     const params = useParams();
     const [loading, setLoading] = React.useState(true)
     const [user, setUser] = React.useState({
@@ -44,9 +45,17 @@ export default function Profile(props) {
             });
     }, [params.id])
 
+    
+    React.useEffect(()=>{
+        if(localStorage.getItem("user") === null){
+            navigate('/')
+            window.location.reload()    
+        }
+    },[params.id])
+
     return (
         <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" >
-            <Flex justifyContent={"center"} alignItems="center" position="absolute"  zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+            <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
       backdropFilter='blur(10px)'><ScaleLoader
                 color="#D4D4D4"
                 loading = {loading}
