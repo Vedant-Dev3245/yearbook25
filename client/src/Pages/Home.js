@@ -11,8 +11,40 @@ import FAQ from "../Components/FAQ";
 import Navbar from "../Components/Navbar";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import OptIn from "../Components/OptIn";
-
 export default function Home() {
+   
+  React.useEffect(() => {
+    /* global google */
+ 
+     if (localStorage.getItem("user") === null) {
+       google.accounts.id.initialize({
+         client_id: "1050493483344-ardfhdeca71u0v4758micitopt027jnr.apps.googleusercontent.com",
+         callback: handleCallbackResponse
+       })
+ 
+       google.accounts.id.renderButton(
+         document.getElementById("signInDiv"),
+         {
+           theme: "outline", size: "medium"
+         }
+ 
+       )
+       google.accounts.id.renderButton(
+         document.getElementById("signInDiv2"),
+         {
+           theme: "outline", size: "medium"
+         }
+       )
+     }
+   }, [])
+
+   function handleCallbackResponse(response) {
+    var userObject = jwtDecode(response.credential)
+    // setUser(userObject)
+    // console.log(userObject)
+    // localStorage.setItem("user", JSON.stringify(userObject))
+    checkUser(userObject)
+  }
 
   const [auth, isAuth] = React.useState(true)
   const [loading, setLoading] = React.useState(true)
@@ -61,53 +93,13 @@ export default function Home() {
    
    },[])
 
-  function handleCallbackResponse(response) {
-    var userObject = jwtDecode(response.credential)
-    // setUser(userObject)
-    // console.log(userObject)
-    // localStorage.setItem("user", JSON.stringify(userObject))
-    checkUser(userObject)
-  }
+
 
   // const [user, setUser] = React.useState({})
   const navigate = useNavigate()
 
 
-  React.useEffect(() => {
-    /* global google */
-
-    if (localStorage.getItem("user") === null) {
-      google.accounts.id.initialize({
-        client_id: "1050493483344-ardfhdeca71u0v4758micitopt027jnr.apps.googleusercontent.com",
-        callback: handleCallbackResponse
-      })
-
-      google.accounts.id.renderButton(
-        document.getElementById("signInDiv"),
-        {
-          theme: "outline", size: "medium"
-        }
-
-      )
-      google.accounts.id.renderButton(
-        document.getElementById("signInDiv2"),
-        {
-          theme: "outline", size: "medium"
-        }
-
-      )
-      // google.accounts.id.prompt();
-    }
-
-    // if (localStorage.getItem("user") !== null) {
-    //   const userObject = JSON.parse(localStorage.getItem("user"))
-    //   localStorage.setItem("user", JSON.stringify(userObject))
-    //   checkUser(userObject)
-    // }
-    // localStorage.clear()
-    // to logout just run localstorage.clear(); and navigate to /
-
-  })
+  
 
   return (
 
