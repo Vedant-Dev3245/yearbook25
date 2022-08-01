@@ -107,7 +107,7 @@ export default function Home() {
       bg="#141414"
       className="noselect landing"
     >
-      <Flex justifyContent={"center"} alignItems="center" position="absolute"  zIndex="26" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+      <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
       backdropFilter='blur(10px)'><ScaleLoader
                 color="#D4D4D4"
                 loading = {loading}
