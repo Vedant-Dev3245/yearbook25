@@ -38,7 +38,7 @@ export default function Navbar() {
 				>
 					<Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>SARC</Text>
 					<Box display={isSmallerThan800 ? 'none' : 'flex'} justifyContent="space-between" width="100%" maxW="500px" align={'center'}>
-						<Link fontSize="s" fontWeight="600" color="white" p={4} href="#">home</Link>
+						<Link fontSize="s" fontWeight="600" color="white" p={4} href="https://yearbook.bits-sarc.org">home</Link>
 						<Link fontSize="s" fontWeight="600" color="white" p={4} href="https://bits-sarc.org" target="_blank">about</Link>
 						<Link fontSize="s" fontWeight="600" color="white" p={4}
 							href="#contact">contact</Link>
