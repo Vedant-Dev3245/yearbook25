@@ -121,7 +121,7 @@ export default function Form() {
         }
     }
     return (
-        <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} h="100vh" bg="black" >
+        <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} minHeight="100vh" bg="black" >
             <Flex w={isSmallerThan900 ? '100%' : '60%'} backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')" bgPosition="center"
                 bgRepeat="no-repeat" bgSize="cover" align="center" justify="center">
                 <Box boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)" bg="#242323"

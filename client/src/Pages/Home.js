@@ -11,11 +11,43 @@ import FAQ from "../Components/FAQ";
 import Navbar from "../Components/Navbar";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import OptIn from "../Components/OptIn";
-
 export default function Home() {
+   
+  React.useEffect(() => {
+    /* global google */
+ 
+     if (localStorage.getItem("user") === null) {
+       google.accounts.id.initialize({
+         client_id: "1050493483344-ardfhdeca71u0v4758micitopt027jnr.apps.googleusercontent.com",
+         callback: handleCallbackResponse
+       })
+ 
+       google.accounts.id.renderButton(
+         document.getElementById("signInDiv"),
+         {
+           theme: "outline", size: "medium"
+         }
+ 
+       )
+       google.accounts.id.renderButton(
+         document.getElementById("signInDiv2"),
+         {
+           theme: "outline", size: "medium"
+         }
+       )
+     }
+   }, [])
+
+   function handleCallbackResponse(response) {
+    var userObject = jwtDecode(response.credential)
+    // setUser(userObject)
+    // console.log(userObject)
+    // localStorage.setItem("user", JSON.stringify(userObject))
+    checkUser(userObject)
+  }
 
   const [auth, isAuth] = React.useState(true)
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(true)
 
   function checkUser(userObject) {
     setLoading(true)
@@ -50,58 +82,20 @@ export default function Home() {
   }
 
   React.useEffect(()=>{
-    document.addEventListener("load", ()=>{
-      setLoading(false)
-    })
-   })
+   
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+   
+   },[])
 
-  function handleCallbackResponse(response) {
-    var userObject = jwtDecode(response.credential)
-    // setUser(userObject)
-    // console.log(userObject)
-    // localStorage.setItem("user", JSON.stringify(userObject))
-    checkUser(userObject)
-  }
+
 
   // const [user, setUser] = React.useState({})
   const navigate = useNavigate()
 
 
-  React.useEffect(() => {
-    /* global google */
-
-    if (localStorage.getItem("user") === null) {
-      google.accounts.id.initialize({
-        client_id: "1050493483344-ardfhdeca71u0v4758micitopt027jnr.apps.googleusercontent.com",
-        callback: handleCallbackResponse
-      })
-
-      google.accounts.id.renderButton(
-        document.getElementById("signInDiv"),
-        {
-          theme: "outline", size: "medium"
-        }
-
-      )
-      google.accounts.id.renderButton(
-        document.getElementById("signInDiv2"),
-        {
-          theme: "outline", size: "medium"
-        }
-
-      )
-      // google.accounts.id.prompt();
-    }
-
-    // if (localStorage.getItem("user") !== null) {
-    //   const userObject = JSON.parse(localStorage.getItem("user"))
-    //   localStorage.setItem("user", JSON.stringify(userObject))
-    //   checkUser(userObject)
-    // }
-    // localStorage.clear()
-    // to logout just run localstorage.clear(); and navigate to /
-
-  })
+  
 
   return (
 
@@ -109,7 +103,7 @@ export default function Home() {
       bg="#141414"
       className="noselect landing"
     >
-      <Flex justifyContent={"center"} alignItems="center" position="absolute"  zIndex="26" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+      <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
       backdropFilter='blur(10px)'><ScaleLoader
                 color="#D4D4D4"
                 loading = {loading}

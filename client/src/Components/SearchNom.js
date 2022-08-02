@@ -108,7 +108,7 @@ export default function Search(props) {
             </Flex>
             <Text mt="2rem" fontSize="1.5rem" fontWeight="800">bitsid</Text>
             <Input disabled marginBlock="1rem" p="1.2rem" w={isSmallerThan800 ? "80%" : "40%"} border="1px solid #6C6C6C !important" color="white" value={exists ? bitsid : "check bits id here"}/>
-            <Box cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="2rem" w="fit-content" fontWeight={"600"} onClick={nominate}>Nominate</Box>
+            <Flex alignItems={"center"} justifyContent="center" cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="2rem" w="130px" fontWeight={"600"} onClick={nominate}>Nominate</Flex>
             <Spinner size="lg" mt="1rem" display={spin ? "block" : "none"}/>
             <Alert bg="#242323" color="white" status='error' display={alert ? "block" : "none"} position="absolute" w="40%" bottom="5rem" left="0">
                 <AlertIcon />
