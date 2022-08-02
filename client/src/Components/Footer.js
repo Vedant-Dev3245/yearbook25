@@ -1,5 +1,4 @@
 import { Box, Flex, Text, VStack, Link, useMediaQuery, Image } from '@chakra-ui/react'
-
 import React from 'react'
 import {FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
 

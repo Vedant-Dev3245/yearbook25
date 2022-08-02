@@ -25,7 +25,6 @@ export default function Home() {
       data: userObject
     })
       .then(function (response) {
-        
         if(response.data.authorised===0){
           isAuth(false)
           setLoading(false)
@@ -48,9 +47,6 @@ export default function Home() {
       .catch(function (error) {
         console.log(error);
       });
-
-     
-        
   }
 
   React.useEffect(()=>{

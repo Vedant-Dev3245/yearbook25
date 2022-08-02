@@ -76,7 +76,7 @@ export default function Hero() {
                             <Text textAlign="right">~bakshi</Text>
                         </Box>
                         <Image pointerEvents={'none'} src="../images/Ellipse 8.png" alt="ellipse" position="absolute" left="27rem" top="10rem" />
-                        <Image pointerEvents={'none'} w={isSmallerThan900?"100%":"90%"} src="../images/clock.png" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} marginInline="8"/>
+                        <Image pointerEvents={'none'} w={isSmallerThan900?"100%":"90%"} src="../images/clock.svg" alt="yearbook" p={isSmallerThan900 ? 0 : '2rem'} marginInline="8"/>
                     </Box>
                 </Box>
             </Flex >

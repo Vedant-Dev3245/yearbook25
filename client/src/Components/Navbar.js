@@ -2,6 +2,8 @@ import React from "react"
 import { Box, Button, Flex, Text, Link, Image, useMediaQuery, Menu, MenuButton, MenuList, MenuItem, IconButton } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom"
 import { HamburgerIcon } from '@chakra-ui/icons'
+import { Link as ReachLink } from "@reach/router"
+
 export default function Navbar() {
 	const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 	const [loggedIn, setLoggedIn] = React.useState(false)
@@ -9,11 +11,16 @@ export default function Navbar() {
 	if (localStorage.getItem("user") !== null && !loggedIn) {
 		setLoggedIn(true)
 	}
-	const navigate = useNavigate()
 
 	function gotoprofile() {
 		console.log(localStorage.getItem("user"))
 		navigate(`/profile/${localStorage.getItem("user")}`)
+	}
+
+	const navigate = useNavigate()
+
+	function gotodevelopers(){
+		navigate("/developers")
 	}
 
 	return (
@@ -35,7 +42,8 @@ export default function Navbar() {
 						<Link fontSize="s" fontWeight="600" color="white" p={4} href="https://bits-sarc.org" target="_blank">about</Link>
 						<Link fontSize="s" fontWeight="600" color="white" p={4}
 							href="#contact">contact</Link>
-						<Link fontSize="s" fontWeight="600" color="white" p={4}>developers</Link>
+						<Link fontSize="s" fontWeight="600" color="white" p={4} 
+						as={ReachLink} to="/developers">developers</Link>
 					</Box>
 					<Box mr={10} display={isSmallerThan800 ? 'block' : 'none'}>
 						<Menu  >
@@ -57,7 +65,7 @@ export default function Navbar() {
 								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" 
 									href="#contact">contact</Link>
 								</MenuItem>
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" >developers</Link></MenuItem>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" onClick={gotodevelopers}>developers</Link></MenuItem>
 							</MenuList>
 						</Menu>
 					</Box>
