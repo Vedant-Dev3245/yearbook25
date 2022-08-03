@@ -58,7 +58,7 @@ export default function Navbar() {
 
 							/>
 							<MenuList color="white" bgColor="#141414">
-								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600"  href="#">home</Link>
+								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600"  href="https://yearbook.bits-sarc.org">home</Link>
 								</MenuItem>
 								<MenuItem _focus={{ color: '#141414', bgColor: "#D2D2D2" }}><Link fontSize="s" fontWeight="600" href="https://bits-sarc.org" target="_blank">about</Link>
 								</MenuItem>

@@ -28,9 +28,7 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/aryan.png"
@@ -41,10 +39,8 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
-                />
+                    A token pair is a pair of tokens that are traded on the platform."
+                 />
                 <DevCards
                     img="../images/patil.png"
                     name="aditya patil"
@@ -54,9 +50,7 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/shwetabh.png"
@@ -67,9 +61,7 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/aryan.png"
@@ -80,9 +72,7 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/patil.png"
@@ -93,12 +83,9 @@ export default function Devs() {
                     linkedin=""
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                A token pair is a pair of tokens that are traded on the platform."
                 />
             </Masonry>
-
         </>
     )
 }
