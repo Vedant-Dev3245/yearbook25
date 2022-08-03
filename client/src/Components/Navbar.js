@@ -43,7 +43,7 @@ export default function Navbar() {
 						<Link fontSize="s" fontWeight="600" color="white" p={4}
 							href="#contact">contact</Link>
 						<Link fontSize="s" fontWeight="600" color="white" p={4} 
-						as={ReachLink} to="/developers">developers</Link>
+						onClick={gotodevelopers}>developers</Link>
 					</Box>
 					<Box mr={10} display={isSmallerThan800 ? 'block' : 'none'}>
 						<Menu  >
@@ -71,10 +71,12 @@ export default function Navbar() {
 					</Box>
 
 					{loggedIn&& !isSmallerThan800 ?
-						<Button onClick={gotoprofile} mr={10} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"  _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }}>
+						<Button onClick={gotoprofile} mr={10} 
+						bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"  
+						_hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }}>
 							<Text fontSize="s" fontWeight="700" color="white" p={4}>Profile</Text>
 						</Button>
-						: <Box id="signInDiv" display={isSmallerThan800 ? "none" : "block"} p={2} mr={10}></Box>}
+						: <Box id="signInDiv" display={isSmallerThan800 ? "none" : "block"} p={2} mr={2}></Box>}
 				</Flex>
 			</Box>
 		</>

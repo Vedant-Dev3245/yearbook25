@@ -25,10 +25,10 @@ const DevCards = (props) => {
                 <Text color="#DCEDFB" fontWeight={700} fontSize="1.6rem" mt="0.5rem !important">{props.name}</Text>
                 <Text color="#B3B3B3" fontWeight={300} fontSize="0.7rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>
                 <Text color="#FAFAFABF" fontWeight={600} fontSize="0.55rem" w="80%">{props.text}</Text>
-                    <Flex justifyContent="space-between" w={isSmallerThan800 ? "30%" : "20%"}>
-                        <Link href={props.twitter} target="_blank"><FaTwitter color='white' fontSize={"0.9rem"}/> </Link>
-                        <Link href={props.linkedIn} target="_blank"><FaLinkedin color='white' fontSize={"0.9rem"}/> </Link>
-                        <Link href={props.instagram} target="_blank">  <FaInstagram color='white' fontSize={"0.9rem"}/> </Link>
+                    <Flex justifyContent="space-between" w={isSmallerThan800 ? "33%" : "25%"}>
+                        <Link href={props.twitter} target="_blank"><FaTwitter color='white' fontSize={"1rem"}/> </Link>
+                        <Link href={props.linkedIn} target="_blank"><FaLinkedin color='white' fontSize={"1rem"}/> </Link>
+                        <Link href={props.instagram} target="_blank">  <FaInstagram color='white' fontSize={"1rem"}/> </Link>
                     </Flex>
                 
             </VStack>
