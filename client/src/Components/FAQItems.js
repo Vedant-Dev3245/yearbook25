@@ -26,7 +26,7 @@ const FAQItems = (props) => {
                 </Flex>
             </Flex>
             <Collapse in={props.show} animateOpacity>
-                <Text ml={isSmallerThan800 ? "1rem" : "3.5rem"} 
+                <Text ml={isSmallerThan800 ? "1rem" : "4.6rem"} 
                 className=".faqAns" mr={isSmallerThan800 ? "1rem" : "4rem"} 
                 mt="1.6rem" fontWeight={400} fontSize="1rem" 
                 fontStyle="Poppins" 

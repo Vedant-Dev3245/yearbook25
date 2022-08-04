@@ -11,9 +11,9 @@ export default function Working() {
                     <Box ml={isSmallerThan800 ? '2rem !important' : '3rem'} mt={isSmallerThan800?"2rem":"4rem"} bgColor="#2094FF" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center"><Text fontWeight={700} fontSize="1.2rem" transform="translateY(44%)">1</Text></Box>
                     <Flex justifyContent="space-between" flexDirection={isSmallerThan800 ? 'column !important' : 'row'} >
                         <Box w={isSmallerThan800 ? '80% !important' : '24%'} ml={isSmallerThan800 ? '2rem !important' : '3rem'} mt="1rem">
-                            <Box fontSize="1.6rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">upload your profile picture and yearbook quote ☀️ </Box>
-                            <Box fontSize="0.9rem" lineHeight="1.6rem" mb={isSmallerThan800?"3rem":"6rem"} color="#B3B3B3">
-                                hey let’s make something good for the graduating batch and idk why are you so free and reading this lol jk have fun
+                            <Box fontSize="2.4rem" lineHeight="2.8rem" fontWeight="800" mb="1rem">upload your profile picture and yearbook quote ☀️ </Box>
+                            <Box fontSize="1.4rem" fontWeight={"600"} lineHeight="1.6rem" mt="2rem" mb={isSmallerThan800?"3rem":"6rem"} color="#B3B3B3">
+                            log in to the yearbook using your BITS email only. fill out your yearbook quote and upload your picture.
                             </Box>
                         </Box>
                         <Image pointerEvents={'none'} className="workImg" w="50%" h="100%" src='../images/Auth Form.png' borderTopLeftRadius="30px" borderBottomRightRadius="30px" mb={isSmallerThan800 ? '2rem' : 0} />
@@ -25,9 +25,9 @@ export default function Working() {
                             <Text fontSize="1.2rem" transform="translateY(44%)" fontWeight={700}>2</Text>
                         </Box>
                         <VStack mt="1rem" ml={isSmallerThan800 ? '2rem !important' : '3rem'} alignItems="baseline">
-                            <Box fontSize="1.6rem" lineHeight="2.4rem" fontWeight="800" mb="1rem" w={isSmallerThan800?"89%":"80%"}>visit your frens, write quotes on their wall & nominate them 🌱 </Box>
-                            <Box fontSize="0.9rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
-                                hey let’s make something good for the graduating batch and idk why
+                            <Box fontSize="2.4rem" lineHeight="2.8rem" fontWeight="800" mb="1rem" w={isSmallerThan800?"89%":"90%"}>visit your frens, write quotes on their wall & nominate them 🌱 </Box>
+                            <Box w={isSmallerThan800?"89%":"90%"} fontSize="1.4rem" fontWeight={"600"} lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
+                            on your profile, go to your wall and nominate your friends to write on your wall.
                             </Box>
                         </VStack>
                         <Box w={isSmallerThan800 ? '80%' : '50%'} mt="2rem!important" bg={"url('../images/ownProfile.png')"} bgSize="cover"  h="18rem" mb="4rem !important" borderRadius="20px" margin="auto"></Box>
@@ -42,9 +42,9 @@ export default function Working() {
                             <Text fontWeight={700} fontSize="1.2rem" transform="translateY(44%)">3</Text>
                         </Box>
                         <VStack mb={isSmallerThan800 ? '2rem' : 0} mt="1rem" ml={isSmallerThan800 ? '2rem !important' : '3rem'} alignItems="baseline" w="80%">
-                            <Box fontSize="1.6rem" lineHeight="2.4rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
-                            <Box fontSize="0.9rem" lineHeight="1.6rem" mb="6rem" color="#B3B3B3" textAlign="left">
-                                hey let's make something good for the graduating batch and
+                            <Box fontSize="2.4rem" lineHeight="2.8rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
+                            <Box fontSize="1.4rem" fontWeight={"600"} lineHeight="1.6rem" mb="3rem !important" color="#B3B3B3" textAlign="left">
+                            via notifications, get to know who all nominated you to write on their wall. click on the notifications to write your quotes on their wall.
                             </Box>
                         </VStack>
                     </Box>

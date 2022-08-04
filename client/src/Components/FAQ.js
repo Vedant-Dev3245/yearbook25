@@ -12,6 +12,7 @@ export default function FAQ() {
     const [faq3, setFaq3] = useState(false);
     const [faq4, setFaq4] = useState(false);
     const [faq5, setFaq5] = useState(false);
+    const [faq6, setFaq6] = useState(false);
     return (
         <>
             <Box className="heading" fontSize="3.2rem"
@@ -22,51 +23,43 @@ export default function FAQ() {
             <VStack mt="2rem" marginInline={isSmallerThan800 ? 0 : "5rem"} spacing={4} className="faqCont">
                 <FAQItems
                     marginBottom="0 !important"
-                    faq="What is the difference between a token and a token pair?"
+                    faq="Would I need to log in every time I open the yearbook portal?"
                     show={faq1}
                     setFaq={setFaq1}
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                    text="No, once you set up your profile when you first log in, you would not be required to log in again. You just need to click on the ‘profile’ at the top of the dashboard next time onwards."
                 />
                 <FAQItems
-                    faq="What is the difference between a token and a token pair?"
+                    faq="Can we navigate through the profile of our batchmates?"
                     show={faq2}
                     setFaq={setFaq2}
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                    text="Yes, you can by typing their name on the search bar."
                 />
                 <FAQItems
-                    faq="What is the difference between a token and a token pair?"
+                    faq="Would we be required to re-enter our entries for the yearbook separately?"
                     show={faq3}
                     setFaq={setFaq3}
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                    text="No, your entries from the yearbook portal will be redirected for printing in the yearbook."
                 />
                 <Image src="../images/text2816.png" zIndex='1' opacity="0.2" position="absolute" right="1.2rem" />                
                 <FAQItems
-                    faq="What is the difference between a token and a token pair?"
+                    faq="Is there a word limit for the quote?"
                     show={faq4}
                     setFaq={setFaq4}
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                    text="Although the captions you write for your friends would not have any word limit, your quote has a limit of only 140 characters."
                 />
                 <FAQItems
-                    faq="What is the difference between a token and a token pair?"
+                    faq="Will having a profile on the portal makes me a recipient of the yearbook by defacto?"
                     show={faq5}
                     setFaq={setFaq5}
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform.
-                 For example, if you want to buy a token pair, you need to buy a token 
-                 and a token pair. The token pair is the one that is traded on the platform."
+                    text="No, you must sign up for the yearbook from the dashboard before the deadline."
                 />
+                 <FAQItems
+                    faq="Is it compulsory to upload a picture/quote for the yearbook?"
+                    show={faq6}
+                    setFaq={setFaq6}
+                    text="Yes, you would not be able to redirect to your Profile without a quote/picture. You could always edit them as many times as you would like once you're in though."
+                />
+                
             </VStack>
         </>
     )

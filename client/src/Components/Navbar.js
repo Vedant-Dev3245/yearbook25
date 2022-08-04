@@ -2,7 +2,6 @@ import React from "react"
 import { Box, Button, Flex, Text, Link, Image, useMediaQuery, Menu, MenuButton, MenuList, MenuItem, IconButton } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom"
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { Link as ReachLink } from "@reach/router"
 
 export default function Navbar() {
 	const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
