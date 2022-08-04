@@ -21,14 +21,13 @@ export default function Devs() {
                 columnClassName="my-masonry-grid_column2">
             <DevCards
                     img="../images/shwetabh.png"
-                    name="shwetabh aniket"
-                    caption="frontend captain | 2021A7PS0532P"
-                    twitter=""
-                    github=""
-                    linkedin=""
-                    spotify=""
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform."
+                    name="shwetabh niket"
+                    caption="frontend captain | 2021B5PS0923P"
+                    twitter="https://twitter.com/shwetabhNiket"
+                    github="https://github.com/nIMblEt06"
+                    linkedin="https://www.linkedin.com/in/niketshwetabh/"
+                    spotify="https://open.spotify.com/playlist/6mMuC8FzWIuEflOiTkGAUW?si=d4a6280cc03743da"
+                    text="i just wanted to make you laugh :/"
                 />
                 <DevCards
                     img="../images/aryan.png"
