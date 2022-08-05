@@ -87,10 +87,10 @@ export default function Devleopers(){
             <Navbar />
             <Box w="80%" marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
             <VStack spacing="1rem" marginInline="auto" >
-                <Text fontWeight={800} fontSize={isSmallerThan800?"2rem":"4rem"} color="white">
+                <Text fontWeight={800} fontSize={isSmallerThan800?"1.8rem":"4rem"} color="white">
                     hope you liked it 🌱</Text>
                 <Text fontWeight={600} fontSize="1.2rem" color="#B3B3B3" 
-                w={isSmallerThan800?"70%":"45%"} mb="3rem !important" align="center">
+                w={isSmallerThan800?"80%":"45%"} mb="3rem !important" align="center">
                     hey let's make something good for the graduating batch
                 </Text>
                 <Devs />

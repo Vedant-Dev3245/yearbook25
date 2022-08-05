@@ -5,30 +5,35 @@ import {
     Text,
     Flex,
     useMediaQuery,
-    useDisclosure,
-    Collapse,
     VStack,
     Link,
     Button
 } from "@chakra-ui/react";
-import {FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from 'react-icons/fa'
+import {FiGithub, FiTwitter, FiLinkedin } from 'react-icons/fi'
+import {FaSpotify} from 'react-icons/fa'
 
 const DevCards = (props) => {
+    console.log(props.twitter)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
         <Box boxSizing="border-box" bgColor="#151515"
         pt={3} pl={3} pr={3} pb={5} borderRadius="15px" 
         border="0.414982px solid rgba(255, 255, 255, 0.5);"
-        m={5}>
-        <Image src={props.img} borderRadius="15px" />
+        m={5} w="32rem" className="devColumn">
+        <Image src={props.img} w="100%" borderRadius="15px" />
             <VStack alignItems="baseline" pl={2}>
-                <Text color="#DCEDFB" fontWeight={700} fontSize="1.6rem" mt="0.5rem !important">{props.name}</Text>
-                <Text color="#B3B3B3" fontWeight={300} fontSize="0.7rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>
-                <Text color="#FAFAFABF" fontWeight={600} fontSize="0.55rem" w="80%">{props.text}</Text>
-                    <Flex justifyContent="space-between" w={isSmallerThan800 ? "33%" : "25%"}>
-                        <Link href={props.twitter} target="_blank"><FaTwitter color='white' fontSize={"1rem"}/> </Link>
-                        <Link href={props.linkedIn} target="_blank"><FaLinkedin color='white' fontSize={"1rem"}/> </Link>
-                        <Link href={props.instagram} target="_blank">  <FaInstagram color='white' fontSize={"1rem"}/> </Link>
+                <Text color="#DCEDFB" fontWeight={700} fontSize="2.4rem" mt="0.5rem !important" className='devName'>{props.name}</Text>
+                <Text color="#B3B3B3" className='devCaption' fontWeight={300} fontSize="1rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>
+                <Text color="#FAFAFA" className="devText" fontWeight={500} fontSize="1rem" h="4rem" w="90%" lineHeight={"1.2rem"} mb="1rem !important">{props.text}</Text>
+                    <Flex justifyContent="space-between" w="100%">
+                        <Flex className='icons' justifyContent="space-between" alignItems="center" w={isSmallerThan800 ? "50%" : "30%"}>
+                        <Link href={(props.twitter !== null) && props.twitter } target="_blank"><FiTwitter color='white' fontSize={"1.5rem"}/> </Link>
+                        <Link href={(props.github !== null) && props.github} target="_blank">  <FiGithub color='white' fontSize={"1.5rem"}/> </Link>
+                        <Link href={(props.linkedin !== null) && props.linkedin} target="_blank"><FiLinkedin color='white' fontSize={"1.5rem"}/> </Link>
+                        </Flex>
+                        <Flex>
+                        <Link href={props.spotify} target="_blank" background= "rgba(255, 255, 255, 0.1)" border="0.5px solid rgba(255, 255, 255, 0.25)" borderRadius={"5px"} p="1rem"><FaSpotify color='white' fontSize={"1.5rem"}/> </Link>
+                        </Flex>
                     </Flex>
                 
             </VStack>

@@ -1,18 +1,14 @@
 import React from "react";
-import {
-    Box, Text, VStack, useMediaQuery, Image, Flex
-} from "@chakra-ui/react";
-import { useState } from "react";
 import DevCards from "./DevCards";
 import Masonry from "react-masonry-css"
 
 
 export default function Devs() {
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
+    // const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const breakpointColumnsObj = {
         default: 3,
         700: 2,
-        500: 1
+        600: 1
       };
     return (
         <>
@@ -47,43 +43,55 @@ export default function Devs() {
                     twitter=""
                     github=""
                     linkedin=""
-                    spotify=""
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform."
-                />
-                <DevCards
-                    img="../images/shwetabh.png"
-                    name="shwetabh aniket"
-                    caption="frontend captain | 2021A7PS0532P"
-                    twitter=""
-                    github=""
-                    linkedin=""
-                    spotify=""
+                    spotify="https://open.spotify.com/track/4PTG3Z6ehGkBFwjybzWkR8?si=WQhxVzHjR_KFNbH8I8O6IQ&utm_source=copy-link"
                     text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/aryan.png"
-                    name="aryan bakshi"
+                    name="pratham arya"
                     caption="one man army | 2021A7PS0532P"
-                    twitter=""
-                    github=""
-                    linkedin=""
-                    spotify=""
+                    twitter="https://twitter.com/pentaquark16"
+                    github="https://github.com/pentaquark1616"
+                    linkedin="https://www.linkedin.com/in/pratham-arya/"
+                    spotify="https://open.spotify.com/track/5PQV6JRuE9wSfPS49Zlrx7?si=4c22989f0a9a4f81"
                     text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
                     img="../images/patil.png"
-                    name="aditya patil"
+                    name="sarthak arora"
                     caption="ninja designer | 2021A7PS0532P"
-                    twitter=""
+                    twitter="https://twitter.com/thysarthak"
+                    github="https://github.com/sarthakeash"
+                    linkedin="https://linkedin.com/in/sarthak-arora-aa92b9201/"
+                    spotify="https://open.spotify.com/track/6xGruZOHLs39ZbVccQTuPZ?si=q8rhu3EcS1G9fpm68_G0zQ"
+                    text="A token is a digital asset that is issued by a company. 
+                A token pair is a pair of tokens that are traded on the platform."
+                />
+                <DevCards
+                    img="../images/patil.png"
+                    name="saksham aggarwal"
+                    caption="ninja designer | 2021A7PS0532P"
+                    twitter="https://twitter.com/saksham_io"
+                    github="http://github.com/sakshamdevelops"
+                    linkedin="http://linkedin.com/in/sakshamagg27/"
+                    spotify="https://open.spotify.com/track/3oVGjguICRU4UVS1ZPwH2D?si=12e226df30b947d7"
+                    text="A token is a digital asset that is issued by a company. 
+                A token pair is a pair of tokens that are traded on the platform."
+                />
+                <DevCards
+                    img="../images/patil.png"
+                    name="shreya nag"
+                    caption="ninja designer | 2021A7PS0532P"
+                    twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
                     github=""
-                    linkedin=""
+                    linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
                     spotify=""
                     text="A token is a digital asset that is issued by a company. 
                 A token pair is a pair of tokens that are traded on the platform."
                 />
+                                
             </Masonry>
         </>
     )
