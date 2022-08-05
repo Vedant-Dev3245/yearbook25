@@ -14,7 +14,7 @@ export default function Footer() {
                         
                         <Box  fontSize="3rem" fontWeight="700" mt="4rem" color="white" display="flex" w="100%">
                             <Box w="50%">
-                                <Image display="inline" src = "https://user-images.githubusercontent.com/69129797/182025563-7c048460-b502-4fb5-8072-c777747d2d5f.png" w={isSmallerThan800 ? "100%" : "30%"}/>
+                                <Image display="inline" src = "https://user-images.githubusercontent.com/69129797/182025563-7c048460-b502-4fb5-8072-c777747d2d5f.png" w={isSmallerThan800 ? "110%" : "30%"}/>
                                 </Box>
                                  <Text ml={isSmallerThan800 ? "1rem" : "-8rem"}>SARC</Text>
                                  </Box>
@@ -44,13 +44,13 @@ export default function Footer() {
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">quick links</Box>
                         <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="1rem" color="#B3B3B3">
-                            initiatives</Box>
+                            how it works?</Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            the podcast</Box>
+                            walkthrough</Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            gallery</Box>
+                            developers</Box>
                             <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            niket</Box>
+                            FAQs</Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">connect w/ us</Box>
