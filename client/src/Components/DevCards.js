@@ -19,10 +19,10 @@ const DevCards = (props) => {
         <Box boxSizing="border-box" bgColor="#151515"
         pt={3} pl={3} pr={3} pb={5} borderRadius="15px" 
         border="0.414982px solid rgba(255, 255, 255, 0.5);"
-        m={5} w="32rem" className="devColumn">
+        m={5} w="90%" className="devColumn">
         <Image src={props.img} w="100%" borderRadius="15px" />
             <VStack alignItems="baseline" pl={2}>
-                <Text color="#DCEDFB" fontWeight={700} fontSize="2.4rem" mt="0.5rem !important" className='devName'>{props.name}</Text>
+                <Text color="#DCEDFB" fontWeight={700} fontSize="2.2rem" mt="0.5rem !important" className='devName'>{props.name}</Text>
                 <Text color="#B3B3B3" className='devCaption' fontWeight={300} fontSize="1rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>
                 <Text color="#FAFAFA" className="devText" fontWeight={500} fontSize="1rem" h="4rem" w="90%" lineHeight={"1.2rem"} mb="1rem !important">{props.text}</Text>
                     <Flex justifyContent="space-between" w="100%">

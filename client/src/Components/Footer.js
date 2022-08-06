@@ -10,7 +10,7 @@ export default function Footer() {
             backgroundSize="cover"  overflowX={isSmallerThan800 ? 'none' : "hidden"} mt={isSmallerThan800 ? '-5rem' : "-6.5rem"}
             borderBlock={isSmallerThan800 ? '2px solid rgba(255, 255, 255, 0.25)' : "2px solid rgba(255, 255, 255, 0.25)"}>
                 <Flex flexDirection={isSmallerThan800 ? 'column' : 'row'} pb="2rem" justifyContent="space-between" backgroundSize="cover" mt="3rem" ml={isSmallerThan800? "2rem" : "8rem"} mb="2rem" mr={isSmallerThan800? "2rem" : "-18rem"}>
-                    <VStack w={isSmallerThan800? "54%" : "23%"} alignItems="baseline" justifyContent="center">
+                    <VStack w={isSmallerThan800? "58%" : "23%"} alignItems="baseline" justifyContent="center">
                         
                         <Box  fontSize="3rem" fontWeight="700" mt="4rem" color="white" display="flex" w="100%">
                             <Box w="50%">

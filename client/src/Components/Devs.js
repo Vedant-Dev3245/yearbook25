@@ -7,8 +7,8 @@ export default function Devs() {
     // const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const breakpointColumnsObj = {
         default: 3,
-        700: 2,
-        600: 1
+        1200: 2,
+        800: 1
       };
     return (
         <>
