@@ -33,7 +33,9 @@ console.log(req.body);
                 bitsId: req.body.id,
                 quote: req.body.quote,
                 discipline: "",
-                imageUrl: req.body.imgUrl
+                imageUrl: req.body.imgUrl,
+                phone: req.body.phone,
+                pEmail: req.body.pEmail
             })
 
             await user.save(async function (err, user) {

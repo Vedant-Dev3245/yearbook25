@@ -11,6 +11,12 @@ var UserSchema = new mongoose.Schema({
     email : {
 
     },
+    pEmail : {
+
+    },
+    phone : {
+    type:String 
+    },
     bitsId : {
 
     },
