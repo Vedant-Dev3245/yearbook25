@@ -33,24 +33,24 @@ export default function Footer() {
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">about us</Box>
                         <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            initiatives</Box>
+                        <Link href="https://bits-sarc.org" target="_blank">initiatives</Link></Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            the podcast</Box>
+                            <Link href="https://open.spotify.com/show/3z8808lf1AB9NspMNufPqr?si=cd20f854d98a42b2" target="_blank"> the podcast</Link></Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            gallery</Box>
+                        <Link href="https://bits-sarc.org" target="_blank">gallery</Link></Box>
                             <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            echo</Box>
+                            <Link href="https://bits-sarc.org" target="_blank">echo</Link></Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">quick links</Box>
                         <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="1rem" color="#B3B3B3">
-                            how it works?</Box>
+                           <Link href="https://yearbook.bits-sarc.org/#working">how it works?</Link> </Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            walkthrough</Box>
+                        <Link href="https://yearbook.bits-sarc.org/#walkthrough">walkthrough</Link> </Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            developers</Box>
+                        <Link href="https://yearbook.bits-sarc.org/developers">developers</Link> </Box>
                             <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            FAQs</Box>
+                            <Link href="https://yearbook.bits-sarc.org/#faq">FAQ</Link> </Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">connect w/ us</Box>

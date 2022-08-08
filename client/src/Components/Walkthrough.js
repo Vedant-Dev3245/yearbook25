@@ -8,7 +8,7 @@ export default function Walkthrough() {
         setShowVideo(true)
     }
     return (
-        <Box mt="10rem">
+        <Box mt="10rem" id="walkthrough">
             <Box className="heading" fontSize="3.2rem" color="#fff" 
             fontWeight={800} align={'center'}>a 
             <Text fontStyle="italic" display="inline" 

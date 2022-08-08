@@ -20,7 +20,7 @@ export default function FAQ() {
             textAlign='left' 
             ml={isSmallerThan800 ? '1.4rem !important' : '10rem'}
             mt="10rem">have a <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >question?</Text> </Box>
-            <VStack mt="2rem" marginInline={isSmallerThan800 ? 0 : "5rem"} spacing={4} className="faqCont">
+            <VStack mt="2rem" marginInline={isSmallerThan800 ? 0 : "5rem"} spacing={4} className="faqCont" id="faq">
                 <FAQItems
                     marginBottom="0 !important"
                     faq="Would I need to log in every time I open the yearbook portal?"

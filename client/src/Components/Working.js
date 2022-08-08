@@ -4,7 +4,7 @@ import React from 'react'
 export default function Working() {
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     return (
-        <Box mt={isSmallerThan800 ? '10rem' : '6rem'}>
+        <Box mt={isSmallerThan800 ? '10rem' : '6rem'} id="working">
             <Box className="heading" fontSize="4rem" color="#fff" fontWeight={800} align={'center'}>how it <Text fontStyle="italic" display="inline" fontFamily="EB Garamond" >works?</Text> </Box>
             <VStack>
                 <Box mt="2rem" border="2px solid #A7D5FF;" boxShadow="0px 0px 10px #2094FF;" borderRadius="1rem" w={isSmallerThan800?"89%":"80%"} color="white" bgColor="rgba(32, 148, 255, 0.15)">
@@ -36,13 +36,13 @@ export default function Working() {
                     </Box>
 
                     <Box w={isSmallerThan800 ? '100% !important' : '40%'} mt={isSmallerThan800 ? '1rem' : '0'} color="white" border="2px solid #D84222;" boxShadow="0px 0px 10px #D84222;" borderRadius="1rem" bgColor="rgba(216, 66, 34, 0.15);">
-                        <Box w="80%" h="18rem" mb="4rem !important" bgColor="#D84222" borderRadius="20px" margin="auto"><Text m="2rem" fontSize="1.2rem" fontWeight="600" transform="translateY(20px)" >insert others’ profile view ss here</Text></Box>
+                        <Box w="80%" h="18rem" mb="4rem !important" bg={"url('../images/friendProf.png')"} bgSize="cover" borderRadius="20px" marginInline="auto" marginTop="2.4rem"></Box>
                         <Box ml={isSmallerThan800 ? '2rem !important' : '3rem'} mt="4rem" bgColor="#D84222" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center">
 
                             <Text fontWeight={700} fontSize="1.2rem" transform="translateY(44%)">3</Text>
                         </Box>
                         <VStack mb={isSmallerThan800 ? '2rem' : 0} mt="1rem" ml={isSmallerThan800 ? '2rem !important' : '3rem'} alignItems="baseline" w="80%">
-                            <Box fontSize="2.4rem" lineHeight="2.8rem" fontWeight="800" mb="1rem">vote your favs & do some crazy shit ✨</Box>
+                            <Box fontSize="2.4rem" lineHeight="2.8rem" fontWeight="800" mb="1rem">fill your friends' walls with memories ✨</Box>
                             <Box fontSize="1.4rem" fontWeight={"600"} lineHeight="1.6rem" mb="3rem !important" color="#B3B3B3" textAlign="left">
                             via notifications, get to know who all nominated you to write on their wall. click on the notifications to write your quotes on their wall.
                             </Box>
