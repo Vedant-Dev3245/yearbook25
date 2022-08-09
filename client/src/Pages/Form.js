@@ -92,6 +92,8 @@ export default function Form() {
         e.preventDefault();
         if (formInfo.id !== ""
             && formInfo.quote !== ""
+            && formInfo.phone !== ""
+            && formInfo.pEmail !== ""
             && imgExist) {
             e.target.disabled = true
             axios({
@@ -181,7 +183,7 @@ export default function Form() {
                                             fontSize="20px"
                                             fontWeight="600"
                                         >phone</FormLabel>
-                                        <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your phone here" name="phone" type="number" value={formInfo.phone} />
+                                        <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your 10 digit phone number here" name="phone" type="number" value={formInfo.phone} />
                                     </GridItem>
                                     
                                     <GridItem colSpan={2}>
