@@ -119,7 +119,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Working />
-      <Walkthrough />
+      {/* <Walkthrough /> */}
       <FAQ />
       <OptIn/>
       <Footer />

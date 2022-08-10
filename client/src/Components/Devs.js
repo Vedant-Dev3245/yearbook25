@@ -33,8 +33,7 @@ export default function Devs() {
                     github=""
                     linkedin=""
                     spotify=""
-                    text="A token is a digital asset that is issued by a company. 
-                    A token pair is a pair of tokens that are traded on the platform."
+                    text="if i was here, i'd know what to write."
                  />
                 <DevCards
                     img="../images/patil.png"
@@ -57,24 +56,24 @@ export default function Devs() {
                     text="I gave up my struggle with perfection a long time ago. That is a concept I don't find very interesting anymore. Be happy. Be yourself, the day is about a lot more."
                 />
                 <DevCards
-                    img="../images/patil.png"
+                    img="../images/sarthak.png"
                     name="sarthak arora"
-                    caption="ninja designer | 2021A7PS0532P"
+                    caption="life sorter | 2020A7PS0060P"
                     twitter="https://twitter.com/thysarthak"
                     github="https://github.com/sarthakeash"
                     linkedin="https://linkedin.com/in/sarthak-arora-aa92b9201/"
                     spotify="https://open.spotify.com/track/6xGruZOHLs39ZbVccQTuPZ?si=q8rhu3EcS1G9fpm68_G0zQ"
-                    text="It’s Friday"
+                    text="Dont lose what you can’t replace."
                 />
                 <DevCards
                     img="../images/saksham.png"
                     name="saksham aggarwal"
-                    caption="ninja designer | 2020A7PS1508P"
+                    caption="heavylifter | 2020A7PS1508P"
                     twitter="https://twitter.com/saksham_io"
                     github="http://github.com/sakshamdevelops"
                     linkedin="http://linkedin.com/in/sakshamagg27/"
                     spotify="https://open.spotify.com/track/3oVGjguICRU4UVS1ZPwH2D?si=12e226df30b947d7"
-                    text="Sometimes you should take the first step"
+                    text="Sometimes you should take the first step."
                 />
                 <DevCards
                     img="../images/shreya.png"
@@ -87,15 +86,14 @@ export default function Devs() {
                     text="Don’t let the Muggles get you down."
                 />
                 <DevCards
-                    img="../images/patil.png"
+                    img="../images/harsh.png"
                     name="harsh singh"
-                    caption="backing backend | 2021A7PS0532P"
-                    twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
-                    github=""
+                    caption="backing backend | 2021A3PS1173P"
+                    twitter="https://twitter.com/harsh_singh58"
+                    github="https://github.com/DankMemes4President"
                     linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
-                    spotify=""
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform."
+                    spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
+                    text="retiring from cursing compres after this semester.."
                 />
                                 
             </Masonry>

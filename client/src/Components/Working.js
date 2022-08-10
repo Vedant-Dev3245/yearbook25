@@ -30,13 +30,13 @@ export default function Working() {
                             on your profile, go to your wall and nominate your friends to write on your wall.
                             </Box>
                         </VStack>
-                        <Box w={isSmallerThan800 ? '80%' : '50%'} mt="2rem!important" bg={"url('../images/ownProfile.png')"} bgSize="cover"  h="18rem" mb="4rem !important" borderRadius="20px" margin="auto"></Box>
+                        <Box w={isSmallerThan800 ? '80%' : '70%'} mt="2rem!important" bg={"url('../images/ss2.png')"} bgSize="cover"  h="18rem" mb="4rem !important" borderRadius="20px" margin="auto"></Box>
 
 
                     </Box>
 
                     <Box w={isSmallerThan800 ? '100% !important' : '40%'} mt={isSmallerThan800 ? '1rem' : '0'} color="white" border="2px solid #D84222;" boxShadow="0px 0px 10px #D84222;" borderRadius="1rem" bgColor="rgba(216, 66, 34, 0.15);">
-                        <Box w="80%" h="18rem" mb="4rem !important" bg={"url('../images/friendProf.png')"} bgSize="cover" borderRadius="20px" marginInline="auto" marginTop="2.4rem"></Box>
+                        <Box w="80%" h="18rem" mb="4rem !important" bg={"url('../images/ss3.png')"} bgSize="cover" borderRadius="20px" marginInline="auto" marginTop="2.4rem"></Box>
                         <Box ml={isSmallerThan800 ? '2rem !important' : '3rem'} mt="4rem" bgColor="#D84222" color="white" width="3.5rem" h="3.5rem" borderRadius="50%" textAlign="center">
 
                             <Text fontWeight={700} fontSize="1.2rem" transform="translateY(44%)">3</Text>

@@ -79,7 +79,7 @@ export default function Interact(props) {
                 </Flex>
                 <Flex display = {ownProfile ? "flex" : "none"} onClick={makeNominActive} cursor="pointer" alignItems="center" p="1rem" className="nomin barItems">
                     <FiAnchor filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
-                    <Text ml="1rem" fontWeight="600" fontSize="1.1rem">nominate your frens</Text>
+                    <Text ml="1rem" fontWeight="600" fontSize="1.1rem">nominate your friends</Text>
                 </Flex>
                 <Flex display = {ownProfile ? "flex" : "none"} onClick={makeNotifActive} cursor="pointer" alignItems="center" p="1rem" className="notif barItems">
                     <FiBell filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
