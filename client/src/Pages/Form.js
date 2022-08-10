@@ -135,7 +135,7 @@ export default function Form() {
 
                     <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
                         <Heading mt="5rem" fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display="inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
-                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">note: please refer to this  <Link fontWeight={800} textDecor="underline" href="https://docs.google.com/document/d/1rhf9YGj8U0ysAkIgfsHRb0y-Gui9b6gLibJpKTnlKBI/edit">document</Link> before submitting your photo and quote for the yearbook portal.</Text>
+                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">note: please refer to this  <Link fontWeight={800} textDecor="underline" href="https://shreyakhubber.notion.site/shreyakhubber/Yearbook-Portal-a40d3dfec7714184b04812205daf62e6">document</Link> before submitting your photo and quote for the yearbook portal.</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
                                 <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full" >
