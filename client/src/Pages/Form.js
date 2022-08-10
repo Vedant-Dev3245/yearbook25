@@ -1,7 +1,7 @@
 import React from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios";
-import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, Alert, AlertIcon } from "@chakra-ui/react"
+import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, Alert, AlertIcon, Link } from "@chakra-ui/react"
 import { storage } from '../Firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 // import { validEmail, validID } from '../Utils.js';
@@ -25,7 +25,6 @@ export default function Form() {
     const [isDisabled, setIsDisabled] = React.useState(false);
     const [imgExist, setImgExist] = React.useState(false)
     const [error, setError] = React.useState(false)
-
     // const [emailErr, setEmailErr] = React.useState(false);
     // const [IDError, setIDError] = React.useState(false);
 
@@ -136,7 +135,7 @@ export default function Form() {
 
                     <Box pl={isSmallerThan500 ? '1.2rem' : '3rem'}>
                         <Heading mt="5rem" fontSize={isSmallerThan1100 ? '3rem' : '3.6rem'}>join your <Box fontStyle="italic" display="inline" fontFamily="EB Garamond" >batchies</Box> </Heading>
-                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">building yearbook portal for graduating peeps pog</Text>
+                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">note: please refer to this  <Link fontWeight={800} textDecor="underline" href="https://docs.google.com/document/d/1rhf9YGj8U0ysAkIgfsHRb0y-Gui9b6gLibJpKTnlKBI/edit">document</Link> before submitting your photo and quote for the yearbook portal.</Text>
                         <Box mt="2rem">
                             <FormControl mt="4rem">
                                 <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full" >

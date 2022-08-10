@@ -19,9 +19,7 @@ export default function Footer() {
                                  <Text ml={isSmallerThan800 ? "1rem" : "-8rem"}>SARC</Text>
                                  </Box>
                         <Box fontSize="1rem" fontWeight="600" mt="0rem !important" color="#B3B3B3" w={isSmallerThan800 ? '180%' : "100%"}>
-                            Student Alumni Relations Cell is a student body of BITS Pilani,
-                            Pilani Campus working under the aegis of the Dean of Alumni
-                            Relations Division. </Box>
+                        Student Alumni Relations Cell, BITS Pilani, is a body that works under the aegis of the Dean of Alumni Relations, Prof. Arya Kumar, to establish a strong connection between the Alumni and the student community.</Box>
                         <Flex justifyContent="space-between" w={isSmallerThan800 ? "150%" : "50%"} align={'center'} mt= "1.5rem !important">
                             <Link href="https://www.facebook.com/sarcbitspilani" target="_blank"><FaFacebook color='white' fontSize={"1.8rem"}/> </Link>
                             <Link href="https://www.twitter.com/sarcbitspilani" target="_blank"><FaTwitter color='white' fontSize={"1.8rem"}/> </Link>
@@ -37,14 +35,14 @@ export default function Footer() {
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                             <Link href="https://open.spotify.com/show/3z8808lf1AB9NspMNufPqr?si=cd20f854d98a42b2" target="_blank"> the podcast</Link></Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                        <Link href="https://bits-sarc.org" target="_blank">gallery</Link></Box>
+                        <Link href="https://bits-sarc.org/#portfolio" target="_blank">gallery</Link></Box>
                             <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
-                            <Link href="https://bits-sarc.org" target="_blank">echo</Link></Box>
+                            <Link href="https://www.bitsaa.org/page/publications/bits-echo" target="_blank">echo</Link></Box>
                     </VStack>
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">quick links</Box>
                         <Box cursor="pointer" paddingTop="1rem" fontSize="1rem" fontWeight="600" mt="1rem" color="#B3B3B3">
-                           <Link href="https://yearbook.bits-sarc.org/#working">how it works?</Link> </Box>
+                           <Link href="https://yearbook.bits-sarc.org/#working">how does it work?</Link> </Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
                         <Link href="https://yearbook.bits-sarc.org/#walkthrough">walkthrough</Link> </Box>
                         <Box cursor="pointer" fontSize="1rem" fontWeight="600" mt="4rem" color="#B3B3B3">
@@ -55,8 +53,8 @@ export default function Footer() {
                     <VStack alignItems="baseline" justifyContent="center">
                         <Box id="contact" fontSize="1.7rem" fontWeight="700" mt={isSmallerThan800 ? "2rem" : "5rem"} color="white">connect w/ us</Box>
                         <Box fontSize="1rem" fontWeight="600" color="#B3B3B3" w={isSmallerThan800 ? "80%" : "40%"} >
-                            if you're facing any problems, or just wish to appreciate our work, feel free to.. hehe!</Box>
-                            <Box cursor="pointer" pt="0.8rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" mt= "1.5rem !important" borderRadius="0.6rem" w="fit-content" fontWeight={"600"} color="#B3B3B3" backdropFilter={"blur(10px)"}> <Link href="https://forms.gle/ioRbm9CiyC96shm67" target="_blank">need help?</Link></Box>
+                            if you're facing any problems, or just wish to appreciate our work, feel free to..</Box>
+                            <Box cursor="pointer" pt="0.8rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" mt= "1.5rem !important" borderRadius="0.6rem" w="fit-content" fontWeight={"600"} color="#B3B3B3" backdropFilter={"blur(10px)"}> <Link href="https://forms.gle/ioRbm9CiyC96shm67" target="_blank">ask for help</Link></Box>
                     </VStack>
                 </Flex>
             </Box>

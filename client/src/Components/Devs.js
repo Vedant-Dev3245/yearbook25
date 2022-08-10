@@ -55,8 +55,7 @@ export default function Devs() {
                     github="https://github.com/pentaquark1616"
                     linkedin="https://www.linkedin.com/in/pratham-arya/"
                     spotify="https://open.spotify.com/track/5PQV6JRuE9wSfPS49Zlrx7?si=4c22989f0a9a4f81"
-                    text="A token is a digital asset that is issued by a company. 
-                A token pair is a pair of tokens that are traded on the platform."
+                    text="I gave up my struggle with perfection a long time ago. That is a concept I don't find very interesting anymore. Everyone just wants to look good in the photographs. I think that is where some of the pressure comes from. Be happy. Be yourself, the day is about a lot more."
                 />
                 <DevCards
                     img="../images/patil.png"
@@ -84,6 +83,17 @@ export default function Devs() {
                     img="../images/patil.png"
                     name="shreya nag"
                     caption="ninja designer | 2021A7PS0532P"
+                    twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
+                    github=""
+                    linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
+                    spotify=""
+                    text="A token is a digital asset that is issued by a company. 
+                A token pair is a pair of tokens that are traded on the platform."
+                />
+                <DevCards
+                    img="../images/patil.png"
+                    name="harsh singh"
+                    caption="backing backend | 2021A7PS0532P"
                     twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-nag-573976245"

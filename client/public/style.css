@@ -50,10 +50,7 @@ input[type="email"] {
         font-size: 2.4rem !important;
         margin-inline: 1rem !important ;
     }
-    .workImg{
-        width: 100% !important;
-        border-radius:  0 !important;
-    }
+    
     .faqQues{
         font-size: 1.2rem !important;
     }
@@ -82,5 +79,16 @@ input[type="email"] {
 @media (max-width: 860px) {
     .devName{
         font-size: 1.6rem !important;
+    }
+}
+@media (max-width: 800px) {
+    .workImg{
+        width: 100% !important;
+        border-radius:  0 !important;
+    }
+}
+@media (min-width: 800px) and (max-width: 1100px) {
+    .workLabel{
+        width: 40% !important;
     }
 }

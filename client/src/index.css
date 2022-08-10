@@ -254,3 +254,14 @@ border-radius: 50%;
 .chakra-modal__content-container{
   align-items: center !important;
 } 
+
+@media (max-width: 1460px) {
+  .workHeading{
+    font-size: 1.4rem !important;
+    line-height: 1.8rem !important;
+  }
+  .workInfo{
+    font-size: 1rem !important;
+    line-height: 1.1rem !important;
+  }
+}
