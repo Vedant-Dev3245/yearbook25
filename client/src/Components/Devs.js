@@ -28,7 +28,7 @@ export default function Devs() {
                 <DevCards
                     img="../images/aryan.png"
                     name="aryan bakshi"
-                    caption="one man army | 2021A7PS0532P"
+                    caption="multitasker | 2021A7PS0532P"
                     twitter=""
                     github=""
                     linkedin=""
@@ -48,9 +48,9 @@ export default function Devs() {
                 A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
-                    img="../images/aryan.png"
+                    img="../images/pratham.png"
                     name="pratham arya"
-                    caption="one man army | 2021A7PS0532P"
+                    caption="one man army | 2020B4A81658P"
                     twitter="https://twitter.com/pentaquark16"
                     github="https://github.com/pentaquark1616"
                     linkedin="https://www.linkedin.com/in/pratham-arya/"
@@ -70,9 +70,9 @@ export default function Devs() {
                 A token pair is a pair of tokens that are traded on the platform."
                 />
                 <DevCards
-                    img="../images/patil.png"
+                    img="../images/saksham.png"
                     name="saksham aggarwal"
-                    caption="ninja designer | 2021A7PS0532P"
+                    caption="ninja designer | 2020A7PS1508P"
                     twitter="https://twitter.com/saksham_io"
                     github="http://github.com/sakshamdevelops"
                     linkedin="http://linkedin.com/in/sakshamagg27/"

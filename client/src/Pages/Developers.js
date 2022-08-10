@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom"
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import Devs from '../Components/Devs';
-import {Box, Text, VStack, useMediaQuery} from '@chakra-ui/react';
+import {Box, Text, VStack, useMediaQuery, Flex} from '@chakra-ui/react';
 import jwtDecode from "jwt-decode"
 import axios from "axios";
+import ScaleLoader from "react-spinners/ScaleLoader";
 
 
 
@@ -38,6 +39,14 @@ export default function Devleopers(){
            )
          }
        }, [])
+       
+       React.useEffect(()=>{
+   
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
+     
+     },[])
     
        function handleCallbackResponse(response) {
         var userObject = jwtDecode(response.credential)
@@ -84,8 +93,15 @@ export default function Devleopers(){
         <Box overflowX="hidden"
         bg="#141414"
         className="noselect landing">
+           <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+      backdropFilter='blur(10px)'><ScaleLoader
+                color="#D4D4D4"
+                loading = {loading}
+                size={60}
+                speedMultiplier={0.7}
+            /></Flex>
             <Navbar />
-            <Box w="80%" marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
+            <Box w="90%" marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
             <VStack spacing="1rem" marginInline="auto" >
                 <Text fontWeight={800} fontSize={isSmallerThan800?"1.8rem":"4rem"} color="white">
                     hope you liked it 🌱</Text>

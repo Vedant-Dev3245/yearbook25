@@ -14,7 +14,7 @@ export default function Footer() {
                         
                         <Box  fontSize="3rem" fontWeight="700" mt="4rem" color="white" display="flex" w="100%">
                             <Box w="50%">
-                                <Image display="inline" src = "https://user-images.githubusercontent.com/69129797/182025563-7c048460-b502-4fb5-8072-c777747d2d5f.png" w={isSmallerThan800 ? "110%" : "30%"}/>
+                                <Image display="inline" src = "https://user-images.githubusercontent.com/69129797/182025563-7c048460-b502-4fb5-8072-c777747d2d5f.png" w="4rem"/>
                                 </Box>
                                  <Text ml={isSmallerThan800 ? "1rem" : "-8rem"}>SARC</Text>
                                  </Box>

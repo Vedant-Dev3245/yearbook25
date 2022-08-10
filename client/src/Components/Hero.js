@@ -55,8 +55,8 @@ export default function Hero() {
                             <Text>"thank me for your good grades and high cg"</Text>
                             <Text textAlign="right">~puney</Text></Box>
                         <Box className="floatText" bg="rgba(69, 81, 255, 0.25);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(69, 81, 255, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(69, 81, 255, 0.25);" position="absolute" w={isSmallerThan900 ? '8rem' : '16rem'} top={isSmallerThan900 ? '0rem' : '22rem'} left= {isSmallerThan900 ? '13rem' : '20rem'} >
-                            <Text >“i spent 112,440 hours of my life for a handshake and a paper”</Text>
-                            <Text textAlign="right">~aarushi</Text>
+                            <Text >“we are not building just another portal for you, we are taking care of thousands of memories associated with you.”</Text>
+                            <Text textAlign="right">~pratham</Text>
                         </Box>
                         <Box className="floatText" bg="rgba(255, 198, 45, 0.15);" fontSize={isSmallerThan900 ? "0.5rem" : "0.8rem"} p={isSmallerThan900 ? "0.2rem" : "0.8rem"} fontWeight="600"  color="#B3B3B3" borderRadius="20px" border="2px solid rgba(255, 198, 45, 0.25);" backdropFilter="blur(4px)" boxShadow="0px 0.58805px 14.1132px 0.58805px rgba(255, 198, 45, 0.25);" position="absolute" w={isSmallerThan900 ? '10rem' : '15rem'} top={isSmallerThan900 ? '18rem' : '3rem'} left={isSmallerThan900 ? '12rem' : '22rem'}>
                             <Text >“please don't tell me this the good part we were supposed to skip to!”</Text>

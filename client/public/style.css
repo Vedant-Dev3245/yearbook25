@@ -73,3 +73,14 @@ input[type="email"] {
         padding: 0.3rem !important;
     }
 }
+
+@media (max-width: 1380px) {
+    .devName{
+        font-size: 1.8rem !important;
+    }
+}
+@media (max-width: 860px) {
+    .devName{
+        font-size: 1.6rem !important;
+    }
+}
