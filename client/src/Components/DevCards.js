@@ -24,11 +24,11 @@ const DevCards = (props) => {
             <VStack alignItems="baseline" pl={2}>
                 <Text color="#DCEDFB" fontWeight={700} fontSize="2.2rem" mt="0.5rem !important" className='devName'>{props.name}</Text>
                 <Text color="#B3B3B3" className='devCaption' fontWeight={300} fontSize="1rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>
-                <Text color="#FAFAFA" className="devText" fontWeight={500} fontSize="0.8rem" h={isSmallerThan800 ? "4rem" : "2rem"} w="90%" lineHeight={"1rem"} mb="1rem !important">{props.text}</Text>
+                <Text color="#FAFAFA" className="devText" fontWeight={500} fontSize="0.9rem" h={isSmallerThan800 ? "4rem" : "2rem"} w="90%" lineHeight={"1rem"} mb="1rem !important">{props.text}</Text>
                     <Flex justifyContent="space-between" w="100%">
                         <Flex className='icons' justifyContent="space-between" alignItems="center" w={isSmallerThan800 ? "50%" : "7rem"}>
                         <Link href={(props.twitter !== null) && props.twitter } target="_blank"><FiTwitter color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
-                        <Link href={(props.github !== null) && props.github} target="_blank">  <FiGithub color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
+                        <Link href={props.github !== ""  && props.github} target="_blank">  <FiGithub color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
                         <Link href={(props.linkedin !== null) && props.linkedin} target="_blank"><FiLinkedin color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
                         </Flex>
                         <Flex>
