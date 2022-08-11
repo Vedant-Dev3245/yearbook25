@@ -3,7 +3,7 @@ import {
     ModalContent,
     ModalHeader,
     ModalBody,
-    ModalCloseButton, Text, VStack, Image, FormLabel, Textarea, FormHelperText, Button, Input, FormControl, useMediaQuery, Alert, AlertIcon
+    ModalCloseButton, Text, VStack, Image, FormLabel, Textarea, FormHelperText, Button, Input, FormControl, useMediaQuery, Link,Alert, AlertIcon
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
@@ -12,7 +12,6 @@ import axios from "axios"
 import { Spinner } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom";
 import { storage } from '../Firebase'   
-import {BiImageAdd } from 'react-icons/bi'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function ProfileInfo(props) {
@@ -174,15 +173,12 @@ export default function ProfileInfo(props) {
                         <ModalHeader mt={isSmallerThan800 ? "0.5rem" : "2rem"} fontSize={isSmallerThan800 ? "1.5rem" : "2rem"}>update your details</ModalHeader>
                         <ModalCloseButton onClick={handleClose} />
                         <ModalBody mt="-0.5rem" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"} color="#B3B3B3" mb="1rem">
-                            put the instructions in the google docs here in    the form of bullet points like this: <br />
-                            wish to do anything with it,<br />
-                            google docs here in the form<br />
-                            2020A7PS1508P great stuff
+                        <Text fontWeight="600" color="#B3B3B3" mt="1rem">note: please refer to this  <Link fontWeight={800} textDecor="underline" href="https://shreyakhubber.notion.site/shreyakhubber/Yearbook-Portal-a40d3dfec7714184b04812205daf62e6">document</Link> before submitting your photo and quote for the yearbook portal.</Text>
                             <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                                 <FormLabel htmlFor="file" position="relative" textAlign={"center"} fontWeight="700" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"}> please upload a 1080*1080 <br/> image to avoid cuts                                    
                                     <Image src={imgExist? img : props.imgUrl} margin="auto" cursor="pointer" w="10rem" h="10rem" />
                                     <Spinner size="lg" mt="1rem" position="absolute" display={spin2 ? "block" : "none"}/>
-                                    <Box position="absolute" top="3rem" left="15%"><BiImageAdd fontSize="3rem"/></Box>
+                                    <Box position="absolute" top="3rem" left="15%"></Box>
                                 </FormLabel>
                                 <FormLabel
                                     cursor="pointer"
