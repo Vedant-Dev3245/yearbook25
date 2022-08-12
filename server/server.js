@@ -76,5 +76,5 @@ function loggedIn(req, res, next) {
   }
 }
 // app.use("/auth", authRoutes);
-app.use("/",cors(corsOptions), getRoutes); 
-app.use("/",cors(corsOptions), postRoutes);
+app.use("/", getRoutes); 
+app.use("/", postRoutes);

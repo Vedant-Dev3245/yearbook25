@@ -72,7 +72,8 @@ router.post("/profile/check", async (req, res) => {
     try {
         console.log(req.body)
         const email = req.body.email;
-        if (email.substring(0, 5) != "f2019" && email.substring(0, 5) != "h2021" && !privileged.includes(email)) { //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
+        console.log(email[10]);
+        if ((email[10]!='p')||(email.substring(0, 5) != "f2019" && email.substring(0, 5) != "h2021" && !privileged.includes(email))) { //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
             return res.send({
                 authorised: 0
             })
