@@ -28,23 +28,23 @@ export default function Hero() {
                     <Flex mt="3rem !important" color="white" width={isSmallerThan900 ? '100%' : '60%'} flexDirection="column">
                         <Flex justifyContent="space-between" textAlign="left" display={isSmallerThan900?"none":"flex"}>
                             <Box w="70%" mr={isSmallerThan900 ? '1.4rem' : 0}>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">5.3k+</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">captions</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">2.75k+</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">captions in 2021</Text>
                             </Box>
                             <Box w="70%">
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">486</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">yearbook quotes</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">47</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">branches</Text>
                             </Box>
                         </Flex>
                         <Image pointerEvents={'none'} src="../images/Ellipse 9.png" alt="ellipse" position="absolute" left="-3rem" top="40rem" />
                         <Flex justifyContent="space-between" textAlign="left" display={isSmallerThan900?"none":"flex"} >
                             <Box w="70%" mr={isSmallerThan900 ? '1.4rem' : 0}>
-                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">42</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">branches</Text>
+                                <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">1.2k+</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">students</Text>
                             </Box>
                             <Box w="70%">
                                 <Text fontSize={isSmallerThan900 ? '1.3rem' : '2.8rem'} fontWeight="800">250k+</Text>
-                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">visits in past 30 days</Text>
+                                <Text mt="-0.5rem" fontSize={isSmallerThan900 ? '0.8rem' : '0.9rem'} color="#B3B3B3" fontWeight="500">visits in 2021</Text>
                             </Box>
                         </Flex>
                     </Flex>
