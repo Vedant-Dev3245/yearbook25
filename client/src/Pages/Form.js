@@ -6,7 +6,7 @@ import { storage } from '../Firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 export default function Form() {
-    const validID = new RegExp('2019[A-B][1-8]([A-B][1-5]|PS)?[0-2][0-9][0-9][0-9]P|2021H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2019D2PS[0-2][0-9][0-9][0-9]P')
+    const validID = new RegExp('2019[A-B][1-9AB]([A][1-9AB]|PS)[0-2][0-9][0-9][0-9]P|2021H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2019D2PS[0-2][0-9][0-9][0-9]P')
     const location = useLocation()
     const data = location.state;
     const [formInfo, setFormInfo] = React.useState({
