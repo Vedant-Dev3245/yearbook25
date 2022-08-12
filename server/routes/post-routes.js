@@ -149,9 +149,7 @@ router.post("/nominate", async (req, res) => {
                              <li> Please refrain from using any expletives or Devanagari script while writing captions. </li>
                               </ol>
                               Login at yearbook.bits-sarc.org to enter the caption under the notifications tab  <br>
-                             
-                              PS: If you have any further queries or you wish to contribute to the yearbook in the form of pictures from campus, you may do the same via this form : https://forms.gle/bbrjoVVt6kdroFbs5
-                              <br><br>
+                              <br>
                               Regards,
                               Student Alumni Relations Cell! <br>
                                </p>`,
