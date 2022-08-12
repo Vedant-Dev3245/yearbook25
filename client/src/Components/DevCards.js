@@ -27,9 +27,9 @@ const DevCards = (props) => {
                 <Text color="#FAFAFA" className="devText" fontWeight={500} fontSize="0.9rem" h={isSmallerThan800 ? "4rem" : "2rem"} w="90%" lineHeight={"1rem"} mb="1rem !important">{props.text}</Text>
                     <Flex justifyContent="space-between" w="100%">
                         <Flex className='icons' justifyContent="space-between" alignItems="center" w={isSmallerThan800 ? "50%" : "7rem"}>
-                        <Link href={(props.twitter !== null) && props.twitter } target="_blank"><FiTwitter color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
-                        <Link href={props.github !== ""  && props.github} target="_blank">  <FiGithub color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
-                        <Link href={(props.linkedin !== null) && props.linkedin} target="_blank"><FiLinkedin color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>
+                        {props.twitter !== "" && <Link href= {props.twitter} target="_blank"><FiTwitter color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>}
+                        {props.github !== "" && <Link href={ props.github} target="_blank">  <FiGithub color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>}
+                        {props.linkedin !== "" && <Link href={props.linkedin} target="_blank"><FiLinkedin color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>}
                         </Flex>
                         <Flex>
                         <Link href={props.spotify} target="_blank" background= "rgba(255, 255, 255, 0.1)" border="0.5px solid rgba(255, 255, 255, 0.25)" borderRadius={"5px"} p="0.8rem"><FaSpotify color='white' fontSize={"1.5rem"} strokeWidth="1"/> </Link>

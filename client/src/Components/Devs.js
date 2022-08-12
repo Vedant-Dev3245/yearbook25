@@ -29,10 +29,10 @@ export default function Devs() {
                     img="../images/aryan.png"
                     name="aryan bakshi"
                     caption="multitasker | 2021A7PS0532P"
-                    twitter=""
-                    github=""
-                    linkedin=""
-                    spotify=""
+                    twitter="https://twitter.com/aryan_bakshii"
+                    github="https://github.com/aryan-bakshii"
+                    linkedin="https://www.linkedin.com/in/aryan-bakshi-005b27222/"
+                    spotify="https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3?si=12bf8c69f6954053"
                     text="if i was here, i'd know what to write."
                  />
                 <DevCards
@@ -78,7 +78,7 @@ export default function Devs() {
                 <DevCards
                     img="../images/shreya.png"
                     name="shreya nag"
-                    caption="ninja designer | 2021A2PS2636P"
+                    caption="wannabe magician | 2021A2PS2636P"
                     twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
@@ -94,6 +94,16 @@ export default function Devs() {
                     linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
                     spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
                     text="retiring from cursing compres after this semester.."
+                />
+                  <DevCards
+                    img="../images/shreyaK.png"
+                    name="shreya khubber"
+                    caption="behind the scenes | 2021A8PS1807P"
+                    twitter="https://twitter.com/shreyakhubber?lang=en"
+                    github=""
+                    linkedin="https://www.linkedin.com/in/shreya-khubber/"
+                    spotify="https://open.spotify.com/track/29m79w9xPMH4YCD6r8JSmV?si=8ef34623f35e44e8"
+                    text="the kids are real nice this year.."
                 />
                                 
             </Masonry>
