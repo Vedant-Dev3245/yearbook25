@@ -98,12 +98,12 @@ export default function Devs() {
                   <DevCards
                     img="../images/shreyaK.png"
                     name="shreya khubber"
-                    caption="behind the scenes | 2021A8PS1807P"
+                    caption="boss lady | 2020A8PS1807P"
                     twitter="https://twitter.com/shreyakhubber?lang=en"
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-khubber/"
-                    spotify="https://open.spotify.com/track/29m79w9xPMH4YCD6r8JSmV?si=8ef34623f35e44e8"
-                    text="the kids are real nice this year.."
+                    spotify="https://open.spotify.com/album/0yMLTRxwcDN5XHjP5w8jAH?si=wrdfhONORHCp8gvSQ72CDQ&utm_source=copy-link"
+                    text="i don't think i did anything.."
                 />
                                 
             </Masonry>

@@ -31,7 +31,12 @@ const arr = [
       "f20211526@pilani.bits-pilani.ac.in",
       "f20212588@pilani.bits-pilani.ac.in",
       "f20212435@pilani.bits-pilani.ac.in",
-      "studentalumnirelationscell@gmail.com"
+      "studentalumnirelationscell@gmail.com",
+      //18Batch
+      "f20180385@pilani.bits-pilani.ac.in",
+      "f20180432@pilani.bits-pilani.ac.in",
+      "f20180306@pilani.bits-pilani.ac.in",
+      "f20180936@pilani.bits-pilani.ac.in",
 ];
 
 module.exports = arr;

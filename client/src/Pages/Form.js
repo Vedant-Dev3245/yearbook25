@@ -4,9 +4,9 @@ import axios from "axios";
 import { Box, Input, Flex, Heading, Text, FormLabel, FormControl, FormHelperText, Button, Textarea, SimpleGrid, GridItem, Image, useMediaQuery, Alert, AlertIcon, Link } from "@chakra-ui/react"
 import { storage } from '../Firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-// import { validEmail, validID } from '../Utils.js';
 
 export default function Form() {
+     const validID = new RegExp('2019[A-B][1-8]([A-B][1-5])?PS[0-2][0-9][0-9][0-9]P|2021H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2019D2PS[0-2][0-9][0-9][0-9]P')
     const location = useLocation()
     const data = location.state;
     const [formInfo, setFormInfo] = React.useState({
@@ -26,21 +26,49 @@ export default function Form() {
     const [imgExist, setImgExist] = React.useState(false)
     const [error, setError] = React.useState(false)
     // const [emailErr, setEmailErr] = React.useState(false);
-    // const [IDError, setIDError] = React.useState(false);
+    const [valid, setValid] = React.useState(false);
 
-    // function validate() {
-    //     console.log(formInfo)
-    //     if (!validEmail.test(formInfo.email)) {
-    //         setEmailErr(true);
-    //     } else {
-    //         setEmailErr(false);
-    //     }
-    //     if (validID.test(formInfo.id)) {
-    //         setIDError(true);
-    //     } else {
-    //         setIDError(false);
-    //     }
-    // }
+    function validate(e) {
+        if (validID.test(formInfo.id)) {
+            setValid(true);
+            console.log(valid);
+            if (formInfo.id !== ""
+                && formInfo.quote !== ""
+                && formInfo.phone !== ""
+                && formInfo.pEmail !== ""
+                && imgExist) {
+                // ) {
+                e.target.disabled = true 
+                axios({
+                    method: 'POST',
+                    // url: 'some/api',
+                    url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/add',
+                    data: formInfo
+                })
+                    .then(function (response) {
+                        if (response.data.detail === "Profile created") {
+                            localStorage.setItem("user", response.data._id)
+                            navigate(`/profile/${response.data._id}`)
+                        }
+                        console.log(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            }
+            else{
+                setError(true);
+            setTimeout(() => {
+                setError(false)
+            }, 2000);
+            }
+        } else {
+            setValid(false);
+            alert("Please enter a valid BITS ID")
+            
+        }
+    }
     const [isSmallerThan900] = useMediaQuery('(max-width: 900px)')
     const [isSmallerThan1100] = useMediaQuery('(max-width: 1100px)')
     const [isSmallerThan500] = useMediaQuery('(max-width: 500px)')
@@ -64,65 +92,45 @@ export default function Form() {
         const storageRef = ref(storage, `files/${imageFile.name}`);
         const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
-            uploadTask.on("state_changed",
-                (snapshot) => {
-                    setIsDisabled(true)
-                },
-                (error) => {
-                    alert(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        console.log(downloadURL)
-                        setIsDisabled(false)
-                        setFormInfo(prevFormInfo => {
-                            return {
-                                ...prevFormInfo,
-                                imgUrl: downloadURL
-                            }
-                        })
-                        
+        uploadTask.on("state_changed",
+            (snapshot) => {
+                setIsDisabled(true)
+            },
+            (error) => {
+                alert(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log(downloadURL)
+                    setIsDisabled(false)
+                    setFormInfo(prevFormInfo => {
+                        return {
+                            ...prevFormInfo,
+                            imgUrl: downloadURL
+                        }
+                    })
 
-                    });
-                }
-            );
+
+                });
+            }
+        );
     }
     function handleSubmit(e) {
         e.preventDefault();
-        if (formInfo.id !== ""
-            && formInfo.quote !== ""
-            && formInfo.phone !== ""
-            && formInfo.pEmail !== ""
-            && imgExist) {
-            e.target.disabled = true
-            axios({
-                method: 'POST',
-                // url: 'some/api',
-                url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/add',
-                data: formInfo
-            })
-                .then(function (response) {
-                    if (response.data.detail === "Profile created") {
-                        localStorage.setItem("user", response.data._id)
-                        navigate(`/profile/${response.data._id}`)
-                    }
-                    console.log(response);
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-
-        }
-        else {
-            // <Alert status='error'>
-            //     <AlertIcon />
-            //         There was an error processing your request
-            // </Alert>
-            setError(true);
-            setTimeout(() => {
-                setError(false)
-            }, 2000);
-        }
+        validate(e);
+        // if (valid) {
+           
+        //     else {
+        //         // <Alert status='error'>
+        //         //     <AlertIcon />
+        //         //         There was an error processing your request
+        //         // </Alert>
+               
+        //     }
+        // }
+        // else{
+            
+        // }
     }
     return (
         <Flex flexDirection={isSmallerThan900 ? 'column' : 'row'} minHeight="100vh" bg="black" >
@@ -175,7 +183,7 @@ export default function Form() {
                                         >bits id</FormLabel>
                                         <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your id number here" name="id" type="text" value={formInfo.id} />
                                     </GridItem>
-                                     <GridItem colSpan={2}>
+                                    <GridItem colSpan={2}>
                                         <FormLabel
                                             cursor="pointer"
                                             htmlFor="id"
@@ -184,7 +192,7 @@ export default function Form() {
                                         >phone</FormLabel>
                                         <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your 10 digit phone number here" name="phone" type="number" value={formInfo.phone} />
                                     </GridItem>
-                                    
+
                                     <GridItem colSpan={2}>
                                         <FormLabel
                                             cursor="pointer"
@@ -222,7 +230,7 @@ export default function Form() {
                     <Box fontSize="1.8rem" color="#B3B3B3" letterSpacing="-0.1rem" fontFamily="Gilroy" fontStyle="italic" fontWeight="700" w="60%" marginInline="auto" marginBlock="2rem" lineHeight="1.8rem">
                         {' "' + formInfo.quote + '" '}
                     </Box>
-                    <Button  disabled={isDisabled} className="button" onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
+                    <Button disabled={isDisabled} className="button" onClick={handleSubmit} mb={isSmallerThan900 ? '3rem' : '0'} _hover={{ transform: "translate(-2px, -2px)", bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="2.4rem 3.2rem" fontSize="2rem" colorScheme="blackAlpha">submit</Button>
                 </Box>
             </Flex>
             <Alert bg="#242323" color="white" status='error' display={error ? "block" : "none"} position="absolute" w="40%" bottom="0" right="0">
