@@ -88,10 +88,10 @@ export default function Devs() {
                 <DevCards
                     img="../images/harsh.png"
                     name="harsh singh"
-                    caption="backing backend | 2021A3PS1173P"
+                    caption="backing backend | 2021A3PS1725P"
                     twitter="https://twitter.com/harsh_singh58"
                     github="https://github.com/DankMemes4President"
-                    linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
+                    linkedin="https://www.linkedin.com/in/harsh-singh-049838227/"
                     spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
                     text="retiring from cursing compres after this semester.."
                 />

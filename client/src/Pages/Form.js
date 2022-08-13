@@ -65,7 +65,7 @@ export default function Form() {
             }
         } else {
             setValid(false);
-            alert("Please enter a valid BITS ID")
+            alert("Please enter a valid BITS ID (eg. 2019A7PS0060P")
             
         }
     }
@@ -171,7 +171,7 @@ export default function Form() {
                                             htmlFor="email"
                                             fontSize="20px"
                                             fontWeight="600"
-                                        >email</FormLabel>
+                                        >personal email</FormLabel>
                                         <Input pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in" opacity="1 !important" w="90%" id="email" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your personal mail here" name="pEmail" type="text" value={formInfo.pEmail} />
                                     </GridItem>
                                     <GridItem colSpan={2}>
