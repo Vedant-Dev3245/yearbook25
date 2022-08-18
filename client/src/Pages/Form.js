@@ -13,7 +13,7 @@ export default function Form() {
         // firstName: 'shwetabh',
         firstName: data.given_name,
         // lastName: 'niket',
-        lastName: data.family_name,
+        lastName: data.family_name || "",
         quote: "",
         id: "",
         email: data.email,
@@ -186,11 +186,11 @@ export default function Form() {
                                     <GridItem colSpan={2}>
                                         <FormLabel
                                             cursor="pointer"
-                                            htmlFor="id"
+                                            htmlFor="phone"
                                             fontSize="20px"
                                             fontWeight="600"
                                         >phone</FormLabel>
-                                        <Input w="90%" id="id" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your 10 digit phone number here" name="phone" type="number" value={formInfo.phone} />
+                                        <Input w="90%" id="phone" pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP" onChange={handleChange} p="1.2rem 0.8rem" placeholder="enter your 10 digit phone number here" name="phone" type="number" value={formInfo.phone} />
                                     </GridItem>
 
                                     <GridItem colSpan={2}>
