@@ -38,8 +38,8 @@ const arr = [
       "f20180306@pilani.bits-pilani.ac.in",
       "f20180936@pilani.bits-pilani.ac.in",
       //Vertical Transfer Students
-      "f20171082@pilani.bits-pilani.ac.in",
-      "f20171187@pilani.bits-pilani.ac.in",
+      "h20171082@pilani.bits-pilani.ac.in",
+      "h20171187@pilani.bits-pilani.ac.in",
 
 ];
 
