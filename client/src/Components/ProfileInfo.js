@@ -21,7 +21,7 @@ export default function ProfileInfo(props) {
     const [spin, setSpin] = React.useState(false)
     const [spin2, setSpin2] = React.useState(false)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
-    const[msg,setMsg] = React.useState("")
+    const [msg,setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
     const [isDisabled, setIsDisabled] = React.useState(false)
     const [imgExist, setImgExist] = React.useState(false)
