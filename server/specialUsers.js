@@ -37,6 +37,10 @@ const arr = [
       "f20180432@pilani.bits-pilani.ac.in",
       "f20180306@pilani.bits-pilani.ac.in",
       "f20180936@pilani.bits-pilani.ac.in",
+      //Vertical Transfer Students
+      "h20171082@pilani.bits-pilani.ac.in",
+      "h20171187@pilani.bits-pilani.ac.in",
+
 ];
 
 module.exports = arr;
