@@ -47,7 +47,7 @@ app.use(
 
 //app.use(passport.initialize());
 //app.use(passport.session());
-var whitelist = ['https://sarc-yearbook-sarc.vercel.app','https://yearbook.bits-sarc.org'];
+var whitelist = ['http://localhost:3000/','https://sarc-yearbook-sarc.vercel.app','https://yearbook.bits-sarc.org'];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
