@@ -154,21 +154,27 @@ router.post("/nominate", async (req, res) => {
                               Student Alumni Relations Cell! <br>
                                </p>`,
             };
-            sgMail.send(mailOptions)
-                .then((response) => {
-            
-                    return res.send({
-                        status: "success",
-                        msg: "Friend nominated successfully!",
-                    });
-                })
-                .catch((error) => {
-                    console.error(error);
-                    return res.send({
-                        status: "failure",
-                        msg: "There was an error, Please try after some time",
-                    });
-                });
+
+            return res.send({
+                            status: "success",
+                            msg: "Friend nominated successfully!",
+                        });
+
+            // sgMail.send(mailOptions)
+            //     .then((response) => {
+            //
+            //         return res.send({
+            //             status: "success",
+            //             msg: "Friend nominated successfully!",
+            //         });
+            //     })
+            //     .catch((error) => {
+            //         console.error(error);
+            //         return res.send({
+            //             status: "failure",
+            //             msg: "There was an error, Please try after some time",
+            //         });
+            //     });
         }
         } catch (err) {
             return res.send({
