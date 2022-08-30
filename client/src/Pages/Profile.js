@@ -78,6 +78,6 @@ export default function Profile(props) {
     //             id={params.id}
     //         />
     //     </Box>
-    <Box>The Yearbook Portal is under maintenance. Please check back in an hour.</Box>
+    <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September, and the portal will be back online as soon as possible.</Box>
     )
 }

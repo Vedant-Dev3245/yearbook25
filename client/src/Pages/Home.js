@@ -98,7 +98,7 @@ export default function Home() {
   
 
   return (
-    <Box>The Yearbook Portal is under maintenance. Please check back in an hour.</Box>
+    <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September, and the portal will be back online as soon as possible.</Box>
     // <Box overflowX="hidden"
     //   bg="#141414"
     //   className="noselect landing"
