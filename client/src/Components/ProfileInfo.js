@@ -120,6 +120,9 @@ export default function ProfileInfo(props) {
     const handleClose = () => {
         setIsOpen(false);
     };
+    React.useEffect(()=>{
+        setIsOpen(false)
+    },[window.location.href])
 
     const handleOpen = () => {
         setIsOpen(true);
