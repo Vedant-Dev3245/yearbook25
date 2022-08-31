@@ -227,13 +227,13 @@ router.post("/writecaption", async (req, res) => {
         const session = await User.startSession();
         session.startTransaction();
 
-        const receiver = await User.findById(receiverId).session(session)
-        if(!receiver.nominatedBy.includes(writerId)){
-            session.endSession();
-            return res.send({
-                error: "You're not nominated to write the caption!"
-            })
-        }
+        // const receiver = await User.findById(receiverId).session(session)
+        // if(!receiver.nominatedBy.includes(writerId)){
+        //     session.endSession();
+        //     return res.send({
+        //         error: "You're not nominated to write the caption!"
+        //     })
+        // }
 
         if (caption === "") {
             session.endSession();
