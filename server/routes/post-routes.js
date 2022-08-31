@@ -219,13 +219,22 @@ router.post("/edit/:id" ,async (req, res) => {
 router.post("/writecaption", async (req, res) => {
 
     try {
-     
+
         const caption = req.body.caption;
         const writerId = req.body.writerId;
         const receiverId = req.body.receiverId;
         console.log(caption,writerId,receiverId);
         const session = await User.startSession();
         session.startTransaction();
+
+        const receiver = await User.findById(receiverId).session(session)
+        if(!receiver.nominatedBy.includes(writerId)){
+            session.endSession();
+            return res.send({
+                error: "You're not nominated to write the caption!"
+            })
+        }
+
         if (caption === "") {
             session.endSession();
             return res.send({
