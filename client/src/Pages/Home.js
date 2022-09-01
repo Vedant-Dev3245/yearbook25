@@ -98,31 +98,31 @@ export default function Home() {
   
 
   return (
-    // <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September, and the portal will be back online by 1st Sept. 2PM.</Box>
-    <Box overflowX="hidden"
-      bg="#141414"
-      className="noselect landing"
-    >
-      <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
-      backdropFilter='blur(10px)'><ScaleLoader
-                color="#D4D4D4"
-                loading = {loading}
-                size={60}
-                speedMultiplier={0.7}
-            /></Flex>
-      <Alert bg="#242323" color="white" 
-      status='error' display={auth ? "none" : "block"} 
-      position="absolute" w="40%" top="12rem" right="0">
-                <AlertIcon />
-                Sorry, you are not authorised to log-in.
-      </Alert>
-      <Navbar />
-      <Hero />
-      <Working />
-      <Walkthrough />
-      <FAQ />
-      <OptIn/>
-      <Footer />
-    </Box>
+    <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September.</Box>
+    // <Box overflowX="hidden"
+    //   bg="#141414"
+    //   className="noselect landing"
+    // >
+    //   <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+    //   backdropFilter='blur(10px)'><ScaleLoader
+    //             color="#D4D4D4"
+    //             loading = {loading}
+    //             size={60}
+    //             speedMultiplier={0.7}
+    //         /></Flex>
+    //   <Alert bg="#242323" color="white" 
+    //   status='error' display={auth ? "none" : "block"} 
+    //   position="absolute" w="40%" top="12rem" right="0">
+    //             <AlertIcon />
+    //             Sorry, you are not authorised to log-in.
+    //   </Alert>
+    //   <Navbar />
+    //   <Hero />
+    //   <Working />
+    //   <Walkthrough />
+    //   <FAQ />
+    //   <OptIn/>
+    //   <Footer />
+    // </Box>
   )
 }
