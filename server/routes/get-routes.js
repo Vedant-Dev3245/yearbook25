@@ -41,7 +41,7 @@ router.get("/searchUsers", async (req, res) => {
                 },
               },
               {
-                $limit: 8
+                $limit: 12
               },
               {
                 $project: {
