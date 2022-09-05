@@ -14,12 +14,12 @@ const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
 
 mongoose.connect(process.env.DATABASEURL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    replicaSet: "rs",
-  })
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  replicaSet: "rs",
+})
   .then(() => {
     console.log("connected");
   })
@@ -47,7 +47,7 @@ app.use(
 
 //app.use(passport.initialize());
 //app.use(passport.session());
-var whitelist = ['http://localhost:3000', 'https://sarc-yearbook-sarc.vercel.app','https://yearbook.bits-sarc.org'];
+var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits-sarc.org'];
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -67,14 +67,14 @@ const authRoutes = require("./routes/auth-routes");
 const getRoutes = require("./routes/get-routes");
 const postRoutes = require("./routes/post-routes");
 function loggedIn(req, res, next) {
-    console.log(req)
-    console.log(req.user)
-    if (req.user) {
+  console.log(req)
+  console.log(req.user)
+  if (req.user) {
     next();
   } else {
     res.redirect("/");
   }
 }
 // app.use("/auth", authRoutes);
-app.use("/",cors(corsOptions), getRoutes); 
-app.use("/", cors(corsOptions),postRoutes);
+app.use("/", cors(corsOptions), getRoutes);
+app.use("/", cors(corsOptions), postRoutes);
