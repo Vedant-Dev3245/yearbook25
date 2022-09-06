@@ -135,6 +135,7 @@ export default function ProfileInfo(props) {
     function handleLogout() {
         localStorage.clear()
         navigate("/")
+        document.location.reload()
     }
     let nominateData = {
         senderId: localStorage.getItem("user"),

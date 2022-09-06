@@ -31,7 +31,7 @@ export default function Form() {
     function validate(e) {
         if (validID.test(formInfo.id)) {
             setValid(true);
-            console.log(valid);
+            // console.log(valid);
             if (formInfo.id !== ""
                 && formInfo.quote !== ""
                 && formInfo.phone !== ""
@@ -51,7 +51,7 @@ export default function Form() {
                             localStorage.setItem("token",response.data.token)
                             navigate(`/profile/${response.data._id}`)
                         }
-                        console.log(response);
+                        // console.log(response);
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -102,7 +102,7 @@ export default function Form() {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(downloadURL)
+                    // console.log(downloadURL)
                     setIsDisabled(false)
                     setFormInfo(prevFormInfo => {
                         return {
