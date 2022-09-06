@@ -53,7 +53,7 @@ router.post("/profile/add", async (req, res) => {
                 })
                 await search.save();
                 const token = jwt.sign(
-                    {user: usr._id},
+                    {user: user._id},
                     process.env.TOKEN_KEY,
                 );
                 return res.send({
