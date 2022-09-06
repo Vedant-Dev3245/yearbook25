@@ -45,6 +45,9 @@ export default function NominateCard(props) {
     function submitCaption() {
         axios({
             method: 'POST',
+            headers: {
+                'accessToken': localStorage.token
+              },
             url: `${process.env.REACT_APP_BACKEND_URL}/writecaption`,
             data: captionData
         })
