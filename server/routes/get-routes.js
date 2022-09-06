@@ -4,6 +4,8 @@ const { User,Search} = require("../models/user");
 var fs = require("fs");
 const { query } = require("express");
 var users;
+const verifyToken = require('./auth-middlewares');
+
 // do error handling before adding a new api
 router.get("/", (req, res) => {
       return res.send({ msg: "Backend is Up and Running" });
@@ -11,7 +13,7 @@ router.get("/", (req, res) => {
 //basic api to get the user from object id
 //TODO:
 // add middleware that validates if user id matches the one in jwt token
-router.get("/getprofile/:id", async (req, res) => {
+router.get("/getprofile/:id", verifyToken, async (req, res) => {
       try {
             const user = await User.findById(req.params.id);
             if (!user) {
