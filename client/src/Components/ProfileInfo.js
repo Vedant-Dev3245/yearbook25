@@ -101,7 +101,7 @@ export default function ProfileInfo(props) {
     //     let currentUser = localStorage.getItem("user")
     //     axios({
     //         method: 'POST',
-    //         url: `https://yearbook-backend-5algm.ondigitalocean.app/edit/${currentUser}`,
+            // url: `${process.env.REACT_APP_BACKEND_URL}/edit/${currentUser}`,
     //         data: formInfo
     //     })
     //         .then(function (response) {
@@ -142,7 +142,7 @@ export default function ProfileInfo(props) {
         setSpin(true)
         axios({
             method: 'POST',
-            url: "https://yearbook-backend-5algm.ondigitalocean.app/nominate",
+            url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
             data: nominateData
         })
             .then(function (res) {

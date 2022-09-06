@@ -42,7 +42,7 @@ export default function Form() {
                 axios({
                     method: 'POST',
                     // url: 'some/api',
-                    url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/add',
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profile/add`,
                     data: formInfo
                 })
                     .then(function (response) {

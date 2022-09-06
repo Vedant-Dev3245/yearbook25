@@ -11,7 +11,6 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 // const base = process.env.REACT_APP_BACKEND_URL
 
 export default function Profile(props) {
-    // console.log(base);
     const navigate = useNavigate()
     const params = useParams();
     const [loading, setLoading] = React.useState(true)
@@ -31,7 +30,7 @@ export default function Profile(props) {
         setLoading(true)
         axios({
             method: 'GET',
-            url: `https://yearbook-backend-5algm.ondigitalocean.app/getprofile/${params.id}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)

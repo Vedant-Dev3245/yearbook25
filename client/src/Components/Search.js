@@ -18,7 +18,7 @@ export default function Search(props) {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `https://yearbook-backend-5algm.ondigitalocean.app/searchUsers?name=${inputValue}`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
