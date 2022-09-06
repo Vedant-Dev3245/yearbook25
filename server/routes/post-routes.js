@@ -11,7 +11,9 @@ const privileged = require("../specialUsers")
 const sharp = require("sharp");
 const {log} = require("console");
 const jwt = require("jsonwebtoken")
-const verifyToken = require('./auth-middlewares');
+const middleware = require("./auth-middlewares");
+const verifyToken = middleware.verifyToken
+const getUserprofile = middleware.getUserprofile
 
 // do error handling before adding a new api
 
