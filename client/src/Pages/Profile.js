@@ -31,6 +31,7 @@ export default function Profile(props) {
             localStorage.clear()
             navigate('/')
             window.location.reload()
+            alert("You have been logged out. Please log-in again!")
         }
     })
     React.useEffect(() => {

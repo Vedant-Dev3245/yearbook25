@@ -81,7 +81,7 @@ export default function ProfileInfo(props) {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                    console.log(downloadURL)
+                    // console.log(downloadURL)
                     setIsDisabled(false)
                     setSpin2(false)
                     setFormInfo(prevFormInfo => {
