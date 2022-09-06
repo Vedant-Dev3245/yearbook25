@@ -185,34 +185,34 @@ router.post("/nominate", async (req, res) => {
 })
 
 //editing current details: only photo and quote
-router.post("/edit/:id" ,async (req, res) => {
-    try {
-        console.log(req.body);
-        const session = await User.startSession();
-        session.startTransaction();
-        const user = await User.findById(req.params.id);
-        const imgUrl = req.body.imgUrl 
-        if (imgUrl!= "") {
-         user.imageUrl=imgUrl
-        }
-        const quote = req.body.quote;
-        if (quote!= "") {
-            user.quote = quote;
-}
-            await user.save();
-            await session.commitTransaction();
-            session.endSession();
-       return res.send({
-    msg:"Successfully Updated"
-})
-    }
-    catch (err) {
-        return res.send({
-            status:"failure",
-            msg: "There was an error, Please try after some time"
-        })
-    }
-});
+// router.post("/edit/:id" ,async (req, res) => {
+//     try {
+//         console.log(req.body);
+//         const session = await User.startSession();
+//         session.startTransaction();
+//         const user = await User.findById(req.params.id);
+//         const imgUrl = req.body.imgUrl 
+//         if (imgUrl!= "") {
+//          user.imageUrl=imgUrl
+//         }
+//         const quote = req.body.quote;
+//         if (quote!= "") {
+//             user.quote = quote;
+// }
+//             await user.save();
+//             await session.commitTransaction();
+//             session.endSession();
+//        return res.send({
+//     msg:"Successfully Updated"
+// })
+//     }
+//     catch (err) {
+//         return res.send({
+//             status:"failure",
+//             msg: "There was an error, Please try after some time"
+//         })
+//     }
+// });
 
 
 //writing caption 
