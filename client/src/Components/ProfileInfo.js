@@ -145,6 +145,9 @@ export default function ProfileInfo(props) {
         setSpin(true)
         axios({
             method: 'POST',
+            headers: {
+                'accessToken':localStorage.token
+            },
             url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
             data: nominateData
         })
