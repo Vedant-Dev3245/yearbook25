@@ -12,7 +12,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
-
+app.use(cors());
 mongoose.connect(process.env.DATABASEURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -47,17 +47,17 @@ app.use(
 
 //app.use(passport.initialize());
 //app.use(passport.session());
-var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://sarc-yearbook-sarc.vercel.app/', 'https://yearbook.bits-sarc.org', 'https://yearbook.bits-sarc.org/','http://localhost:3000'];
+var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits-sarc.org', 'http://localhost:3000'];
 //var whitelist = ['https://yearbook-backend-5algm.ondigitalocean.app']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
 
 app.use(express.static("public"));
 app.listen(port, () => console.log("Listening at port " + port));
@@ -82,5 +82,5 @@ function loggedIn(req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
 // })
 
-app.use("/", cors(corsOptions), getRoutes);
-app.use("/", cors(corsOptions), postRoutes);
+app.use("/",  getRoutes);
+app.use("/",  postRoutes);
