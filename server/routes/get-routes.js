@@ -9,6 +9,8 @@ router.get("/", (req, res) => {
       return res.send({ msg: "Backend is Up and Running" });
 })
 //basic api to get the user from object id
+//TODO:
+// add middleware that validates if user id matches the one in jwt token
 router.get("/getprofile/:id", async (req, res) => {
       try {
             const user = await User.findById(req.params.id);

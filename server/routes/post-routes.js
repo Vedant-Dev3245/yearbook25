@@ -81,6 +81,10 @@ router.post("/profile/check", async (req, res) => {
         const usr = await User.findOne({
             email: email
         })
+
+        //TODO:
+        // usr -> usr.id
+        // sign jwt token with user id and send the token in response
         if (usr) {
            return res.send({
                 authorised: 1,
