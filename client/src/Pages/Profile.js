@@ -26,8 +26,8 @@ export default function Profile(props) {
         _id: "",
         bitsId: ""
     })
-    React.useEffect(()=>{
-        if(localStorage.token===undefined || localStorage.token==="undefined"){
+    React.useEffect(() => {
+        if (localStorage.token === undefined || localStorage.token === "undefined") {
             localStorage.clear()
             navigate('/')
             window.location.reload()
@@ -65,28 +65,29 @@ export default function Profile(props) {
     }, [params.id])
 
     return (
-        <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" >
-            <Flex justifyContent={"center"} alignItems="center" position="fixed" zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
-                backdropFilter='blur(10px)'><ScaleLoader
-                    color="#D4D4D4"
-                    loading={loading}
-                    size={60}
-                    speedMultiplier={0.7}
-                /></Flex>
-            <ProfileNav />
-            <ProfileInfo
-                name={user.name}
-                quote={user.quote}
-                id={user.bitsId}
-                discipline={user.bitsId.indexOf('PS') === -1 ? user.bitsId.slice(4, 8) : user.bitsId[4] + user.bitsId[5]}
-                imgUrl={user.imageUrl}
-            />
-            <Interact
-                captions={user.captions}
-                nominatedby={user.nominatedby}
-                name={user.name}
-                id={params.id}
-            />
-        </Box>
-    ) // <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September.</Box>)
+        // <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" >
+        //     <Flex justifyContent={"center"} alignItems="center" position="fixed" zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+        //         backdropFilter='blur(10px)'><ScaleLoader
+        //             color="#D4D4D4"
+        //             loading={loading}
+        //             size={60}
+        //             speedMultiplier={0.7}
+        //         /></Flex>
+        //     <ProfileNav />
+        //     <ProfileInfo
+        //         name={user.name}
+        //         quote={user.quote}
+        //         id={user.bitsId}
+        //         discipline={user.bitsId.indexOf('PS') === -1 ? user.bitsId.slice(4, 8) : user.bitsId[4] + user.bitsId[5]}
+        //         imgUrl={user.imageUrl}
+        //     />
+        //     <Interact
+        //         captions={user.captions}
+        //         nominatedby={user.nominatedby}
+        //         name={user.name}
+        //         id={params.id}
+        //     />
+        // </Box>
+        <Box>The Yearbook Portal is under maintenance, we will be back online soon.</Box>
+    )
 }
