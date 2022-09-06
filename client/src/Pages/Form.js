@@ -42,12 +42,13 @@ export default function Form() {
                 axios({
                     method: 'POST',
                     // url: 'some/api',
-                    url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/add',
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profile/add`,
                     data: formInfo
                 })
                     .then(function (response) {
                         if (response.data.detail === "Profile created") {
                             localStorage.setItem("user", response.data._id)
+                            localStorage.setItem("token",response.data.token)
                             navigate(`/profile/${response.data._id}`)
                         }
                         console.log(response);

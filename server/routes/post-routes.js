@@ -1,22 +1,26 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
-const { User,Search} = require("../models/user");
+const {User, Search} = require("../models/user");
 const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
 const keys = require("../config/keys");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
-const privileged=require("../specialUsers")
+const privileged = require("../specialUsers")
 const sharp = require("sharp");
-const { log } = require("console");
+const {log} = require("console");
+const jwt = require("jsonwebtoken")
+const middleware = require("./auth-middlewares");
+const verifyToken = middleware.verifyToken
+const getUserprofile = middleware.getUserprofile
 
 // do error handling before adding a new api
 
 //adding a new user to db, adds simultaneously to 2 collections
 router.post("/profile/add", async (req, res) => {
 
-console.log(req.body);
+    console.log(req.body);
     try {
         const usr = await User.findOne({
             email: req.body.email
@@ -25,8 +29,7 @@ console.log(req.body);
             return res.send({
                 msg: "User Exists Already"
             })
-        }
-        else {
+        } else {
             const user = new User({
                 name: req.body.firstName + " " + req.body.lastName,
                 email: req.body.email,
@@ -48,9 +51,14 @@ console.log(req.body);
                     bitsId: user.bitsId
                 })
                 await search.save();
+                const token = jwt.sign(
+                    {user: usr._id},
+                    process.env.TOKEN_KEY,
+                );
                 return res.send({
                     detail: "Profile created",
-                    _id: userId
+                    _id: userId,
+                    token: token
                 })
             })
 
@@ -59,23 +67,22 @@ console.log(req.body);
     } catch (err) {
         console.log(err);
         return res.send({
-            status:"failure",
+            status: "failure",
             msg: "There was an error, Please try after some time"
         })
     }
 })
 
 
-
 //checking if a profile exists earlier or not
 router.post("/profile/check", async (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const email = req.body.email;
-        console.log(email[10]);
-        if ((email[10]!='p')||(email.substring(0, 5) != "f2019" && email.substring(0, 5) != "h2021" && !privileged.includes(email))) { //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
+        // console.log(email[10]);
+        if ((email[10] != 'p') || (email.substring(0, 5) != "f2019" && email.substring(0, 5) != "h2021" && !privileged.includes(email))) { //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
             return res.send({
-                authorised: 0
+                authorised: 0,
             })
         }
         const usr = await User.findOne({
@@ -86,22 +93,27 @@ router.post("/profile/check", async (req, res) => {
         // usr -> usr.id
         // sign jwt token with user id and send the token in response
         if (usr) {
-           return res.send({
+            const token = jwt.sign(
+                {user: usr._id},
+                process.env.TOKEN_KEY,
+            );
+            return res.send({
                 authorised: 1,
-                user: usr,
+                user: usr._id,
+                token: token,
                 exists: true
             })
-        } else {
-          return  res.send({
+        } else {``
+            return res.send({
                 authorised: 1,
                 user: {},
                 exists: false
             })
-  
+
         }
     } catch (err) {
         return res.send({
-            status:"failure",
+            status: "failure",
             msg: "There was an error, Please try after some time",
         })
     }
@@ -160,9 +172,9 @@ router.post("/nominate", async (req, res) => {
             };
 
             return res.send({
-                            status: "success",
-                            msg: "Friend nominated successfully!",
-                        });
+                status: "success",
+                msg: "Friend nominated successfully!",
+            });
 
             // sgMail.send(mailOptions)
             //     .then((response) => {
@@ -180,43 +192,42 @@ router.post("/nominate", async (req, res) => {
             //         });
             //     });
         }
-        } catch (err) {
-            return res.send({
-                status:"failure",
-                msg: "There was an error, Please try after some time",
-            })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time",
+        })
     }
 })
 
-//editing current details: only photo and quote
-// router.post("/edit/:id" ,async (req, res) => {
-//     try {
-//         console.log(req.body);
-//         const session = await User.startSession();
-//         session.startTransaction();
-//         const user = await User.findById(req.params.id);
-//         const imgUrl = req.body.imgUrl 
-//         if (imgUrl!= "") {
-//          user.imageUrl=imgUrl
-//         }
-//         const quote = req.body.quote;
-//         if (quote!= "") {
-//             user.quote = quote;
-// }
-//             await user.save();
-//             await session.commitTransaction();
-//             session.endSession();
-//        return res.send({
-//     msg:"Successfully Updated"
-// })
-//     }
-//     catch (err) {
-//         return res.send({
-//             status:"failure",
-//             msg: "There was an error, Please try after some time"
-//         })
-//     }
-// });
+// editing current details: only photo and quote
+router.post("/edit/:id", verifyToken, async (req, res) => {
+    try {
+        console.log(req.body);
+        const session = await User.startSession();
+        session.startTransaction();
+        const user = await User.findById(req.params.id);
+        const imgUrl = req.body.imgUrl
+        if (imgUrl != "") {
+            user.imageUrl = imgUrl
+        }
+        const quote = req.body.quote;
+        if (quote != "") {
+            user.quote = quote;
+        }
+        await user.save();
+        await session.commitTransaction();
+        session.endSession();
+        return res.send({
+            msg: "Successfully Updated"
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time"
+        })
+    }
+});
 
 
 //writing caption 
@@ -227,7 +238,7 @@ router.post("/writecaption", async (req, res) => {
         const caption = req.body.caption;
         const writerId = req.body.writerId;
         const receiverId = req.body.receiverId;
-        console.log(caption,writerId,receiverId);
+        console.log(caption, writerId, receiverId);
         const session = await User.startSession();
         session.startTransaction();
 
@@ -243,7 +254,7 @@ router.post("/writecaption", async (req, res) => {
             session.endSession();
             return res.send({
                 error: "Please enter a valid caption!",
-          
+
             });
         } else {
             const writer = await User.findById(writerId).session(session);
@@ -258,12 +269,12 @@ router.post("/writecaption", async (req, res) => {
                     }
                 }
                 await receiver
-                    .updateOne({ captions: captions })
+                    .updateOne({captions: captions})
                     .session(session);
                 await session.commitTransaction();
                 session.endSession();
                 return res.send(
-                    { success: "Succesfully Updated" }
+                    {success: "Succesfully Updated"}
                 );
             } else {
                 await receiver.updateOne({
@@ -288,14 +299,13 @@ router.post("/writecaption", async (req, res) => {
                 )
             }
         }
-    }
-    catch (err) {
+    } catch (err) {
         return res.send({
-            status:"failure",
+            status: "failure",
             msg: "There was an error, Please try after some time"
         })
     }
-  
+
 });
 
 module.exports = router;

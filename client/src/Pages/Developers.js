@@ -60,7 +60,7 @@ export default function Devleopers(){
         setLoading(true)
         axios({
           method: 'POST',
-          url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/check',
+          url: `${process.env.REACT_APP_BACKEND_URL}/profile/check`,
           data: userObject
         })
           .then(function (response) {

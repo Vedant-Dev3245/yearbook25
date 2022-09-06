@@ -12,7 +12,6 @@ import Navbar from "../Components/Navbar";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import OptIn from "../Components/OptIn";
 export default function Home() {
-   
   React.useEffect(() => {
     /* global google */
  
@@ -53,7 +52,7 @@ export default function Home() {
     setLoading(true)
     axios({
       method: 'POST',
-      url: 'https://yearbook-backend-5algm.ondigitalocean.app/profile/check',
+      url: `${process.env.REACT_APP_BACKEND_URL}/profile/check`,
       data: userObject
     })
       .then(function (response) {
@@ -68,8 +67,9 @@ export default function Home() {
           if (response.data.exists) {
             setLoading(false)
             // console.log("id: " + response.data.user._id)
-            localStorage.setItem("user", response.data.user._id)
-            navigate(`/profile/${response.data.user._id}`)
+            localStorage.setItem("user", response.data.user)
+            localStorage.setItem("token",response.data.token)
+            navigate(`/profile/${response.data.user}`)
           } else {
             navigate('/form', { state: userObject })
           }

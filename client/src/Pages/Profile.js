@@ -11,7 +11,6 @@ import ScaleLoader from "react-spinners/ScaleLoader";
 // const base = process.env.REACT_APP_BACKEND_URL
 
 export default function Profile(props) {
-    // console.log(base);
     const navigate = useNavigate()
     const params = useParams();
     const [loading, setLoading] = React.useState(true)
@@ -27,16 +26,27 @@ export default function Profile(props) {
         _id: "",
         bitsId: ""
     })
+    React.useEffect(()=>{
+        if(localStorage.token===undefined){
+            localStorage.clear()
+            navigate('/')
+            window.location.reload()
+            alert("You have been logged out. Please log-in again!")
+        }
+    })
     React.useEffect(() => {
         setLoading(true)
         axios({
             method: 'GET',
-            url: `https://yearbook-backend-5algm.ondigitalocean.app/getprofile/${params.id}`,
+            headers: {
+                'accessToken': localStorage.getItem("token")
+            },
+            url: `${process.env.REACT_APP_BACKEND_URL}/getprofile/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)
                 // console.log(response.data.user)
-                    setLoading(false)
+                setLoading(false)
                 if (params.id === window.localStorage.getItem("user")) {
                     window.localStorage.setItem("userName", response.data.user.name)
                 }
@@ -46,29 +56,29 @@ export default function Profile(props) {
             });
     }, [params.id])
 
-    
-    React.useEffect(()=>{
-        if(localStorage.getItem("user") === null){
+
+    React.useEffect(() => {
+        if (localStorage.getItem("user") === null) {
             navigate('/')
-            window.location.reload()    
+            window.location.reload()
         }
-    },[params.id])
+    }, [params.id])
 
     return (
         <Box bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)" color="white" overflowX="hidden" >
-            <Flex justifyContent={"center"} alignItems="center" position="fixed"  zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
-      backdropFilter='blur(10px)'><ScaleLoader
-                color="#D4D4D4"
-                loading = {loading}
-                size={60}
-                speedMultiplier={0.7}
-            /></Flex>
+            <Flex justifyContent={"center"} alignItems="center" position="fixed" zIndex="6" w="100%" h="120vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
+                backdropFilter='blur(10px)'><ScaleLoader
+                    color="#D4D4D4"
+                    loading={loading}
+                    size={60}
+                    speedMultiplier={0.7}
+                /></Flex>
             <ProfileNav />
             <ProfileInfo
                 name={user.name}
                 quote={user.quote}
                 id={user.bitsId}
-                discipline={user.bitsId.indexOf('PS')===-1  ? user.bitsId.slice(4,8) :  user.bitsId[4] + user.bitsId[5] }
+                discipline={user.bitsId.indexOf('PS') === -1 ? user.bitsId.slice(4, 8) : user.bitsId[4] + user.bitsId[5]}
                 imgUrl={user.imageUrl}
             />
             <Interact
@@ -78,5 +88,5 @@ export default function Profile(props) {
                 id={params.id}
             />
         </Box>
-   ) // <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September.</Box>)
+    ) // <Box>The Yearbook Portal is under maintenance. We have extended the deadline for the submission of Yearbook Quote and Photo to 5th September.</Box>)
 }

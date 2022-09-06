@@ -23,7 +23,7 @@ export default function Search(props) {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `https://yearbook-backend-5algm.ondigitalocean.app/searchUsers?name=${inputValue}`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/searchUsers?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
@@ -65,7 +65,7 @@ export default function Search(props) {
             setSpin(true)
             axios({
                 method: 'POST',
-                url: "https://yearbook-backend-5algm.ondigitalocean.app/nominate",
+                url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
                 data: nominateData
             })
             .then(function(res){

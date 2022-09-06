@@ -45,7 +45,7 @@ export default function NominateCard(props) {
     function submitCaption() {
         axios({
             method: 'POST',
-            url: 'https://yearbook-backend-5algm.ondigitalocean.app/writecaption',
+            url: `${process.env.REACT_APP_BACKEND_URL}/writecaption`,
             data: captionData
         })
             .then(function (response) {
