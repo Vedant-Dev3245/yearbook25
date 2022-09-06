@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const config = process.env;
 
 const verifyToken = (req, res, next) => {
-    const token = req.body.token;
+    const token = req.headers['accessToken']
 
     if(!token) {
         return res.status(403).send("A JWT Token is required to access this endpoint ;)")

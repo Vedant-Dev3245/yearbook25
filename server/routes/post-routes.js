@@ -96,6 +96,7 @@ router.post("/profile/check", async (req, res) => {
                 token: token,
                 exists: true
             })
+            console.log(token)
         } else {
             return res.send({
                 authorised: 1,
