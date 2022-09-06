@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
+app.use(cors())
 mongoose.connect(process.env.DATABASEURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -59,9 +60,12 @@ var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits
 // }
 
 app.use(function (req, res, next){
-    res.header("Access-Control-Allow-Origin", "yearbook.bits-sarc.org")
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-    next()
+    // res.header("Access-Control-Allow-Origin", "yearbook.bits-sarc.org")
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
 })
 
 app.use(express.static("public"));
