@@ -96,25 +96,25 @@ export default function ProfileInfo(props) {
             }
         );
     }
-    function handleSubmit(e) {
-        e.preventDefault();
-        let currentUser = localStorage.getItem("user")
-        axios({
-            method: 'POST',
-            url: `https://yearbook-backend-5algm.ondigitalocean.app/edit/${currentUser}`,
-            data: formInfo
-        })
-            .then(function (response) {
-                if (response.data.msg === "Successfully Updated") {
-                    // let user = localStorage.getItem("user")
-                    document.location.reload()
-                }
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
+    // function handleSubmit(e) {
+    //     e.preventDefault();
+    //     let currentUser = localStorage.getItem("user")
+    //     axios({
+    //         method: 'POST',
+    //         url: `https://yearbook-backend-5algm.ondigitalocean.app/edit/${currentUser}`,
+    //         data: formInfo
+    //     })
+    //         .then(function (response) {
+    //             if (response.data.msg === "Successfully Updated") {
+    //                 // let user = localStorage.getItem("user")
+    //                 document.location.reload()
+    //             }
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }
 
 
     const handleClose = () => {
@@ -166,7 +166,7 @@ export default function ProfileInfo(props) {
 
         <Flex className="infoFlex" alignItems="center" marginInline="auto" w="90%" mt="-4rem" p="1.2rem 0rem" justifyContent="space-between">
 
-            <Modal isOpen={isOpen}  id="editModal" >
+            {/* <Modal isOpen={isOpen}  id="editModal" >
             <ModalOverlay
       bg='blackAlpha.300'
       backdropFilter='blur(10px)'
@@ -199,7 +199,7 @@ export default function ProfileInfo(props) {
                         </ModalBody>
                     </Box>
                 </ModalContent >
-            </Modal>
+            </Modal> */}
             <Flex alignItems="center" flexDirection={isSmallerThan800 ? "column" : "row"} justifyContent="center">
                 <Box className="imageCont" bg={`url("${props.imgUrl}")`} backgroundPosition={"center"} backgroundSize={"cover"}  minWidth="15rem" minHeight="15rem" position="relative" bgColor="grey" borderRadius="50%" border="2px solid #E1D4D4;" bgPosition={"center"} bgSize="cover">
                     <Box cursor={"pointer"} onClick={handleOpen} position="absolute" display={showEdit ? "block" : "none"} top="0" right="0px" p="1rem" h="4rem" w="
