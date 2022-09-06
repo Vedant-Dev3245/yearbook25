@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken")
 const middleware = require("./auth-middlewares");
 const verifyToken = middleware.verifyToken
 const getUserprofile = middleware.getUserprofile
+const senderToken = middleware.senderToken
 
 // do error handling before adding a new api
 
@@ -120,7 +121,7 @@ router.post("/profile/check", async (req, res) => {
 })
 
 //nominating a new friend to write a caption, a mail goes via sendgrid 
-router.post("/nominate", async (req, res) => {
+router.post("/nominate", senderToken, async (req, res) => {
     try {
         const senderId = req.body.senderId;
         const senderName = req.body.senderName;
@@ -231,7 +232,7 @@ router.post("/edit/:id", verifyToken, async (req, res) => {
 
 
 //writing caption 
-router.post("/writecaption", async (req, res) => {
+router.post("/writecaption", senderToken, async (req, res) => {
 
     try {
 
@@ -242,13 +243,15 @@ router.post("/writecaption", async (req, res) => {
         const session = await User.startSession();
         session.startTransaction();
 
-        // const receiver = await User.findById(receiverId).session(session)
-        // if(!receiver.nominatedBy.includes(writerId)){
-        //     session.endSession();
-        //     return res.send({
-        //         error: "You're not nominated to write the caption!"
-        //     })
-        // }
+        const receiver = await User.findById(receiverId).session(session)
+        let temp = []
+        receiver.nominatedby.forEach(x => temp.push(x.id))
+        if (!temp.includes(writerId)) {
+            session.endSession();
+            return res.send({
+                error: "You're not nominated to write the caption!"
+            })
+        }
 
         if (caption === "") {
             session.endSession();
