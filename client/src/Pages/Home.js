@@ -67,8 +67,9 @@ export default function Home() {
           if (response.data.exists) {
             setLoading(false)
             // console.log("id: " + response.data.user._id)
-            localStorage.setItem("user", response.data.user._id)
-            navigate(`/profile/${response.data.user._id}`)
+            localStorage.setItem("user", response.data.user)
+            localStorage.setItem("token",response.data.token)
+            navigate(`/profile/${response.data.user}`)
           } else {
             navigate('/form', { state: userObject })
           }

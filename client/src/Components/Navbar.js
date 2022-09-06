@@ -12,7 +12,7 @@ export default function Navbar() {
 	}
 
 	function gotoprofile() {
-		console.log(localStorage.getItem("user"))
+		// console.log(localStorage.getItem("user"))
 		navigate(`/profile/${localStorage.getItem("user")}`)
 	}
 
