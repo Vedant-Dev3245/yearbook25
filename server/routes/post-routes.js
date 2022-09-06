@@ -49,9 +49,14 @@ router.post("/profile/add", async (req, res) => {
                     bitsId: user.bitsId
                 })
                 await search.save();
+                const token = jwt.sign(
+                    {user: usr._id},
+                    process.env.TOKEN_KEY,
+                );
                 return res.send({
                     detail: "Profile created",
-                    _id: userId
+                    _id: userId,
+                    token: token
                 })
             })
 
@@ -96,8 +101,7 @@ router.post("/profile/check", async (req, res) => {
                 token: token,
                 exists: true
             })
-            console.log(token)
-        } else {
+        } else {``
             return res.send({
                 authorised: 1,
                 user: {},
