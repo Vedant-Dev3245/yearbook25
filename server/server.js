@@ -47,8 +47,8 @@ app.use(
 
 //app.use(passport.initialize());
 //app.use(passport.session());
-//var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits-sarc.org', 'http://localhost:3000'];
-var whitelist = ['https://yearbook-backend-5algm.ondigitalocean.app']
+var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits-sarc.org', 'http://localhost:3000'];
+//var whitelist = ['https://yearbook-backend-5algm.ondigitalocean.app']
 var corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -77,5 +77,5 @@ function loggedIn(req, res, next) {
   }
 }
 // app.use("/auth", authRoutes);
-app.use("/", cors(corsOptions), getRoutes);
-app.use("/", cors(corsOptions), postRoutes);
+app.use("/", getRoutes);
+app.use("/", postRoutes);

@@ -120,7 +120,7 @@ router.post("/profile/check", async (req, res) => {
 })
 
 //nominating a new friend to write a caption, a mail goes via sendgrid 
-router.post("/nominate", async (req, res) => {
+router.post("/nominate", verifyToken, async (req, res) => {
     try {
         const senderId = req.body.senderId;
         const senderName = req.body.senderName;
@@ -231,7 +231,7 @@ router.post("/edit/:id", verifyToken, async (req, res) => {
 
 
 //writing caption 
-router.post("/writecaption", async (req, res) => {
+router.post("/writecaption", verifyToken, async (req, res) => {
 
     try {
 
