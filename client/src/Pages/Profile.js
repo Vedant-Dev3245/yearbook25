@@ -27,7 +27,7 @@ export default function Profile(props) {
         bitsId: ""
     })
     React.useEffect(()=>{
-        if(localStorage.token===undefined){
+        if(localStorage.token===undefined || localStorage.token==="undefined"){
             localStorage.clear()
             navigate('/')
             window.location.reload()
