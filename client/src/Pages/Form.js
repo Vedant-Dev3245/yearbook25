@@ -48,6 +48,7 @@ export default function Form() {
                     .then(function (response) {
                         if (response.data.detail === "Profile created") {
                             localStorage.setItem("user", response.data._id)
+                            localStorage.setItem("token",response.data.token)
                             navigate(`/profile/${response.data._id}`)
                         }
                         console.log(response);

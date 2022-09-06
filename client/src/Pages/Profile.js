@@ -26,6 +26,13 @@ export default function Profile(props) {
         _id: "",
         bitsId: ""
     })
+    React.useEffect(()=>{
+        if(localStorage.token===undefined){
+            localStorage.clear()
+            navigate('/')
+            window.location.reload()
+        }
+    })
     React.useEffect(() => {
         setLoading(true)
         axios({
