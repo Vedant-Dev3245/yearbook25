@@ -104,7 +104,7 @@ router.post("/profile/check", async (req, res) => {
                 token: token,
                 exists: true
             })
-        } else {``
+        } else {
             return res.send({
                 authorised: 1,
                 user: {},
@@ -239,16 +239,29 @@ router.post("/writecaption", senderToken, async (req, res) => {
         const caption = req.body.caption;
         const writerId = req.body.writerId;
         const receiverId = req.body.receiverId;
-        console.log(caption, writerId, receiverId);
+        // console.log(caption, writerId, receiverId);
         const session = await User.startSession();
         session.startTransaction();
 
-        const receiver = await User.findById(receiverId).session(session)
+        // const receiver = await User.findById(receiverId).session(session)
+        // let temp = []
+        // console.log(receiver.nominatedby)
+        // receiver.nominatedby.forEach(x => temp.push(x.id))
+        // console.log(temp)
+        // console.log(writerId)
+        // if (!temp.includes(writerId)) {
+        //     session.endSession();
+        //     return res.status(403).send({
+        //         error: "You're not nominated to write the caption!"
+        //     })
+        // }
+
+        const writer = await User.findById(writerId).session(session)
         let temp = []
-        receiver.nominatedby.forEach(x => temp.push(x.id))
-        if (!temp.includes(writerId)) {
-            session.endSession();
-            return res.send({
+        writer.nominatedby.forEach(x => temp.push(x.id))
+        if (!temp.includes(receiverId)) {
+            session.endSession()
+            return res.status(403).send({
                 error: "You're not nominated to write the caption!"
             })
         }
