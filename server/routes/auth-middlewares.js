@@ -46,7 +46,7 @@ const senderToken = (req, res, next) => {
     }
     try {
         const decoded = jwt.verify(token, config.TOKEN_KEY, (err, decoded) => {
-            if (decoded.user == (req.body.senderId || req.body.receiverId)) {
+            if (decoded.user == (req.body.senderId || req.body.writerId)) {
                 next()
             } else {
                 return res.status(403).send("You are not authorized!")
