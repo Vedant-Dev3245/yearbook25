@@ -25,6 +25,7 @@ const client = new OAuth2Client(process.env.clientID)
 
 router.post("/auth", async (req, res) => {
     const {token} = req.body
+    console.log(req.body);
     const ticket = await client.verifyIdToken({
         idToken: token,
         requiredAudience: process.env.clientID
