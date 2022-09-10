@@ -15,13 +15,35 @@ const middleware = require("./auth-middlewares");
 const verifyToken = middleware.verifyToken
 const getUserprofile = middleware.getUserprofile
 const senderToken = middleware.senderToken
+const authToken = middleware.authToken
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client(process.env.clientID)
+
 
 // do error handling before adding a new api
 
-//adding a new user to db, adds simultaneously to 2 collections
-router.post("/profile/add", async (req, res) => {
 
-    console.log(req.body);
+router.post("/auth", async (req, res) => {
+    const {token} = req.body
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        requiredAudience: process.env.clientID
+    })
+    const payload = ticket.getPayload()
+
+    const jwt_token = jwt.sign(
+        {auth_token: payload.email},
+        process.env.TOKEN_KEY,
+    );
+    return res.status(200).send({
+        token: jwt_token,
+        user: payload,
+    })
+})
+
+
+//adding a new user to db, adds simultaneously to 2 collections
+router.post("/profile/add", authToken, async (req, res) => {
     try {
         const usr = await User.findOne({
             email: req.body.email
@@ -52,14 +74,9 @@ router.post("/profile/add", async (req, res) => {
                     bitsId: user.bitsId
                 })
                 await search.save();
-                const token = jwt.sign(
-                    {user: user._id},
-                    process.env.TOKEN_KEY,
-                );
                 return res.send({
                     detail: "Profile created",
                     _id: userId,
-                    token: token
                 })
             })
 
@@ -76,7 +93,7 @@ router.post("/profile/add", async (req, res) => {
 
 
 //checking if a profile exists earlier or not
-router.post("/profile/check", async (req, res) => {
+router.post("/profile/check", authToken, async (req, res) => {
     try {
         // console.log(req.body)
         const email = req.body.email;
