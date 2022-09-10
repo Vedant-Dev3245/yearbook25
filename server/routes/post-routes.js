@@ -37,7 +37,6 @@ router.post("/auth", async (req, res) => {
     );
     return res.status(200).send({
         token: jwt_token,
-        user: payload,
     })
 })
 
@@ -74,9 +73,14 @@ router.post("/profile/add", authToken, async (req, res) => {
                     bitsId: user.bitsId
                 })
                 await search.save();
+                const token = jwt.sign(
+                    {user: usr._id},
+                    process.env.TOKEN_KEY,
+                );
                 return res.send({
                     detail: "Profile created",
                     _id: userId,
+                    token: token
                 })
             })
 
