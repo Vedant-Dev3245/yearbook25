@@ -40,7 +40,6 @@ export default function Home() {
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     var token = response.credential
-    console.log(response.credential);
     axios({
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_URL}/auth`,
