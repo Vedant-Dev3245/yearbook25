@@ -15,13 +15,34 @@ const middleware = require("./auth-middlewares");
 const verifyToken = middleware.verifyToken
 const getUserprofile = middleware.getUserprofile
 const senderToken = middleware.senderToken
+const authToken = middleware.authToken
+const {OAuth2Client} = require('google-auth-library')
+const client = new OAuth2Client(process.env.clientID)
+
 
 // do error handling before adding a new api
 
-//adding a new user to db, adds simultaneously to 2 collections
-router.post("/profile/add", async (req, res) => {
 
-    console.log(req.body);
+router.post("/auth", async (req, res) => {
+    const {token} = req.body
+    const ticket = await client.verifyIdToken({
+        idToken: token,
+        requiredAudience: process.env.clientID
+    })
+    const payload = ticket.getPayload()
+
+    const jwt_token = jwt.sign(
+        {auth_token: payload.email},
+        process.env.TOKEN_KEY,
+    );
+    return res.status(200).send({
+        token: jwt_token,
+    })
+})
+
+
+//adding a new user to db, adds simultaneously to 2 collections
+router.post("/profile/add", authToken, async (req, res) => {
     try {
         const usr = await User.findOne({
             email: req.body.email
@@ -76,7 +97,7 @@ router.post("/profile/add", async (req, res) => {
 
 
 //checking if a profile exists earlier or not
-router.post("/profile/check", async (req, res) => {
+router.post("/profile/check", authToken, async (req, res) => {
     try {
         // console.log(req.body)
         const email = req.body.email;
@@ -202,33 +223,33 @@ router.post("/nominate", senderToken, async (req, res) => {
 })
 
 // editing current details: only photo and quote
-// router.post("/edit/:id", verifyToken, async (req, res) => {
-//     try {
-//         console.log(req.body);
-//         const session = await User.startSession();
-//         session.startTransaction();
-//         const user = await User.findById(req.params.id);
-//         const imgUrl = req.body.imgUrl
-//         if (imgUrl != "") {
-//             user.imageUrl = imgUrl
-//         }
-//         const quote = req.body.quote;
-//         if (quote != "") {
-//             user.quote = quote;
-//         }
-//         await user.save();
-//         await session.commitTransaction();
-//         session.endSession();
-//         return res.send({
-//             msg: "Successfully Updated"
-//         })
-//     } catch (err) {
-//         return res.send({
-//             status: "failure",
-//             msg: "There was an error, Please try after some time"
-//         })
-//     }
-// });
+router.post("/edit/:id", verifyToken, async (req, res) => {
+    try {
+        console.log(req.body);
+        const session = await User.startSession();
+        session.startTransaction();
+        const user = await User.findById(req.params.id);
+        const imgUrl = req.body.imgUrl
+        if (imgUrl != "") {
+            user.imageUrl = imgUrl
+        }
+        const quote = req.body.quote;
+        if (quote != "") {
+            user.quote = quote;
+        }
+        await user.save();
+        await session.commitTransaction();
+        session.endSession();
+        return res.send({
+            msg: "Successfully Updated"
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time"
+        })
+    }
+});
 
 
 //writing caption 
