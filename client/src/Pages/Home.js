@@ -47,7 +47,7 @@ export default function Home() {
       data: { token: token }
     })
       .then(function (response) {
-        localStorage.setItem("auth_token", response.data.auth_token)
+        localStorage.setItem("auth_token", response.data.token)
       })
     checkUser(userObject)
   }
