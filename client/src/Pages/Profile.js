@@ -39,7 +39,7 @@ export default function Profile(props) {
         axios({
             method: 'GET',
             headers: {
-                'accessToken': localStorage.getItem("token")
+                accessToken: localStorage.getItem("token")
             },
             url: `${process.env.REACT_APP_BACKEND_URL}/getprofile/${params.id}`,
         })

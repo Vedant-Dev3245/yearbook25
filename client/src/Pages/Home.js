@@ -47,8 +47,8 @@ export default function Home() {
     })
       .then(function (response) {
         localStorage.setItem("auth_token", response.data.token)
+        checkUser(userObject)
       })
-    checkUser(userObject)
   }
 
   const [auth, isAuth] = React.useState(true)

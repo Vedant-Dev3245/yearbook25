@@ -42,6 +42,9 @@ export default function Form() {
                 axios({
                     method: 'POST',
                     // url: 'some/api',
+                    headers: {
+                        authToken: localStorage.auth_token,
+                      },
                     url: `${process.env.REACT_APP_BACKEND_URL}/profile/add`,
                     data: formInfo
                 })
@@ -51,7 +54,7 @@ export default function Form() {
                             localStorage.setItem("token",response.data.token)
                             navigate(`/profile/${response.data._id}`)
                         }
-                        // console.log(response);
+                        console.log(response);
                     })
                     .catch(function (error) {
                         console.log(error);

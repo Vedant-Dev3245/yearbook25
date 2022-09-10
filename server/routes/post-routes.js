@@ -74,7 +74,7 @@ router.post("/profile/add", authToken, async (req, res) => {
                 })
                 await search.save();
                 const token = jwt.sign(
-                    {user: usr._id},
+                    {user: user._id},
                     process.env.TOKEN_KEY,
                 );
                 return res.send({
@@ -223,33 +223,33 @@ router.post("/nominate", senderToken, async (req, res) => {
 })
 
 // editing current details: only photo and quote
-// router.post("/edit/:id", verifyToken, async (req, res) => {
-//     try {
-//         console.log(req.body);
-//         const session = await User.startSession();
-//         session.startTransaction();
-//         const user = await User.findById(req.params.id);
-//         const imgUrl = req.body.imgUrl
-//         if (imgUrl != "") {
-//             user.imageUrl = imgUrl
-//         }
-//         const quote = req.body.quote;
-//         if (quote != "") {
-//             user.quote = quote;
-//         }
-//         await user.save();
-//         await session.commitTransaction();
-//         session.endSession();
-//         return res.send({
-//             msg: "Successfully Updated"
-//         })
-//     } catch (err) {
-//         return res.send({
-//             status: "failure",
-//             msg: "There was an error, Please try after some time"
-//         })
-//     }
-// });
+router.post("/edit/:id", verifyToken, async (req, res) => {
+    try {
+        console.log(req.body);
+        const session = await User.startSession();
+        session.startTransaction();
+        const user = await User.findById(req.params.id);
+        const imgUrl = req.body.imgUrl
+        if (imgUrl != "") {
+            user.imageUrl = imgUrl
+        }
+        const quote = req.body.quote;
+        if (quote != "") {
+            user.quote = quote;
+        }
+        await user.save();
+        await session.commitTransaction();
+        session.endSession();
+        return res.send({
+            msg: "Successfully Updated"
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time"
+        })
+    }
+});
 
 
 //writing caption 
