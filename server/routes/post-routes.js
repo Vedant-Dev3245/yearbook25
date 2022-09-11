@@ -157,6 +157,11 @@ router.post("/nominate", senderToken, async (req, res) => {
                 status: "failure",
                 msg: "User has already been nominated!"
             });
+        } else if (receiverId == senderId) {
+            return res.send({
+                status: "failure",
+                msg: "You can't nominate yourself"
+            })
         } else {
             await receiver
                 .updateOne({
