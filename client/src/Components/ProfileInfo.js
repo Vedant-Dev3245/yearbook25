@@ -180,9 +180,9 @@ export default function ProfileInfo(props) {
     />
                 <ModalContent color="white" p="0.6rem" backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')" backgroundSize={"cover"} borderRadius="20px">
                     <Box border="3px solid #FFFFFF" borderRadius="20px" backdropFilter="blur(47.5676px)" bgColor="#1D1E22">
-                        <ModalHeader mt={isSmallerThan800 ? "0.5rem" : "2rem"} fontSize={isSmallerThan800 ? "1.5rem" : "2rem"}>you will be able to update your photo/quote again when the verification window opens.</ModalHeader>
+                        <ModalHeader mt={isSmallerThan800 ? "0.5rem" : "2rem"} fontSize={isSmallerThan800 ? "1.5rem" : "2rem"}>update your details</ModalHeader>
                         <ModalCloseButton onClick={handleClose} />
-                        {/* <ModalBody mt="-0.5rem" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"} color="#B3B3B3" mb="1rem">
+                        <ModalBody mt="-0.5rem" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"} color="#B3B3B3" mb="1rem">
                         <Text fontWeight="600" color="#B3B3B3" mt="1rem">note: please refer to this  <Link fontWeight={800} textDecor="underline" href="https://shreyakhubber.notion.site/shreyakhubber/Yearbook-Portal-a40d3dfec7714184b04812205daf62e6">document</Link> before submitting your photo and quote for the yearbook portal.</Text>
                             <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}><Input cursor="pointer" id="file" type="file" onChange={onImageChange} accept="image/*" position="absolute" right="100vw" overflow="hidden" />
                                 <FormLabel htmlFor="file" position="relative" textAlign={"center"} fontWeight="700" fontSize={isSmallerThan800 ? "0.8rem" : "1rem"}> please upload a 1080*1080 <br/> image to avoid cuts                                    
@@ -203,7 +203,7 @@ export default function ProfileInfo(props) {
                                     <Button disabled={isDisabled} onClick={handleSubmit} _hover={{ transform: "translate(-2px, -2px)" , bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" }} bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)" fontWeight="700" p="1.6rem 2rem" fontSize="1.2rem" colorScheme="blackAlpha">submit</Button>
                                 </Flex>
                             </FormControl>
-                        </ModalBody> */}
+                        </ModalBody>
                     </Box>
                 </ModalContent >
             </Modal>
