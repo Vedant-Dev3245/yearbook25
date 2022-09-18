@@ -78,6 +78,7 @@ router.get("/searchUsers", async (req, res) => {
 router.get("/search/:name", async (req, res) => {
     try {
         let result = req.params.name;
+        let a = 5;
         let newV = "\"" + result + "\"";
         const query = {
             $text: {
