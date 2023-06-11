@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const bodyParser = require("body-parser");
-const {User, Search} = require("../models/user");
+const { User, Search } = require("../models/user");
 const multer = require("multer");
 const path = require("path");
 const transporter = require("../config/mail");
@@ -9,14 +9,14 @@ const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
 const privileged = require("../specialUsers")
 const sharp = require("sharp");
-const {log} = require("console");
+const { log } = require("console");
 const jwt = require("jsonwebtoken")
 const middleware = require("./auth-middlewares");
 const verifyToken = middleware.verifyToken
 const getUserprofile = middleware.getUserprofile
 const senderToken = middleware.senderToken
 const authToken = middleware.authToken
-const {OAuth2Client} = require('google-auth-library')
+const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.clientID)
 
 
@@ -24,7 +24,7 @@ const client = new OAuth2Client(process.env.clientID)
 
 
 router.post("/auth", async (req, res) => {
-    const {token} = req.body
+    const { token } = req.body
     const ticket = await client.verifyIdToken({
         idToken: token,
         requiredAudience: process.env.clientID
@@ -32,7 +32,7 @@ router.post("/auth", async (req, res) => {
     const payload = ticket.getPayload()
 
     const jwt_token = jwt.sign(
-        {auth_token: payload.email},
+        { auth_token: payload.email },
         process.env.TOKEN_KEY,
     );
     return res.status(200).send({
@@ -74,7 +74,7 @@ router.post("/profile/add", authToken, async (req, res) => {
                 })
                 await search.save();
                 const token = jwt.sign(
-                    {user: user._id},
+                    { user: user._id },
                     process.env.TOKEN_KEY,
                 );
                 return res.send({
@@ -116,7 +116,7 @@ router.post("/profile/check", authToken, async (req, res) => {
         // sign jwt token with user id and send the token in response
         if (usr) {
             const token = jwt.sign(
-                {user: usr._id},
+                { user: usr._id },
                 process.env.TOKEN_KEY,
             );
             return res.send({
@@ -150,6 +150,7 @@ router.post("/nominate", senderToken, async (req, res) => {
         const session = await User.startSession();
         session.startTransaction();
         const receiver = await User.findById(receiverId).session(session)
+        const sender = await User.findById(senderId).session(session)
         const receiverEmail = receiver.email;
         if (receiver.nominatedby.some((e) => e.id === senderId)) {
             session.endSession();
@@ -163,6 +164,11 @@ router.post("/nominate", senderToken, async (req, res) => {
                 msg: "You can't nominate yourself"
             })
         } else {
+            if (sender.requests.includes(receiver)) {
+                sender.requests.remove(receiver);
+            } else if (sender.declined_requests.includes(receiver)) {
+                sender.declined_requests.remove(receiver);
+            }
             await receiver
                 .updateOne({
                     $push: {
@@ -194,6 +200,7 @@ router.post("/nominate", senderToken, async (req, res) => {
                               Login at yearbook.bits-sarc.org to enter the caption under the notifications tab  <br>
                               <br>
                               Regards,
+
                               Student Alumni Relations Cell! <br>
                                </p>`,
             };
@@ -219,6 +226,53 @@ router.post("/nominate", senderToken, async (req, res) => {
             //         });
             //     });
         }
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time",
+        })
+    }
+})
+
+router.post("/request", senderToken, async (req, res) => {
+    try {
+        const senderId = req.body.senderId;
+        const targetId = req.body.receiverId;
+
+        const sender = await User.findById(senderId);
+        const target = await User.findById(targetId);
+
+        if (target.requests.includes(senderId) || target.declined_requests.includes(senderId)) {
+            return res.send({
+                status: "failure",
+                msg: "You have already sent a request to this user"
+            })
+        }
+
+        target.requests.push(senderId);
+
+        const mailOptions = {
+            from: "studentalumnirelationscell@gmail.com",
+            to: receiverEmail,
+            subject: "Online Yearbook Portal",
+            // change the email test from here
+            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+                          ${sender.name} has requested to write on your yearbook wall! <br>
+                          <br>
+                          Log on to the <a href="yearbook.bits-sarc.org">yearbook portal</a> to accept their request. <br>
+                          <br>
+                          Regards,
+                          Student Alumni Relations Cell! <br>
+                           </p>`,
+        };
+
+        // TODO:
+        // Send mail
+
+        return res.send({
+            status: "success",
+            msg: "Request sent successfully!",
+        });
     } catch (err) {
         return res.send({
             status: "failure",
@@ -311,12 +365,12 @@ router.post("/writecaption", senderToken, async (req, res) => {
                     }
                 }
                 await receiver
-                    .updateOne({captions: captions})
+                    .updateOne({ captions: captions })
                     .session(session);
                 await session.commitTransaction();
                 session.endSession();
                 return res.send(
-                    {success: "Succesfully Updated"}
+                    { success: "Succesfully Updated" }
                 );
             } else {
                 await receiver.updateOne({
@@ -348,6 +402,28 @@ router.post("/writecaption", senderToken, async (req, res) => {
         })
     }
 
+});
+
+router.post('/decline', senderToken, async (req, res) => {
+    try {
+        senderId = req.body.senderId;
+        receiverId = req.body.receiverId;
+
+        sender = await User.findById(senderId);
+        receiver = await User.findById(receiverId);
+
+        sender.requests.remove(reciever);
+        sender.declined_requests.push(reciever);
+
+        return res.send({
+            success: "Succesfully declined"
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time"
+        })
+    }
 });
 
 module.exports = router;

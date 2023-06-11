@@ -31,7 +31,15 @@ var UserSchema = new mongoose.Schema({
     },
     captions : {
         type : Array
-    }
+    },
+    requests : [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User"
+    }],
+    declined_requests : [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User"
+    }],
 })
 
     

@@ -109,5 +109,23 @@ router.get("/search/:name", async (req, res) => {
     }
 });
 
+router.get("/requests", middleware.senderToken, async (req, res) => {
+    try {
+        senderId = req.body.senderId;
+        sender = await User.findById(senderId).populate("requests").populate("declined_requests");
+
+        return res.send({
+            status: "success",
+            requests: sender.requests,
+            declined_requests: sender.declined_requests,
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time",
+        })
+    }
+});
+
 
 module.exports = router;
