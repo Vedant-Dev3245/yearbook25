@@ -31,19 +31,13 @@ app.use(cookieParser());
 app.use(
   cookieSession({
     secret: keys.session.cookieKey,
-    cookie: { maxAge: 60000 },
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey],
     resave: false,
     saveUninitialized: false,
   })
 );
 app.use(flash());
-
-app.use(
-  cookieSession({
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey],
-  })
-);
 
 //app.use(passport.initialize());
 //app.use(passport.session());

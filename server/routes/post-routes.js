@@ -8,7 +8,6 @@ const keys = require("../config/keys");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID);
 const privileged = require("../specialUsers")
-const sharp = require("sharp");
 const { log } = require("console");
 const jwt = require("jsonwebtoken")
 const middleware = require("./auth-middlewares");
