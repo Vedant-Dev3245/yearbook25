@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const privileged = require("../specialUsers");
 const config = process.env;
 
 const isAuthenticated = (req, res, next) => {
@@ -16,8 +17,10 @@ const isAuthenticated = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-    // TODO
-    next()
+    if (!privileged.contains(req.user.email)) {
+        return res.status(401).json({ msg: "unauthorized" })
+    }
+    return next()
 }
 
 module.exports = { isAuthenticated, isAdmin };
