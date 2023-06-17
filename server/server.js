@@ -72,25 +72,13 @@ app.listen(port, () => console.log("Listening at port " + port));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const authRoutes = require("./routes/auth-routes");
-const getRoutes = require("./routes/get-routes");
-const postRoutes = require("./routes/post-routes");
+const authRoutes = require("./routes/auth");
+const nominationRoutes = require("./routes/nominations");
 const pollRoutes = require("./routes/polls");
-function loggedIn(req, res, next) {
-  console.log(req);
-  console.log(req.user);
-  if (req.user) {
-    next();
-  } else {
-    res.redirect("/");
-  }
-}
-// app.use("/auth", authRoutes);
+const profileRoutes = require("./routes/profile");
+const { isAuthenticated } = require("./middleware/auth");
 
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-// })
-
-app.use("/", getRoutes);
-app.use("/", postRoutes);
-app.use("/poll/", pollRoutes);
+app.use("/auth", authRoutes);
+app.use("/polls", isAuthenticated, pollRoutes);
+app.use("/nominations", isAuthenticated, nominationRoutes);
+app.use("/profiles", isAuthenticated, profileRoutes);

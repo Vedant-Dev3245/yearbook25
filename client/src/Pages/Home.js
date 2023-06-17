@@ -39,6 +39,7 @@ export default function Home() {
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
+    console.log(userObject);
     var token = response.credential
     axios({
       method: 'POST',
