@@ -3,7 +3,7 @@ dotenv.config();
 const express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 const User = require("./models/user");
 const app = express();
 // const passport = require("passport");
@@ -12,14 +12,15 @@ const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
-app.use(cors())
-mongoose.connect(process.env.DATABASEURL, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  replicaSet: "rs",
-})
+app.use(cors());
+mongoose
+  .connect(process.env.DATABASEURL, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    replicaSet: "rs",
+  })
   .then(() => {
     console.log("connected");
   })
@@ -41,7 +42,11 @@ app.use(flash());
 
 //app.use(passport.initialize());
 //app.use(passport.session());
-var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits-sarc.org', 'http://localhost:3000'];
+var whitelist = [
+  "https://sarc-yearbook-sarc.vercel.app",
+  "https://yearbook.bits-sarc.org",
+  "http://localhost:3000",
+];
 //var whitelist = ['https://yearbook-backend-5algm.ondigitalocean.app']
 // var corsOptions = {
 //   origin: function (origin, callback) {
@@ -53,14 +58,14 @@ var whitelist = ['https://sarc-yearbook-sarc.vercel.app', 'https://yearbook.bits
 //   }
 // }
 
-app.use(function (req, res, next){
-    // res.header("Access-Control-Allow-Origin", "yearbook.bits-sarc.org")
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
-    next();
-})
+app.use(function (req, res, next) {
+  // res.header("Access-Control-Allow-Origin", "yearbook.bits-sarc.org")
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 app.use(express.static("public"));
 app.listen(port, () => console.log("Listening at port " + port));
@@ -70,9 +75,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const authRoutes = require("./routes/auth-routes");
 const getRoutes = require("./routes/get-routes");
 const postRoutes = require("./routes/post-routes");
+const pollRoutes = require("./routes/polls");
 function loggedIn(req, res, next) {
-  console.log(req)
-  console.log(req.user)
+  console.log(req);
+  console.log(req.user);
   if (req.user) {
     next();
   } else {
@@ -85,5 +91,6 @@ function loggedIn(req, res, next) {
 //     res.setHeader('Access-Control-Allow-Origin', '*');
 // })
 
-app.use("/",  getRoutes);
-app.use("/",  postRoutes);
+app.use("/", getRoutes);
+app.use("/", postRoutes);
+app.use("/poll/", pollRoutes);
