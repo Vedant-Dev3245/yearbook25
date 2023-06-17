@@ -1,48 +1,48 @@
 const mongoose = require('mongoose')
 //this file determines the user model and schema
 var UserSchema = new mongoose.Schema({
-    name : {
+    name: {
         type: String,
-     uppercase: true
+        uppercase: true
     },
-    imageUrl : {
-        type : String
+    imageUrl: {
+        type: String
     },
-    email : {
+    email: {
 
     },
-    pEmail : {
+    pEmail: {
 
     },
-    phone : {
-    type:String 
+    phone: {
+        type: String
     },
-    bitsId : {
+    bitsId: {
 
     },
-    nominatedby : {
-        type : Array
+    nominatedby: {
+        type: Array
     },
     quote: {
 
     },
-    discipline : {
+    discipline: {
 
     },
-    captions : {
-        type : Array
+    captions: {
+        type: Array
     },
-    requests : [{
+    requests: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User"
     }],
-    declined_requests : [{
+    declined_requests: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User"
     }],
 })
 
-    
+
 // UserSchema.index({name: 'text'})
 var User = mongoose.model('User', UserSchema);
 
@@ -51,7 +51,7 @@ const searchSchema = new mongoose.Schema({
     name: String,
     bitsId: String
 });
-searchSchema.index({name: 'text'})//adding name as an index for searching the Search collection
+searchSchema.index({ name: 'text' })//adding name as an index for searching the Search collection
 var Search = mongoose.model('Search', searchSchema);
 
-module.exports = {User,Search}
+module.exports = { User, Search }
