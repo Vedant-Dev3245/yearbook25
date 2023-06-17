@@ -2,7 +2,7 @@ const express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const User = require("./models/user");
+const { User } = require("./models/user");
 const app = express();
 // const passport = require("passport");
 const cookieParser = require("cookie-parser");
@@ -16,7 +16,6 @@ mongoose
         useCreateIndex: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
-        replicaSet: "rs",
     })
     .then(() => {
         console.log("connected");
@@ -66,3 +65,9 @@ app.use("/auth", authRoutes);
 app.use("/polls", isAuthenticated, pollRoutes);
 app.use("/nominations", isAuthenticated, nominationRoutes);
 app.use("/profiles", isAuthenticated, profileRoutes);
+
+app.get("/test", async (req, res) => {
+    const all = await User.find({});
+
+    return res.send({ all, msg: "ok" })
+})
