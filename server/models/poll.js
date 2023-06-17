@@ -5,7 +5,7 @@ const PollSchema = new mongoose.Schema({
     ques: {
         type: String,
         required: [true, "Ques field cannot be empty"],
-        maxlength: [300, "Ques cannot be greater than 300 characters"], isAdmin
+        maxlength: [300, "Ques cannot be greater than 300 characters"],
     },
     total_count: {
         type: Number,

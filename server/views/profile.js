@@ -1,6 +1,4 @@
 const { User, Search } = require("../models/user");
-const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID);
 
 
 const editProfile = async (req, res) => {

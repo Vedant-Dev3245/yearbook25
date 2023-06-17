@@ -1,7 +1,7 @@
 module.exports = {
     google : {
-        clientID : process.env.clientID,  
-        clientSecret : process.env.SECRET  
+        clientID : process.env.CLIENT_ID,  
+        clientSecret : process.env.CLIENT_SECRET  
     },
     session : {
         cookieKey : process.env.cookieKey

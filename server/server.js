@@ -1,5 +1,3 @@
-const dotenv = require("dotenv");
-dotenv.config();
 const express = require("express");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -7,64 +5,50 @@ const cors = require("cors");
 const User = require("./models/user");
 const app = express();
 // const passport = require("passport");
-const keys = require("./config/keys");
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
 app.use(cors());
 mongoose
-  .connect(process.env.DATABASEURL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    replicaSet: "rs",
-  })
-  .then(() => {
-    console.log("connected");
-  })
-  .catch((err) => {
-    console.log("error", err.message);
-  });
+    .connect(process.env.DATABASE_URL, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        replicaSet: "rs",
+    })
+    .then(() => {
+        console.log("connected");
+    })
+    .catch((err) => {
+        console.log("MongoDB connection error:", err.message);
+    });
 
 app.use(cookieParser());
 app.use(
-  cookieSession({
-    secret: keys.session.cookieKey,
-    maxAge: 24 * 60 * 60 * 1000,
-    keys: [keys.session.cookieKey],
-    resave: false,
-    saveUninitialized: false,
-  })
+    cookieSession({
+        secret: process.env.COOKIE_SECRET,
+        maxAge: 24 * 60 * 60 * 1000,
+        keys: [process.env.COOKIE_SECRET],
+        resave: false,
+        saveUninitialized: false,
+    })
 );
 app.use(flash());
 
-//app.use(passport.initialize());
-//app.use(passport.session());
 var whitelist = [
-  "https://sarc-yearbook-sarc.vercel.app",
-  "https://yearbook.bits-sarc.org",
-  "http://localhost:3000",
+    "https://sarc-yearbook-sarc.vercel.app",
+    "https://yearbook.bits-sarc.org",
+    "http://localhost:3000",
 ];
-//var whitelist = ['https://yearbook-backend-5algm.ondigitalocean.app']
-// var corsOptions = {
-//   origin: function (origin, callback) {
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true)
-//     } else {
-//       callback(new Error('Not allowed by CORS'))
-//     }
-//   }
-// }
 
 app.use(function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "yearbook.bits-sarc.org")
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader("Access-Control-Allow-Credentials", true);
-  next();
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    next();
 });
 
 app.use(express.static("public"));
