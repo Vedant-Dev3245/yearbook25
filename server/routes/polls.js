@@ -2,7 +2,15 @@ const express = require("express");
 const router = express.Router();
 const Poll = require("../models/poll");
 const { User, Search } = require("../models/user");
-const { allPolls, getPoll, createPoll, updatePoll, deletePoll, votePoll } = require("../views/polls");
+const {
+  allPolls,
+  getPoll,
+  createPoll,
+  updatePoll,
+  deletePoll,
+  votePoll,
+  leaderboard,
+} = require("../views/polls");
 const { isAdmin } = require("../middleware/auth");
 
 //getall(user and admin)
@@ -33,5 +41,7 @@ router.delete("/delete/:id", isAdmin, deletePoll);
 
 //post(User)-to ans the poll
 router.patch("/vote/:id", votePoll);
+
+router.get("/leaderboard/:id", leaderboard);
 
 module.exports = router;

@@ -11,43 +11,43 @@ const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
 app.use(cors());
 mongoose
-    .connect(process.env.DATABASE_URL, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-    })
-    .then(() => {
-        console.log("connected");
-    })
-    .catch((err) => {
-        console.log("MongoDB connection error:", err.message);
-    });
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log("connected");
+  })
+  .catch((err) => {
+    console.log("MongoDB connection error:", err.message);
+  });
 
 app.use(cookieParser());
 app.use(
-    cookieSession({
-        secret: process.env.COOKIE_SECRET,
-        maxAge: 24 * 60 * 60 * 1000,
-        keys: [process.env.COOKIE_SECRET],
-        resave: false,
-        saveUninitialized: false,
-    })
+  cookieSession({
+    secret: process.env.COOKIE_SECRET,
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_SECRET],
+    resave: false,
+    saveUninitialized: false,
+  })
 );
 app.use(flash());
 
 var whitelist = [
-    "https://sarc-yearbook-sarc.vercel.app",
-    "https://yearbook.bits-sarc.org",
-    "http://localhost:3000",
+  "https://sarc-yearbook-sarc.vercel.app",
+  "https://yearbook.bits-sarc.org",
+  "http://localhost:3000",
 ];
 
 app.use(function (req, res, next) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    next();
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
 });
 
 app.use(express.static("public"));
@@ -67,7 +67,7 @@ app.use("/nominations", isAuthenticated, nominationRoutes);
 app.use("/profiles", isAuthenticated, profileRoutes);
 
 app.get("/test", async (req, res) => {
-    const all = await User.find({});
+  const all = await User.find({});
 
-    return res.send({ all, msg: "ok" })
-})
+  return res.send({ all, msg: "ok" });
+});
