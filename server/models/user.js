@@ -9,25 +9,28 @@ var UserSchema = new mongoose.Schema({
         type: String
     },
     email: {
-
+        type: String,
+        required: true
     },
-    pEmail: {
-
+    personalEmail: {
+        type: String
     },
     phone: {
         type: String
     },
     bitsId: {
-
+        type: String,
+        required: true
     },
     nominatedby: {
         type: Array
     },
     quote: {
-
+        type: String
     },
-    discipline: {
-
+    branchCode: {
+        type: String,
+        required: true
     },
     captions: {
         type: Array
