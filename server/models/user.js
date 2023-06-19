@@ -28,10 +28,10 @@ var UserSchema = new mongoose.Schema({
     quote: {
         type: String
     },
-    branchCode: {
+    branchCode: [{
         type: String,
         required: true
-    },
+    }],
     captions: {
         type: Array
     },
