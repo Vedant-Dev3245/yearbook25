@@ -2,6 +2,7 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken")
 const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
+const { User } = require("../models/user");
 
 
 router.post("/auth", async (req, res) => {
@@ -11,11 +12,11 @@ router.post("/auth", async (req, res) => {
         requiredAudience: process.env.AUDIENCE
     });
 
-    // get more info from the database then go ahead add branch and all to the payload
-
     const payload = ticket.getPayload()
+    const user = await User.find({ email: payload.email });
+
     const jwt_token = jwt.sign(
-        { email: payload.email },
+        { id: user.id, bitsId: user.bitsId, branchCode: user.branchCode, email: payload.email },
         process.env.TOKEN_KEY,
     );
     return res.status(200).send({
