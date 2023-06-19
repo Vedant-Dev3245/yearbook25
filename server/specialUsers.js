@@ -5,6 +5,8 @@ const arr = [
   "f20210923@pilani.bits-pilani.ac.in",
   "f20210532@pilani.bits-pilani.ac.in",
   "f20211725@pilani.bits-pilani.ac.in",
+  "f20220557@pilani.bits-pilani.ac.in",
+  "f20220471@pilani.bits-pilani.ac.in",
   //20Batch
   "f20200616@pilani.bits-pilani.ac.in",
   "f20201658@pilani.bits-pilani.ac.in",
