@@ -130,11 +130,11 @@ const addProfile = async (req, res) => {
             });
         } else {
             const user = new User({
-                name: req.body.firstName + " " + req.body.lastName,
+                name: req.body.name,
                 email: req.body.email,
                 bitsId: req.body.id,
                 quote: req.body.quote,
-                discipline: "",
+                branchCode: req.body.branchCode,
                 imageUrl: req.body.imgUrl,
                 phone: req.body.phone,
                 pEmail: req.body.pEmail,
