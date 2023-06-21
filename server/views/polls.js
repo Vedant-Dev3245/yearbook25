@@ -107,7 +107,7 @@ const votePoll = async (req, res) => {
         const voterUser = poll.votes.find((voter) => voter.user == voterId);
         const targetUser = poll.votes.find((voter) => voter.user == targetId);
 
-        if (voterId != targetId) {
+        if (voterId == targetId) {
             return res.status(400).json({ msg: "You cannot vote for yourself" });
         }
 
