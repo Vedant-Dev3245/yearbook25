@@ -72,7 +72,7 @@ const allRequests = async (req, res) => {
 
 const nominateUser = async (req, res) => {
     try {
-        const senderId = req.user.Id;
+        const senderId = req.user.id;
         const receiverId = req.body.receiverId;
 
         const session = await User.startSession();

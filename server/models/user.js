@@ -54,7 +54,7 @@ const searchSchema = new mongoose.Schema({
     name: String,
     bitsId: String
 });
-searchSchema.index({ name: 'text' })//adding name as an index for searching the Search collection
+searchSchema.index({ name: "text", bitsId: "text" })//adding name as an index for searching the Search collection
 var Search = mongoose.model('Search', searchSchema);
 
 module.exports = { User, Search }
