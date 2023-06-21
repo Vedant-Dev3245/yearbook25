@@ -1,4 +1,6 @@
 const { User, Search } = require("../models/user");
+const Poll = require("../models/poll");
+const jwt = require("jsonwebtoken");
 
 
 const editProfile = async (req, res) => {
@@ -38,7 +40,7 @@ const writeCaption = async (req, res) => {
     try {
         const caption = req.body.caption;
         const writerId = req.user.id;
-        const receiverId = req.params.id;
+        const targetId = req.params.id;
         // console.log(caption, writerId, receiverId);
 
         const session = await User.startSession();
@@ -58,10 +60,10 @@ const writeCaption = async (req, res) => {
         // }
 
         const writer = await User.findById(writerId).session(session);
-        
+
         let temp = [];
         writer.nominatedby.forEach((x) => temp.push(x.id));
-        if (!temp.includes(receiverId)) {
+        if (!temp.includes(targetId)) {
             session.endSession();
             return res.status(403).send({
                 error: "You're not nominated to write the caption!",
@@ -76,7 +78,7 @@ const writeCaption = async (req, res) => {
         } else {
             const writer = await User.findById(writerId).session(session);
             const name = writer.name;
-            const receiver = await User.findById(receiverId).session(session);
+            const receiver = await User.findById(targetId).session(session);
             const captions = receiver.captions;
             //checking if a caption has already been written or not, then we'll update otherwise push a new one
             if (captions.find((o) => o.name === name)) {
@@ -121,7 +123,12 @@ const writeCaption = async (req, res) => {
 
 const addProfile = async (req, res) => {
     try {
-        const usr = await User.findOne({
+        let usr = await User.findOne({
+            email: req.body.email,
+        });
+
+        User.deleteOne({ email: req.body.email });
+        usr = await User.findOne({
             email: req.body.email,
         });
         if (usr) {
@@ -132,7 +139,7 @@ const addProfile = async (req, res) => {
             const user = new User({
                 name: req.body.name,
                 email: req.body.email,
-                bitsId: req.body.id,
+                bitsId: req.body.bitsId,
                 quote: req.body.quote,
                 branchCode: req.body.branchCode,
                 imageUrl: req.body.imgUrl,
@@ -142,28 +149,28 @@ const addProfile = async (req, res) => {
 
             const new_vote = { User: req.body.email, count: 0, is_ans: false };
 
-            const poll_add = await Poll.find({}).then(
-                doc.map((poll) => {
+            const poll_add = await Poll.find({}).then((results) => {
+                results.map((poll) => {
                     poll.vote.push(new_vote);
                     poll.save();
                 })
-            );
-            await user.save(async function (err, user) {
-                const userId = user._id;
-                const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
-                console.log(userId);
-                const search = new Search({
-                    uId: withoutQuotes,
-                    name: user.name,
-                    bitsId: user.bitsId,
-                });
-                await search.save();
-                const token = jwt.sign({ user: user._id }, process.env.TOKEN_KEY);
-                return res.send({
-                    detail: "Profile created",
-                    _id: userId,
-                    token: token,
-                });
+            });
+            await user.save();
+
+            const userId = user.id;
+            const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
+            console.log(userId);
+            const search = new Search({
+                uId: withoutQuotes,
+                name: user.name,
+                bitsId: user.bitsId,
+            });
+            await search.save();
+            const token = jwt.sign({ user: user.id, bitsId: user.bitsId, email: user.email }, process.env.TOKEN_KEY, { expiresIn: "30d" });
+            return res.send({
+                detail: "Profile created",
+                _id: userId,
+                token: token,
             });
         }
     } catch (err) {
@@ -222,40 +229,14 @@ const checkProfile = async (req, res) => {
 };
 
 const searchUsers = async (req, res) => {
-    try {async (req, res) => {
-        try {
-            let result = await Search.aggregate([
-                {
-                    "$search": {
-                        'index': 'search',
-                        "autocomplete": { //autocomplete is implemented so that suggestions are sent to front
-                            "query": `${req.query.name}`,
-                            "path": "name"
-                        }
-                    },
-                },
-                {
-                    $limit: 12
-                },
-                {
-                    $project: {
-                        "_id": 0,
-                    }
-                }
-            ]);
-            res.send({users: result});
-        } catch (e) {
-            res.status(500).send({message: e.message});
-        }
-    
-    }
+    try {
         let result = await Search.aggregate([
             {
-                "$search": {
-                    'index': 'search',
-                    "autocomplete": { //autocomplete is implemented so that suggestions are sent to front
-                        "query": `${req.query.name}`,
-                        "path": "name"
+                $search: {
+                    index: 'search',
+                    autocomplete: { //autocomplete is implemented so that suggestions are sent to front
+                        query: `${req.query.name}`,
+                        path: "name"
                     }
                 },
             },
@@ -268,9 +249,15 @@ const searchUsers = async (req, res) => {
                 }
             }
         ]);
-        res.send({users: result});
+        // use this for local deployment
+        // let result = await Search.find({
+        //     $text: {
+        //         $search: `${req.query.name}`,
+        //     }
+        // })
+        res.send({ users: result });
     } catch (e) {
-        res.status(500).send({message: e.message});
+        res.status(500).send({ message: e.message });
     }
 
 }
@@ -282,7 +269,7 @@ const getProfile = async (req, res) => {
             return res.status(400).send();
         }
         if (res.locals.is_user) {
-            res.send({user: user});
+            res.send({ user: user });
         } else {
             res.send({
                 user: {
