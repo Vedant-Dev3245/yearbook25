@@ -21,6 +21,7 @@ router.get("/:id", getPoll);
 
 // {
 //   question: "some ques";
+//   branch : "branch"
 // }
 //create(admin)
 router.post("/create", isAdmin, createPoll);

@@ -24,10 +24,11 @@ const getPoll = async (req, res) => {
 
 const createPoll = async (req, res) => {
   try {
-    const users_all = await User.find({});
     const ques = req.body.question;
+    const users_all = await User.find({ branchCode: branch });
     const poll = await Poll.create({
       ques: ques,
+      branch: branch,
       vote: users_all.map((user) => {
         return { User: user.email, count: 0, is_ans: false };
       }),

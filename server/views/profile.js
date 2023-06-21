@@ -1,6 +1,4 @@
 const { User, Search } = require("../models/user");
-const Poll = require("../models/poll");
-const jwt = require("jsonwebtoken");
 
 
 const editProfile = async (req, res) => {
@@ -27,14 +25,13 @@ const editProfile = async (req, res) => {
         return res.send({
             msg: "Successfully Updated",
         });
-
     } catch (err) {
         return res.status(400).send({
             status: "failure",
             msg: "There was an error, Please try after some time",
         });
     }
-}
+};
 
 const writeCaption = async (req, res) => {
     try {
@@ -119,7 +116,7 @@ const writeCaption = async (req, res) => {
             msg: "There was an error, Please try after some time",
         });
     }
-}
+};
 
 const addProfile = async (req, res) => {
     try {
@@ -149,7 +146,7 @@ const addProfile = async (req, res) => {
 
             const new_vote = { User: req.body.email, count: 0, is_ans: false };
 
-            const poll_add = await Poll.find({}).then((results) => {
+            const poll_add = await Poll.find({ $in: req.body.branchCode }).then((results) => {
                 results.map((poll) => {
                     poll.vote.push(new_vote);
                     poll.save();
@@ -241,13 +238,13 @@ const searchUsers = async (req, res) => {
                 },
             },
             {
-                $limit: 12
+                $limit: 12,
             },
             {
                 $project: {
-                    "_id": 0,
-                }
-            }
+                    _id: 0,
+                },
+            },
         ]);
         // use this for local deployment
         // let result = await Search.find({
@@ -291,4 +288,11 @@ const getProfile = async (req, res) => {
     }
 }
 
-module.exports = { editProfile, writeCaption, addProfile, checkProfile, searchUsers, getProfile }
+module.exports = {
+    editProfile,
+    writeCaption,
+    addProfile,
+    checkProfile,
+    searchUsers,
+    getProfile,
+};
