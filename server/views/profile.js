@@ -144,7 +144,7 @@ const addProfile = async (req, res) => {
                 pEmail: req.body.pEmail,
             });
 
-            const new_vote = { User: req.body.email, count: 0, is_ans: false };
+            const new_vote = { user: req.user.id, count: 0, hasVoted: false };
 
             const poll_add = await Poll.find({ $in: req.body.branchCode }).then((results) => {
                 results.map((poll) => {
