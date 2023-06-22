@@ -2,10 +2,11 @@ const jwt = require("jsonwebtoken");
 const privileged = require("../specialUsers");
 
 const isAuthenticated = (req, res, next) => {
-    const token = req.headers.authorization.substring(7)
-    if (!token) {
-        return res.status(403).send("A JWT Token is required to access this endpoint ;)")
+    if (!req.headers.authorization) {
+        return res.status(403).send({ msg: "A JWT Token is required to access this endpoint ;)" })
     }
+    const token = req.headers.authorization.substring(7)
+
     jwt.verify(token, process.env.TOKEN_KEY, (err, user) => {
         if (err) {
             return res.status(401).json({ msg: "Invalid token" })
@@ -16,7 +17,7 @@ const isAuthenticated = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-    if (!privileged.contains(req.user.email)) {
+    if (!privileged.includes(req.user.email)) {
         return res.status(401).json({ msg: "unauthorized" })
     }
     return next()
