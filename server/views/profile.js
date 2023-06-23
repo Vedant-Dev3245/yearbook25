@@ -158,12 +158,12 @@ const addProfile = async (req, res) => {
 
             const new_vote = { user: user.id, count: 0, hasVoted: false };
 
-            const poll_add = await Poll.find({ $in: req.body.branchCode }).then((results) => {
+            await Poll.find({ branch: { $in: branchCode } }).then((results) => {
                 results.map((poll) => {
                     poll.vote.push(new_vote);
                     poll.save();
                 })
-            });
+            });}
 
             const userId = user.id;
             const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
