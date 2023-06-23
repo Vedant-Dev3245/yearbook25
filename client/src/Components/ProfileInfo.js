@@ -102,7 +102,7 @@ export default function ProfileInfo(props) {
         axios({
             method: 'PATCH',
             headers: {
-                Authorization : `Bearer ${localstorage.token}`
+                Authorization : `Bearer ${localStorage.token}`
             },
             url: `${process.env.REACT_APP_BACKEND_URL}/profiles/edit}`,
             data: formInfo
