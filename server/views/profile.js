@@ -1,4 +1,5 @@
 const { User, Search } = require("../models/user");
+const Poll = require("../models/poll");
 
 
 const editProfile = async (req, res) => {
@@ -173,7 +174,7 @@ const addProfile = async (req, res) => {
                 bitsId: user.bitsId,
             });
             await search.save();
-            const token = jwt.sign({ user: user.id, bitsId: user.bitsId, email: user.email, batchCode }, process.env.TOKEN_KEY, { expiresIn: "30d" });
+            const token = jwt.sign({ user: user.id, bitsId, email: user.email, branchCode }, process.env.TOKEN_KEY, { expiresIn: "30d" });
             return res.send({
                 detail: "Profile created",
                 _id: userId,
