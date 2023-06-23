@@ -1,5 +1,6 @@
 const { User, Search } = require("../models/user");
 const Poll = require("../models/poll");
+const jwt = require("jsonwebtoken")
 
 
 const editProfile = async (req, res) => {
@@ -145,7 +146,7 @@ const addProfile = async (req, res) => {
                 branchCode = [branchCode]
             }
 
-            const user = User.create({
+            const user = await User.create({
                 name: `${req.body.firstName} ${req.body.lastName}`,
                 email: req.body.email,
                 bitsId,
@@ -156,11 +157,11 @@ const addProfile = async (req, res) => {
                 imageUrl: req.body.imgUrl,
             });
 
-            const new_vote = { user: user.id, count: 0, hasVoted: false };
+            const new_vote = { user: user, count: 0, hasVoted: false };
 
             await Poll.find({ branch: { $in: branchCode } }).then((results) => {
                 results.map((poll) => {
-                    poll.vote.push(new_vote);
+                    poll.votes.push(new_vote);
                     poll.save();
                 })
             });
@@ -170,7 +171,7 @@ const addProfile = async (req, res) => {
             console.log(userId);
             const search = new Search({
                 uId: withoutQuotes,
-                name: user.name,
+                name: user.name,    
                 bitsId: user.bitsId,
             });
             await search.save();
