@@ -133,20 +133,29 @@ const addProfile = async (req, res) => {
                 msg: "User Exists Already",
             });
         } else {
-            const user = new User({
-                name: req.body.name,
+            const bitsId = req.body.id
+            let branchCode = bits_id.substring(4, text.length - 4)
+
+            if (branchCode.includes("B")) {
+                branchCode = [branchCode.substring(0, 2), branchCode.substring(2, 4)]
+            } else if (branchCode[0] = "A") {
+                branchCode = [branchCode.substring(0, 2)]
+            } else {
+                branchCode = [branchCode]
+            }
+
+            const user = User.create({
+                name: `${req.body.firstName} ${req.body.lastName}`,
                 email: req.body.email,
-                bitsId: req.body.bitsId,
+                bitsId,
                 personalEmail: req.body.pEmail,
                 phone: req.body.phone,
                 quote: req.body.quote,
-                branchCode: req.body.branchCode,
+                branchCode,
                 imageUrl: req.body.imgUrl,
-                phone: req.body.phone,
-                pEmail: req.body.pEmail,
             });
 
-            const new_vote = { user: req.user.id, count: 0, hasVoted: false };
+            const new_vote = { user: user.id, count: 0, hasVoted: false };
 
             const poll_add = await Poll.find({ $in: req.body.branchCode }).then((results) => {
                 results.map((poll) => {
@@ -154,7 +163,6 @@ const addProfile = async (req, res) => {
                     poll.save();
                 })
             });
-            await user.save();
 
             const userId = user.id;
             const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
@@ -165,7 +173,7 @@ const addProfile = async (req, res) => {
                 bitsId: user.bitsId,
             });
             await search.save();
-            const token = jwt.sign({ user: user.id, bitsId: user.bitsId, email: user.email }, process.env.TOKEN_KEY, { expiresIn: "30d" });
+            const token = jwt.sign({ user: user.id, bitsId: user.bitsId, email: user.email, batchCode }, process.env.TOKEN_KEY, { expiresIn: "30d" });
             return res.send({
                 detail: "Profile created",
                 _id: userId,
