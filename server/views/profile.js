@@ -137,6 +137,8 @@ const addProfile = async (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 bitsId: req.body.bitsId,
+                personalEmail: req.body.pEmail,
+                phone: req.body.phone,
                 quote: req.body.quote,
                 branchCode: req.body.branchCode,
                 imageUrl: req.body.imgUrl,
