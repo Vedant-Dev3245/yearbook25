@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken")
 const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
 const { User } = require("../models/user");
+const privileged = require("../specialUsers");
 
 
 router.post("/auth", async (req, res) => {
@@ -16,7 +17,28 @@ router.post("/auth", async (req, res) => {
         // await User.create({ email: "f20220557@pilani.bits-pilani.ac.in", name: "HIMANSHU KUMAR", bitsId: "2022A8PS0557P", branchCode: ["A8"] })
 
         const payload = ticket.getPayload()
+
+        if (
+            email[10] != "p" ||
+            (email.substring(0, 5) != "f2019" &&
+                email.substring(0, 5) != "h2021" &&
+                !privileged.includes(email))
+        ) {
+            //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
+            return res.send({
+                authorised: 0,
+            });
+        }
+
         const user = await User.findOne({ email: payload.email });
+
+        if (!user) {
+            return res.send({
+                authorised: 1,
+                user: {},
+                exists: false,
+            });
+        }
 
         const jwt_token = jwt.sign(
             {
@@ -27,9 +49,12 @@ router.post("/auth", async (req, res) => {
             },
             process.env.TOKEN_KEY,
         );
-        return res.status(200).send({
+        return res.send({
+            authorised: 1,
+            user: user.id,
             token: jwt_token,
-        })
+            exists: true,
+        });
     } catch (error) {
         return res.status(400).send({
             msg: "invalid token",

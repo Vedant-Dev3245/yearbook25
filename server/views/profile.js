@@ -179,52 +179,6 @@ const addProfile = async (req, res) => {
     }
 };
 
-const checkProfile = async (req, res) => {
-    try {
-        // console.log(req.body)
-        const email = req.body.email;
-        // console.log(email[10]);
-        if (
-            email[10] != "p" ||
-            (email.substring(0, 5) != "f2019" &&
-                email.substring(0, 5) != "h2021" &&
-                !privileged.includes(email))
-        ) {
-            //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
-            return res.send({
-                authorised: 0,
-            });
-        }
-        const usr = await User.findOne({
-            email: email,
-        });
-
-        //TODO:
-        // usr -> usr.id
-        // sign jwt token with user id and send the token in response
-        if (usr) {
-            const token = jwt.sign({ id: usr._id, email, branchCode: usr.branchCode, bitsId: usr.bitsId  }, process.env.TOKEN_KEY);
-            return res.send({
-                authorised: 1,
-                user: usr._id,
-                token: token,
-                exists: true,
-            });
-        } else {
-            return res.send({
-                authorised: 1,
-                user: {},
-                exists: false,
-            });
-        }
-    } catch (err) {
-        return res.send({
-            status: "failure",
-            msg: "There was an error, Please try after some time",
-        });
-    }
-};
-
 const searchUsers = async (req, res) => {
     try {
         let result = await Search.aggregate([
@@ -292,7 +246,6 @@ module.exports = {
     editProfile,
     writeCaption,
     addProfile,
-    checkProfile,
     searchUsers,
     getProfile,
 };

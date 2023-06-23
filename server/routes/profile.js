@@ -7,7 +7,6 @@ router.patch("/edit", editProfile);
 router.get("/search", searchUsers);
 router.get("/:id", getProfile);
 router.post("/:id/caption", writeCaption);
-router.post("/check", checkProfile); // Should not be using this
 
 // admin routes
 router.post("/add", isAdmin, addProfile);
