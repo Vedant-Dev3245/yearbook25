@@ -203,7 +203,7 @@ const checkProfile = async (req, res) => {
         // usr -> usr.id
         // sign jwt token with user id and send the token in response
         if (usr) {
-            const token = jwt.sign({ user: usr._id }, process.env.TOKEN_KEY);
+            const token = jwt.sign({ id: usr._id, email, branchCode: usr.branchCode, bitsId: usr.bitsId  }, process.env.TOKEN_KEY);
             return res.send({
                 authorised: 1,
                 user: usr._id,
