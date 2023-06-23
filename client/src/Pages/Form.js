@@ -42,11 +42,8 @@ export default function Form() {
                 axios({
                     method: 'POST',
                     // url: 'some/api',
-                    headers: {
-                        authToken: localStorage.auth_token,
-                      },
-                    url: `${process.env.REACT_APP_BACKEND_URL}/profile/add`,
-                    data: formInfo
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profiles/add`,
+                    data: { ...formInfo, token: localStorage.google_token }
                 })
                     .then(function (response) {
                         if (response.data.detail === "Profile created") {

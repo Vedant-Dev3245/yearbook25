@@ -42,8 +42,8 @@ export default function Home() {
 
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
-    console.log(userObject);
     var token = response.credential
+    localStorage.setItem("google_token", token)
     axios({
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_URL}/auth/google`,
@@ -51,51 +51,23 @@ export default function Home() {
     })
       .then(function (response) {
         // checkUser(userObject)
-        if (response.data.authorised && response.data.exists) {
-          localStorage.setItem("user", response.data.user)
-          localStorage.setItem("token", response.data.token)
-          setLoading(false)
-          navigate(`/profile/${response.data.user}`)
-        } else {
-          navigate('/form', { state: userObject })
-        }
-      })
-  }
-
-  function checkUser(userObject) {
-    setLoading(true)
-    axios({
-      method: 'POST',
-      headers: {
-        authToken: localStorage.auth_token,
-      },
-      url: `${process.env.REACT_APP_BACKEND_URL}/profile/check`,
-      data: userObject
-    })
-      .then(function (response) {
-        if (response.data.authorised === 0) {
+        if (!response.data.authorised) {
           isAuth(false)
           setLoading(false)
           setTimeout(() => {
             isAuth(true)
           }, 5000);
-        }
-        else {
+        } else{
           if (response.data.exists) {
-            setLoading(false)
-            // console.log("id: " + response.data.user._id)
             localStorage.setItem("user", response.data.user)
             localStorage.setItem("token", response.data.token)
+            setLoading(false)
             navigate(`/profile/${response.data.user}`)
           } else {
             navigate('/form', { state: userObject })
           }
         }
-
       })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   React.useEffect(() => {
