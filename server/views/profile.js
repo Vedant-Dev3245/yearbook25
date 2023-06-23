@@ -219,21 +219,17 @@ const getProfile = async (req, res) => {
         if (!user) {
             return res.status(400).send();
         }
-        if (res.locals.is_user) {
-            res.send({ user: user });
-        } else {
-            res.send({
-                user: {
-                    'name': user.name,
-                    'imageUrl': user.imageUrl,
-                    'bitsId': user.bitsId,
-                    'discipline': user.discipline,
-                    'quote': user.quote,
-                    'captions': user.captions,
-                    'nominatedby': []
-                }
-            })
-        }
+        return res.send({
+            user: {
+                'name': user.name,
+                'imageUrl': user.imageUrl,
+                'bitsId': user.bitsId,
+                'discipline': user.discipline,
+                'quote': user.quote,
+                'captions': user.captions,
+                'nominatedby': user.nominatedby
+            }
+        })
     } catch (err) {
         return res.send({
             status: "failure",
