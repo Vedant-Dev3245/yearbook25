@@ -76,6 +76,7 @@ router.post("/google", async (req, res) => {
         });
     } catch (error) {
         return res.status(400).send({
+            authorised: 0,
             msg: "invalid token",
             error: error.message
         })
