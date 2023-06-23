@@ -163,7 +163,7 @@ const addProfile = async (req, res) => {
                     poll.vote.push(new_vote);
                     poll.save();
                 })
-            });}
+            });
 
             const userId = user.id;
             const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
