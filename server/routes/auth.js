@@ -6,7 +6,7 @@ const { User } = require("../models/user");
 const privileged = require("../specialUsers");
 
 
-router.post("/auth", async (req, res) => {
+router.post("/google", async (req, res) => {
     try {
         const { token } = req.body
         const ticket = await client.verifyIdToken({
