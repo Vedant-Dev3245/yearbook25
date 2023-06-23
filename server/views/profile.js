@@ -134,7 +134,7 @@ const addProfile = async (req, res) => {
             });
         } else {
             const bitsId = req.body.id
-            let branchCode = bits_id.substring(4, text.length - 4)
+            let branchCode = bitsId.substring(4, text.length - 4)
 
             if (branchCode.includes("B")) {
                 branchCode = [branchCode.substring(0, 2), branchCode.substring(2, 4)]
