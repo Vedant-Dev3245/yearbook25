@@ -239,7 +239,9 @@ const getProfile = async (req, res) => {
                 'discipline': user.discipline,
                 'quote': user.quote,
                 'captions': user.captions,
-                'nominatedby': user.nominatedby
+                'nominatedby': user.nominatedby,
+                'requests': user.requests,
+                'declined_requests': user.declined_requests
             }
         })
     } catch (err) {
