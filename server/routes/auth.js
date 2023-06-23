@@ -4,7 +4,25 @@ const { OAuth2Client } = require('google-auth-library')
 const client = new OAuth2Client(process.env.CLIENT_ID)
 const { User } = require("../models/user");
 const privileged = require("../specialUsers");
+const { addProfile } = require("../views/profile");
 
+
+router.post("/add", async (req, res, next) => {
+    try {
+        const { token } = req.body
+        client.verifyIdToken({
+            idToken: token,
+            requiredAudience: process.env.AUDIENCE
+        });
+    
+        next()
+    } catch (err) {
+        return res.status(401).json({
+            msg: "invalid attempt",
+            error: err.message
+        })
+    }
+}, addProfile);
 
 router.post("/google", async (req, res) => {
     try {
