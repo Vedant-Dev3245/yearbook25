@@ -100,11 +100,11 @@ export default function ProfileInfo(props) {
         e.preventDefault();
         let currentUser = localStorage.getItem("user")
         axios({
-            method: 'POST',
+            method: 'PATCH',
             headers: {
-                'accessToken':localStorage.token
+                Authorization : `Bearer ${localstorage.token}`
             },
-            url: `${process.env.REACT_APP_BACKEND_URL}/edit/${currentUser}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/profiles/edit}`,
             data: formInfo
         })
             .then(function (response) {
