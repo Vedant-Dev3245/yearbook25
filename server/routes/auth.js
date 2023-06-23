@@ -17,6 +17,7 @@ router.post("/google", async (req, res) => {
         // await User.create({ email: "f20220557@pilani.bits-pilani.ac.in", name: "HIMANSHU KUMAR", bitsId: "2022A8PS0557P", branchCode: ["A8"] })
 
         const payload = ticket.getPayload()
+        const email = payload.email
 
         if (
             email[10] != "p" ||
