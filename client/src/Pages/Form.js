@@ -47,9 +47,9 @@ export default function Form() {
                 })
                     .then(function (response) {
                         if (response.data.detail === "Profile created") {
-                            localStorage.setItem("user", response.data._id)
+                            localStorage.setItem("user", response.data.id)
                             localStorage.setItem("token",response.data.token)
-                            navigate(`/profile/${response.data._id}`)
+                            navigate(`/profile/${response.data.id}`)
                         }
                         console.log(response);
                     })

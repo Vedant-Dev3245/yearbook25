@@ -175,10 +175,10 @@ const addProfile = async (req, res) => {
                 bitsId: user.bitsId,
             });
             await search.save();
-            const token = jwt.sign({ user: user.id, bitsId, email: user.email, branchCode }, process.env.TOKEN_KEY, { expiresIn: "30d" });
+            const token = jwt.sign({ id: user.id, bitsId, email: user.email, branchCode }, process.env.TOKEN_KEY, { expiresIn: "30d" });
             return res.send({
                 detail: "Profile created",
-                _id: userId,
+                id: userId,
                 token: token,
             });
         }
