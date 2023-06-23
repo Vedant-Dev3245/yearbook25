@@ -42,7 +42,7 @@ export default function Form() {
                 axios({
                     method: 'POST',
                     // url: 'some/api',
-                    url: `${process.env.REACT_APP_BACKEND_URL}/profiles/add`,
+                    url: `${process.env.REACT_APP_BACKEND_URL}/auth/add`,
                     data: { ...formInfo, token: localStorage.google_token }
                 })
                     .then(function (response) {
