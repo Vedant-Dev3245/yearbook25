@@ -9,7 +9,7 @@ export default function PollsCards(props){
     const handleNameSelection = (selectedName) => {
         //selected name to the backend
         axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/polls`, {
+          .post(`${process.env.REACT_APP_BACKEND_URL}/polls/targetId`, {
             // send bits id 
           })
           
@@ -20,7 +20,7 @@ export default function PollsCards(props){
     return(
         
         <div className="pollscardsprops">
-             <div className="number">
+             <div className="pollsnumber">
                 {props.number}
              </div>
              <div className="pollsqns">

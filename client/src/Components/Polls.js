@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Footer from "./Footer";
 import PollsCards from "./PollsCards";
 import "./Polls.css";
 import axios from "axios";
@@ -17,7 +16,7 @@ export default function Polls() {
     function fetchPollsData() {
         return axios({
           method: 'GET',
-          url: `${process.env.REACT_APP_BACKEND_URL}/search?${new URLSearchParams({ question: 'some ques' })}`,
+          url: `${process.env.REACT_APP_BACKEND_URL}/polls`,
         })
         .then((response) => response.data);
       }
@@ -32,8 +31,12 @@ export default function Polls() {
             pollqn={poll.question}
           />
         ))}
+        {/* <PollsCards number="1" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah"/>
+        <PollsCards number="2" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah"/>
+        <PollsCards number="3" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah"/>
+        <PollsCards number="4" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah"/> */}
       </div>
-      <Footer />
+      
     </div>
   );
 }
