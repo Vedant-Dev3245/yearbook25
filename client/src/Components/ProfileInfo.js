@@ -147,9 +147,9 @@ export default function ProfileInfo(props) {
         axios({
             method: 'POST',
             headers: {
-                accessToken :localStorage.token
+                Authorization: `Bearer ${localStorage.token}`
             },
-            url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/nominations/nominate`,
             data: nominateData
         })
             .then(function (res) {
