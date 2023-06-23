@@ -10,7 +10,7 @@ const { addProfile } = require("../views/profile");
 router.post("/add", async (req, res, next) => {
     try {
         const { token } = req.body
-        client.verifyIdToken({
+        await client.verifyIdToken({
             idToken: token,
             requiredAudience: process.env.AUDIENCE
         });
