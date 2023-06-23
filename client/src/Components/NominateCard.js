@@ -6,12 +6,17 @@ import {
     ModalCloseButton, Text, Input, Button, useMediaQuery, Alert, AlertIcon, Textarea
 } from "@chakra-ui/react";
 import React from "react";
+import { useEffect } from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
 export default function NominateCard(props) {
+    
+    useEffect(() => {
+        console.log(props.name)
+    })
 
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [msg, setMsg] = React.useState("")
@@ -27,7 +32,6 @@ export default function NominateCard(props) {
     };
 
     const [captionData, setCaptionData] = React.useState({
-        writerId: localStorage.getItem("user"),
         caption: "",
         receiverId: props.id
     })
@@ -46,9 +50,9 @@ export default function NominateCard(props) {
         axios({
             method: 'POST',
             headers: {
-                'accessToken': localStorage.token
-              },
-            url: `${process.env.REACT_APP_BACKEND_URL}/writecaption`,
+                Authorization: `Bearer ${localStorage.token}`
+            },
+            url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${captionData.receiverId}/caption`,
             data: captionData
         })
             .then(function (response) {
