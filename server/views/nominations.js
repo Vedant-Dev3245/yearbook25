@@ -172,7 +172,7 @@ const nominateUser = async (req, res) => {
     } catch (err) {
         return res.send({
             status: "failure",
-            msg: "There was an error, Please try after some time",
+            msg: err.message,
         });
     }
 };

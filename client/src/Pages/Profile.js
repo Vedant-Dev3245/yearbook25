@@ -39,9 +39,9 @@ export default function Profile(props) {
         axios({
             method: 'GET',
             headers: {
-                accessToken: localStorage.getItem("token")
+                Authorization: `Bearer ${localStorage.getItem("token")}`
             },
-            url: `${process.env.REACT_APP_BACKEND_URL}/getprofile/${params.id}`,
+            url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}`,
         })
             .then(function (response) {
                 setUser(response.data.user)

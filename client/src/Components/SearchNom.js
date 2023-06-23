@@ -23,7 +23,10 @@ export default function Search(props) {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `${process.env.REACT_APP_BACKEND_URL}/searchUsers?name=${inputValue}`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.token}`,
+                    },
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profiles/search?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
@@ -50,8 +53,6 @@ export default function Search(props) {
     }
 
     let nominateData = {
-        senderId : localStorage.getItem("user"),
-        senderName : props.name,
         receiverId : localStorage.getItem("friend")
     }
     function nominate(){
@@ -63,12 +64,13 @@ export default function Search(props) {
         }
         else{
             setSpin(true)
+            console.log(nominateData)
             axios({
                 method: 'POST',
                 headers: {
-                    'accessToken': localStorage.token
-                  },
-                url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
+                    Authorization: `Bearer ${localStorage.token}`
+                },
+                url: `${process.env.REACT_APP_BACKEND_URL}/nominations/nominate`,
                 data: nominateData
             })
             .then(function(res){

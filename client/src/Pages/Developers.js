@@ -53,14 +53,14 @@ export default function Devleopers() {
     // setUser(userObject)
     // console.log(userObject)
     // localStorage.setItem("user", JSON.stringify(userObject))
-    checkUser(userObject)
+    checkUser({ token: response.credential })
   }
 
   function checkUser(userObject) {
     setLoading(true)
     axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_BACKEND_URL}/profile/check`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/auth/google`,
       data: userObject
     })
       .then(function (response) {
@@ -75,7 +75,7 @@ export default function Devleopers() {
           if (response.data.exists) {
             setLoading(false)
             // console.log("id: " + response.data.user._id)
-            localStorage.setItem("user", response.data.user)
+            localStorage.setItem("user", response.data.id)
             localStorage.setItem("token", response.data.token)
             navigate(`/profile/${response.data.user}`)
           } else {

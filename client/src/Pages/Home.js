@@ -37,23 +37,30 @@ export default function Home() {
     }
   }, [])
 
+  const [auth, isAuth] = React.useState(true)
+  const [loading, setLoading] = React.useState(true)
+
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     console.log(userObject);
     var token = response.credential
     axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_BACKEND_URL}/auth`,
+      url: `${process.env.REACT_APP_BACKEND_URL}/auth/google`,
       data: { token: token }
     })
       .then(function (response) {
-        localStorage.setItem("auth_token", response.data.token)
-        checkUser(userObject)
+        // checkUser(userObject)
+        if (response.data.authorised && response.data.exists) {
+          localStorage.setItem("user", response.data.user)
+          localStorage.setItem("token", response.data.token)
+          setLoading(false)
+          navigate(`/profile/${response.data.user}`)
+        } else {
+          navigate('/form', { state: userObject })
+        }
       })
   }
-
-  const [auth, isAuth] = React.useState(true)
-  const [loading, setLoading] = React.useState(true)
 
   function checkUser(userObject) {
     setLoading(true)
