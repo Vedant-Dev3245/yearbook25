@@ -6,17 +6,7 @@ import "./Polls.css";
 
 
 export default function PollsCards(props){
-    const handleNameSelection = (selectedName) => {
-        //selected name to the backend
-        axios
-          .post(`${process.env.REACT_APP_BACKEND_URL}/polls/targetId`, {
-            // send bits id 
-          })
-          
-          .catch((error) => {
-            console.log(error);
-          });
-      };
+    
     return(
         
         <div className="pollscardsprops">
@@ -27,7 +17,7 @@ export default function PollsCards(props){
                 {props.pollqn}
              </div>
              <div className="dropdownpolls">
-                <Searchpolls onNameSelect={handleNameSelection} />
+                <Searchpolls />
              </div>
         </div>
     )

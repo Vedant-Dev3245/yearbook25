@@ -23,7 +23,10 @@ export default function Searchpolls(props) {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `${process.env.REACT_APP_BACKEND_URL}/searchUsers?name=${inputValue}`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.token}`,
+                    },
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profiles/search?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
@@ -49,13 +52,13 @@ export default function Searchpolls(props) {
         }
     }
 
-    let nominateData = {
+    let choosefriendData = {
         senderId : localStorage.getItem("user"),
         senderName : props.name,
         receiverId : localStorage.getItem("friend")
     }
     function chooseFriend(){
-        if(nominateData.senderId === nominateData.receiverId){
+        if(choosefriendData.senderId === choosefriendData.receiverId){
             setAlert(true)
             setTimeout(() => {
                 setAlert(false)
@@ -64,12 +67,12 @@ export default function Searchpolls(props) {
         else{
             setSpin(true)
             axios({
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'accessToken': localStorage.token
                   },
-                url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,   //update the url here for choosing your friend
-                data: nominateData
+                url: `${process.env.REACT_APP_BACKEND_URL}/polls/targetId/vote`,   //updated the url here for choosing your friend
+                data: choosefriendData
             })
             .then(function(res){
                 console.log(res);
@@ -92,7 +95,7 @@ export default function Searchpolls(props) {
                 }, 3000);
             });
         }
-        // console.log(nominateData)
+        console.log(choosefriendData)
     }
 
     return (
