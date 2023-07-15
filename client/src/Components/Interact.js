@@ -115,7 +115,7 @@ export default function Interact(props) {
             <Box display={wallActive ? "block" : "none"}><Wall ownProfile = {ownProfile} makeNominActive = {makeNominActive} captions = {props.captions}/></Box>
             <Box display={nominateActive&&ownProfile ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
-            <Box display={pollsActive&&ownProfile ? "block" : "none"}><Polls/></Box>
+            <Box display={pollsActive&&ownProfile ? "block" : "none"}><Polls /></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
             <Box mt="10rem">
             <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>

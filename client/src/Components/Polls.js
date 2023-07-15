@@ -5,7 +5,7 @@ import axios from "axios";
 // import Masonry from "react-masonry-css"
 
 
-export default function Polls() {
+export default function Polls(props) {
   const [pollsData, setPollsData] = useState([]);
   // const breakpointColumnsObj = {
   //   default: 3,
@@ -30,9 +30,15 @@ export default function Polls() {
         console.log(error);
       });
   })
+
   const pollsCards = Array.from(pollsData).map(questions => {
-    return <PollsCards key={questions.id} number={questions.id} pollqn={questions.ques}  />
+    console.log(questions.ques)
+    return <PollsCards  pollqn={questions.ques}  />
+    
   })
+//   React.useEffect(()=>{
+//     setPollsData(props.questions)
+// })
 
 
   return (
