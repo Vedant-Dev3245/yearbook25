@@ -23,22 +23,21 @@ export default function Polls(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/polls`,
     })
       .then(function (response) {
-        setPollsData(response.data)
+        setPollsData(response.data.questions)
         console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);
       });
   })
-
-  const pollsCards = Array.from(pollsData).map(questions => {
-    console.log(questions.ques)
-    return <PollsCards  pollqn={questions.ques}  />
-    
-  })
 //   React.useEffect(()=>{
 //     setPollsData(props.questions)
 // })
+
+const pollsCards = pollsData.map((questions, index) => (
+  <PollsCards key={index} number={index + 1} pollqn={questions.ques} />
+))
+
 
 
   return (
