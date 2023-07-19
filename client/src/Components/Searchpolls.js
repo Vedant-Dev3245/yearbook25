@@ -4,7 +4,7 @@ import AsyncSelect from "react-select/async"
 import axios from "axios"
 import { Spinner } from '@chakra-ui/react'
 
-export default function Search(props) {
+export default function Searchpolls(props) {
 
     const [exists, setExists] = React.useState(false)
     const [res, setRes] = React.useState(false)
@@ -23,7 +23,10 @@ export default function Search(props) {
                 // console.log(`https://yearbook-portal-backend-2022.herokuapp.com/searchUsers?name=${inputValue}`)
                 axios({
                     method: 'GET',
-                    url: `${process.env.REACT_APP_BACKEND_URL}/searchUsers?name=${inputValue}`,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.token}`,
+                    },
+                    url: `${process.env.REACT_APP_BACKEND_URL}/profiles/search?name=${inputValue}`,
                 })
                     .then(function (response) {
                         let tempArray = [];
@@ -49,13 +52,13 @@ export default function Search(props) {
         }
     }
 
-    let nominateData = {
+    let choosefriendData = {
         senderId : localStorage.getItem("user"),
         senderName : props.name,
         receiverId : localStorage.getItem("friend")
     }
-    function nominate(){
-        if(nominateData.senderId === nominateData.receiverId){
+    function chooseFriend(){
+        if(choosefriendData.senderId === choosefriendData.receiverId){
             setAlert(true)
             setTimeout(() => {
                 setAlert(false)
@@ -64,12 +67,12 @@ export default function Search(props) {
         else{
             setSpin(true)
             axios({
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'accessToken': localStorage.token
                   },
-                url: `${process.env.REACT_APP_BACKEND_URL}/nominate`,
-                data: nominateData
+                url: `${process.env.REACT_APP_BACKEND_URL}/polls/targetId/vote`,   //updated the url here for choosing your friend
+                data: choosefriendData
             })
             .then(function(res){
                 console.log(res);
@@ -92,12 +95,12 @@ export default function Search(props) {
                 }, 3000);
             });
         }
-        // console.log(nominateData)
+        console.log(choosefriendData)
     }
 
     return (
         <Box position={"relative"}>
-            <Text mt="3rem" mb="1rem" fontSize="1.5rem" fontWeight="800">name</Text>
+            {/* <Text mt="3rem" mb="1rem" fontSize="1.5rem" fontWeight="800">name</Text> */}
             <Flex alignItems="center" w="100%">
                 <Box w="100%"> <AsyncSelect
                     value={{label}}
@@ -109,9 +112,9 @@ export default function Search(props) {
                     }}
                     defaultOptions={false} /></Box>
             </Flex>
-            <Text mt="2rem" fontSize="1.5rem" fontWeight="800">bitsid</Text>
-            <Input disabled marginBlock="1rem" p="1.2rem" w={isSmallerThan800 ? "80%" : "40%"} border="1px solid #6C6C6C !important" color="white" value={exists ? bitsid : "check bits id here"}/>
-            <Flex alignItems={"center"} justifyContent="center" cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="2rem" w="130px" fontWeight={"600"} onClick={nominate}>Choose your friend</Flex>
+            {/* <Text mt="2rem" fontSize="1.5rem" fontWeight="800">bitsid</Text> */}
+            {/* <Input disabled marginBlock="1rem" p="1.2rem" w={isSmallerThan800 ? "80%" : "40%"} border="1px solid #6C6C6C !important" color="white" value={exists ? bitsid : "check bits id here"}/> */}
+            <Flex alignItems={"center"} justifyContent="center" cursor="pointer" mt="2rem" border="1px solid #C9C9C9" bgColor="rgba(255, 255, 255, 0.1)" padding="0.5rem 1.5rem" borderRadius="1rem" w="216px" h="59px" fontWeight={"600"} onClick={chooseFriend}>Choose your friend</Flex>
             <Spinner size="lg" mt="1rem" display={spin ? "block" : "none"}/>
             <Alert bg="#242323" color="white" status='error' display={alert ? "block" : "none"} position="absolute" w="40%" bottom="5rem" left="0">
                 <AlertIcon />

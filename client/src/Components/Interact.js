@@ -1,16 +1,21 @@
 import React from "react";
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import { FiFeather, FiAnchor, FiBell} from "react-icons/fi"
+import { FiFeather, FiAnchor, FiBell, FiActivity} from "react-icons/fi"
+import {BiBarChartSquare} from "react-icons/bi"
+
+
 import Wall from "./Wall";
 import Nominate from "./Nominate";
 import Notifs from "./Notifs"
 // import Stats from "./Stats";
+import Polls from "./Polls";
 
 export default function Interact(props) {
     
     const [wallActive, setWallActive] = React.useState(true)
     const [nominateActive, setNominateActive] = React.useState(false)
     const [notifActive, setNotifActive] = React.useState(false)
+    const [pollsActive, setPollsActive] = React.useState(false)
     // const [statsActive, setStatsActive] = React.useState(false)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [ownProfile, setOwnProfile] = React.useState()
@@ -41,6 +46,7 @@ export default function Interact(props) {
         setWallActive(true);
         setNominateActive(false);
         setNotifActive(false);
+        setPollsActive(false);
         // setStatsActive(false);
         removeActive();
         document.querySelector('.wall').classList.add('active')
@@ -49,6 +55,7 @@ export default function Interact(props) {
         setWallActive(false);
         setNominateActive(true);
         setNotifActive(false);
+        setPollsActive(false);
         // setStatsActive(false);
         removeActive();
         document.querySelector('.nomin').classList.add('active')
@@ -57,9 +64,19 @@ export default function Interact(props) {
         setWallActive(false);
         setNominateActive(false);
         setNotifActive(true);
+        setPollsActive(false);
         // setStatsActive(false);
         removeActive();
         document.querySelector('.notif').classList.add('active')
+    }
+    function makePollsActive(){
+        setWallActive(false);
+        setNominateActive(false);
+        setNotifActive(false);
+        setPollsActive(true);
+        // setStatsActive(false);
+        removeActive();
+        document.querySelector('.polls').classList.add('active')
     }
     // function makeStatsActive(){
     //     setWallActive(false);
@@ -85,6 +102,10 @@ export default function Interact(props) {
                     <FiBell filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
                     <Text ml="1rem" fontWeight="600" fontSize="1.1rem">notifications</Text>
                 </Flex>
+                <Flex display = {ownProfile ? "flex" : "none"} onClick={makePollsActive} cursor="pointer" alignItems="center" p="1rem" className="polls barItems">
+                    <BiBarChartSquare filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
+                    <Text ml="1rem" fontWeight="600" fontSize="1.1rem">polls</Text>
+                </Flex>
                 {/* <Flex display = {ownProfile ? "flex" : "none"} onClick={makeStatsActive} cursor="pointer" alignItems="center" p="1rem" className="stats barItems">
                     <FiActivity filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
                     <Text ml="1rem" fontWeight="600" fontSize="1.1rem">stats</Text>
@@ -94,6 +115,7 @@ export default function Interact(props) {
             <Box display={wallActive ? "block" : "none"}><Wall ownProfile = {ownProfile} makeNominActive = {makeNominActive} captions = {props.captions}/></Box>
             <Box display={nominateActive&&ownProfile ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
+            <Box display={pollsActive&&ownProfile ? "block" : "none"}><Polls /></Box>
             {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
             <Box mt="10rem">
             <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
