@@ -24,7 +24,7 @@ export default function Polls(props) {
     })
       .then(function (response) {
         setPollsData(response.data.questions)
-        console.log(response.data)
+        // console.log(response.data)
       })
       .catch(function (error) {
         console.log(error);

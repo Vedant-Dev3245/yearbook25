@@ -1,21 +1,29 @@
 import { Box, Text, Flex, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import NominateCard from "./NominateCard"
+import ReqCard from './ReqCard';
 
 export default function Nominate(props){
     const nominateArray = props.nominatedBy;
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 
-    const cards = Array.from(nominateArray).map(person => {
+    const cardsNom = Array.from(nominateArray).map(person => {
         return <NominateCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
     })
+    const cardsReq = Array.from(nominateArray).map(person => {
+        return <ReqCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
+    })
+
     
     return(
         <Box width="90%" marginInline="auto" >
              <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">{nominateArray.length===0 ? 'do you want to write some' : nominateArray.length===1 ? `a friend wants you to write them a ` : `damnn... ${nominateArray.length-1}+ pending`  } <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">caption{nominateArray.length===1 ? '' : 's'}</Text></Box>
             {/* <Text color="#B3B3B3" fontSize="1.2rem" w={isSmallerThan800 ? "100%" : "50%"} mt="0.5rem">the credit score checker allows you to calculate your credit score report and cibil score. it is a three-digit numeric expression that represents your creditworthiness.</Text> */}
             <Flex width={isSmallerThan800 ? "100%" : "95%"} mt="4rem" pb="4rem" flexFlow={"wrap"} justifyContent="left">
-            {cards}
+            {cardsNom}
+            </Flex>
+            <Flex width={isSmallerThan800 ? "100%" : "95%"} mt="2rem" pb="4rem" flexFlow={"wrap"} justifyContent="left">
+            {cardsReq}
             </Flex>
         </Box>)
 }

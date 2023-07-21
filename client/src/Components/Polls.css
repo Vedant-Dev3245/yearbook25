@@ -123,3 +123,19 @@
         line-height: 58px;
     }
 }
+@media screen and (max-width: 768px) {
+    .pollscards {
+        display: grid;
+        grid-template-columns: 1fr ;
+    }
+    .pollsnumber {
+        width: 60px;
+        height: 58px;
+        margin-top: -70px;
+        font-family: 'Gilmer';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 48px;
+        line-height: 58px;
+    }
+}

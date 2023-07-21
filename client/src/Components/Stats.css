@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Poppins&family=Roboto+Slab:wght@100;300&display=swap');
+
+.topvoted {
+    border-radius: 10px;
+    border: 1px solid #6C6C6C;
+    box-shadow: 0px 1px 24px 1px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(20px);
+    padding: 0.5vh;
+    padding-left: 16vh;
+    padding-right: 16vh;
+
+}
+
+.topvbox {
+    width: fit-content;
+    margin: auto;
+}
+
+.topvoted h1 {
+    color: #FFF;
+    font-family: 'Jockey One';
+    font-size: calc(30px + 0.390625vw);
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}
+
+.img-count {
+    display: flex;
+}
+
+.img-count img {
+    border-radius: 50%;
+    height: 170px;
+    width: 170px;
+    margin: auto;
+    border: solid 1px  white;
+}
+
+.img{
+    margin: auto;
+    margin-top: -15vh;
+    border-radius: 156.462px;
+    padding: 2vh;
+    padding-right: 0;
+    padding-left: 8vh;
+    
+}
+
+.count {
+    display: flex;
+    gap: 10px;
+}
+
+.statscard {
+    box-shadow: 4px 4px 4px rgb(255, 255, 255, 0.5);
+    border-radius: 24px;
+    font-family: "gilmer";
+    border: solid 1px rgb(255, 255, 255, 0.1);
+    position: relative;
+    width: calc(450px - 0.390625vw);
+    text-align: center;
+    
+}
+
+.statscontent {
+    padding: 10%;
+}
+
+.statssvg>svg {
+    color: #D84222;
+}
+
+.bitsid {
+    color: #B3B3B3;
+    text-align: center;
+    font-family: Gilmer;
+    font-size: calc(22px-0.390625vw);
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    opacity: 0.75;
+    padding: 1vh;
+}
+
+.name {
+    color: #FFF;
+    text-align: center;
+    font-family: 'Jockey One';
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 90.02%;
+    padding: 1vh;
+
+    /* 43.209px */
+}
+
+.pollqn {
+    color: #DCEDFB;
+    font-family: Gilmer;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    padding: 1vh;
+
+}
+
+.statscard {
+    margin: 5%;
+}
+
+@media screen and (max-width: 480px) {
+    .statscard {
+        margin:20vh;
+        padding-top: 5%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .statscontent{
+        padding-top: 10vh;
+    }
+
+    .stats {
+        margin: 10%;
+        margin-top: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .topvbox {
+        margin: auto;
+    }
+
+    .img-count img {
+        border-radius: 50%;
+        height: 130px;
+        width: 130px;
+        margin: auto;
+        border: solid  white 2px;
+    }
+    .img{
+        margin-top: -25vh;
+        
+    }
+    .name {
+        color: #FFF;
+        text-align: center;
+        font-family: 'Jockey One';
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 90.02%;
+        padding: 1vh;
+    
+        /* 43.209px */
+    }
+    
+}
+@media  screen and (max-width: 768px) {
+    .stats {
+        margin: 10%;
+        margin-top: 5vh;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

@@ -7,7 +7,7 @@ import {BiBarChartSquare} from "react-icons/bi"
 import Wall from "./Wall";
 import Nominate from "./Nominate";
 import Notifs from "./Notifs"
-// import Stats from "./Stats";
+import Stats from "./Stats";
 import Polls from "./Polls";
 
 export default function Interact(props) {
@@ -16,7 +16,7 @@ export default function Interact(props) {
     const [nominateActive, setNominateActive] = React.useState(false)
     const [notifActive, setNotifActive] = React.useState(false)
     const [pollsActive, setPollsActive] = React.useState(false)
-    // const [statsActive, setStatsActive] = React.useState(false)
+    const [statsActive, setStatsActive] = React.useState(false)
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [ownProfile, setOwnProfile] = React.useState()
     const barItems = document.querySelectorAll('.barItems')
@@ -47,7 +47,7 @@ export default function Interact(props) {
         setNominateActive(false);
         setNotifActive(false);
         setPollsActive(false);
-        // setStatsActive(false);
+        setStatsActive(false);
         removeActive();
         document.querySelector('.wall').classList.add('active')
     }
@@ -56,7 +56,7 @@ export default function Interact(props) {
         setNominateActive(true);
         setNotifActive(false);
         setPollsActive(false);
-        // setStatsActive(false);
+        setStatsActive(false);
         removeActive();
         document.querySelector('.nomin').classList.add('active')
     }
@@ -65,7 +65,7 @@ export default function Interact(props) {
         setNominateActive(false);
         setNotifActive(true);
         setPollsActive(false);
-        // setStatsActive(false);
+        setStatsActive(false);
         removeActive();
         document.querySelector('.notif').classList.add('active')
     }
@@ -74,18 +74,19 @@ export default function Interact(props) {
         setNominateActive(false);
         setNotifActive(false);
         setPollsActive(true);
-        // setStatsActive(false);
+        setStatsActive(false);
         removeActive();
         document.querySelector('.polls').classList.add('active')
     }
-    // function makeStatsActive(){
-    //     setWallActive(false);
-    //     setNominateActive(false);
-    //     setNotifActive(false);
-    //     setStatsActive(true);
-    //     removeActive();
-    //     document.querySelector('.stats').classList.add('active')
-    // }
+    function makeStatsActive(){
+        setWallActive(false);
+        setNominateActive(false);
+        setNotifActive(false);
+        setStatsActive(true);
+        setPollsActive(false);
+        removeActive();
+        document.querySelector('.stats').classList.add('active')
+    }
     
     return (
         <Box>
@@ -106,17 +107,17 @@ export default function Interact(props) {
                     <BiBarChartSquare filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
                     <Text ml="1rem" fontWeight="600" fontSize="1.1rem">polls</Text>
                 </Flex>
-                {/* <Flex display = {ownProfile ? "flex" : "none"} onClick={makeStatsActive} cursor="pointer" alignItems="center" p="1rem" className="stats barItems">
+                <Flex display = {ownProfile ? "flex" : "none"} onClick={makeStatsActive} cursor="pointer" alignItems="center" p="1rem" className="stats barItems">
                     <FiActivity filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
                     <Text ml="1rem" fontWeight="600" fontSize="1.1rem">stats</Text>
-                </Flex> */}
+                </Flex>
 
             </Flex>
             <Box display={wallActive ? "block" : "none"}><Wall ownProfile = {ownProfile} makeNominActive = {makeNominActive} captions = {props.captions}/></Box>
             <Box display={nominateActive&&ownProfile ? "block" : "none"}><Nominate  name= {props.name} /></Box>
             <Box display={notifActive&&ownProfile ? "block" : "none"}><Notifs nominatedBy = {props.nominatedby}/></Box>
             <Box display={pollsActive&&ownProfile ? "block" : "none"}><Polls /></Box>
-            {/* <Box display={statsActive ? "block" : "none"}><Stats/></Box> */}
+            <Box display={statsActive ? "block" : "none"}><Stats/></Box>
             <Box mt="10rem">
             <Box borderTop = "1px solid #727174" paddingBlock="1rem" color="#B3B3B3" marginInline="auto" w="100%" textAlign="center">© copyright <Text display="inline" fontWeight="800">SARC</Text> · all rights reserved</Box>
             </Box>
