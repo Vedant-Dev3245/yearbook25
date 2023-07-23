@@ -43,7 +43,7 @@ export default function NominateCard(props) {
                 ...prevCaptionData,
                 [name]: value
             }
-        })                        
+        })
     }
 
     function submitCaption() {

@@ -10,6 +10,25 @@ export default function Nominate(props){
     const cardsNom = Array.from(nominateArray).map(person => {
         return <NominateCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
     })
+
+    const[reqestsUser,setRequestsUser]=React.useState([])
+
+    React.useEffect(() =>{
+        axios({
+            method:'GET',
+            headers: {
+                Authorization : `Bearer ${localStorage.token}`,
+            },
+            url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`
+        })
+        .then(function(response){
+            setRequestsUser(response.data)
+        })
+        .catch(function (error) {
+            console.log(error);
+          });
+      })
+
     const cardsReq = Array.from(nominateArray).map(person => {
         return <ReqCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
     })

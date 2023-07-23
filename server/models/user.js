@@ -22,7 +22,7 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    nominatedby: {
+    nominatedby: { // the user is nominated by who
         type: Array
     },
     quote: {
@@ -32,16 +32,29 @@ var UserSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    captions: {
-        type: Array
-    },
+    captions: [{
+        user: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "User",
+            required: true
+        },
+        caption: { type: String, required: true }
+    }],
     requests: [{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "User"
+        user: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "User",
+            required: true
+        },
+        caption: { type: String, required: true }
     }],
     declined_requests: [{
-        type: mongoose.SchemaTypes.ObjectId,
-        ref: "User"
+        user: {
+            type: mongoose.SchemaTypes.ObjectId,
+            ref: "User",
+            required: true
+        },
+        caption: { type: String, required: true }
     }],
 })
 

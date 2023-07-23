@@ -76,13 +76,12 @@ const writeCaption = async (req, res) => {
             });
         } else {
             const writer = await User.findById(writerId).session(session);
-            const name = writer.name;
             const receiver = await User.findById(targetId).session(session);
             const captions = receiver.captions;
             //checking if a caption has already been written or not, then we'll update otherwise push a new one
-            if (captions.find((o) => o.name === name)) {
+            if (captions.find((o) => o.user === writer)) {
                 for (let i = 0; i < captions.length; i++) {
-                    if (captions[i].name === name) {
+                    if (captions[i].user === writer) {
                         captions[i].caption = caption;
                     }
                 }
@@ -97,7 +96,7 @@ const writeCaption = async (req, res) => {
                             captions: {
                                 $each: [
                                     {
-                                        name: name,
+                                        user: writer,
                                         caption: caption,
                                     },
                                 ],

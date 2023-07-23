@@ -6,6 +6,7 @@ const sendRequest = async (req, res) => {
     try {
         const senderId = req.user.id;
         const targetId = req.body.targetId;
+        const caption = req.body.caption;
 
         const sender = await User.findById(senderId);
         const target = await User.findById(targetId);
@@ -20,7 +21,7 @@ const sendRequest = async (req, res) => {
             });
         }
 
-        target.requests.push(senderId);
+        target.requests.push({ user: senderId, caption });
 
         const mailOptions = {
             from: "studentalumnirelationscell@gmail.com",
@@ -84,7 +85,7 @@ const nominateUser = async (req, res) => {
 
         const receiverEmail = receiver.email;
         if (receiver.nominatedby.some((obj) => obj.id === senderId)) {
-            
+
             session.endSession();
             return res.send({
                 status: "failure",
@@ -92,25 +93,69 @@ const nominateUser = async (req, res) => {
             });
 
         }
-        
+
         if (receiverId == senderId) {
 
             return res.send({
                 status: "failure",
                 msg: "You can't nominate yourself",
             });
-            
+
         }
 
         // Handle requests
-        // if the target user was had requested to write on the wall
+        // if the target user had requested to write on the wall
         // remove request and add it to nominated
-        if (sender.requests.includes(receiver)) {
-            sender.requests.remove(receiver);
-        } else if (sender.declined_requests.includes(receiver)) {
-            sender.declined_requests.remove(receiver);
+        if (sender.requests.find(o => o.user == receiver)) {
+            const requests = sender.requests;
+            let newCap;
+            for (let i = 0; i < requests.length; i++) {
+                if (requests[i].user === receiver) {
+                    newCap = requests[i].caption;
+                    requests.splice(i, 1)
+                }
+            }
+            await receiver
+                .updateOne({
+                    $push: {
+                        captions: {
+                            $each: [
+                                {
+                                    user: receiver,
+                                    caption: newCap,
+                                },
+                            ],
+                        },
+                    },
+                })
+                .session(session);
+            await sender.updateOne({ requests }).session(session);
+        } else if (sender.declined_requests.find(o => o.user == receiver)) {
+            const declined_requests = sender.declined_requests;
+            let newCap;
+            for (let i = 0; i < declined_requests.length; i++) {
+                if (declined_requests[i].user === receiver) {
+                    newCap = declined_requests[i].caption;
+                    declined_requests.splice(i, 1)
+                }
+            }
+            await receiver
+                .updateOne({
+                    $push: {
+                        captions: {
+                            $each: [
+                                {
+                                    user: receiver,
+                                    caption: newCap,
+                                },
+                            ],
+                        },
+                    },
+                })
+                .session(session);
+            await sender.updateOne({ declined_requests }).session(session);
         }
-        
+
         await receiver
             .updateOne({
                 $push: {
@@ -168,7 +213,7 @@ const nominateUser = async (req, res) => {
         //             msg: "There was an error, Please try after some time",
         //         });
         //     });
-        
+
     } catch (err) {
         return res.send({
             status: "failure",
@@ -185,8 +230,29 @@ const declineRequest = async (req, res) => {
         sender = await User.findById(senderId);
         receiver = await User.findById(receiverId);
 
-        sender.requests.remove(reciever);
-        sender.declined_requests.push(reciever);
+        const requests = sender.requests;
+        let newCap;
+        for (let i = 0; i < requests.length; i++) {
+            if (requests[i].user === receiver) {
+                newCap = requests[i].caption;
+                requests.splice(i, 1)
+            }
+        }
+        await receiver
+            .updateOne({
+                $push: {
+                    declined_requests: {
+                        $each: [
+                            {
+                                user: receiver,
+                                caption: newCap,
+                            },
+                        ],
+                    },
+                },
+            })
+            .session(session);
+        await sender.updateOne({ requests }).session(session);
 
         return res.send({
             success: "Succesfully declined",

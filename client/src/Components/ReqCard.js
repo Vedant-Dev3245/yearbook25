@@ -9,7 +9,7 @@ export default function ReqCard(props) {
     const [showRequest,setShowRequest] = React.useState(true)
     const [msg, setMsg] = React.useState("")
     const [res, setRes] = React.useState(false)
-    const[reqestsUser,setRequestsUser]=React.useState([])
+    // const[reqestsUser,setRequestsUser]=React.useState([])
     // const navigate = useNavigate()
 
     const [captionData, setCaptionData] = React.useState({
@@ -68,21 +68,21 @@ export default function ReqCard(props) {
         // console.log(captionData);
       };
 
-      React.useEffect(() =>{
-        axios({
-            method:'GET',
-            headers: {
-                Authorization : `Bearer ${localStorage.token}`,
-            },
-            url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`
-        })
-        .then(function(response){
-            setRequestsUser(response.data)
-        })
-        .catch(function (error) {
-            console.log(error);
-          });
-      })
+    //   React.useEffect(() =>{
+    //     axios({
+    //         method:'GET',
+    //         headers: {
+    //             Authorization : `Bearer ${localStorage.token}`,
+    //         },
+    //         url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`
+    //     })
+    //     .then(function(response){
+    //         setRequestsUser(response.data)
+    //     })
+    //     .catch(function (error) {
+    //         console.log(error);
+    //       });
+    //   })
 
 
     return (

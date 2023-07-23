@@ -24,6 +24,18 @@ services:
       - db
     volumes:
       - .:/home/app/web
+      - node_modules:/home/app/web/node_modules
+
+  nginx:
+    container_name: yearbook_nginx
+    image: nginx:mainline-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports: 
+      - "1337:80"
+    depends_on:
+      - web
 
 volumes:
   mongo_data:
+  node_modules:

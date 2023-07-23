@@ -7,14 +7,14 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
-import { TbPencil } from "react-icons/tb"
+import { TbLogout, TbPencil } from "react-icons/tb"
 import axios from "axios"
 import { Spinner } from '@chakra-ui/react'
 import { useNavigate } from "react-router-dom";
 import { storage } from '../Firebase'
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import html2canvas from "html2canvas";
-import Template from "./Template";
+// import html2canvas from "html2canvas";
+// import Template from "./Template";
 
 export default function ProfileInfo(props) {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -112,7 +112,7 @@ export default function ProfileInfo(props) {
         })
             .then(function (response) {
                 if (response.data.msg === "Successfully Updated") {
-                    // let user = localStorage.getItem("user")
+                    let user = localStorage.getItem("user")
                     document.location.reload()
                 }
                 console.log(response);
@@ -227,50 +227,7 @@ export default function ProfileInfo(props) {
         setIsOpenRequest(false)
     }, [window.location.href])
 
-    // sharing in insta story 
 
-
-    const [caption, setCaption] = React.useState("")
-
-    //    the api to fetch the caption is here 
-    // this is the exact same api as the stats page
-    //    the api to fetch the caption is here 
-
-    const captionRef = React.useRef("");
-
-    const handleShareInsta = async () => {
-        const captionToShare = caption;
-
-
-        const templateRef = React.useRef();
-        const templateCanvas = await html2canvas(templateRef.current);
-
-
-        templateCanvas.toBlob(async (blob) => {
-
-            const file = new File([blob], "template.png", {
-                type: "image/png",
-                lastModified: new Date().getTime(),
-            });
-
-
-            const shareData = {
-                title: "My Template with Caption",
-                files: [file],
-            };
-
-            if (navigator.canShare && navigator.canShare(shareData)) {
-                try {
-                    await navigator.share(shareData);
-                } catch (error) {
-                    console.error("Error sharing to Instagram:", error);
-                }
-            } else {
-                console.error("Sharing is not supported.");
-            }
-        }, "image/png");
-    }
-    // sharing in insta story 
 
 
     return (
@@ -333,10 +290,24 @@ export default function ProfileInfo(props) {
                 </VStack>
             </Flex>
 
+            {/* sharing the caption on instagram and sending the request  */} 
+
+            
+            {/* this is the template for the inta story */}
+             {/* <div style={{ display: "none" }}>
+                <Template caption={caption} ref={templateRef} />
+            </div>  */}
+            {/* this is the template for the inta story */}
+
+
             {/* sharing the caption on instagram and sending the request  */}
 
-            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleShareInsta : sendRequest} >
-                {ownProfile ? "share caption" : "write on their wall"}
+            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate"}
+                <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"} />
+            
+
+                <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : handleOpenRequest} >
+                {ownProfile ? "logout" : "write on their wall"}
 
 
                 <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"} />
@@ -347,22 +318,11 @@ export default function ProfileInfo(props) {
                 <Alert bg="#242323" color="white" status='success' display={isSmallerThan800 && res ? "block" : "none"} position="fixed" w="60%" top="8rem" left="20%" borderRadius="20px">
                     <AlertIcon />
                     {msg}
-                </Alert>
+                </Alert> 
 
 
 
             </Box>
-            {/* this is the template for the inta story */}
-            <div style={{ display: "none" }}>
-                <Template caption={caption} ref={templateRef} />
-            </div>
-            {/* this is the template for the inta story */}
-
-
-            {/* sharing the caption on instagram and sending the request  */}
-
-            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate"}
-                <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"} />
 
 
                 {/* Requesting people to write on their wall-Modal open for that */}
@@ -393,6 +353,6 @@ export default function ProfileInfo(props) {
                 </Alert>
             </Box>
 
-        </Flex >
+         </Flex >
     )
 }
