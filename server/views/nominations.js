@@ -12,8 +12,9 @@ const sendRequest = async (req, res) => {
         const target = await User.findById(targetId);
 
         if (
-            target.requests.includes(senderId) ||
-            target.declined_requests.includes(senderId)
+            target.requests.find(o => o.user == senderId) ||
+            target.declined_requests.find(o => o.user == senderId) ||
+            target.nominatedby.find(o => o.user == senderId)
         ) {
             return res.send({
                 status: "failure",
@@ -21,11 +22,22 @@ const sendRequest = async (req, res) => {
             });
         }
 
-        target.requests.push({ user: senderId, caption });
+        await target.updateOne({
+            $push: {
+                requests: {
+                    $each: [
+                        {
+                            user: senderId,
+                            caption: caption,
+                        },
+                    ],
+                },
+            },
+        })
 
         const mailOptions = {
             from: "studentalumnirelationscell@gmail.com",
-            to: receiverEmail,
+            to: "receiverEmail",
             subject: "Online Yearbook Portal",
             // change the email test from here
             html: `<p>Greetings from the Student Alumni Relations Cell! <br>
@@ -46,6 +58,7 @@ const sendRequest = async (req, res) => {
             msg: "Request sent successfully!",
         });
     } catch (err) {
+        console.log(err)
         return res.send({
             status: "failure",
             msg: "There was an error, Please try after some time",
