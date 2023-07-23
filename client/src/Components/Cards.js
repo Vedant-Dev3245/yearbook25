@@ -1,7 +1,10 @@
 import { Box, Flex, Text , useMediaQuery } from "@chakra-ui/react";
-import React from "react";
+import React ,{useRef} from "react";
 import { TbPencil } from "react-icons/tb"
 import { Icon } from "@chakra-ui/react";
+import html2canvas from "html2canvas";
+import Template from "./Template";
+
 
 
 export default function Cards(props) {
@@ -10,50 +13,43 @@ export default function Cards(props) {
 
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
 
-        // // sharing in insta story 
 
 
     const [caption, setCaption] = React.useState("")
 
-    // //    the api to fetch the caption is here 
-    // // this is the exact same api as the stats page
-    // //    the api to fetch the caption is here 
+    //    the api to fetch the caption is here 
+    // this is the exact same api as the stats page
+    //    the api to fetch the caption is here 
 
-    // const captionRef = React.useRef("");
+    const captionRef = useRef("");
 
     const handleShareInsta = async () => {
-        // const captionToShare = caption;
-
-
-        // const templateRef = React.useRef();
-        // const templateCanvas = await html2canvas(templateRef.current);
-
-
-        // templateCanvas.toBlob(async (blob) => {
-
-        //     const file = new File([blob], "template.png", {
-        //         type: "image/png",
-        //         lastModified: new Date().getTime(),
-        //     });
-
-
-        //     const shareData = {
-        //         title: "My Template with Caption",
-        //         files: [file],
-        //     };
-
-        //     if (navigator.canShare && navigator.canShare(shareData)) {
-        //         try {
-        //             await navigator.share(shareData);
-        //         } catch (error) {
-        //             console.error("Error sharing to Instagram:", error);
-        //         }
-        //     } else {
-        //         console.error("Sharing is not supported.");
-        //     }
-        // }, "image/png");
-        console.log("please work") 
-    }
+        
+        
+        const templateCanvas = await html2canvas(document.querySelector(".template"));
+    
+        templateCanvas.toBlob(async (blob) => {
+          const file = new File([blob], "template.png", {
+            type: "image/png",
+            lastModified: new Date().getTime(),
+          });
+    
+          const shareData = {
+            title: "My Template with Caption",
+            files: [file],
+          };
+    
+          if (navigator.canShare && navigator.canShare(shareData)) {
+            try {
+              await navigator.share(shareData);
+            } catch (error) {
+              console.error("Error sharing to Instagram:", error);
+            }
+          } else {
+            console.error("Sharing is not supported.");
+          }
+        }, "image/png");
+      };
     // // sharing in insta story 
 
     return (
@@ -76,10 +72,22 @@ export default function Cards(props) {
                 
                 <Text fontWeight={"600"} fontSize="0.9rem">{props.name.toLowerCase()}</Text>
             </Flex>
+
+            {/* template for insta story */}
+
+                <Template style={{ display: "none" }} caption={props.caption}/>
+
+            {/* template for insta story */}
+            <Flex>
             <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
                 {props.caption}</Box>
+                
+                {/* insta share Button */}
                 <Box cursor={"pointer"} onClick={handleShareInsta} position="absolute"  top="0" right="0px" p="1rem" h="4rem" w="
                 4rem" className="pencil"><Icon w="2rem" h="2rem" as={TbPencil} /></Box>
+                {/* insta share Button */}
+
+            </Flex>
         </Box>
     )
 }

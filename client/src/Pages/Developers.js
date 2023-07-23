@@ -20,7 +20,7 @@ export default function Devleopers() {
     /* global google */
     if (localStorage.getItem("user") === null) {
       google.accounts.id.initialize({
-        client_id: "1502189684-9gg8jkru1hq5864ep804tqq5ud3s344o.apps.googleusercontent.com",
+        client_id: "1502189684-lrjbvrj8h65ti32b90kioqq0fvv5mfab.apps.googleusercontent.com",
         callback: handleCallbackResponse
       })
 
