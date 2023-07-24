@@ -2,6 +2,7 @@ import { Box, Text, Flex, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 import NominateCard from "./NominateCard"
 import ReqCard from './ReqCard';
+import axios from "axios";
 
 export default function Nominate(props){
     const nominateArray = props.nominatedBy;

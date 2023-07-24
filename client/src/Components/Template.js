@@ -1,9 +1,10 @@
 import React from "react";
+import "./Template.css";
 
-export default function Template({caption}){
+export default function Template(props){
     return(
         <div className="template">
-            <h1>the insta template comes here {caption}</h1>
+            <h1>{props.caption}hello my boii its time to rock</h1>
         </div>
     )
 }

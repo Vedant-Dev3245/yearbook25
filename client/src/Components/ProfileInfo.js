@@ -290,23 +290,7 @@ export default function ProfileInfo(props) {
                 </VStack>
             </Flex>
 
-            {/* sharing the caption on instagram and sending the request  */} 
-
-            
-            {/* this is the template for the inta story */}
-             {/* <div style={{ display: "none" }}>
-                <Template caption={caption} ref={templateRef} />
-            </div>  */}
-            {/* this is the template for the inta story */}
-
-
-            {/* sharing the caption on instagram and sending the request  */}
-
-            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate"}
-                <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"} />
-            
-
-                <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : handleOpenRequest} >
+            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : handleOpenRequest} >
                 {ownProfile ? "logout" : "write on their wall"}
 
 
@@ -323,6 +307,12 @@ export default function ProfileInfo(props) {
 
 
             </Box>
+
+            <Box ml={isSmallerThan800 ? "0" : "10rem"} w="max-content" whiteSpace={"nowrap"} textAlign="center" position="relative" mt={isSmallerThan800 ? "2rem" : "0"} cursor={"pointer"} bgColor="rgba(255, 255, 255, 0.1)" fontSize="1rem" border="0.6px solid #C9C9C9" padding="0.6rem 1rem" borderRadius="20px" fontWeight="700" onClick={ownProfile ? handleLogout : nominate} >{ownProfile ? "logout" : "nominate"}
+                <Spinner size="lg" mt="1rem" position="absolute" display={spin ? "block" : "none"} />
+            
+
+                
 
 
                 {/* Requesting people to write on their wall-Modal open for that */}
