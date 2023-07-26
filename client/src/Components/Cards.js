@@ -1,9 +1,10 @@
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useRef,useEffect,useState} from "react";
 import { TbPencil } from "react-icons/tb"
 import { Icon } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import Template from "./Template";
+
 
 
 
@@ -18,39 +19,33 @@ export default function Cards(props) {
     const [caption, setCaption] = React.useState("")
 
 
-    const captionRef = useRef("");
-
     const handleShareInsta = async () => {
-        try {
-          const templateCanvas = await html2canvas(document.querySelector(".template"));
-    
-          templateCanvas.toBlob(async (blob) => {
-            const file = new File([blob], "template.png", {
-              type: "image/png",
-              lastModified: new Date().getTime(),
-            });
-    
-            const shareData = {
-              title: "My Template with Caption",
-              files: [file],
-            };
-    
-            if (navigator.canShare && navigator.canShare(shareData)) {
-              try {
-                await navigator.share(shareData);
-                console.log("Shared to Instagram successfully!");
-              } catch (error) {
-                console.error("Error sharing to Instagram:", error);
-              }
-            } else {
-              console.error("Sharing is not supported.");
-            }
-          }, "image/png");
-        } catch (error) {
-          console.error("Error capturing template content:", error);
-
+      try {
+        const templateCanvas = await html2canvas(document.querySelector(".template"));
+  
+        const dataURL = templateCanvas.toDataURL("image/png");
+  
+        const shareData = {
+          title: "My Template with Caption",
+          text: props.caption, // Add the caption as text for the user to copy/paste if needed
+          url: dataURL,
+        };
+  
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+            console.log("Shared to Instagram story successfully!");
+          } catch (error) {
+            console.error("Error sharing to Instagram:", error);
+          }
+        } else {
+          console.log("Instagram sharing is not supported on this browser.");
         }
-      };
+      } catch (error) {
+        console.error("Error capturing template content:", error);
+      }
+    };
+    
     // // sharing in insta story 
 
     return (
@@ -76,7 +71,7 @@ export default function Cards(props) {
 
             {/* template for insta story */}
             
-                <Template display={"none"} caption={props.caption} />
+                <Template caption={props.caption} />
             
 
             {/* template for insta story */}
