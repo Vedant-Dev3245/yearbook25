@@ -28,7 +28,6 @@ export default function Cards(props) {
   
         const shareData = {
           title: "My Template with Caption",
-          text: props.caption,
           url: dataURL,
         };
   
