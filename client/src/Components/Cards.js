@@ -92,13 +92,13 @@ export default function Cards(props) {
       </Flex>
 
       {/* template for insta story */}
-      {ownProfile &&
+      {ownProfile && isSmallerThan800 &&
         <Template caption={props.caption} />
       }
 
       {/* template for insta story */}
 
-      <Flex>
+      <Flex> 
         <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
           {props.caption}</Box>
         {/* insta share Button */}
@@ -109,6 +109,7 @@ export default function Cards(props) {
         {/* insta share Button */}
 
       </Flex>
+      
 
 
 
