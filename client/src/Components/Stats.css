@@ -129,6 +129,14 @@
         padding: 5%;
         
     }
+    .img  img{
+    
+        margin-top: -20vh;
+        border-radius: 156.462px;
+        padding-right: 0;
+        
+        
+    }
 }
 @media screen and (max-width: 768px){
     .statscard{
