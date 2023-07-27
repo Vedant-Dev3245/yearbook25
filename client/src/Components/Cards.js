@@ -21,28 +21,37 @@ export default function Cards(props) {
 
 
     const handleShareInsta = async () => {
-      try {
-        const templateCanvas = await html2canvas(document.querySelector(".template"));
-  
-        const dataURL = templateCanvas.toDataURL("image/png");
-  
+      const templateElement = document.querySelector(".template");
+    
+      const imageDataURL = await html2canvas(templateElement);
+    
+      if (imageDataURL) {
+        const title = "Insta";
+        const blobImageAsset = await fetch(imageDataURL).then((res) => res.blob());
+    
+        const filesArray = [
+          new File([blobImageAsset], `${title}.png`, {
+            type: "image/png",
+            lastModified: new Date().getTime(),
+          }),
+        ];
+    
         const shareData = {
-          title: "My Template with Caption",
-          url: dataURL,
+          title: title,
+          files: filesArray,
         };
-  
-        if (navigator.share) {
+    
+        if (navigator.canShare && navigator.canShare(shareData)) {
           try {
             await navigator.share(shareData);
-            console.log("Shared to Instagram story successfully!");
           } catch (error) {
             console.error("Error sharing to Instagram:", error);
           }
         } else {
-          console.log("Instagram sharing is not supported on this browser.");
+          console.log("Sharing to Instagram is not supported on this device.");
         }
-      } catch (error) {
-        console.error("Error capturing template content:", error);
+      } else {
+        console.log("Failed to convert HTML to image.");
       }
     };
     
@@ -95,7 +104,7 @@ export default function Cards(props) {
             }
             {/* insta share Button */}
 
-            </Flex>
+            </Flex> 
             
 
 
