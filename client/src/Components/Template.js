@@ -1,9 +1,12 @@
 import React from "react";
 
 const Template = ({ caption }) => {
-    const styleMain = {
+    const styleMainMain = {
         backgroundImage: "linear-gradient(45deg, #050505, #07111B, #130D1F, #130C1E, #020202)",
         color: "#DCEDFB",
+    }
+    const styleMain = {
+        marginTop: "-120%"
         // opacity:"0",
     };
 
@@ -17,10 +20,10 @@ const Template = ({ caption }) => {
         lineHeight: "normal",
         letterSpacing: "0.48px",
     };
-   
+
     const styleTitle = {
         textAlign: "center",
-        padding: "10%"
+        marginTop: "-50%"
     }
     const styleYearbook = {
         color: "#FFF",
@@ -37,12 +40,13 @@ const Template = ({ caption }) => {
         fontStyle: "normal",
         fontWeight: "400",
         lineHeight: "normal",
-        marginLeft: "40%"
+        marginLeft: "40%",
+        marginTop: "-20px"
     }
-    const styleContentBox={
-        padding:"20%",
-        paddingTop:"5%",
-        paddingBottom:"10%"
+    const styleContentBox = {
+        padding: "20%",
+        paddingTop: "5%",
+        paddingBottom: "10%"
     }
     const styleContent = {
         display: "grid",
@@ -56,7 +60,7 @@ const Template = ({ caption }) => {
     const styleAncientImage = {
         width: "30px",
         marginLeft: "30%",
-        marginTop:"30%"
+        marginTop: "30%"
     }
     const stylepDiv = {
         marginTop: "60%",
@@ -67,7 +71,7 @@ const Template = ({ caption }) => {
         gridColumnStart: "2",
         gridRowStart: "2",
         marginLeft: "60%",
-        marginBottom:"10%"
+        marginBottom: "10%"
     }
     const stylePlaceHolder = {
         color: "rgba(250, 250, 250, 0.75)",
@@ -79,32 +83,58 @@ const Template = ({ caption }) => {
         lineHeight: "90.02%",
         padding: "10%",
     }
+    const ellipseTop = {
+        position: "top left",
+        width: "100px"
+    }
+    const ellipseMid = {
+        width: "100px",
+        zIndex: "-1"
+
+    }
+    const ellipseBottom = {
+        width: "100px",
+        marginLeft: "60%",
+        marginTop: "1%"
+    }
 
     return (
-        <div className="template" style={styleMain}>
-            <link
-                href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap"
-                rel="stylesheet"
-            />
-            <div className="yearbook-title" style={styleTitle} >
-                <h1 style={styleYearbook}>yearbook</h1>
-                <h1 style={styleQuote}>quotes</h1>
+        <div className="mainbox" style={styleMainMain}>
+            <div className="ellipse1" style={ellipseTop}>
+                <img src="../images/ellipsetop.png" alt="ellipsetop"></img>
             </div>
-            <div style={styleContentBox}>
-            <div className="theactualquote" style={styleContent}>
-                <div className="ancientImage" style={styleAncientImage}>
-                    <img src="../images/imageancient.png" alt="immgancient"></img>
-                </div>
-                <div className="quotesss" style={stylepDiv}>
-                    <p style={stylep}>{caption}</p>
-                </div>
-                <div className="logo" style={styleLogo}>
-                    <img src="../images/sarclogoimg.png" alt="logo"></img>
-                </div>
+            <div className="ellipse1" style={ellipseBottom}>
+                <img src="../images/ellipsebottom.png" alt="ellipsetop"></img>
             </div>
+            <div className="ellipse1" style={ellipseMid}>
+                <img src="../images/ellipsemid.png" alt="ellipsemid"></img>
             </div>
-            <div className="placeHolder" style={stylePlaceHolder}>
-                <h3>opt in for your physical copy of the yearbook now!</h3>
+
+            <div className="template" style={styleMain}>
+                <div className="yearbook-title" style={styleTitle} >
+                    <h1 style={styleYearbook}>yearbook</h1>
+                    <h1 style={styleQuote}>quotes</h1>
+                </div>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap"
+                    rel="stylesheet"
+                />
+                <div style={styleContentBox}>
+                    <div className="theactualquote" style={styleContent}>
+                        <div className="ancientImage" style={styleAncientImage}>
+                            <img src="../images/imageancient.png" alt="immgancient"></img>
+                        </div>
+                        <div className="quotesss" style={stylepDiv}>
+                            <p style={stylep}>{caption}</p>
+                        </div>
+                        <div className="logo" style={styleLogo}>
+                            <img src="../images/sarclogoimg.png" alt="logo"></img>
+                        </div>
+                    </div>
+                </div>
+                <div className="placeHolder" style={stylePlaceHolder}>
+                    <h3>opt in for your physical copy of the yearbook now!</h3>
+                </div>
             </div>
         </div>
     );

@@ -92,7 +92,7 @@ export default function Cards(props) {
       </Flex>
 
       {/* template for insta story */}
-      {ownProfile && isSmallerThan800 &&
+      {ownProfile  && isSmallerThan800 &&
         <Template caption={props.caption} />
       }
 
