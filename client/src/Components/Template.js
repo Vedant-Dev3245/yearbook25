@@ -6,7 +6,7 @@ const Template = ({ caption }) => {
         color: "#DCEDFB",
     }
     const styleMain = {
-        marginTop: "-120%"
+        marginTop: "-80%"
         // opacity:"0",
     };
 
