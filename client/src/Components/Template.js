@@ -3,7 +3,6 @@ import React from "react";
 const Template = ({ caption }) => {
     const styleMainMain = {
         backgroundImage: "linear-gradient(45deg, #050505, #07111B, #130D1F, #130C1E, #020202)",
-        color: "#DCEDFB",
     }
     const styleMain = {
         marginTop: "-80%"
@@ -23,7 +22,7 @@ const Template = ({ caption }) => {
 
     const styleTitle = {
         textAlign: "center",
-        marginTop: "-50%"
+        marginTop: "-58%"
     }
     const styleYearbook = {
         color: "#FFF",
