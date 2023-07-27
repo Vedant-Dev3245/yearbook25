@@ -130,14 +130,14 @@
         
     }
     .name{
-        font-size: 1.4rem;
+        font-size: 2.1rem;
     }
     .bitsid{
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     .img  img{
     
-        margin-top: -50vh;
+        padding-top: -50%;
         border-radius: 156.462px;
         padding-right: 0; 
     }
@@ -164,7 +164,7 @@
         align-items: center;
     }
     .pollqn{
-        font-size: 0.9rem;
+        font-size: 1.2rem;
     }
 }
 @media screen and (max-width: 768px){
