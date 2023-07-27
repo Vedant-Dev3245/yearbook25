@@ -133,10 +133,10 @@
     /* .statscard {
         margin: auto;
     } */
-    .statscontent {
+    /* .statscontent {
         padding: 5%;
         
-    }
+    } */
     .name{
         font-size: 2.1rem;
     }
@@ -145,7 +145,7 @@
     }
     .img  img{
     
-        padding-top: -20%;
+        padding-top: -25%;
         border-radius: 156.462px;
         padding-right: 0; 
     }
