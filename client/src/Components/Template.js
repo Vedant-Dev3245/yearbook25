@@ -22,7 +22,7 @@ const Template = ({ caption }) => {
 
     const styleTitle = {
         textAlign: "center",
-        marginTop: "-58%",
+        marginTop: "-65%",
         marginRight:"20%"
     }
     const styleYearbook = {
