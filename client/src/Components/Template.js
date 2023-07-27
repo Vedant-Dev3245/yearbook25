@@ -2,7 +2,7 @@ import React from "react";
 
 const Template = ({ caption }) => {
     return (
-        <div className="template" style={{ visibility: "hidden" }}>
+        <div className="template">
             <p>{caption}</p>
         </div>
     );
