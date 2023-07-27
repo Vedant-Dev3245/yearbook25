@@ -3,8 +3,6 @@ import React from "react";
 const Template = ({ caption }) => {
     const styleMain = {
         backgroundImage: "linear-gradient(45deg, #050505, #07111B, #130D1F, #130C1E, #020202)",
-        padding: "1rem",
-        borderRadius: "10px",
         color: "#DCEDFB",
         // opacity:"0",
     };
