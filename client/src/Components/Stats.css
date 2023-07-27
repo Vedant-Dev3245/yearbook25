@@ -129,6 +129,12 @@
         padding: 5%;
         
     }
+    .name{
+        font-size: 1.4rem;
+    }
+    .bitsid{
+        font-size: 0.9rem;
+    }
     .img  img{
     
         margin-top: -20vh;
