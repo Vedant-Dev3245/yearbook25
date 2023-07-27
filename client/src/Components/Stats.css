@@ -141,6 +141,13 @@
         border-radius: 156.462px;
         padding-right: 0; 
     }
+    .img img {
+        border-radius: 50%;
+        height: 100px;
+        width: 100px;
+        margin: auto;
+        border: solid 1px  white;
+    }
     .name{
       padding-left: 0;
       padding-right: 0;

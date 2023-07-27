@@ -48,7 +48,7 @@ export default function Stats() {
                     <div className='statscontent'>
                         
                             <div className='img'>
-                                <img src="../images/shwetabh.png"></img>
+                                <img src="../images/shwetabh.png" alt="img"></img>
                                 {/* <img src={user.imageUrl}></img> */}
                             </div>
 
