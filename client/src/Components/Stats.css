@@ -143,8 +143,8 @@
     }
     .img img {
         border-radius: 50%;
-        height: 130px;
-        width: 130px;
+        height: 150px;
+        width: 150px;
         margin: auto;
         border: solid 1px  white;
     }
@@ -163,6 +163,9 @@
         display: grid;
         grid-gap: 10px;
         align-items: center;
+    }
+    .pollqn{
+        font-size: 0.9rem;
     }
 }
 @media screen and (max-width: 768px){
