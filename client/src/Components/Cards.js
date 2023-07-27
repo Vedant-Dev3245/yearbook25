@@ -1,6 +1,6 @@
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import React, { useRef,useEffect,useState} from "react";
-import { TbPencil } from "react-icons/tb"
+import {FiShare2} from "react-icons/fi";
 import { Icon } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
 import Template from "./Template";
@@ -91,7 +91,7 @@ export default function Cards(props) {
             {/* insta share Button */}
             {ownProfile &&
             <Box cursor={"pointer"} onClick={handleShareInsta}  p="0.35rem" h="2rem" w="
-                2rem" className="pencil"><Icon w="1rem" h="1rem" as={TbPencil} /></Box>
+                2rem" className="pencil"><Icon w="1rem" h="1rem" as={FiShare2} /></Box>
             }
             {/* insta share Button */}
 
