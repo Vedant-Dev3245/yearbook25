@@ -134,9 +134,6 @@
     .stats{
         padding-top: 20%;
     }
-    .statscard {
-        margin: auto;
-    }
 }
 @media screen and (max-width: 720px){
     .stats{
