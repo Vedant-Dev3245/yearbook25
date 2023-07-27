@@ -102,7 +102,7 @@ export default function Cards(props) {
         <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
           {props.caption}</Box>
         {/* insta share Button */}
-        {ownProfile  &&
+        {ownProfile && isSmallerThan800 &&
           <Box cursor={"pointer"} onClick={handleShareInsta} p="0.35rem" h="2rem" w="
                 2rem" className="pencil"><Icon w="1rem" h="1rem" as={FiShare2} /></Box>
         }
