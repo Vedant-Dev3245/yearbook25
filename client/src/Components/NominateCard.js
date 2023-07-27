@@ -14,9 +14,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function NominateCard(props) {
     
-    useEffect(() => {
-        console.log(props.name)
-    })
+    // useEffect(() => {
+    //     console.log(props.name)
+    // })
 
     const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
     const [msg, setMsg] = React.useState("")

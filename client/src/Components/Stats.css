@@ -112,21 +112,13 @@
     padding: 1vh;
 
 }
-.statscontent{
-    padding: 0;
-}
-.stats{
-    padding: 0;
-}
-.statscard{
-    padding: 0;
-}
 
-/* .statscard {
+
+.statscard {
     margin: 5%;
-} */
+}
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 520px){
     .stats{
         padding-top: 30%;
     }

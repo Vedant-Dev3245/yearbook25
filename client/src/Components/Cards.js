@@ -17,6 +17,7 @@ export default function Cards(props) {
 
 
     const [caption, setCaption] = React.useState("")
+    const[ownProfile,setOwnProfile]=React.useState("")
 
 
     const handleShareInsta = async () => {
@@ -27,7 +28,7 @@ export default function Cards(props) {
   
         const shareData = {
           title: "My Template with Caption",
-          text: props.caption, // Add the caption as text for the user to copy/paste if needed
+          text: props.caption,
           url: dataURL,
         };
   
@@ -47,6 +48,15 @@ export default function Cards(props) {
     };
     
     // // sharing in insta story 
+
+    React.useEffect(() => {
+      if (window.location.href.includes(localStorage.getItem("user"))) {
+          setOwnProfile(true)
+      }
+      else {
+          setOwnProfile(false)
+      }
+  })
 
     return (
         <Box bg="#151515"
@@ -70,9 +80,9 @@ export default function Cards(props) {
             </Flex>
 
             {/* template for insta story */}
-            
+            {ownProfile &&
                 <Template caption={props.caption} />
-            
+            }
 
             {/* template for insta story */}
             
@@ -80,9 +90,12 @@ export default function Cards(props) {
             <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
                 {props.caption}</Box>
             {/* insta share Button */}
+            {ownProfile &&
             <Box cursor={"pointer"} onClick={handleShareInsta}  p="0.35rem" h="2rem" w="
                 2rem" className="pencil"><Icon w="1rem" h="1rem" as={TbPencil} /></Box>
+            }
             {/* insta share Button */}
+
             </Flex>
             
 
