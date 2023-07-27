@@ -99,7 +99,7 @@ const Template = ({ caption }) => {
     }
 
     return (
-        <div className="mainbox" style={styleMainMain}>
+        <div className="template" style={styleMainMain}>
             <div className="ellipse1" style={ellipseTop}>
                 <img src="../images/ellipsetop.png" alt="ellipsetop"></img>
             </div>
@@ -110,7 +110,7 @@ const Template = ({ caption }) => {
                 <img src="../images/ellipsemid.png" alt="ellipsemid"></img>
             </div>
 
-            <div className="template" style={styleMain}>
+            <div className="templateSmall" style={styleMain}>
                 <div className="yearbook-title" style={styleTitle} >
                     <h1 style={styleYearbook}>yearbook</h1>
                     <h1 style={styleQuote}>quotes</h1>
