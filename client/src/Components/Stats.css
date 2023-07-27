@@ -133,10 +133,10 @@
     /* .statscard {
         margin: auto;
     } */
-    /* .statscontent {
+    .statscontent {
         padding: 5%;
         
-    } */
+    }
     .name{
         font-size: 2.1rem;
     }
