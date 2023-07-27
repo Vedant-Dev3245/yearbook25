@@ -122,9 +122,9 @@
     .stats{
         padding-top: 30%;
     }
-    .statscard {
+    /* .statscard {
         margin: auto;
-    }
+    } */
     .statscontent {
         padding: 5%;
         
@@ -133,9 +133,15 @@
     
         margin-top: -20vh;
         border-radius: 156.462px;
-        padding-right: 0;
-        
-        
+        padding-right: 0; 
+    }
+    .name{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .bitsid{
+        padding-left: 0;
+      padding-right: 0;
     }
 }
 @media screen and (max-width: 768px){
