@@ -87,22 +87,20 @@ export default function Cards(props) {
     >
       <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
         {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
-
         <Text fontWeight={"600"} fontSize="0.9rem">{props.name.toLowerCase()}</Text>
       </Flex>
 
       {/* template for insta story */}
-      {ownProfile &&
+      {ownProfile && isSmallerThan800 &&
         <Template caption={props.caption} name={props.name} img={props.img} bitsId={props.bitsId} />
       }
-
       {/* template for insta story */}
 
       <Flex> 
         <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
           {props.caption}</Box>
         {/* insta share Button */}
-        {ownProfile && 
+        {ownProfile && isSmallerThan800 &&
           <Box cursor={"pointer"} onClick={handleShareInsta} p="0.35rem" h="2rem" w="
                 2rem" className="pencil"><Icon w="1rem" h="1rem" as={FiShare2} /></Box>
         }
