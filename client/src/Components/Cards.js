@@ -1,5 +1,5 @@
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import { FiShare2 } from "react-icons/fi";
 import { Icon } from "@chakra-ui/react";
 import html2canvas from "html2canvas";
@@ -92,8 +92,8 @@ export default function Cards(props) {
       </Flex>
 
       {/* template for insta story */}
-      {ownProfile  && isSmallerThan800 &&
-        <Template caption={props.caption} />
+      {ownProfile &&
+        <Template caption={props.caption} name={props.name} img={props.img} bitsId={props.bitsId} />
       }
 
       {/* template for insta story */}
@@ -102,7 +102,7 @@ export default function Cards(props) {
         <Box w="95%" mt="1rem" lineHeight="1.3rem" fontSize="1rem">
           {props.caption}</Box>
         {/* insta share Button */}
-        {ownProfile && isSmallerThan800 &&
+        {ownProfile && 
           <Box cursor={"pointer"} onClick={handleShareInsta} p="0.35rem" h="2rem" w="
                 2rem" className="pencil"><Icon w="1rem" h="1rem" as={FiShare2} /></Box>
         }

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Template = ({ caption }) => {
+const Template = (props) => {
     const styleMainMain = {
         backgroundImage: "linear-gradient(45deg, #050505, #07111B, #130D1F, #130C1E, #020202)",
     }
@@ -43,19 +43,21 @@ const Template = ({ caption }) => {
         marginLeft: "40%",
         marginTop: "-20px"
     }
-    const styleContentBox = {
-        padding: "20%",
+    const styleContentBoxBox={
+        padding: "12%",
         paddingTop: "5%",
-        paddingBottom: "10%"
+        paddingBottom: "10%",
     }
-    const styleContent = {
-        display: "grid",
-        gridGap: "0px",
+    const styleContentBox = {
         gridTemplateColumns: "1fr 1fr",
         borderRadius: "7.2px",
         backgroundColor: "rgba(21,21,21,0.3)",
         boxShadow: "1px 1px 1px rgb(255, 255, 255, 0.5)",
         border: "solid 1px rgb(255, 255, 255, 0.1)",
+    }
+    const styleContent = {
+        display: "grid",
+        gridGap: "0px",
     }
     const styleAncientImage = {
         width: "30px",
@@ -97,9 +99,40 @@ const Template = ({ caption }) => {
         marginLeft: "60%",
         marginTop: "1%"
     }
+    const styleNameImage = {
+        display: "flex",
+        alignItems: "center",
+      }
+      const styleNameImageImage = {
+        height: "2rem",
+        width: "2rem",
+        borderRadius: "50%",
+        marginRight: "0.5rem",
+        marginLeft:"1.5rem"
+      }
+      const styleNameImageImageimg = {
+        height: "2rem",
+        width: "2rem",
+        borderRadius: "50%",
+        marginRight: "0.5rem",
+      }
+      const styleNameImageNameBitsID = {
+        display: "flex",
+        flexDirection: "column",
+      }
+      const styleNameImageName = {
+        fontSize: "12px",
+        textTransform: "lowercase",
+        margin: "0",
+      }
+      const styleNameImageBitsID = {
+        margin: "0", 
+      }
+
 
     return (
         <div className="template" style={styleMainMain}>
+
             <div className="ellipse1" style={ellipseTop}>
                 <img src="../images/ellipsetop.png" alt="ellipsetop"></img>
             </div>
@@ -119,18 +152,35 @@ const Template = ({ caption }) => {
                     href="https://fonts.googleapis.com/css2?family=Imperial+Script&display=swap"
                     rel="stylesheet"
                 />
+                <div style={styleContentBoxBox}>
                 <div style={styleContentBox}>
+                <div className="name-image" style={styleNameImage}>
+                            <div className="image" style={styleNameImageImage}>
+                                    {/* <img style={styleNameImageImageimg} src={props.img}></img> */}
+                                    <img style={styleNameImageImageimg} src="../images/shwetabh.png"></img>
+                            </div>
+                            <div className="name" style={styleNameImageNameBitsID}>
+                                <div className="namename" style={styleNameImageName}>
+                                    <p>{props.name}</p>
+                                </div>
+                                <div className="namebitsId" style={styleNameImageBitsID}>
+                                    <p>{props.bitsId}</p>
+                                    <p style={{fontSize:"10px",marginTop:"-18px",color:"grey"}}>2022A8PS1264P</p>
+                                </div>
+                            </div>
+                        </div>
                     <div className="theactualquote" style={styleContent}>
                         <div className="ancientImage" style={styleAncientImage}>
                             <img src="../images/imageancient.png" alt="immgancient"></img>
                         </div>
                         <div className="quotesss" style={stylepDiv}>
-                            <p style={stylep}>{caption}</p>
+                            <p style={stylep}>{props.caption}</p>
                         </div>
                         <div className="logo" style={styleLogo}>
                             <img src="../images/sarclogoimg.png" alt="logo"></img>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div className="placeHolder" style={stylePlaceHolder}>
                     <h3>opt in for your physical copy of the yearbook now!</h3>
