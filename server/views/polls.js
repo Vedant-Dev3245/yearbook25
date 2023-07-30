@@ -154,7 +154,7 @@ const leaderboard = async (req, res) => {
       }
 
       let user = await User.findById(votes[maxIndex].user);
-      response.push({ name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId });
+      response.push({ name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, caption: user.caption });
     }
 
     return res.status(200).json({ response });
