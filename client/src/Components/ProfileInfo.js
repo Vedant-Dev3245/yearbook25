@@ -160,7 +160,7 @@ export default function ProfileInfo(props) {
 
   const [captionData, setCaptionData] = React.useState({
     caption: "",
-    receiverId:localStorage.getItem("friend"),
+    targetId:localStorage.getItem("friend"),
   });
   function nominate() {
     setSpin(true);
