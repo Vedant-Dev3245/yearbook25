@@ -51,7 +51,7 @@ export default function Devleopers() {
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential)
     var token = response.credential
-    localStorage.setItem("google_token", token)
+    localStorage.setItem("token", token)
     axios({
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_URL}/auth/google`,

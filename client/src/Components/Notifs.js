@@ -23,15 +23,18 @@ export default function Nominate(props){
             url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`
         })
         .then(function(response){
-            setRequestsUser(response.data)
+            setRequestsUser(response.data.requests)
+            
+            console.log(response)
         })
         .catch(function (error) {
             console.log(error);
           });
-      })
+      }, [])
 
-    const cardsReq = Array.from(nominateArray).map(person => {
-        return <ReqCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
+    const cardsReq = reqestsUser.map(person => {
+       
+        return <ReqCard name={person.user.toLowerCase()} key={person.id} id={person.id}/>
     })
 
     

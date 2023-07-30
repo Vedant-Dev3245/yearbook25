@@ -13,7 +13,8 @@ export default function Wall(props) {
         500: 1
     };
     const cards = Array.from(capt).map(person => {
-        return <Cards name={person.name} caption={person.caption} key={person.id} img={person.imgUrl} bitsId={person.bitsId} />
+        
+        return <Cards name={person.name} caption={person.caption} key={person.id} img={person.imageUrl} bitsId={person.bitsId} />
     })
     React.useEffect(() => {
         setCapt(props.captions)

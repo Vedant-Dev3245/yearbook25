@@ -4,7 +4,6 @@ import "./Polls.css";
 import axios from "axios";
 // import Masonry from "react-masonry-css"
 
-
 export default function Polls(props) {
   const [pollsData, setPollsData] = useState([]);
   // const breakpointColumnsObj = {
@@ -13,44 +12,34 @@ export default function Polls(props) {
   //   500: 1
   // };
 
-
   React.useEffect(() => {
     axios({
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
       },
       url: `${process.env.REACT_APP_BACKEND_URL}/polls`,
     })
       .then(function (response) {
-        setPollsData(response.data.questions)
-        // console.log(response.data)
+        setPollsData(response.data.questions);
+        console.log(response.data.questions);
       })
       .catch(function (error) {
         console.log(error);
       });
-  })
-//   React.useEffect(()=>{
-//     setPollsData(props.questions)
-// })
+  }, []);
+  //   React.useEffect(()=>{
+  //     setPollsData(props.questions)
+  // })
 
-const pollsCards = pollsData.map((questions, index) => {
-  const number = (index + 1).toString().padStart(2, "0");
-  return <PollsCards key={index} number={number} pollqn={questions.ques} />;
-});
-
-
+  const pollsCards = pollsData.map((questions, index) => {
+    const number = (index + 1).toString().padStart(2, "0");
+    return <PollsCards key={questions._id} number={number} id={questions._id} pollqn={questions.ques} />;
+  });
 
   return (
     <div className="polls">
-      <div className="pollscards">
-        {pollsCards}
-        {/* <PollsCards number="1" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
-        <PollsCards number="2" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
-        <PollsCards number="3" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
-        <PollsCards number="4" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" /> */}
-      </div>
-
+      <div className="pollscards">{pollsCards}</div>
     </div>
   );
 }

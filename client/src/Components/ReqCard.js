@@ -16,7 +16,11 @@ export default function ReqCard(props) {
         caption: "",
         receiverId: props.id
     })
-        
+    let acceptData = {
+      
+        receiverId: localStorage.getItem("friend"),
+        // targetId: localStorage.getItem("userdId")
+      };
         function handleAcceptReq() {
             axios({
                 method: 'POST',
@@ -24,7 +28,7 @@ export default function ReqCard(props) {
                     Authorization: `Bearer ${localStorage.token}`
                 },
                 url: `${process.env.REACT_APP_BACKEND_URL}/nominations/nominate`,
-                data: captionData
+                data: acceptData
             })
                 .then(function (response) {
                     console.log(response);
@@ -50,7 +54,7 @@ export default function ReqCard(props) {
                 Authorization: `Bearer ${localStorage.token}`
             },
             url: `${process.env.REACT_APP_BACKEND_URL}/nominations/decline`,
-            data: captionData
+            data: acceptData
         })
             .then(function (response) {
                 console.log(response);

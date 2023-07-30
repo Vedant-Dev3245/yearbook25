@@ -3,44 +3,44 @@ const { User, Search } = require("../models/user");
 // sgMail.setApiKey(process.env.SENDGRID);
 
 const sendRequest = async (req, res) => {
-    try {
-        const senderId = req.user.id;
-        const targetId = req.body.targetId;
-        const caption = req.body.caption;
+  try {
+    const senderId = req.user.id;
+    const targetId = req.body.targetId;
+    const caption = req.body.caption;
 
-        const sender = await User.findById(senderId);
-        const target = await User.findById(targetId);
+    const sender = await User.findById(senderId);
+    const target = await User.findById(targetId);
 
-        if (
-            target.requests.find(o => o.user == senderId) ||
-            target.declined_requests.find(o => o.user == senderId) ||
-            target.nominatedby.find(o => o.user == senderId)
-        ) {
-            return res.send({
-                status: "failure",
-                msg: "You have already sent a request to this user",
-            });
-        }
+    if (
+      target.requests.find((o) => o.user == senderId) ||
+      target.declined_requests.find((o) => o.user == senderId) ||
+      target.nominatedby.find((o) => o.user == senderId)
+    ) {
+      return res.send({
+        status: "failure",
+        msg: "You have already sent a request to this user",
+      });
+    }
 
-        await target.updateOne({
-            $push: {
-                requests: {
-                    $each: [
-                        {
-                            user: senderId,
-                            caption: caption,
-                        },
-                    ],
-                },
+    await target.updateOne({
+      $push: {
+        requests: {
+          $each: [
+            {
+              user: senderId,
+              caption: caption,
             },
-        })
+          ],
+        },
+      },
+    });
 
-        const mailOptions = {
-            from: "studentalumnirelationscell@gmail.com",
-            to: "receiverEmail",
-            subject: "Online Yearbook Portal",
-            // change the email test from here
-            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+    const mailOptions = {
+      from: "studentalumnirelationscell@gmail.com",
+      to: "receiverEmail",
+      subject: "Online Yearbook Portal",
+      // change the email test from here
+      html: `<p>Greetings from the Student Alumni Relations Cell! <br>
                           ${sender.name} has requested to write on your yearbook wall! <br>
                           <br>
                           Log on to the <a href="yearbook.bits-sarc.org">yearbook portal</a> to accept their request. <br>
@@ -48,149 +48,147 @@ const sendRequest = async (req, res) => {
                           Regards,
                           Student Alumni Relations Cell! <br>
                            </p>`,
-        };
+    };
 
-        // TODO:
-        // Send mail
+    // TODO:
+    // Send mail
 
-        return res.send({
-            status: "success",
-            msg: "Request sent successfully!",
-        });
-    } catch (err) {
-        console.log(err)
-        return res.send({
-            status: "failure",
-            msg: "There was an error, Please try after some time",
-        });
-    }
-}
+    return res.send({
+      status: "success",
+      msg: "Request sent successfully!",
+    });
+  } catch (err) {
+    console.log(err);
+    return res.send({
+      status: "failure",
+      msg: "There was an error, Please try after some time",
+    });
+  }
+};
 
 const allRequests = async (req, res) => {
-    try {
-        senderId = req.user.id;
-        sender = await User.findById(senderId).populate("requests").populate("declined_requests");
+  try {
+    senderId = req.user.id;
+    sender = await User.findById(senderId)
+      .populate("requests.user")
+      .populate("declined_requests");
 
-        return res.send({
-            status: "success",
-            requests: sender.requests,
-            declined_requests: sender.declined_requests,
-        })
-    } catch (err) {
-        return res.send({
-            status: "failure",
-            msg: "There was an error, Please try after some time",
-        })
-    }
+    return res.send({
+      status: "success",
+      requests: sender.requests,
+      declined_requests: sender.declined_requests,
+    });
+  } catch (err) {
+    return res.send({
+      status: "failure",
+      msg: "There was an error, Please try after some time",
+    });
+  }
 };
 
 const nominateUser = async (req, res) => {
-    try {
-        const senderId = req.user.id;
-        const receiverId = req.body.receiverId;
+  try {
+    const senderId = req.user.id;
+    const receiverId = req.body.receiverId;
 
-        const session = await User.startSession();
-        session.startTransaction();
+    const session = await User.startSession();
+    session.startTransaction();
 
-        const receiver = await User.findById(receiverId).session(session);
-        const sender = await User.findById(senderId).session(session);
-        const senderName = sender.name;
+    const receiver = await User.findById(receiverId).session(session);
+    const sender = await User.findById(senderId).session(session);
+    const senderName = sender.name;
 
-        const receiverEmail = receiver.email;
-        if (receiver.nominatedby.some((obj) => obj.id === senderId)) {
+    const receiverEmail = receiver.email;
+    if (receiver.nominatedby.some((obj) => obj.id === senderId)) {
+      session.endSession();
+      return res.send({
+        status: "failure",
+        msg: "User has already been nominated!",
+      });
+    }
 
-            session.endSession();
-            return res.send({
-                status: "failure",
-                msg: "User has already been nominated!",
-            });
+    if (receiverId == senderId) {
+      return res.send({
+        status: "failure",
+        msg: "You can't nominate yourself",
+      });
+    }
 
+    // Handle requests
+    // if the target user had requested to write on the wall
+    // remove request and add it to nominated
+    if (sender.requests.find((o) => o.user == receiver)) {
+      const requests = sender.requests;
+      let newCap;
+      for (let i = 0; i < requests.length; i++) {
+        if (requests[i].user === receiver) {
+          newCap = requests[i].caption;
+          requests.splice(i, 1);
         }
-
-        if (receiverId == senderId) {
-
-            return res.send({
-                status: "failure",
-                msg: "You can't nominate yourself",
-            });
-
-        }
-
-        // Handle requests
-        // if the target user had requested to write on the wall
-        // remove request and add it to nominated
-        if (sender.requests.find(o => o.user == receiver)) {
-            const requests = sender.requests;
-            let newCap;
-            for (let i = 0; i < requests.length; i++) {
-                if (requests[i].user === receiver) {
-                    newCap = requests[i].caption;
-                    requests.splice(i, 1)
-                }
-            }
-            await receiver
-                .updateOne({
-                    $push: {
-                        captions: {
-                            $each: [
-                                {
-                                    user: receiver,
-                                    caption: newCap,
-                                },
-                            ],
-                        },
-                    },
-                })
-                .session(session);
-            await sender.updateOne({ requests }).session(session);
-        } else if (sender.declined_requests.find(o => o.user == receiver)) {
-            const declined_requests = sender.declined_requests;
-            let newCap;
-            for (let i = 0; i < declined_requests.length; i++) {
-                if (declined_requests[i].user === receiver) {
-                    newCap = declined_requests[i].caption;
-                    declined_requests.splice(i, 1)
-                }
-            }
-            await receiver
-                .updateOne({
-                    $push: {
-                        captions: {
-                            $each: [
-                                {
-                                    user: receiver,
-                                    caption: newCap,
-                                },
-                            ],
-                        },
-                    },
-                })
-                .session(session);
-            await sender.updateOne({ declined_requests }).session(session);
-        }
-
-        await receiver
-            .updateOne({
-                $push: {
-                    nominatedby: {
-                        $each: [
-                            {
-                                name: senderName,
-                                id: senderId,
-                            },
-                        ],
-                    },
+      }
+      await receiver
+        .updateOne({
+          $push: {
+            captions: {
+              $each: [
+                {
+                  user: receiver,
+                  caption: newCap,
                 },
-            })
-            .session(session);
-        await session.commitTransaction();
-        session.endSession();
-        const mailOptions = {
-            from: "studentalumnirelationscell@gmail.com",
-            to: receiverEmail,
-            subject: "Online Yearbook Portal",
-            // change the email test from here
-            html: `<p>Greetings from the Student Alumni Relations Cell! <br>
+              ],
+            },
+          },
+        })
+        .session(session);
+      await sender.updateOne({ requests }).session(session);
+    } else if (sender.declined_requests.find((o) => o.user == receiver)) {
+      const declined_requests = sender.declined_requests;
+      let newCap;
+      for (let i = 0; i < declined_requests.length; i++) {
+        if (declined_requests[i].user === receiver) {
+          newCap = declined_requests[i].caption;
+          declined_requests.splice(i, 1);
+        }
+      }
+      await receiver
+        .updateOne({
+          $push: {
+            captions: {
+              $each: [
+                {
+                  user: receiver,
+                  caption: newCap,
+                },
+              ],
+            },
+          },
+        })
+        .session(session);
+      await sender.updateOne({ declined_requests }).session(session);
+    }
+
+    await receiver
+      .updateOne({
+        $push: {
+          nominatedby: {
+            $each: [
+              {
+                name: senderName,
+                id: senderId,
+              },
+            ],
+          },
+        },
+      })
+      .session(session);
+    await session.commitTransaction();
+    session.endSession();
+    const mailOptions = {
+      from: "studentalumnirelationscell@gmail.com",
+      to: receiverEmail,
+      subject: "Online Yearbook Portal",
+      // change the email test from here
+      html: `<p>Greetings from the Student Alumni Relations Cell! <br>
                             You have been nominated by <b>${senderName}</b> to write a caption for their yearbook.<br>
                             Please keep the following points in mind while writing the captions:-<br>
                             <ol>
@@ -204,78 +202,77 @@ const nominateUser = async (req, res) => {
 
                             Student Alumni Relations Cell! <br>
                             </p>`,
-        };
+    };
 
-        return res.send({
-            status: "success",
-            msg: "Friend nominated successfully!",
-        });
+    return res.send({
+      status: "success",
+      msg: "Friend nominated successfully!",
+    });
 
-        // sgMail.send(mailOptions)
-        //     .then((response) => {
-        //
-        //         return res.send({
-        //             status: "success",
-        //             msg: "Friend nominated successfully!",
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.error(error);
-        //         return res.send({
-        //             status: "failure",
-        //             msg: "There was an error, Please try after some time",
-        //         });
-        //     });
-
-    } catch (err) {
-        return res.send({
-            status: "failure",
-            msg: err.message,
-        });
-    }
+    // sgMail.send(mailOptions)
+    //     .then((response) => {
+    //
+    //         return res.send({
+    //             status: "success",
+    //             msg: "Friend nominated successfully!",
+    //         });
+    //     })
+    //     .catch((error) => {
+    //         console.error(error);
+    //         return res.send({
+    //             status: "failure",
+    //             msg: "There was an error, Please try after some time",
+    //         });
+    //     });
+  } catch (err) {
+    return res.send({
+      status: "failure",
+      msg: err.message,
+    });
+  }
 };
 
 const declineRequest = async (req, res) => {
-    try {
-        senderId = req.user.id;
-        receiverId = req.body.receiverId;
+  try {
+    senderId = req.user.id;
+    receiverId = req.body.receiverId;
 
-        sender = await User.findById(senderId);
-        receiver = await User.findById(receiverId);
+    sender = await User.findById(senderId);
+    receiver = await User.findById(receiverId);
 
-        const requests = sender.requests;
-        let newCap;
-        for (let i = 0; i < requests.length; i++) {
-            if (requests[i].user === receiver) {
-                newCap = requests[i].caption;
-                requests.splice(i, 1)
-            }
-        }
-        await receiver
-            .updateOne({
-                $push: {
-                    declined_requests: {
-                        $each: [
-                            {
-                                user: receiver,
-                                caption: newCap,
-                            },
-                        ],
-                    },
-                },
-            })
-            .session(session);
-        await sender.updateOne({ requests }).session(session);
-
-        return res.send({
-            success: "Succesfully declined",
-        });
-    } catch (err) {
-        return res.send({
-            status: "failure",
-            msg: "There was an error, Please try after some time",
-        });
+    const requests = sender.requests;
+    let newCap;
+    for (let i = 0; i < requests.length; i++) {
+      if (requests[i].user === receiver) {
+        newCap = requests[i].caption;
+        requests.splice(i, 1);
+      }
     }
-}
+    await receiver
+      .updateOne({
+        $push: {
+          declined_requests: {
+            $each: [
+              {
+                user: receiver,
+                caption: newCap,
+              },
+            ],
+          },
+        },
+      })
+      .session(session);
+    await sender.updateOne({ requests }).session(session);
 
-module.exports = { allRequests, nominateUser, declineRequest, sendRequest }
+    return res.send({
+      success: "Succesfully declined",
+    });
+  } catch (err) {
+    return res.send({
+      status: "failure",
+      msg: "There was an error, Please try after some time",
+    });
+  }
+};
+
+module.exports = { allRequests, nominateUser, declineRequest, sendRequest };
