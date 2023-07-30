@@ -34,7 +34,7 @@ export default function Nominate(props){
 
     const cardsReq = reqestsUser.map(person => {
        
-        return <ReqCard name={person.user.toLowerCase()} key={person.id} id={person.id}/>
+        return <ReqCard name={person.user.name.toLowerCase()} key={person.id} id={person.id}/>
     })
 
     

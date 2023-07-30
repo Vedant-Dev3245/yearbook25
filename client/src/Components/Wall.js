@@ -3,7 +3,7 @@ import Masonry from "react-masonry-css"
 import Cards from "./Cards"
 import { Box, useMediaQuery, Text } from "@chakra-ui/react"
 
-export default function Wall(props) {
+export default function     Wall(props) {
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
     const [capt, setCapt] = React.useState([])
     const [title, setTitle] = React.useState(false)
