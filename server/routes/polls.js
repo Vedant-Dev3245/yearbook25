@@ -19,6 +19,6 @@ router.post("/", isAdmin, createPoll);
 router.patch("/:id", isAdmin, updatePoll);
 router.delete("/:id", isAdmin, deletePoll);
 router.put("/:id/vote", votePoll);
-router.get("/:id/leaderboard", leaderboard);
+router.get("/leaderboard", leaderboard);
 
 module.exports = router;
