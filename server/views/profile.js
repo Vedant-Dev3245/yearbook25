@@ -251,8 +251,8 @@ const getProfile = async (req, res) => {
         let captions = [];
         user.captions.forEach(element => {
             captions.push({
-                name: caption.name,
-                caption: caption.caption
+                name: element.user.name,
+                caption: element.caption
             })
         });
         
