@@ -13,28 +13,28 @@ export default function Stats() {
     totalCount: "",
     name: "",
   });
-//   React.useEffect(() => {
-//     if (params.id) {
-//       axios({
-//         method: "GET",
-//         headers: {
-//           Authorization: `Bearer ${localStorage.getItem("token")}`,
-//         },
-//         url: `${process.env.REACT_APP_BACKEND_URL}/polls/${params.id}/leaderboard`,
-//       })
-//         .then(function (response) {
-//           setUser(response.data.user);
-//           console.log(response.data.user);
+  React.useEffect(() => {
 
-//           if (params.id === window.localStorage.getItem("user")) {
-//             window.localStorage.setItem("userName", response.data.user.name);
-//           }
-//         })
-//         .catch(function (error) {
-//           console.log(error);
-//         });
-//     }
-//   }, [params.id]);
+      axios({
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        url: `${process.env.REACT_APP_BACKEND_URL}/polls/${params.id}/leaderboard`,
+      })
+        .then(function (response) {
+          setUser(response.data.user);
+          console.log(response.data.user);
+
+          if (params.id === window.localStorage.getItem("user")) {
+            window.localStorage.setItem("userName", response.data.user.name);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+  }, []);
 
   return (
     <div className="statspg">

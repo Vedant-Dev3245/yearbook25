@@ -5,7 +5,7 @@
 
 .pollscardsprops {
     /* background-color: rgba(21, 21, 21, 0.3); */
-    box-shadow: 4px 4px 4px rgb(255, 255, 255, 0.5);
+    box-shadow: 2px 2px 2px rgb(255, 255, 255, 0.2);
     border-radius: 24px;
     font-family: "gilmer";
     border: solid 1px rgb(255, 255, 255, 0.1);
@@ -29,6 +29,7 @@
 .pollsqns {
     font-family: 'Gilmer';
     font-style: normal;
+    text-transform: lowercase;
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
@@ -36,14 +37,11 @@
 }
 
 .pollsnumber {
-    width: 60px;
-    height: 58px;
-    margin-top: -72px;
+    margin-top: -5rem;
     font-family: 'Gilmer';
     font-style: normal;
     font-weight: 700;
-    font-size: 48px;
-    line-height: 58px;
+    font-size: 3rem;
 }
 
 .pollscards {
@@ -52,18 +50,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 50px;
     width: 100%;
-    /* display: -webkit-box; 
-    display: -ms-flexbox; 
-    display: flex;
-    margin-top: 4rem;
-    margin-inline: auto;
-    width: 100%; */
-   
 }
-/* .my-masonry-grid_column_polls{
-    padding-left: 2rem;
-    background-clip: padding-box;
-  } */
 
 .dropdownpolls {
     margin: auto; 
