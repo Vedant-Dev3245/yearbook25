@@ -226,7 +226,21 @@ const searchUsers = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id).populate();
+        const user = await User.findById(req.params.id).populate({ path: 'captions', populate: [{
+                path: 'user'
+            }]
+        }).populate({
+            path: 'requests',
+            populate: [{
+                path: 'user'
+            }]
+        }).populate({
+            path: 'declined_requests',
+            populate: [{
+                path: 'user'
+            }]
+        });
+
         if (!user) {
             return res.status(400).send();
         }
@@ -234,8 +248,9 @@ const getProfile = async (req, res) => {
         let captions = [];
         user.captions.forEach(element => {
             captions.push({
-                name: caption.name,
-                caption: caption.caption
+                name: element.user.name,
+                caption: element.caption,
+                imageUrl: element.user.imageUrl
             })
         });
         
