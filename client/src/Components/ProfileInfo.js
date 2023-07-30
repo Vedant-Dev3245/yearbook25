@@ -160,7 +160,7 @@ export default function ProfileInfo(props) {
 
   const [captionData, setCaptionData] = React.useState({
     caption: "",
-    receiverId: props.id,
+    receiverId:localStorage.getItem("friend"),
   });
   function nominate() {
     setSpin(true);
@@ -210,7 +210,7 @@ export default function ProfileInfo(props) {
         Authorization: `Bearer ${localStorage.token}`,
       },
       url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
-      data: requestData,
+      data: captionData,
     })
       .then(function (res) {
         console.log(res);
