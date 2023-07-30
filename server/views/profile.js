@@ -226,10 +226,19 @@ const searchUsers = async (req, res) => {
 
 const getProfile = async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).populate();
         if (!user) {
             return res.status(400).send();
         }
+
+        let captions = [];
+        user.captions.forEach(element => {
+            captions.push({
+                name: caption.name,
+                caption: caption.caption
+            })
+        });
+        
         return res.send({
             user: {
                 'name': user.name,
@@ -237,7 +246,7 @@ const getProfile = async (req, res) => {
                 'bitsId': user.bitsId,
                 'discipline': user.discipline,
                 'quote': user.quote,
-                'captions': user.captions,
+                'captions': captions,
                 'nominatedby': user.nominatedby,
                 'requests': user.requests,
                 'declined_requests': user.declined_requests
