@@ -1,6 +1,7 @@
 import React from "react";
 
 const Template = (props) => {
+    
     const styleMainMain = {
         backgroundImage: "linear-gradient(45deg, #050505, #07111B, #130D1F, #130C1E, #020202)",
     }
@@ -129,7 +130,7 @@ const Template = (props) => {
         margin: "0", 
       }
 
-
+     
     return (
         <div className="template" style={styleMainMain}>
 
@@ -156,8 +157,8 @@ const Template = (props) => {
                 <div style={styleContentBox}>
                 <div className="name-image" style={styleNameImage}>
                             <div className="image" style={styleNameImageImage}>
-                                    {/* <img style={styleNameImageImageimg} src={props.img}></img> */}
-                                    <img style={styleNameImageImageimg} src="../images/shwetabh.png"></img>
+                                    <img style={styleNameImageImageimg} src={props.img}></img>
+                                    {/* <img style={styleNameImageImageimg} src="../images/shwetabh.png"></img> */}
                             </div>
                             <div className="name" style={styleNameImageNameBitsID}>
                                 <div className="namename" style={styleNameImageName}>

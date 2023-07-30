@@ -1,4 +1,4 @@
-import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
+import { Box, Flex, Text, useMediaQuery,Image } from "@chakra-ui/react";
 import React from "react";
 import { FiShare2 } from "react-icons/fi";
 import { Icon } from "@chakra-ui/react";
@@ -9,7 +9,6 @@ import Template from "./Template";
 
 
 export default function Cards(props) {
-
 
 
   const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
@@ -86,8 +85,8 @@ export default function Cards(props) {
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
     >
       <Flex bgColor={"rgba(255, 255, 255, 0.05)"} border="1px solid rgba(255, 255, 255, 0.25)" borderRadius="3rem" w="fit-content" p="0.3rem 0.8rem">
-        {/* <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src="./images/pic.png" /> */}
-        <Text fontWeight={"600"} fontSize="0.9rem">{props.name}</Text>
+        <Image borderRadius={"50%"}  h="1.5rem" w="1.5rem" src={props.img} margin={0}/>
+        <Text fontWeight={"600"} fontSize="0.9rem">{props.name.toLowerCase()}</Text>
       </Flex>
 
       {/* template for insta story */}
