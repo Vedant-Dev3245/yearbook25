@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Jockey+One&family=Poppins&family=Roboto+Slab:wght@100;300&display=swap');
 
 .topvoted {
     border-radius: 10px;
     border: 1px solid #6C6C6C;
     box-shadow: 0px 1px 24px 1px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(20px);
-    padding: 0.5vh;
-    padding-left: 16vh;
-    padding-right: 16vh;
+    padding: 8vh;
+    padding-bottom: 0.5vh;
+    padding-top: 0.5vh;
+    font-weight: 800;
 
 }
 
@@ -18,7 +18,7 @@
 
 .topvoted h1 {
     color: #FFF;
-    font-family: 'Jockey One';
+    font-family: 'gilmer';
     font-size: calc(30px + 0.390625vw);
     font-style: normal;
     font-weight: 400;
@@ -28,37 +28,46 @@
 
 .img-count {
     display: flex;
+    align-items: center;
 }
 
-.img-count img {
+.img img {
     border-radius: 50%;
     height: 170px;
     width: 170px;
     margin: auto;
     border: solid 1px  white;
+    
+
+}
+.img {
+    padding-bottom: 4%;
 }
 
-.img{
-    margin: auto;
+.img  img{
+    
     margin-top: -15vh;
     border-radius: 156.462px;
-    padding: 2vh;
     padding-right: 0;
-    padding-left: 8vh;
+    
     
 }
 
 .count {
-    display: flex;
-    gap: 10px;
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    display: grid;
+    grid-gap: 10px;
+    align-items: center;
 }
 
 .statscard {
-    box-shadow: 4px 4px 4px rgb(255, 255, 255, 0.5);
+    position: relative; 
+    box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.5);
     border-radius: 24px;
     font-family: "gilmer";
-    border: solid 1px rgb(255, 255, 255, 0.1);
-    position: relative;
+    border: solid 1px rgba(255, 255, 255, 0.1);
     width: calc(450px - 0.390625vw);
     text-align: center;
     
@@ -66,17 +75,14 @@
 
 .statscontent {
     padding: 10%;
-}
-
-.statssvg>svg {
-    color: #D84222;
+    
 }
 
 .bitsid {
     color: #B3B3B3;
     text-align: center;
     font-family: Gilmer;
-    font-size: calc(22px-0.390625vw);
+    font-size: calc(30px- 0.390625vw);
     font-style: normal;
     font-weight: 300;
     line-height: normal;
@@ -87,19 +93,17 @@
 .name {
     color: #FFF;
     text-align: center;
-    font-family: 'Jockey One';
-    font-size: 48px;
+    font-family: 'gilmer';
+    font-size: 3rem;
     font-style: normal;
     font-weight: 400;
     line-height: 90.02%;
     padding: 1vh;
-
-    /* 43.209px */
 }
 
 .pollqn {
     color: #DCEDFB;
-    font-family: Gilmer;
+    font-family: "Gilmer";
     font-size: 20px;
     font-style: normal;
     font-weight: 700;
@@ -109,62 +113,87 @@
 
 }
 
+
 .statscard {
     margin: 5%;
 }
 
-@media screen and (max-width: 480px) {
-    .statscard {
-        margin:20vh;
-        padding-top: 5%;
-        margin-left: auto;
-        margin-right: auto;
+@media screen and (max-width: 520px){
+    .stats{
+        padding-top: 30%;
     }
-    .statscontent{
-        padding-top: 10vh;
-    }
-
-    .stats {
-        margin: 10%;
-        margin-top: 0;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .topvbox {
+    /* .statscard {
         margin: auto;
-    }
-
-    .img-count img {
-        border-radius: 50%;
-        height: 130px;
-        width: 130px;
-        margin: auto;
-        border: solid  white 2px;
-    }
-    .img{
-        margin-top: -25vh;
+    } */
+    .statscontent {
+        padding: 5%;
         
     }
-    .name {
-        color: #FFF;
-        text-align: center;
-        font-family: 'Jockey One';
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 90.02%;
-        padding: 1vh;
-    
-        /* 43.209px */
+    .name{
+        font-size: 2.1rem;
     }
+    .bitsid{
+        font-size: 1rem;
+    }
+    .img  img{
     
-}
-@media  screen and (max-width: 768px) {
-    .stats {
-        margin: 10%;
-        margin-top: 5vh;
-        margin-left: auto;
-        margin-right: auto;
+        padding-top: -30%;
+        border-radius: 156.462px;
+        padding-right: 0; 
+    }
+    .img img {
+        border-radius: 50%;
+        height: 150px;
+        width: 150px;
+        border: solid 1px  white;
+    }
+    .name{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .bitsid{
+        padding-left: 0;
+      padding-right: 0;
+    }
+    .count {
+        position: absolute;
+        top: 80px;
+        right: 80px;
+        display: grid;
+        grid-gap: 10px;
+        align-items: center;
+    }
+    .pollqn{
+        font-size: 1.2rem;
     }
 }
+@media screen and (max-width: 768px){
+    .statscard{
+        padding-top: 20%;
+    }
+}
+@media screen and (max-width: 720px){
+    .stats{
+        padding-top: 20%;
+    }
+    .statscard {
+        margin: auto;
+    }
+}
+@media screen and (max-width: 730px){
+    .stats{
+        padding-top: 20%;
+    }
+    .statscard {
+        margin: auto;
+    }
+}
+@media screen and (max-width: 1156px){
+    .stats{
+        padding-top: 20%;
+    }
+    .statscard {
+        margin: auto;
+    }
+}
+

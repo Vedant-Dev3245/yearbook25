@@ -105,10 +105,10 @@ border-radius: 50%;
   color: #22ff00;
 }
 .stats.active{
-    border-bottom: 2px solid #D84222;
+    border-bottom: 2px solid #ff6842;
 }
 .stats.active>svg{
-    color: #D84222;
+    color: #ff6842;
 }
 
 

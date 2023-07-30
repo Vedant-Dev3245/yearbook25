@@ -34,9 +34,10 @@ export default function Polls(props) {
 //     setPollsData(props.questions)
 // })
 
-const pollsCards = pollsData.map((questions, index) => (
-  <PollsCards key={index} number={index + 1} pollqn={questions.ques} />
-))
+const pollsCards = pollsData.map((questions, index) => {
+  const number = (index + 1).toString().padStart(2, "0");
+  return <PollsCards key={index} number={number} pollqn={questions.ques} />;
+});
 
 
 
@@ -44,10 +45,10 @@ const pollsCards = pollsData.map((questions, index) => (
     <div className="polls">
       <div className="pollscards">
         {pollsCards}
-        <PollsCards number="1" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
+        {/* <PollsCards number="1" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
         <PollsCards number="2" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
         <PollsCards number="3" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
-        <PollsCards number="4" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" />
+        <PollsCards number="4" pollqn="some chiggy wiggy thing it is an amazing song  i really like sarc bro i love doing sarc work hahhahahahahah" /> */}
       </div>
 
     </div>
