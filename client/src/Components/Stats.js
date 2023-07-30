@@ -16,8 +16,7 @@ export default function Stats() {
       url: `${process.env.REACT_APP_BACKEND_URL}/polls/leaderboard`,
     })
       .then(function (response) {
-        setLeaders(response.data.user);
-        console.log(response.data.user);
+        setLeaders(response.data.response);
       })
       .catch(function (error) {
         console.log(error);
@@ -41,7 +40,7 @@ export default function Stats() {
         awards!
       </Box>
 
-      <div className="stats">{statCards}</div>
+      <div className="statsContent">{statCards}</div>
     </div>
   );
 }

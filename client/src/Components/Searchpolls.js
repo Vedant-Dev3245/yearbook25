@@ -47,7 +47,7 @@ export default function Searchpolls(props) {
           Authorization: `Bearer ${localStorage.token}`,
         },
         url: `${process.env.REACT_APP_BACKEND_URL}/polls/${props.id}/vote`, //updated the url here for choosing your friend
-        data: option.value,
+        data: { targetId: option.value },
       })
         .then(function (res) {
           console.log(res);
