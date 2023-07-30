@@ -157,7 +157,7 @@ const addProfile = async (req, res) => {
 
       const new_vote = { user: user, count: 0, hasVoted: false };
 
-      await Poll.find({ branch: { $in: branchCode } }).then((results) => {
+      await Poll.find({}).then((results) => {
         results.map((poll) => {
           poll.votes.push(new_vote);
           poll.save();
