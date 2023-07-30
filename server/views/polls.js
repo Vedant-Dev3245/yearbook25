@@ -136,12 +136,9 @@ const votePoll = async (req, res) => {
 const leaderboard = async (req, res) => {
   try {
     const response = [];
-    const { polls } = await Poll.find({
-      totalCount: { $gte: 1 },
-      votes: { $size: { $gte: 1 } },
-    });
+    const polls = await Poll.find({ totalCount: { $gte: 1 } });
     for (var j = 0; j < polls.length; j++) {
-      var { votes } = polls[j].select("votes");
+      let { votes } = polls[j].votes;
 
       var maximumValue = votes[0].count;
       var maxIndex = 0;
@@ -153,28 +150,10 @@ const leaderboard = async (req, res) => {
         }
       }
 
-      var user = await User.findById(votes[maxIndex].user);
+      let user = await User.findById(votes[maxIndex].user);
       response.push({ user: user, poll: polls[j] });
     }
-    // const { votes } = await Poll.findById(pollId).select("votes");
 
-    // if (votes.length === 0) {
-    //   return res.status(404).json({ msg: "poll is empty" });
-    // } else {
-    //   var maximumValue = votes[0].count;
-    //   var maxIndex = 0;
-
-    //   for (var i = 1; i < votes.length; i++) {
-    //     if (votes[i].count > maximumValue) {
-    //       maxIndex = i;
-    //       maximumValue = votes[i].count;
-    //     }
-    //   }
-    // }
-    // if (maximumValue === 0) {
-    //   return res.status(404).json({ msg: "No poll has been submitted yet" });
-    // }
-    // const user = await User.findById(votes[maxIndex].user);
     return res.status(200).json({ response });
   } catch (error) {
     console.log(error);
