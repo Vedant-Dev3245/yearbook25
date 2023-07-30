@@ -43,7 +43,7 @@ const sendRequest = async (req, res) => {
       html: `<p>Greetings from the Student Alumni Relations Cell! <br>
                           ${sender.name} has requested to write on your yearbook wall! <br>
                           <br>
-                          Log on to the <a href="yearbook.bits-sarc.org">yearbook portal</a> to accept their request. <br>
+                          Log on to the <a href="yearbook.bits-sarc.in">yearbook portal</a> to accept their request. <br>
                           <br>
                           Regards,
                           Student Alumni Relations Cell! <br>
@@ -196,7 +196,7 @@ const nominateUser = async (req, res) => {
                             <li> You can modify the caption before the deadline through the notifications tab. </li>   
                             <li> Please refrain from using any expletives or Devanagari script while writing captions. </li>
                             </ol>
-                            Login at yearbook.bits-sarc.org to enter the caption under the notifications tab  <br>
+                            Login at yearbook.bits-sarc.in to enter the caption under the notifications tab  <br>
                             <br>
                             Regards,
 
