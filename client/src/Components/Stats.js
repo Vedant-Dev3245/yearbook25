@@ -30,7 +30,7 @@ export default function Stats() {
   return (
     <div className="statspg">
       <Box
-        ml={"6rem"}
+        ml={isSmallerThan800 ? "1rem" : "5rem"}
         fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
         fontWeight="800"
       >

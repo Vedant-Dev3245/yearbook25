@@ -49,7 +49,7 @@ export default function Polls(props) {
   return (
     <div className="polls">
       <Box
-        ml={"6rem"}
+        ml={isSmallerThan800 ? "1rem" : "5rem"}
         fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
         fontWeight="800"
       >
@@ -59,7 +59,7 @@ export default function Polls(props) {
         </Text>
       </Box>
 
-      <div className="pollscards">{pollsCards}</div>
+      <Box mt={"2rem"} className="pollscards">{pollsCards}</Box>
     </div>
   );
 }
