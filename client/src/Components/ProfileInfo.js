@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon } from "@chakra-ui/react";
-import { TbLogout, TbPencil } from "react-icons/tb";
+import { TbPencil } from "react-icons/tb";
 import axios from "axios";
 import { Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
@@ -160,7 +160,7 @@ export default function ProfileInfo(props) {
 
   const [captionData, setCaptionData] = React.useState({
     caption: "",
-    targetId:localStorage.getItem("friend"),
+    targetId: localStorage.getItem("friend"),
   });
   function nominate() {
     setSpin(true);
@@ -173,8 +173,7 @@ export default function ProfileInfo(props) {
       data: nominateData,
     })
       .then(function (res) {
-        
-        console.log(nominateData)
+        console.log(nominateData);
         console.log(res);
         setMsg(res.data.msg);
         setIsOpenRequest(false);
@@ -199,12 +198,6 @@ export default function ProfileInfo(props) {
       };
     });
   }
-  let requestData = {
-    // senderId: localStorage.getItem("user"),
-    // senderName: localStorage.getItem("userName"),
-    // receiverId: localStorage.getItem("friend"),
-    targetId: localStorage.getItem("userdId"),
-  };
   function sendRequest() {
     axios({
       method: "POST",
@@ -232,7 +225,7 @@ export default function ProfileInfo(props) {
   };
   React.useEffect(() => {
     setIsOpenRequest(false);
-  }, [window.location.href]);
+  }, []);
 
   return (
     <Flex

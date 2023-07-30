@@ -7,11 +7,7 @@ function StatsCards({ user }) {
     <div className="statscard">
       <div className="statscontent">
         <div className="img">
-          <Image
-            objectFit={"cover"}
-            src="../images/shwetabh.png"
-            alt="img"
-          ></Image>
+          <Image objectFit={"cover"} src={user.imageUrl} alt="img"></Image>
           {/* <img src={user.imageUrl}></img> */}
         </div>
 
@@ -22,20 +18,23 @@ function StatsCards({ user }) {
             fontSize="1.2rem"
           />
           <Text className="count-txt" fontWeight={600}>
-            {user.totalCount} votes
+            {user.votes} votes
           </Text>
         </Flex>
 
-        <Box fontWeight={700} className="name">
+        <Box fontWeight={700} lineHeight={"2.4rem"} className="name">
           <h1>{user.name}</h1>
-          <h1>shwetabh</h1>
         </Box>
         <div className="bitsid">
-          <h3>2022A8PS1264P | A8</h3>
-          {/* <h3>{user.bitsId} | {user.bitsId.indexOf('PS') === -1 ? user.bitsId.slice(4, 8) : user.bitsId[4] + user.bitsId[5]}</h3> */}
+          <h3>
+            {user.bitsId} |{" "}
+            {user.bitsId.indexOf("PS") === -1
+              ? user.bitsId.slice(4, 8)
+              : user.bitsId[4] + user.bitsId[5]}
+          </h3>
         </div>
         <div className="pollqn">
-          <h2>holoooo hahahah letsgoo some random shit here lite</h2>
+          <h2>{user.quote}</h2>
         </div>
       </div>
     </div>
