@@ -29,7 +29,7 @@ export default function Polls(props) {
       .catch(function (error) {
         console.log(error);
       });
-  })
+  }, [])
 //   React.useEffect(()=>{
 //     setPollsData(props.questions)
 // })

@@ -28,7 +28,7 @@ export default function Nominate(props){
         .catch(function (error) {
             console.log(error);
           });
-      })
+      }, [])
 
     const cardsReq = Array.from(nominateArray).map(person => {
         return <ReqCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
