@@ -136,9 +136,12 @@ const votePoll = async (req, res) => {
 const leaderboard = async (req, res) => {
   try {
     const response = [];
-    const polls = await Poll.find({ totalCount: { $gte: 1 } });
+    const polls = await Poll.find({
+      totalCount: { $gte: 1 },
+      "votes.1": { $exists: true },
+    });
     for (var j = 0; j < polls.length; j++) {
-      let { votes } = polls[j].votes;
+      var votes = polls[j].votes;
 
       var maximumValue = votes[0].count;
       var maxIndex = 0;
@@ -151,7 +154,7 @@ const leaderboard = async (req, res) => {
       }
 
       let user = await User.findById(votes[maxIndex].user);
-      response.push({ user: user, poll: polls[j] });
+      response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, quote: user.quote });
     }
 
     return res.status(200).json({ response });

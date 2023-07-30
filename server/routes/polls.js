@@ -13,12 +13,12 @@ const {
 } = require("../views/polls");
 const { isAdmin } = require("../middleware/auth");
 
+router.get("/leaderboard", leaderboard);
 router.get("/", allPolls);
 router.get("/:id", getPoll);
 router.post("/", isAdmin, createPoll);
 router.patch("/:id", isAdmin, updatePoll);
 router.delete("/:id", isAdmin, deletePoll);
 router.put("/:id/vote", votePoll);
-router.get("/leaderboard", leaderboard);
 
 module.exports = router;
