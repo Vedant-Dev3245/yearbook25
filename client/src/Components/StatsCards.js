@@ -23,8 +23,8 @@ function StatsCards({ user }) {
             color="#2094FF"
             fontSize="1.2rem"
           />
-          <Text className="count-txt" fontWeight={600}>
-            {user.votes} votes
+          <Text className="count-txt" fontWeight={700}>
+            {user.votes} vote{user.votes > 1 ? "s" : ""}
           </Text>
         </Flex>
 
