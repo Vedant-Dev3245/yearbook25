@@ -1,8 +1,6 @@
 import {
   Flex,
-  Text,
   Box,
-  Input,
   useMediaQuery,
   Alert,
   AlertIcon,
@@ -13,7 +11,6 @@ import axios from "axios";
 import { Spinner } from "@chakra-ui/react";
 
 export default function Searchpolls(props) {
-  const [exists, setExists] = React.useState(false);
   const [res, setRes] = React.useState(false);
   const [spin, setSpin] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
@@ -51,33 +48,14 @@ export default function Searchpolls(props) {
   };
   const onSearchChange = (option) => {
     if (option) {
-      localStorage.setItem("friend", option.value);
-      console.log(bitsid);
-      console.log(label);
-      setExists(true);
-      chooseFriend();
-    }
-  };
-
-  function chooseFriend() {
-    let choosefriendData = {
-      senderId: localStorage.getItem("user"),
-      receiverId: localStorage.getItem("friend"),
-    };
-    if (choosefriendData.senderId === choosefriendData.receiverId) {
-      setAlert(true);
-      setTimeout(() => {
-        setAlert(false);
-      }, 3000);
-    } else {
       setSpin(true);
       axios({
         method: "PUT",
         headers: {
-          accessToken: localStorage.token,
+          Authorization: localStorage.token,
         },
-        url: `${process.env.REACT_APP_BACKEND_URL}/polls/targetId/vote`, //updated the url here for choosing your friend
-        data: choosefriendData,
+        url: `${process.env.REACT_APP_BACKEND_URL}/polls/${props.id}/vote`, //updated the url here for choosing your friend
+        data: option.value,
       })
         .then(function (res) {
           console.log(res);
@@ -100,7 +78,7 @@ export default function Searchpolls(props) {
           }, 3000);
         });
     }
-  }
+  };
 
   return (
     <Box position={"relative"}>

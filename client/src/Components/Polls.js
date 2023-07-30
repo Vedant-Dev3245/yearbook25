@@ -22,7 +22,7 @@ export default function Polls(props) {
     })
       .then(function (response) {
         setPollsData(response.data.questions);
-        // console.log(response.data)
+        console.log(response.data.questions);
       })
       .catch(function (error) {
         console.log(error);
@@ -34,7 +34,7 @@ export default function Polls(props) {
 
   const pollsCards = pollsData.map((questions, index) => {
     const number = (index + 1).toString().padStart(2, "0");
-    return <PollsCards key={index} number={number} pollqn={questions.ques} />;
+    return <PollsCards key={questions._id} number={number} id={questions._id} pollqn={questions.ques} />;
   });
 
   return (
