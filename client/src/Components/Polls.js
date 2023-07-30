@@ -53,9 +53,9 @@ export default function Polls(props) {
         fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
         fontWeight="800"
       >
-        let your friends know{" "}
+your turn now,{" "}
         <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-          that you know
+tell us who
         </Text>
       </Box>
 

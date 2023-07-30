@@ -26,6 +26,7 @@
 ###### BACK ######
 # Logs
 /server/logs
+/server/views/leaderboard.js
 /server/*.log
 /server/npm-debug.log*
 /server/yarn-debug.log*

@@ -3,7 +3,7 @@ import Masonry from "react-masonry-css"
 import Cards from "./Cards"
 import { Box, useMediaQuery, Text } from "@chakra-ui/react"
 
-export default function Wall(props) {
+export default function     Wall(props) {
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
     const [capt, setCapt] = React.useState([])
     const [title, setTitle] = React.useState(false)
@@ -14,7 +14,7 @@ export default function Wall(props) {
     };
     const cards = Array.from(capt).map(person => {
         
-        return <Cards name={person.name} caption={person.caption} key={person.id} img={person.imageUrl} bitsId={person.bitsId} />
+        return <Cards name={person.name} caption={person.caption} img={person.imageUrl} key={person.id} />
     })
     React.useEffect(() => {
         setCapt(props.captions)
