@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+/client/.env
 ###### FRONT ######
 # dependencies
 /client/node_modules
@@ -7,7 +7,7 @@
 /client/.pnp.js
 # testing
 /client/coverage
-
+/client/.env
 # production
 /client/build
 
