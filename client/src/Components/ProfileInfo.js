@@ -173,6 +173,8 @@ export default function ProfileInfo(props) {
       data: nominateData,
     })
       .then(function (res) {
+        
+        console.log(nominateData)
         console.log(res);
         setMsg(res.data.msg);
         setIsOpenRequest(false);
