@@ -9,9 +9,7 @@ export default function Searchpolls(props) {
   const [spin, setSpin] = React.useState(false);
   const [alert, setAlert] = React.useState(false);
   const [label, setLabel] = React.useState("");
-  const [bitsid, setBitsid] = React.useState("");
   const [msg, setMsg] = React.useState("");
-  const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
   const fetchData = (inputValue, callback) => {
     if (!inputValue) {
       callback([]);
@@ -57,18 +55,17 @@ export default function Searchpolls(props) {
           setRes(true);
           setSpin(false);
           setLabel("");
-          setBitsid("");
           setTimeout(() => {
             setRes(false);
           }, 3000);
         })
         .catch(function (err) {
           setMsg(err.message);
-          setRes(true);
           console.log(err);
           setSpin(false);
+          setAlert(true);
           setTimeout(() => {
-            setRes(false);
+            setAlert(false);
           }, 3000);
         });
     }
@@ -103,12 +100,12 @@ export default function Searchpolls(props) {
         status="error"
         display={alert ? "block" : "none"}
         position="absolute"
-        w="40%"
+        w="80%"
         bottom="5rem"
         left="0"
       >
         <AlertIcon />
-        You can not Choose yourself ;)
+        {msg}
       </Alert>
       <Alert
         bg="#242323"
@@ -116,7 +113,7 @@ export default function Searchpolls(props) {
         status="success"
         display={res ? "block" : "none"}
         position="absolute"
-        w="40%"
+        w="80%"
         bottom="-5rem"
         left="0"
       >
