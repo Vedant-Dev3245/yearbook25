@@ -136,12 +136,12 @@ const votePoll = async (req, res) => {
 const leaderboard = async (req, res) => {
   try {
     const response = [];
-    const { polls } = await Poll.find({
+    const polls = await Poll.find({
       totalCount: { $gte: 1 },
-      votes: { $size: { $gte: 1 } },
+      "votes.1": { $exists: true },
     });
     for (var j = 0; j < polls.length; j++) {
-      var { votes } = polls[j].select("votes");
+      var votes = polls[j].votes;
 
       var maximumValue = votes[0].count;
       var maxIndex = 0;
