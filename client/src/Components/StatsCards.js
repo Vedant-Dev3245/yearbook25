@@ -1,10 +1,16 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import { FiActivity } from "react-icons/fi";
-
+import { useNavigate } from "react-router-dom";
 function StatsCards({ user }) {
+  const navigate = useNavigate();
   return (
-    <div className="statscard">
+    <div
+      className="statscard"
+      onClick={() => {
+        navigate(`/profile/${user.id}`);
+      }}
+    >
       <div className="statscontent">
         <div className="img">
           <Image objectFit={"cover"} src={user.imageUrl} alt="img"></Image>
@@ -34,7 +40,7 @@ function StatsCards({ user }) {
           </h3>
         </div>
         <div className="pollqn">
-          <h2>{user.quote}</h2>
+          <h2>{user.pollQuestion}</h2>
         </div>
       </div>
     </div>
