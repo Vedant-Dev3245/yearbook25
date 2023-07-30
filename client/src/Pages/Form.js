@@ -43,7 +43,7 @@ export default function Form() {
                     method: 'POST',
                     // url: 'some/api',
                     url: `${process.env.REACT_APP_BACKEND_URL}/auth/add`,
-                    data: { ...formInfo, token: localStorage.google_token }
+                    data: { ...formInfo, token: localStorage.token }
                 })
                     .then(function (response) {
                         if (response.data.detail === "Profile created") {

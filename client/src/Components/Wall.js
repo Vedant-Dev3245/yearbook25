@@ -14,7 +14,7 @@ export default function     Wall(props) {
     };
     const cards = Array.from(capt).map(person => {
         
-        return <Cards name={person.name} caption={person.caption} key={person.id} img={person.imageUrl} bitsId={person.bitsId} />
+        return <Cards name={person.name} caption={person.caption} key={person.id} img={person.imageUrl}/>
     })
     React.useEffect(() => {
         setCapt(props.captions)

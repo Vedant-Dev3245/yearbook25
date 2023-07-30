@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Box,
-  useMediaQuery,
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/react";
+import { Flex, Box, useMediaQuery, Alert, AlertIcon } from "@chakra-ui/react";
 import React from "react";
 import AsyncSelect from "react-select/async";
 import axios from "axios";
@@ -52,7 +46,7 @@ export default function Searchpolls(props) {
       axios({
         method: "PUT",
         headers: {
-          Authorization: localStorage.token,
+          Authorization: `Bearer ${localStorage.token}`,
         },
         url: `${process.env.REACT_APP_BACKEND_URL}/polls/${props.id}/vote`, //updated the url here for choosing your friend
         data: option.value,

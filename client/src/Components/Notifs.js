@@ -1,18 +1,24 @@
-import { Box, Text, Flex, useMediaQuery } from '@chakra-ui/react'
-import React from 'react'
-import NominateCard from "./NominateCard"
-import ReqCard from './ReqCard';
+import { Box, Text, Flex, useMediaQuery } from "@chakra-ui/react";
+import React from "react";
+import NominateCard from "./NominateCard";
+import ReqCard from "./ReqCard";
 import axios from "axios";
 
-export default function Nominate(props){
-    const nominateArray = props.nominatedBy;
-    const [isSmallerThan800] = useMediaQuery('(max-width:800px)')
+export default function Nominate(props) {
+  const nominateArray = props.nominatedBy;
+  const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
 
-    const cardsNom = Array.from(nominateArray).map(person => {
-        return <NominateCard name={person.name.toLowerCase()} key={person.id} id={person.id}/>
-    })
+  const cardsNom = Array.from(nominateArray).map((person) => {
+    return (
+      <NominateCard
+        name={person.name.toLowerCase()}
+        key={person.id}
+        id={person.id}
+      />
+    );
+  });
 
-    const[reqestsUser,setRequestsUser]=React.useState([])
+  const [reqestsUser, setRequestsUser] = React.useState([]);
 
     React.useEffect(() =>{
         axios({

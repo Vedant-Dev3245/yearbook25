@@ -78,9 +78,9 @@ const writeCaption = async (req, res) => {
       const receiver = await User.findById(targetId).session(session);
       const captions = receiver.captions;
       //checking if a caption has already been written or not, then we'll update otherwise push a new one
-      if (captions.find((o) => o.user === writer)) {
+      if (captions.find((o) => o.user == writer.id)) {
         for (let i = 0; i < captions.length; i++) {
-          if (captions[i].user === writer) {
+          if (captions[i].user == writer.id) {
             captions[i].caption = caption;
           }
         }
@@ -228,40 +228,55 @@ const searchUsers = async (req, res) => {
 };
 
 const getProfile = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id).populate();
-    if (!user) {
-      return res.status(400).send();
+    try {
+        const user = await User.findById(req.params.id).populate({ path: 'captions', populate: [{
+                path: 'user'
+            }]
+        }).populate({
+            path: 'requests',
+            populate: [{
+                path: 'user'
+            }]
+        }).populate({
+            path: 'declined_requests',
+            populate: [{
+                path: 'user'
+            }]
+        });
+
+        if (!user) {
+            return res.status(400).send();
+        }
+
+        let captions = [];
+        user.captions.forEach(element => {
+            captions.push({
+                name: element.user.name,
+                caption: element.caption,
+                imageUrl: element.user.imageUrl
+            })
+        });
+        
+        return res.send({
+            user: {
+                'name': user.name,
+                'imageUrl': user.imageUrl,
+                'bitsId': user.bitsId,
+                'discipline': user.discipline,
+                'quote': user.quote,
+                'captions': captions,
+                'nominatedby': user.nominatedby,
+                'requests': user.requests,
+                'declined_requests': user.declined_requests
+            }
+        })
+    } catch (err) {
+        return res.send({
+            status: "failure",
+            msg: "There was an error, Please try after some time",
+        })
     }
-
-    let captions = [];
-    user.captions.forEach((caption) => {
-      captions.push({
-        name: caption.name,
-        caption: caption.caption,
-      });
-    });
-
-    return res.send({
-      user: {
-        name: user.name,
-        imageUrl: user.imageUrl,
-        bitsId: user.bitsId,
-        discipline: user.discipline,
-        quote: user.quote,
-        captions: captions,
-        nominatedby: user.nominatedby,
-        requests: user.requests,
-        declined_requests: user.declined_requests,
-      },
-    });
-  } catch (err) {
-    return res.send({
-      status: "failure",
-      msg: "There was an error, Please try after some time",
-    });
-  }
-};
+}
 
 module.exports = {
   editProfile,
