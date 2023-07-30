@@ -78,9 +78,9 @@ const writeCaption = async (req, res) => {
       const receiver = await User.findById(targetId).session(session);
       const captions = receiver.captions;
       //checking if a caption has already been written or not, then we'll update otherwise push a new one
-      if (captions.find((o) => o.user === writer)) {
+      if (captions.find((o) => o.user == writer.id)) {
         for (let i = 0; i < captions.length; i++) {
-          if (captions[i].user === writer) {
+          if (captions[i].user == writer.id) {
             captions[i].caption = caption;
           }
         }
