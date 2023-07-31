@@ -39,19 +39,6 @@ mongoose
         console.log("MongoDB connection error:", err.message);
     });
 
-// REQUEST LOGGER
-
-app.use(audit({
-    logger: logger,
-    excludeURLs: ['auth', 'polls'],
-    request: {
-        maxBodyLength: 50
-    },
-    response: {
-        maxBodyLength: 50
-    },
-}));
-
 // COOKIES
 
 app.use(cookieParser());
@@ -75,6 +62,19 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Credentials", true);
     next();
 });
+
+// REQUEST LOGGER
+
+app.use(audit({
+    logger: logger,
+    excludeURLs: ['auth', 'polls'],
+    request: {
+        maxBodyLength: 50
+    },
+    response: {
+        maxBodyLength: 50
+    },
+}));
 
 // BODY PARSER
 
