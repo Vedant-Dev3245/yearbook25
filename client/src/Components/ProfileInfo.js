@@ -190,6 +190,8 @@ export default function ProfileInfo(props) {
         setSpin(false);
       });
   }
+  // console.log(localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1);
+
 
   function handleChangeRequest(event) {
     const { name, value } = event.target;
@@ -206,7 +208,7 @@ export default function ProfileInfo(props) {
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
       },
-      url: `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
+      url: localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1 ? `${process.env.REACT_APP_BACKEND_URL}/profiles/${localStorage.getItem('friend')}/caption` : `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
       data: captionData,
     })
       .then(function (res) {
@@ -437,7 +439,7 @@ export default function ProfileInfo(props) {
 
       {!ownProfile && (
         <Box
-          ml={isSmallerThan800 ? "0" : "10rem"}
+          mr={isSmallerThan800 ? "0" : "2rem"}
           w="max-content"
           whiteSpace={"nowrap"}
           textAlign="center"
@@ -492,7 +494,6 @@ export default function ProfileInfo(props) {
       )}
 
       <Box
-        ml={isSmallerThan800 ? "0" : "10rem"}
         w="max-content"
         whiteSpace={"nowrap"}
         textAlign="center"
