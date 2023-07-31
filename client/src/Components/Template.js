@@ -1,5 +1,5 @@
 import React from "react";
-import "../index.css"
+import "../index.css";
 
 const Template = (props) => {
   const styleMainMain = {
@@ -72,7 +72,7 @@ const Template = (props) => {
   const stylepDiv = {
     marginTop: "18%",
     marginRight: "10%",
-    width: "60%"
+    width: "60%",
   };
   const styleLogo = {
     width: "36px",
@@ -177,7 +177,6 @@ const Template = (props) => {
                   <p>{props.name}</p>
                 </div>
                 <div className="namebitsId" style={styleNameImageBitsID}>
-                  <p>{props.bitsId}</p>
                   <p
                     style={{
                       fontSize: "10px",
@@ -185,7 +184,7 @@ const Template = (props) => {
                       color: "grey",
                     }}
                   >
-                    2021A3PS2249P
+                    {props.bitsId}
                   </p>
                 </div>
               </div>
