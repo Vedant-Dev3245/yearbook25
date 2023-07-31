@@ -68,7 +68,7 @@ export default function ProfileInfo(props) {
       setShowEdit(false);
       setOwnProfile(false);
     }
-  }, []);
+  }, [window.location.href]);
   // React.useEffect(() => {
   //     if (props.img.type === "Buffer") {
 
