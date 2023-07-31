@@ -52,6 +52,13 @@ html {
     transform: translateY(0px);
   }
 }
+.template {
+  display: block;
+  position: absolute;
+  width: 28rem;
+  /* right: 110vw; */
+  top: -20rem;
+}
 
 .video {
   border-radius: 50px;
@@ -157,9 +164,9 @@ html {
   color: #dae6ff !important;
 }
 
-.ellipses {
+/* .ellipses {
   width: 0 !important;
-}
+} */
 
 .selectOpt__option {
   background-color: #262734 !important;

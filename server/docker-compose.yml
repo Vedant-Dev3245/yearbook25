@@ -1,17 +1,6 @@
 version: '3'
 
 services:
-  db:
-    container_name: yearbook_db
-    image: mongo:latest
-    restart: always
-    env_file:
-      - yearbook.env
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/var/lib/docker/volumes/yearbook_mongo_data
-  
   web:
     container_name: yearbook_web
     build: .
@@ -20,8 +9,6 @@ services:
       - yearbook.env 
     ports:
       - "8000:8000"
-    depends_on:
-      - db
     volumes:
       - .:/home/app/web
       - node_modules:/home/app/web/node_modules

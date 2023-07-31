@@ -111,9 +111,6 @@
   .stats {
     padding-top: 30%;
   }
-  /* .statscard {
-        margin: auto;
-    } */
   .statscontent {
     padding: 5%;
   }
@@ -155,6 +152,21 @@
 @media screen and (max-width: 768px) {
   .statscard {
     padding-top: 20%;
+    width: 100%;
+    margin-inline: auto;
+    margin-top: 4rem;
+  }
+  .img img {
+    padding-top: -30%;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    border: solid 1px white;
+    padding-right: 0;
+  }
+  .count {
+    top: 40px;
+    right: 28px;
   }
 }
 @media screen and (max-width: 720px) {
@@ -162,15 +174,14 @@
     padding-top: 20%;
   }
   .statscard {
-    margin: auto;
+    width: 100%;
+    margin-inline: auto;
+    margin-bottom: 3rem !important;
   }
 }
 @media screen and (max-width: 730px) {
   .stats {
     padding-top: 20%;
-  }
-  .statscard {
-    margin: auto;
   }
 }
 @media screen and (max-width: 1156px) {

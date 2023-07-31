@@ -44,6 +44,19 @@ const arr = [
   //Vertical Transfer Students
   "h20171082@pilani.bits-pilani.ac.in",
   "h20171187@pilani.bits-pilani.ac.in",
+  //22Batch
+  "f20221591@pilani.bits-pilani.ac.in",
+  "f20220478@pilani.bits-pilani.ac.in",
+  "f20221225@pilani.bits-pilani.ac.in",
+  "f20220553@pilani.bits-pilani.ac.in",
+  "f20221203@pilani.bits-pilani.ac.in",
+  "f20221264@pilani.bits-pilani.ac.in",
+  "f20220898@pilani.bits-pilani.ac.in",
+  "f20220471@pilani.bits-pilani.ac.in",
+  "f20220557@pilani.bits-pilani.ac.in",
+  "f20221171@pilani.bits-pilani.ac.in",
+  "f20220115@pilani.bits-pilani.ac.in",
+  "f20220590@pilani.bits-pilani.ac.in",
 ];
 
 module.exports = arr;
