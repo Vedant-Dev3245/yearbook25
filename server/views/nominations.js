@@ -99,7 +99,8 @@ const nominateUser = async (req, res) => {
     const senderName = sender.name;
 
     const receiverEmail = receiver.email;
-    if (receiver.nominatedby.some((obj) => obj.id === senderId)) {
+    if (receiver.nominatedby.find((obj) => obj.id == senderId)) {
+      console.log("good")
       session.endSession();
       return res.send({
         status: "failure",
@@ -117,16 +118,17 @@ const nominateUser = async (req, res) => {
     // Handle requests
     // if the target user had requested to write on the wall
     // remove request and add it to nominated
-    if (sender.requests.find((o) => o.user == receiver)) {
+    console.log(sender.requests.find((o) => o.user == receiverId))
+    if (sender.requests.find((o) => o.user == receiverId)) {
       const requests = sender.requests;
       let newCap;
       for (let i = 0; i < requests.length; i++) {
-        if (requests[i].user === receiver) {
+        if (requests[i].user == receiverId) {
           newCap = requests[i].caption;
           requests.splice(i, 1);
         }
       }
-      await receiver
+      await sender
         .updateOne({
           $push: {
             captions: {
@@ -141,16 +143,16 @@ const nominateUser = async (req, res) => {
         })
         .session(session);
       await sender.updateOne({ requests }).session(session);
-    } else if (sender.declined_requests.find((o) => o.user == receiver)) {
+    } else if (sender.declined_requests.find((o) => o.user == receiverId)) {
       const declined_requests = sender.declined_requests;
       let newCap;
       for (let i = 0; i < declined_requests.length; i++) {
-        if (declined_requests[i].user === receiver) {
+        if (declined_requests[i].user === receiverId) {
           newCap = declined_requests[i].caption;
           declined_requests.splice(i, 1);
         }
       }
-      await receiver
+      await sender
         .updateOne({
           $push: {
             captions: {
