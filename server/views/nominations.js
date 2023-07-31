@@ -70,8 +70,8 @@ const allRequests = async (req, res) => {
   try {
     senderId = req.user.id;
     sender = await User.findById(senderId)
-      .populate("requests.user")
-      .populate("declined_requests");
+      .populate("requests.user", "name id")
+      .populate("declined_requests", "name id");
 
     return res.send({
       status: "success",

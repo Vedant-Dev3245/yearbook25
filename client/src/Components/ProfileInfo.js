@@ -69,17 +69,6 @@ export default function ProfileInfo(props) {
       setOwnProfile(false);
     }
   }, [window.location.href]);
-  // React.useEffect(() => {
-  //     if (props.img.type === "Buffer") {
-
-  //         let blob = new Blob(props.img.data, { type: "image/jpeg" })
-  //         let file = new File([blob], "name", { type: "image/jpeg" });
-  //         setImg(URL.createObjectURL(file))
-  //         console.log(file);
-  //         console.log(URL.createObjectURL(file))
-
-  //     }
-  // }, [props.img])
 
   function onImageChange(e) {
     const imageFile = e.target.files[0];

@@ -56,8 +56,8 @@ export default function Nominate(props) {
         {nominateArray.length === 0
           ? "do you want to write some"
           : nominateArray.length === 1
-          ? `a friend wants you to write them a `
-          : `damnn... ${nominateArray.length - 1}+ pending`}{" "}
+            ? `a friend wants you to write them a `
+            : `damnn... ${nominateArray.length - 1}+ pending`}{" "}
         <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
           caption{nominateArray.length === 1 ? "" : "s"}
         </Text>
@@ -74,12 +74,12 @@ export default function Nominate(props) {
       </Flex>
       <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">
         {reqestsUser.length === 0
-          ? "get your friends to write some"
+          ? ""
           : reqestsUser.length === 1
-          ? `here's a friend with a  `
-          : `you're famous, ${reqestsUser.length - 1}+ new`}{" "}
+            ? `here's a friend with a  `
+            : `you're famous, ${reqestsUser.length - 1}+ new`}{" "}
         <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-          caption{reqestsUser.length === 1 ? "" : "s"}
+          {reqestsUser.length > 0 ? reqestsUser.length === 1 ? "caption" : "captions" : ""}
         </Text>
       </Box>
       <Flex
