@@ -1,5 +1,5 @@
 import React from "react";
-import "../index.css"
+import "../index.css";
 
 const Template = (props) => {
   const styleMainMain = {
@@ -23,7 +23,6 @@ const Template = (props) => {
 
   const styleTitle = {
     textAlign: "center",
-    marginTop: "10%",
   };
   const styleYearbook = {
     color: "#FFF",
@@ -42,7 +41,7 @@ const Template = (props) => {
     fontWeight: "400",
     lineHeight: "normal",
     marginLeft: "30%",
-    marginTop: "-25px",
+    marginTop: "-20px",
   };
   const styleContentBoxBox = {
     padding: "12%",
@@ -72,7 +71,7 @@ const Template = (props) => {
   const stylepDiv = {
     marginTop: "18%",
     marginRight: "10%",
-    width: "60%"
+    width: "60%",
   };
   const styleLogo = {
     width: "36px",
@@ -125,11 +124,11 @@ const Template = (props) => {
   const styleNameImageNameBitsID = {
     display: "flex",
     flexDirection: "column",
-    marginLeft: "1rem",
+    marginLeft: "2rem",
     marginTop: "0.5rem",
   };
   const styleNameImageName = {
-    fontSize: "12px",
+    fontSize: "14px",
     textTransform: "lowercase",
     margin: "0",
     textAlign: "center",
@@ -177,7 +176,6 @@ const Template = (props) => {
                   <p>{props.name}</p>
                 </div>
                 <div className="namebitsId" style={styleNameImageBitsID}>
-                  <p>{props.bitsId}</p>
                   <p
                     style={{
                       fontSize: "10px",
@@ -185,7 +183,7 @@ const Template = (props) => {
                       color: "grey",
                     }}
                   >
-                    2021A3PS2249P
+                    {props.bitsId}
                   </p>
                 </div>
               </div>

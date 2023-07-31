@@ -7,8 +7,6 @@ import Template from "./Template";
 
 export default function Cards(props) {
   const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
-
-  const [caption, setCaption] = React.useState("");
   const [ownProfile, setOwnProfile] = React.useState("");
 
   const handleShareInsta = async () => {
@@ -17,8 +15,8 @@ export default function Cards(props) {
     if (templateElement) {
       try {
         const canvas = await html2canvas(templateElement, {
-          scrollY: -window.scrollY,
           useCORS: true,
+          allowTaint: true,
         });
 
         canvas.toBlob(async (blob) => {
