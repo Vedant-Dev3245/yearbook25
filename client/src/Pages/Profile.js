@@ -36,7 +36,7 @@ export default function Profile(props) {
       window.location.reload();
       alert("You have been logged out. Please log-in again!");
     }
-  });
+  }, [navigate]);
   React.useEffect(() => {
     setLoading(true);
     axios({

@@ -157,6 +157,10 @@ html {
   color: #dae6ff !important;
 }
 
+.ellipses {
+  width: 0 !important;
+}
+
 .selectOpt__option {
   background-color: #262734 !important;
   color: wheat;

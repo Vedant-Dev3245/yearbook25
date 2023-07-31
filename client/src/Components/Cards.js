@@ -103,12 +103,14 @@ export default function Cards(props) {
 
       {/* template for insta story */}
       {ownProfile && isSmallerThan800 && (
-        <Template
-          caption={props.caption}
-          name={props.name}
-          img={props.img}
-          bitsId={props.bitsId}
-        />
+        <Box w="0" h="0" overflow={"hidden"}>
+          <Template
+            caption={props.caption}
+            name={props.name}
+            img={props.img}
+            bitsId={props.bitsId}
+          />
+        </Box>
       )}
       {/* template for insta story */}
 
