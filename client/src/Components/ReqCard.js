@@ -19,13 +19,13 @@ export default function ReqCard(props) {
   const [res, setRes] = React.useState(false);
   // const[reqestsUser,setRequestsUser]=React.useState([])
   // const navigate = useNavigate()
-
+  console.log(props)
   const [captionData, setCaptionData] = React.useState({
     caption: "",
     receiverId: props.id,
   });
   let acceptData = {
-    receiverId: localStorage.getItem("friend"),
+    receiverId: props.id,
     // targetId: localStorage.getItem("userdId")
   };
   function handleAcceptReq() {
