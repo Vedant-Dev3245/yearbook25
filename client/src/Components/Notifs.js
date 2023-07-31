@@ -31,7 +31,8 @@ export default function Nominate(props) {
       .then(function (response) {
         setRequestsUser(response.data.requests);
 
-        console.log(response);
+        console.log(response.data.requests);
+
       })
       .catch(function (error) {
         console.log(error);
@@ -39,11 +40,12 @@ export default function Nominate(props) {
   }, []);
 
   const cardsReq = reqestsUser.map((person) => {
+    console.log(person.user)
     return (
       <ReqCard
         name={person.user.name.toLowerCase()}
-        key={person.id}
-        id={person.user.captions[0].user}
+        key={person.user._id}
+        id={person.user._id}
       />
     );
   });
