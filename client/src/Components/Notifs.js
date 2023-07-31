@@ -72,7 +72,7 @@ export default function Nominate(props) {
       </Flex>
       <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">
         {reqestsUser.length === 0
-          ? "do you want to write some"
+          ? "get your friends to write some"
           : reqestsUser.length === 1
           ? `here's a friend with a  `
           : `you're famous, ${reqestsUser.length - 1}+ new`}{" "}
