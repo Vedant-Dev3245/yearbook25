@@ -23,6 +23,7 @@ const Template = (props) => {
 
   const styleTitle = {
     textAlign: "center",
+    marginTop: "10%",
   };
   const styleYearbook = {
     color: "#FFF",

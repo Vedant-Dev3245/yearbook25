@@ -13,6 +13,7 @@ export default function Cards(props) {
 
   const handleShareInsta = async () => {
     const templateElement = document.querySelector(".template");
+    templateElement.style.display = "block";
     if (templateElement) {
       try {
         const canvas = await html2canvas(templateElement, {
@@ -34,16 +35,20 @@ export default function Cards(props) {
               try {
                 await navigator.share(shareData);
                 console.log("Shared successfully!");
+                templateElement.style.display = "none";
               } catch (error) {
                 console.error("Error sharing:", error);
+                templateElement.style.display = "none";
               }
             } else {
               console.log(
                 "Sharing to Instagram is not supported on this device."
               );
+              templateElement.style.display = "none";
             }
           } else {
             console.log("Failed to convert HTML to image.");
+            templateElement.style.display = "none";
           }
         });
       } catch (error) {
@@ -102,16 +107,16 @@ export default function Cards(props) {
       </Flex>
 
       {/* template for insta story */}
+      {/* <Box w="0" h="0" overflow={"hidden"}> */}
       {ownProfile && isSmallerThan800 && (
-        <Box w="0" h="0" overflow={"hidden"}>
-          <Template
-            caption={props.caption}
-            name={props.name}
-            img={props.img}
-            bitsId={props.bitsId}
-          />
-        </Box>
+        <Template
+          caption={props.caption}
+          name={props.name}
+          img={props.img}
+          bitsId={props.bitsId}
+        />
       )}
+      {/* </Box> */}
       {/* template for insta story */}
 
       <Flex>
