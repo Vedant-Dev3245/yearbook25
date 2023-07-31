@@ -104,13 +104,13 @@ export default function Form() {
       };
     });
   }
-  async function onImageChange(e) {
+  function onImageChange(e) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
     setImgExist(true);
     const uniqueFileName = `${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
     const storageRef = ref(storage, `files/${uniqueFileName}`);
-    const uploadTask = await uploadBytesResumable(storageRef, imageFile);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
     uploadTask.on(
       "state_changed",
@@ -122,7 +122,6 @@ export default function Form() {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // console.log(downloadURL)
           setIsDisabled(false);
           setFormInfo((prevFormInfo) => {
             return {
@@ -384,8 +383,7 @@ export default function Form() {
             fontSize="1.8rem"
             color="#B3B3B3"
             letterSpacing="-0.1rem"
-            fontFamily="Gilroy"
-            fontStyle="italic"
+            fontFamily="Gilmer"
             fontWeight="700"
             w="60%"
             marginInline="auto"
