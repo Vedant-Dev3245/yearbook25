@@ -7,6 +7,21 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
+const audit = require('express-requests-logger');
+const bunyan = require('bunyan');
+const { RotatingFileStream } = bunyan;
+
+const logger = bunyan.createLogger({ name: 'yb-portal', streams: [{
+    stream: new RotatingFileStream({
+        path: './error.log',
+        period: '1d',          // daily rotation
+        totalFiles: 10,        // keep up to 10 back copies
+        rotateExisting: true,  // Give ourselves a clean file when we start up, based on period
+        threshold: '10m',      // Rotate log files larger than 10 megabytes
+        totalSize: '20m',      // Don't keep more than 20mb of archived log files
+        gzip: true             // Compress the archive log files to save space
+    })
+}]});
 
 // MONGODB
 
@@ -23,6 +38,19 @@ mongoose
     .catch((err) => {
         console.log("MongoDB connection error:", err.message);
     });
+
+// REQUEST LOGGER
+
+app.use(audit({
+    logger: logger,
+    excludeURLs: ['auth', 'polls'],
+    request: {
+        maxBodyLength: 50
+    },
+    response: {
+        maxBodyLength: 50
+    },
+}));
 
 // COOKIES
 

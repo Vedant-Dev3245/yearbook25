@@ -100,7 +100,6 @@ const nominateUser = async (req, res) => {
 
     const receiverEmail = receiver.email;
     if (receiver.nominatedby.find((obj) => obj.id == senderId)) {
-      console.log("good")
       session.endSession();
       return res.send({
         status: "failure",
@@ -118,7 +117,6 @@ const nominateUser = async (req, res) => {
     // Handle requests
     // if the target user had requested to write on the wall
     // remove request and add it to nominated
-    console.log(sender.requests.find((o) => o.user == receiverId))
     if (sender.requests.find((o) => o.user == receiverId)) {
       const requests = sender.requests;
       let newCap;
