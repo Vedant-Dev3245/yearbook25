@@ -18,6 +18,7 @@ export default function Wall(props) {
         name={person.name}
         caption={person.caption}
         img={person.imageUrl}
+        bitsId={person.bitsId}
         key={person.id}
       />
     );

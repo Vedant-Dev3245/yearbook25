@@ -56,8 +56,8 @@ html {
   display: block;
   position: absolute;
   width: 28rem;
-  right: 110vw;
-  top: 2rem;
+  /* right: 110vw; */
+  top: -20rem;
 }
 
 .video {

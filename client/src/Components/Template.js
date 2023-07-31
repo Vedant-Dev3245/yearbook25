@@ -23,7 +23,6 @@ const Template = (props) => {
 
   const styleTitle = {
     textAlign: "center",
-    marginTop: "10%",
   };
   const styleYearbook = {
     color: "#FFF",
@@ -42,7 +41,7 @@ const Template = (props) => {
     fontWeight: "400",
     lineHeight: "normal",
     marginLeft: "30%",
-    marginTop: "-25px",
+    marginTop: "-20px",
   };
   const styleContentBoxBox = {
     padding: "12%",
@@ -125,11 +124,11 @@ const Template = (props) => {
   const styleNameImageNameBitsID = {
     display: "flex",
     flexDirection: "column",
-    marginLeft: "1rem",
+    marginLeft: "2rem",
     marginTop: "0.5rem",
   };
   const styleNameImageName = {
-    fontSize: "12px",
+    fontSize: "14px",
     textTransform: "lowercase",
     margin: "0",
     textAlign: "center",
