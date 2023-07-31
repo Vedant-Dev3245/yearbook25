@@ -17,7 +17,7 @@ export default function newDevs() {
                 columnClassName="my-masonry-grid_column2">
             <DevCards
                     img="../images/himanshu.jpeg"
-                    name="Himanshu Kumar"
+                    name="himanshu kumar"
                     caption="frontend captain | 2021B5PS0923P"
                     twitter="https://twitter.com/whimahima"
                     github="https://github.com/Zendovo"
@@ -27,7 +27,7 @@ export default function newDevs() {
                 />
                 <DevCards
                     img="../images/rakshit.jpeg"
-                    name="Rakshit Sakhuja"
+                    name="rakshit sakhuja"
                     caption="multitasker | 2021A7PS0532P"
                     twitter=""
                     github="https://github.com/Rakshit2622"
@@ -37,17 +37,17 @@ export default function newDevs() {
                  />
                 <DevCards
                     img="../images/nabisha.jpeg"
-                    name="Nabisha Obaid"
+                    name="nabisha obaid"
                     caption="ninja designer | 2022B1PS1591P"
                     twitter="http://www.twitter.com/not_bishx"
                     github=""
                     linkedin="https://www.linkedin.com/in/nabisha-obaid-19175a264"
                     spotify="https://open.spotify.com/user/31cvstady2jbjicplfq3efd5rmoa?si=dSQ8_NqpSPWGoBdne3E98g"
-                    text="Doth mother know you weareth her drapes?"
+                    text="Just give me some good music and a deadline"
                 />
                 <DevCards
                     img="../images/ishita.jpeg"
-                    name="Ishita Agrawal"
+                    name="ishita agrawal"
                     caption="Everything you like🍁 | 2022A8PS1248P"
                     twitter="https://twitter.com/isthatishita?t=68oAisBkzqN_5uhadWlIyg&s=09"
                     github=""
@@ -67,7 +67,7 @@ export default function newDevs() {
                 />
                 <DevCards
                     img="../images/saksham.png"
-                    name="A Prabhas Kumar"
+                    name="prabhas Kumar"
                     caption="heavylifter | 2020A7PS1508P"
                     twitter="https://twitter.com/saksham_io"
                     github="http://github.com/sakshamdevelops"
@@ -86,8 +86,8 @@ export default function newDevs() {
                     text="Don’t let the Muggles get you down."
                 />
                 <DevCards
-                    img="../images/harsh.png"
-                    name="Aryan Keshri"
+                    img="../images/keshri.jpeg"
+                    name="aryan keshri"
                     caption="backing backend | 2021B3A71260P"
                     twitter="https://twitter.com/aryankeshri007?s=21"
                     github="https://github.com/DankMemes4President"
@@ -97,7 +97,7 @@ export default function newDevs() {
                 />
                   <DevCards
                     img="../images/jai.jpeg"
-                    name="Jai VR"
+                    name="jai vr"
                     caption="Hustler | 2020A8PS1807P"
                     twitter="https://twitter.com/shreyakhubber?lang=en"
                     github=""

@@ -43,7 +43,7 @@ export default function Nominate(props) {
       <ReqCard
         name={person.user.name.toLowerCase()}
         key={person.id}
-        id={person.id}
+        id={person.user.captions[0].user}
       />
     );
   });
