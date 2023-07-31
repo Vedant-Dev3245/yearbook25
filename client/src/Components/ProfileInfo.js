@@ -453,7 +453,7 @@ export default function ProfileInfo(props) {
           onClick={ownProfile ? handleLogout : handleOpenRequest}
         >
           write on their wall
-          <Spinner
+          {/* <Spinner
             size="lg"
             mt="1rem"
             position="absolute"
@@ -487,7 +487,7 @@ export default function ProfileInfo(props) {
           >
             <AlertIcon />
             {msg}
-          </Alert>
+          </Alert> */}
         </Box>
       )}
 
@@ -507,7 +507,7 @@ export default function ProfileInfo(props) {
         fontWeight="700"
         onClick={ownProfile ? handleLogout : nominate}
       >
-        {ownProfile ? "logout" : "nominate"}
+        {ownProfile ? "logout" : "nominate this user"}
         <Spinner
           size="lg"
           mt="1rem"

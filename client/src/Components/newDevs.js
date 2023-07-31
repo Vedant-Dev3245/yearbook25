@@ -26,7 +26,7 @@ export default function newDevs() {
                     text="meeting deadlines one at a time"
                 />
                 <DevCards
-                    img="../images/aryan.png"
+                    img="../images/rakshit.jpeg"
                     name="Rakshit Sakhuja"
                     caption="multitasker | 2021A7PS0532P"
                     twitter=""
