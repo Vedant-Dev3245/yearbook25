@@ -47,10 +47,11 @@ export default function Profile(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}`,
     })
       .then(function (response) {
-        setUser(response.data.user);
+        setUser(response.data.user)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
           window.localStorage.setItem("userName", response.data.user.name);
+          window.localStorage.setItem('nominatedBy', JSON.stringify(response.data.user.nominatedby))
         }
       })
       .catch(function (error) {
