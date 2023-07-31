@@ -19,8 +19,8 @@ const DevCards = (props) => {
         <Box boxSizing="border-box" bgColor="#151515"
         pt={3} pl={3} pr={3} pb={5} borderRadius="15px" 
         border="0.414982px solid rgba(255, 255, 255, 0.5);"
-        m={5} w="90%" className="devColumn">
-        <Image src={props.img} w="100%" borderRadius="15px" />
+        m={5} w="90%" className="devColumn" >
+        <Image src={props.img} w="100%" borderRadius="15px" h="14rem" />
             <VStack alignItems="baseline" pl={2}>
                 <Text color="#DCEDFB" fontWeight={700} fontSize="2.2rem" mt="0.5rem !important" className='devName'>{props.name}</Text>
                 <Text color="#B3B3B3" className='devCaption' fontWeight={300} fontSize="1rem" mt="-0.2rem !important" mb="0.5rem !important">{props.caption}</Text>

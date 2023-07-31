@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom"
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import New from '../Components/newDevs';
 import Devs from '../Components/Devs';
 import { Box, Text, VStack, useMediaQuery, Flex } from '@chakra-ui/react';
 import jwtDecode from "jwt-decode"
@@ -99,6 +100,9 @@ export default function Devleopers() {
                 w={isSmallerThan800?"80%":"45%"} mb="3rem !important" align="center">
                     hey let's make something good for the graduating batch
                 </Text> */}
+         <New />
+         <Text fontWeight={800} fontSize={isSmallerThan800 ? "1.8rem" : "4rem"} color="white">
+            Legacy developers🌱</Text>
           <Devs />
         </VStack>
       </Box>
