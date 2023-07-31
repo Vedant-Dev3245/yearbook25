@@ -265,6 +265,7 @@ export default function Form() {
                       pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP"
                       onChange={handleChange}
                       p="1.2rem 0.8rem"
+                      textTransform={"uppercase"}
                       placeholder="enter your id number here"
                       name="id"
                       type="text"
