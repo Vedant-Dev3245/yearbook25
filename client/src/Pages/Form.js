@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/react";
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Form() {
   const validID = new RegExp(
@@ -103,14 +104,13 @@ export default function Form() {
       };
     });
   }
-  function onImageChange(e) {
+  async function onImageChange(e) {
     const imageFile = e.target.files[0];
-    // console.log(imageFile)
     setImg(URL.createObjectURL(imageFile));
-    // console.log(URL.createObjectURL(imageFile))
     setImgExist(true);
-    const storageRef = ref(storage, `files/${imageFile.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+    const uniqueFileName = `${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
+    const storageRef = ref(storage, `files/${uniqueFileName}`);
+    const uploadTask = await uploadBytesResumable(storageRef, imageFile);
 
     uploadTask.on(
       "state_changed",
@@ -137,19 +137,6 @@ export default function Form() {
   function handleSubmit(e) {
     e.preventDefault();
     validate(e);
-    // if (valid) {
-
-    //     else {
-    //         // <Alert status='error'>
-    //         //     <AlertIcon />
-    //         //         There was an error processing your request
-    //         // </Alert>
-
-    //     }
-    // }
-    // else{
-
-    // }
   }
   return (
     <Flex

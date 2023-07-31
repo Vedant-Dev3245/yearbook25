@@ -29,6 +29,7 @@ import { Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ProfileInfo(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -67,7 +68,7 @@ export default function ProfileInfo(props) {
       setShowEdit(false);
       setOwnProfile(false);
     }
-  });
+  }, []);
   // React.useEffect(() => {
   //     if (props.img.type === "Buffer") {
 
@@ -84,7 +85,8 @@ export default function ProfileInfo(props) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
     setImgExist(true);
-    const storageRef = ref(storage, `files/${imageFile.name}`);
+    const uniqueFileName = `${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
+    const storageRef = ref(storage, `files/${uniqueFileName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
     uploadTask.on(
