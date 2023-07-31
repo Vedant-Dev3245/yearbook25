@@ -14,7 +14,7 @@ export default function OptIn(){
         else{
             setIsDisabled(false)
         }
-    },[localStorage])
+    },[])
     return(
         <Box color="white" w="80%" h="auto" 
             marginInline="auto" 
@@ -37,9 +37,9 @@ export default function OptIn(){
                     z-index="2"
                     paddingBottom="2.5rem"
                      >
-                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "3rem"} fontWeight="700" mt={isSmallerThan800?"3rem":"4rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook <Image src="../images/clinking-glasses.png" display="inline" height={11}></Image></Box>
+                    <Box fontSize={isSmallerThan800 ? "1.6rem" : "3rem"} fontWeight="700" mt={isSmallerThan800?"3rem":"4rem"}>opt-in for the <Box display="inline" fontStyle="italic" fontFamily="EB Garamond">physical</Box> yearbook <Image src="../images/clinking-glasses.png" display="inline" height={8}></Image></Box>
                     <Box color="#C9C8C8" mt={isSmallerThan800 ? "-1rem" : 0} fontSize={isSmallerThan800 ? "1rem" : "1.4rem"}>get physical copy. cherish it for the years to come.</Box>
-                    <Link  href="https://forms.gle/WTdT4KZWxdF9iCWv8" target="_blank"><Button disabled={isDisabled} className="phyButton" mt={"2rem !important"} marginBottom={isSmallerThan800?"2rem !important":"2rem !important"} fontSize="1.2rem" color="black" fontWeight="700"> {isDisabled ? "sign in to opt in" : "yes, i do need yearbook irl"} <ArrowForwardIcon /> </Button> </Link>
+                    <Link  href="https://forms.gle/tHXM2Mvesjsd8mqD7" target="_blank"><Button disabled={isDisabled} className="phyButton" mt={"2rem !important"} marginBottom={isSmallerThan800?"2rem !important":"2rem !important"} fontSize="1.2rem" color="black" fontWeight="700"> {isDisabled ? "sign in to opt in" : "yes, i do need yearbook irl"} <ArrowForwardIcon /> </Button> </Link>
                     </VStack>
             </Box>
     )
