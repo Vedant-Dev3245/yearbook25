@@ -269,7 +269,7 @@ export default function Form() {
                       placeholder="enter your id number here"
                       name="id"
                       type="text"
-                      value={formInfo.id}
+                      value={formInfo.id.toUpperCase}
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
@@ -378,7 +378,7 @@ export default function Form() {
             {formInfo.email}
           </Box>
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
-            {formInfo.id}
+            {formInfo.id.toUpperCase()}
           </Box>
           <Box
             fontSize="1.8rem"
