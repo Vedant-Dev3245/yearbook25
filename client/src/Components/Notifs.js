@@ -57,9 +57,9 @@ export default function Nominate(props) {
           ? "do you want to write some"
           : nominateArray.length === 1
             ? `a friend wants you to write them a `
-            : `damnn... ${nominateArray.length - 1}+ pending`}{" "}
+            : `damnn... ${nominateArray.length - 1}+ `}{" "}
         <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-          caption{nominateArray.length === 1 ? "" : "s"}
+           nomination{nominateArray.length === 1 ? "" : "s"}
         </Text>
       </Box>
       {/* <Text color="#B3B3B3" fontSize="1.2rem" w={isSmallerThan800 ? "100%" : "50%"} mt="0.5rem">the credit score checker allows you to calculate your credit score report and cibil score. it is a three-digit numeric expression that represents your creditworthiness.</Text> */}
