@@ -18,7 +18,7 @@ export default function newDevs() {
             <DevCards
                     img="../images/himanshu.jpeg"
                     name="himanshu kumar"
-                    caption="frontend captain | 2021B5PS0923P"
+                    caption="frontend captain | 2022A8PS0557P"
                     twitter="https://twitter.com/whimahima"
                     github="https://github.com/Zendovo"
                     linkedin="https://www.linkedin.com/in/himanshu-kumar-679ab31b0/"
