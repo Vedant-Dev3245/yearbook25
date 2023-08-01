@@ -74,7 +74,8 @@ export default function ProfileInfo(props) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
     setImgExist(true);
-    const uniqueFileName = `${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
+    console.log(`${localStorage.getItem("userName")}${uuidv4()}.${imageFile.name.split(".").pop()}`)
+    const uniqueFileName = `${localStorage.getItem("userName")}${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
     const storageRef = ref(storage, `files/${uniqueFileName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
 

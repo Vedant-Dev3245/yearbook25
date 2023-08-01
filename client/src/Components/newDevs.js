@@ -103,7 +103,7 @@ export default function newDevs() {
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-khubber/"
                     spotify="https://open.spotify.com/album/0yMLTRxwcDN5XHjP5w8jAH?si=wrdfhONORHCp8gvSQ72CDQ&utm_source=copy-link"
-                    text="i don't think i did anything.."
+                    text="I work for the sound from my keyboard :)"
                 />
                                 
             </Masonry>
