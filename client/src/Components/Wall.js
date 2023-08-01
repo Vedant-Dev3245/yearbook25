@@ -12,10 +12,11 @@ export default function Wall(props) {
     700: 2,
     500: 1,
   };
-  const cards = Array.from(capt).map((person) => {
+  const cards = Array.from(capt).map((person, index) => {
     return (
       <Cards
         name={person.name}
+        index={index}
         caption={person.caption}
         img={person.imageUrl}
         bitsId={person.bitsId}

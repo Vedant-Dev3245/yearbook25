@@ -64,6 +64,9 @@ html {
   border-radius: 50px;
   height: 29.5rem;
 }
+.devText{
+  text-transform: lowercase;
+}
 
 .navProf {
   background: linear-gradient(
@@ -236,7 +239,7 @@ html {
     padding-left: 0;
   }
   .devColumn {
-    width: 17rem !important;
+    width: 23rem !important;
   }
 }
 @media (min-width: 510px) and (max-width: 600px) {
