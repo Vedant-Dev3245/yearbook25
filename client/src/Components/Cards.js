@@ -129,7 +129,7 @@ export default function Cards(props) {
          h="1.5rem"
          w="1.5rem"
          marginRight={"0.4rem !important"}
-         src="../images/insta.png"
+         src="../images/insta.svg"
          margin={0}
        />
           
