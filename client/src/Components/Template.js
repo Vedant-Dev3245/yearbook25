@@ -40,8 +40,9 @@ const Template = (props) => {
     fontStyle: "normal",
     fontWeight: "400",
     lineHeight: "normal",
-    marginLeft: "30%",
-    marginTop: "-20px",
+    marginLeft: "20%",
+    marginTop: "-15px",
+    marginBottom: "20px"
   };
   const styleContentBoxBox = {
     padding: "12%",
