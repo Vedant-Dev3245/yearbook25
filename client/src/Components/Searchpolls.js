@@ -60,7 +60,7 @@ export default function Searchpolls(props) {
           }, 3000);
         })
         .catch(function (err) {
-          setMsg(err.message);
+          setMsg(err.response.data.msg);
           console.log(err);
           setSpin(false);
           setAlert(true);
