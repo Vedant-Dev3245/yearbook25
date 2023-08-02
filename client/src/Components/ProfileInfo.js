@@ -26,7 +26,7 @@ import { Icon } from "@chakra-ui/react";
 import { TbPencil } from "react-icons/tb";
 import axios from "axios";
 import { Spinner } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -49,6 +49,7 @@ export default function ProfileInfo(props) {
   });
   const [img, setImg] = React.useState();
   const navigate = useNavigate();
+  const params = useParams();
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -143,18 +144,17 @@ export default function ProfileInfo(props) {
     navigate("/");
     document.location.reload();
   }
-  let nominateData = {
-    senderId: localStorage.getItem("user"),
-    senderName: localStorage.getItem("userName"),
-    receiverId: localStorage.getItem("friend"),
-    // targetId: localStorage.getItem("userdId")
-  };
 
   const [captionData, setCaptionData] = React.useState({
     caption: "",
-    targetId: localStorage.getItem("friend"),
+    targetId: params.id,
   });
   function nominate() {
+    let nominateData = {
+      senderId: localStorage.getItem("user"),
+      senderName: localStorage.getItem("userName"),
+      receiverId: params.id,
+    }
     setSpin(true);
     axios({
       method: "POST",
@@ -198,12 +198,15 @@ export default function ProfileInfo(props) {
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
       },
-      url: localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1 ? `${process.env.REACT_APP_BACKEND_URL}/profiles/${localStorage.getItem('friend')}/caption` : `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
+      url: localStorage.getItem("nominatedBy").search(params.id) !== -1 ? `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}/caption` : `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
       data: captionData,
     })
       .then(function (res) {
         console.log(res);
         setIsOpenRequest(false);
+        if(res.data.success){
+          window.location.reload();
+        }
       })
       .catch(function (err) {
         console.log(err);

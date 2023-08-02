@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import {
@@ -28,16 +28,23 @@ export default function Form() {
   const validID = new RegExp(
     "2020[ABD][1-9AB]([A][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
   );
+  const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  useEffect(() => {
+    if (data === undefined || data === null) {
+      navigate('/')
+    }
+  }, [data, navigate])
   const [formInfo, setFormInfo] = React.useState({
     // firstName: 'shwetabh',
-    firstName: data.given_name,
+    firstName: data ? data.given_name : "",
     // lastName: 'niket',
-    lastName: data.family_name || "",
+    lastName: data ? data.family_name : "",
     quote: "",
     id: "",
-    email: data.email,
+    email: data ? data.email : "",
+    // email: 'f20210923@pilani.bits-pilani.ac.in',
     pEmail: "",
     imgUrl: "",
     phone: "",
@@ -93,15 +100,21 @@ export default function Form() {
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
   const [isSmallerThan1100] = useMediaQuery("(max-width: 1100px)");
   const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
-  const navigate = useNavigate();
 
   function handleChange(event) {
     const { name, value } = event.target;
     setFormInfo((prevFormInfo) => {
-      return {
-        ...prevFormInfo,
-        [name]: value,
-      };
+      if (name === "id") {
+        return {
+          ...prevFormInfo,
+          [name]: value.toUpperCase(),
+        };
+      } else {
+        return {
+          ...prevFormInfo,
+          [name]: value,
+        };
+      }
     });
   }
   function onImageChange(e) {
@@ -265,7 +278,6 @@ export default function Form() {
                       pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP"
                       onChange={handleChange}
                       p="1.2rem 0.8rem"
-                      textTransform={"uppercase"}
                       placeholder="enter your id number here"
                       name="id"
                       type="text"
