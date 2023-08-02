@@ -28,7 +28,7 @@ export default function newDevs() {
                 <DevCards
                     img="../images/rakshit.jpeg"
                     name="rakshit sakhuja"
-                    caption="multitasker | 2021A7PS0532P"
+                    caption="multitasker | 2022A8PS0471P"
                     twitter=""
                     github="https://github.com/Rakshit2622"
                     linkedin="https://www.linkedin.com/in/rakshit-sakhuja-61ab00138/"
@@ -66,14 +66,14 @@ export default function newDevs() {
                     text="i just wanted to make you laugh :/"
                 />
                 <DevCards
-                    img="../images/saksham.png"
+                    img="../images/prabhas.jpeg"
                     name="prabhas Kumar"
-                    caption="heavylifter | 2020A7PS1508P"
-                    twitter="https://twitter.com/saksham_io"
-                    github="http://github.com/sakshamdevelops"
-                    linkedin="http://linkedin.com/in/sakshamagg27/"
-                    spotify="https://open.spotify.com/track/3oVGjguICRU4UVS1ZPwH2D?si=12e226df30b947d7"
-                    text="Sometimes you should take the first step."
+                    caption="sadboi | 2021A3PS1526P"
+                    twitter="https://twitter.com/prabhas2702"
+                    github="https://github.com/APRABHASKUMAR"
+                    linkedin="https://open.spotify.com/track/6BU1RZexmvJcBjgagVVt3M?si=5r8zhFTYQbySAMPlA7cErQ"
+                    spotify="https://open.spotify.com/track/5UXJzLFdBn6u9FJTCnoHrH?si=e59ef4fe79fc4fe6"
+                    text="never touching web dev again"
                 />
                 <DevCards
                     img="../images/shreyaimg.jpg"
@@ -88,7 +88,7 @@ export default function newDevs() {
                 <DevCards
                     img="../images/keshri.jpeg"
                     name="aryan keshri"
-                    caption="backing backend | 2021B3A71260P"
+                    caption="my coord | 2021B3A71260P"
                     twitter="https://twitter.com/aryankeshri007?s=21"
                     github="https://github.com/DankMemes4President"
                     linkedin="https://www.linkedin.com/in/aryan-keshri-702a60222"
@@ -98,7 +98,7 @@ export default function newDevs() {
                   <DevCards
                     img="../images/jai.jpeg"
                     name="jai vr"
-                    caption="hustler | 2020A8PS1807P"
+                    caption="hustler | 2022A8PS1264"
                     twitter="https://twitter.com/shreyakhubber?lang=en"
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-khubber/"

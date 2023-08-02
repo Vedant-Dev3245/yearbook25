@@ -56,13 +56,13 @@ export default function Devs() {
                     text="I gave up my struggle with perfection a long time ago. That is a concept I don't find very interesting anymore. Be happy. Be yourself, the day is about a lot more."
                 />
                 <DevCards
-                    img="../images/sarthak.png"
+                    img="../images/sarthak.jpeg"
                     name="sarthak arora"
                     caption="life sorter | 2020A7PS0060P"
                     twitter="https://twitter.com/thysarthak"
                     github="https://github.com/sarthakeash"
                     linkedin="https://linkedin.com/in/sarthak-arora-aa92b9201/"
-                    spotify="https://open.spotify.com/track/6xGruZOHLs39ZbVccQTuPZ?si=q8rhu3EcS1G9fpm68_G0zQ"
+                    spotify="https://open.spotify.com/track/6BU1RZexmvJcBjgagVVt3M?si=5r8zhFTYQbySAMPlA7cErQ"
                     text="Dont lose what you can’t replace."
                 />
                 <DevCards
