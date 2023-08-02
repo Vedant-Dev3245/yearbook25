@@ -58,7 +58,7 @@ export default function newDevs() {
                <DevCards
                     img="../images/shwetabh.png"
                     name="shwetabh niket"
-                    caption="frontend captain | 2021B5PS0923P"
+                    caption="inclusive | 2021B5A70923P"
                     twitter="https://twitter.com/shwetabhNiket"
                     github="https://github.com/nIMblEt06"
                     linkedin="https://www.linkedin.com/in/niketshwetabh/"
@@ -98,7 +98,7 @@ export default function newDevs() {
                   <DevCards
                     img="../images/jai.jpeg"
                     name="jai vr"
-                    caption="Hustler | 2020A8PS1807P"
+                    caption="hustler | 2020A8PS1807P"
                     twitter="https://twitter.com/shreyakhubber?lang=en"
                     github=""
                     linkedin="https://www.linkedin.com/in/shreya-khubber/"

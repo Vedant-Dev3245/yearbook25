@@ -122,6 +122,7 @@ export default function Navbar() {
                 <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
                   <Link
                     fontSize="s"
+                    width="100%"
                     fontWeight="600"
                     href="https://yearbook.bits-sarc.in"
                   >
@@ -132,6 +133,7 @@ export default function Navbar() {
                   <Link
                     fontSize="s"
                     fontWeight="600"
+                    width="100%"
                     href="https://bits-sarc.in"
                     target="_blank"
                   >
@@ -139,12 +141,12 @@ export default function Navbar() {
                   </Link>
                 </MenuItem>
                 <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
-                  <Link fontSize="s" fontWeight="600" href="#contact">
+                  <Link fontSize="s" fontWeight="600" href="#contact" width="100%">
                     contact
                   </Link>
                 </MenuItem>
                 <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
-                  <Link fontSize="s" fontWeight="600" onClick={gotodevelopers}>
+                  <Link fontSize="s" fontWeight="600" onClick={gotodevelopers} width="100%">
                     developers
                   </Link>
                 </MenuItem>
