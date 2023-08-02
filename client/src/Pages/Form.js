@@ -269,7 +269,7 @@ export default function Form() {
                       placeholder="enter your id number here"
                       name="id"
                       type="text"
-                      value={formInfo.id.toUpperCase}
+                      value={formInfo.id}
                     />
                   </GridItem>
                   <GridItem colSpan={2}>
