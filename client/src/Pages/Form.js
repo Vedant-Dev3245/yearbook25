@@ -38,9 +38,9 @@ export default function Form() {
   }, [data, navigate])
   const [formInfo, setFormInfo] = React.useState({
     // firstName: 'shwetabh',
-    firstName: data ? data.given_name : "",
+    firstName: data.given_name ? data.given_name : "",
     // lastName: 'niket',
-    lastName: data ? data.family_name : "",
+    lastName: data.family_name ? data.family_name : "",
     quote: "",
     id: "",
     email: data ? data.email : "",
