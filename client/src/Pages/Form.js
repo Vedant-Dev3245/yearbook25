@@ -386,7 +386,7 @@ export default function Form() {
             {formInfo.firstName.toUpperCase()} <br />
             {formInfo.lastName == undefined
               ? ""
-              : formInfo.lastName.tpUpperCase()}
+              : formInfo.lastName.toUpperCase()}
           </Box>
           <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600">
             {formInfo.email}
