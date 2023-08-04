@@ -26,16 +26,16 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function Form() {
   const validID = new RegExp(
-    "2020[ABD][1-9AB]([A][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
+    "2020[ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
   );
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
   useEffect(() => {
     if (data === undefined || data === null) {
-      navigate('/')
+      navigate("/");
     }
-  }, [data, navigate])
+  }, [data, navigate]);
   const [formInfo, setFormInfo] = React.useState({
     // firstName: 'shwetabh',
     firstName: data.given_name ? data.given_name : "",
