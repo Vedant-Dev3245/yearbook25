@@ -69,7 +69,8 @@ router.post("/google", async (req, res) => {
         branchCode: user.branchCode,
         email: payload.email,
       },
-      process.env.TOKEN_KEY
+      process.env.TOKEN_KEY,
+      { expriresIn: "180d" }
     );
     return res.send({
       authorised: 1,
