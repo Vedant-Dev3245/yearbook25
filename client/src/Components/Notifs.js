@@ -46,6 +46,7 @@ export default function Nominate(props) {
         name={person.user.name.toLowerCase()}
         key={person.user._id}
         id={person.user._id}
+        caption={person.caption}
       />
     );
   });

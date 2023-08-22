@@ -148,7 +148,7 @@ export default function ReqCard(props) {
             marginBlock={isSmallerThan800 ? "0.6rem" : "0"}
             marginInline={isSmallerThan800 ? "0" : "1rem"}
           >
-            has something to write on your wall
+            wrote on your wall: {props.caption}
           </Box>
 
           <Flex gap={2}>
