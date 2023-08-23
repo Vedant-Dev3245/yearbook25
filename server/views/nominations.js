@@ -1,4 +1,6 @@
 const { User, Search } = require("../models/user");
+const Filter = require("bad-words");
+const words = require("../bad-words.json");
 // const sgMail = require("@sendgrid/mail");
 // sgMail.setApiKey(process.env.SENDGRID);
 
@@ -6,10 +8,14 @@ const sendRequest = async (req, res) => {
   try {
     const senderId = req.user.id;
     const targetId = req.body.targetId;
-    const caption = req.body.caption;
+    var caption = req.body.caption;
 
     const sender = await User.findById(senderId);
     const target = await User.findById(targetId);
+
+    const filter = new Filter({ placeHolder: "x" });
+    filter.addWords(...words);
+    caption = filter.clean(caption);
 
     if (
       target.requests.find((o) => o.user == senderId) ||
@@ -123,6 +129,9 @@ const nominateUser = async (req, res) => {
       for (let i = 0; i < requests.length; i++) {
         if (requests[i].user == receiverId) {
           newCap = requests[i].caption;
+          const filter = new Filter({ placeHolder: "x" });
+          filter.addWords(...words);
+          newCap = filter.clean(newCap);
           requests.splice(i, 1);
         }
       }
