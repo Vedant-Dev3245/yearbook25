@@ -74,7 +74,6 @@ export default function Home() {
   const navigate = useNavigate();
 
   return (
-    // <Box>The Yearbook Portal is under maintenance, we will be back online soon.</Box>
     <Box overflowX="hidden" bg="#141414" className="noselect landing">
       <Flex
         justifyContent={"center"}
@@ -114,6 +113,6 @@ export default function Home() {
       <FAQ />
       <OptIn />
       <Footer />
-    </Box>
+    // </Box>
   );
 }

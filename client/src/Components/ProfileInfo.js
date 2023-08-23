@@ -16,6 +16,7 @@ import {
   Button,
   Input,
   FormControl,
+  Checkbox,
   useMediaQuery,
   Link,
   Alert,
@@ -48,6 +49,7 @@ export default function ProfileInfo(props) {
     imgUrl: "",
   });
   const [img, setImg] = React.useState();
+  const [submitToggle, setSubmitToggle] = React.useState(true);
   const navigate = useNavigate();
   const params = useParams();
 
@@ -223,6 +225,14 @@ export default function ProfileInfo(props) {
   React.useEffect(() => {
     setIsOpenRequest(false);
   }, []);
+
+  function toggleSubmit() {
+    if (submitToggle) {
+      setSubmitToggle(false);
+    } else {
+      setSubmitToggle(true);
+    }
+  }
 
   return (
     <Flex
@@ -529,6 +539,16 @@ export default function ProfileInfo(props) {
                 placeholder="enter your caption!"
                 onChange={handleChangeRequest}
               />
+              <Text fontWeight="600" color="#B3B3B3" mt="1rem">
+              You must accept these guidelines before writing a caption<br /><br />
+              1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
+              2. Offensive quotes will not be accepted. Your quote must not defame or criticize any individual.<br />
+              3. Please refrain from using any expletives.<br />
+              </Text>
+              <br />
+              <Checkbox onChange={toggleSubmit}>
+                I accept these terms.
+              </Checkbox>
               <Flex justifyContent="center">
                 <Button
                   onClick={sendRequest}
@@ -542,6 +562,7 @@ export default function ProfileInfo(props) {
                   p="1.2rem 1.6rem"
                   fontSize="1.4rem"
                   colorScheme="blackAlpha"
+                  isDisabled={submitToggle}
                 >
                   request
                 </Button>
