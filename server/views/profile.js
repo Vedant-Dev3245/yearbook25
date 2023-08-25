@@ -47,6 +47,13 @@ const writeCaption = async (req, res) => {
     const targetId = req.params.id;
     // console.log(caption, writerId, receiverId);
 
+    if (writerId == targetId) {
+      return res.send({
+        status: "failure",
+        msg: "You can't write for yourself",
+      });
+    }
+
     const session = await User.startSession();
     session.startTransaction();
     const filter = new Filter({ placeHolder: "x" });
