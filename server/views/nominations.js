@@ -10,6 +10,13 @@ const sendRequest = async (req, res) => {
     const targetId = req.body.targetId;
     var caption = req.body.caption;
 
+    if (senderId == targetId) {
+      return res.send({
+        status: "failure",
+        msg: "You can't write for yourself",
+      });
+    }
+
     const sender = await User.findById(senderId);
     const target = await User.findById(targetId);
 
