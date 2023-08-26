@@ -57,6 +57,10 @@ const arr = [
   "f20221171@pilani.bits-pilani.ac.in",
   "f20220115@pilani.bits-pilani.ac.in",
   "f20220590@pilani.bits-pilani.ac.in",
+
+  // Special Cases
+  "anhadvirsm@gmail.com",
+  "karmanya49@gmail.com",
 ];
 
 module.exports = arr;
