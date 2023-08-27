@@ -41,10 +41,9 @@ router.post("/google", async (req, res) => {
     const email = payload.email;
 
     if (
-      email[10] != "p" ||
+      !privileged.includes(email) && (email[10] != "p" ||
       (email.substring(0, 5) != "f2020" &&
-        email.substring(0, 5) != "h2022" &&
-        !privileged.includes(email))
+        email.substring(0, 5) != "h2022"))
     ) {
       //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
       return res.send({

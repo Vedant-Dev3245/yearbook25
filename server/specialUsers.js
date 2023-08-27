@@ -61,6 +61,7 @@ const arr = [
   // Special Cases
   "anhadvirsm@gmail.com",
   "karmanya49@gmail.com",
+  "kumarh664@gmail.com",
 ];
 
 module.exports = arr;
