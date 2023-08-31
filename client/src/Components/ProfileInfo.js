@@ -65,7 +65,7 @@ export default function ProfileInfo(props) {
 
   React.useEffect(() => {
     if (window.location.href.includes(localStorage.getItem("user"))) {
-      setShowEdit(true);
+      // setShowEdit(true);
       setOwnProfile(true);
     } else {
       setShowEdit(false);
