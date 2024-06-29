@@ -1,0 +1,19 @@
+version: '3'
+services:
+  yearbook-frontend:
+    image: sarc-client:latest
+    ports:
+      - 3000:3000
+  yearbook-backend:
+    image: sarc-server:latest
+    ports:
+      - 8000:8000
+  nginx:
+    container_name: sarc_nginx
+    image: nginx:mainline-alpine
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    ports:
+      - "1337:80"
+    depends_on:
+      - yearbook-backend

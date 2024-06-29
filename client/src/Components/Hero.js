@@ -48,7 +48,7 @@ export default function Hero() {
               bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"
               bgClip="text"
             >
-              yearbook
+              DEV
             </Text>{" "}
             fun <br /> this year{" "}
             <Image
