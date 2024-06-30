@@ -12,7 +12,7 @@ RUN npm install
 
 COPY . $APP_HOME
 
-EXPOSE 8000
+EXPOSE 8000:8000
 
 # Create an app user 
 RUN useradd --user-group --create-home --no-log-init --shell /bin/bash app

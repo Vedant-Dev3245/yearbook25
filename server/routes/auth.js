@@ -35,7 +35,7 @@ router.post("/google", async (req, res) => {
       requiredAudience: process.env.AUDIENCE,
     });
 
-    // await User.create({ email: "f20220557@pilani.bits-pilani.ac.in", name: "HIMANSHU KUMAR", bitsId: "2022A8PS0557P", branchCode: ["A8"] })
+    await User.create({ email: "f20230327@pilani.bits-pilani.ac.in", name: "PRITHVI GOWDA C", bitsId: "2023A3PS0327P", branchCode: ["A3"] })
 
     const payload = ticket.getPayload();
     const email = payload.email;
