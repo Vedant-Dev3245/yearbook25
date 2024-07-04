@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const {Sequelize} = require("sequelize");
+const {connectPostgres} = require("./db/postgres")
 const cors = require("cors");
 const { User } = require("./models/user");
 const app = express();
@@ -8,21 +10,9 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const port = process.env.PORT || 3001;
 
-// MONGODB
+// POSTGRESQL
 
-mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.log("MongoDB connection error:", err.message);
-  });
+const postgresClient = connectPostgres();
 
 // COOKIES
 
