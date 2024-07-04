@@ -1,39 +1,29 @@
-const mongoose = require("mongoose");
-const User = require("./user");
-const { ObjectId } = require("mongodb");
+const {Sequelize, DataTypes} = require("sequelize");
+const sequelize = new Sequelize("postgres");
 
-const PollSchema = new mongoose.Schema({
-  ques: {
-    type: String,
-    required: [true, "Ques field cannot be empty"],
-    maxlength: [300, "Ques cannot be greater than 300 characters"],
-  },
-  totalCount: {
-    type: Number,
-    default: 0,
-  },
-  branch: {
-    type: String,
-  },
-  votes: [
-    {
-      user: {
-        type: ObjectId,
-        ref: "User",
-        required: true,
-      },
-      count: {
-        type: Number,
-        default: 0,
-      },
-      hasVoted: {
-        type: Boolean,
-        default: false,
-      },
+const Poll = sequelize.define(
+  'Poll',
+  {
+    question:{
+      type: DataTypes.STRING,
+      allowNull: false
+      // !!! define alerts for "Question Field cannot be empty" and "Question cannot exceed 300 characters"
     },
-  ],
-});
 
-const Poll = mongoose.model("Poll", PollSchema);
+    totalCount:{
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
 
-module.exports = Poll;
+    branch:{
+      type: DataTypes.STRING
+    },
+
+    votes:{
+      type: DataTypes.ARRAY(DataTypes.JSON)
+    }
+    // votes JSON has the structure: {user:userid, count:number defining number of votes the user has got, hasVoted: status of whether the user has voted}
+  }
+)
+
+module.exports = {Poll};
