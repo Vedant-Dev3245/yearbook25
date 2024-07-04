@@ -1,9 +1,14 @@
-const { User, Search } = require("../models/user");
+const { User } = require("../models/user");
 const Poll = require("../models/poll");
+
 const jwt = require("jsonwebtoken");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
 
+// Syncing the database.
+User.sync({force: true});
+
+/*
 const editProfile = async (req, res) => {
   try {
     const session = await User.startSession();
@@ -133,18 +138,23 @@ const writeCaption = async (req, res) => {
     });
   }
 };
+*/
 
 const addProfile = async (req, res) => {
   try {
     usr = await User.findOne({
-      email: req.body.email,
+      where: {
+        email: req.body.email,
+      },
     });
     if (usr) {
+      console.log(usr);
       return res.status(400).send({
         msg: "User Exists Already",
       });
     } else {
       const bitsId = req.body.id;
+
       let branchCode = bitsId.substring(4, bitsId.length - 4);
 
       if (branchCode.includes("B")) {
@@ -163,51 +173,68 @@ const addProfile = async (req, res) => {
       const user = await User.create({
         name: `${req.body.firstName} ${req.body.lastName}`,
         email: req.body.email,
-        bitsId,
+        bitsId: bitsId,
         personalEmail: req.body.pEmail,
         phone: req.body.phone,
         quote: quote,
-        branchCode,
+        branchCode: branchCode,
         imageUrl: req.body.imgUrl,
       });
 
-      const new_vote = { user: user, count: 0, hasVoted: false };
+      // !!! Implement the Polls related feature for new user creation.
 
-      await Poll.find({}).then((results) => {
-        results.map((poll) => {
-          poll.votes.push(new_vote);
-          poll.save();
-        });
-      });
+      // const new_vote = { user: user, count: 0, hasVoted: false };
 
-      const userId = user.id;
-      const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
-      console.log(userId);
-      const search = new Search({
-        uId: withoutQuotes,
-        name: user.name,
-        bitsId: user.bitsId,
-      });
-      await search.save();
+      // await Poll
+      //       .find({})
+      //       .then((results) => {
+      //         results.map((poll) => {
+      //           poll.votes.push(new_vote);
+      //           poll.save();
+      //         });
+      // });
+
+      // !!! Implement Mongoose Search Instances in PostgreSQL
+      
+      // const userId = user.id;
+      // const withoutQuotes = userId.toString().replace(/"/g, ""); //removing """ from objectId thus generated
+      // console.log(userId);
+      // const search = new Search({
+      //   uId: withoutQuotes,
+      //   name: user.name,
+      //   bitsId: user.bitsId,
+      // });
+      // await search.save();
+
+      // Creating a JWT token for the created user:
+
       const token = jwt.sign(
         { id: user.id, bitsId, email: user.email, branchCode },
         process.env.TOKEN_KEY,
         { expiresIn: "180d" }
       );
+
+      // dev testing
+      console.log("the user is created: ", usr);
+      console.log("The JWT token is: ", token);
+
       return res.send({
         detail: "Profile created",
-        id: userId,
+        id: user.id,
         token: token,
       });
     }
   } catch (err) {
+    console.log(err);
     return res.status(500).send({
       status: "failure",
       msg: "There was an error, Please try after some time",
+      err: err
     });
   }
 };
 
+/*
 const searchUsers = async (req, res) => {
   try {
     let result = await Search.aggregate([
@@ -241,34 +268,35 @@ const searchUsers = async (req, res) => {
     res.status(500).send({ message: e.message });
   }
 };
+*/
 
 const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id)
-      .populate({
-        path: "captions",
-        populate: [
-          {
-            path: "user",
-          },
-        ],
-      })
-      .populate({
-        path: "requests",
-        populate: [
-          {
-            path: "user",
-          },
-        ],
-      })
-      .populate({
-        path: "declined_requests",
-        populate: [
-          {
-            path: "user",
-          },
-        ],
-      });
+    const user = await User.findOne({ where: { user_id: req.params.id}})
+      // .populate({
+      //   path: "captions",
+      //   populate: [
+      //     {
+      //       path: "user",
+      //     },
+      //   ],
+      // })
+      // .populate({
+      //   path: "requests",
+      //   populate: [
+      //     {
+      //       path: "user",
+      //     },
+      //   ],
+      // })
+      // .populate({
+      //   path: "declined_requests",
+      //   populate: [
+      //     {
+      //       path: "user",
+      //     },
+      //   ],
+      // });
 
     if (!user) {
       return res.status(400).send();
@@ -276,25 +304,26 @@ const getProfile = async (req, res) => {
 
     console.log(user);
 
-    let captions = [];
-    user.captions.forEach((element) => {
-      captions.push({
-        id: element.user.id,
-        bitsId: element.user.bitsId,
-        name: element.user.name,
-        caption: element.caption,
-        imageUrl: element.user.imageUrl,
-      });
-    });
+    // !!! Fix the captions population in the response with the new database design.
+    // let captions = [];
+    // user.captions.forEach((element) => {
+    //   captions.push({
+    //     id: element.user.id,
+    //     bitsId: element.user.bitsId,
+    //     name: element.user.name,
+    //     caption: element.caption,
+    //     imageUrl: element.user.imageUrl,
+    //   });
+    // });
 
     return res.send({
       user: {
         name: user.name,
         imageUrl: user.imageUrl,
         bitsId: user.bitsId,
-        discipline: user.discipline,
+        discipline: user.branchCode,
         quote: user.quote,
-        captions: captions,
+        captions: user.captions,
         nominatedby: user.nominatedby,
         requests: user.requests,
         declined_requests: user.declined_requests,
@@ -309,28 +338,22 @@ const getProfile = async (req, res) => {
   }
 };
 
+
 const deleteProfile = async (req, res) => {
   try {
-    await User.updateMany(
-      {},
-      { $pull: { nominatedby: { id: req.params.id } } }
-    );
-
+    // removing user from nomination lists of others.
+    await User.updateMany({}, { $pull: { nominatedby: { id: req.params.id } } });
+    // removing user's posts on others' message wall.
     await User.updateMany({}, { $pull: { captions: { user: req.params.id } } });
-
+    // removing user's requests to other profiles.
     await User.updateMany({}, { $pull: { requests: { user: req.params.id } } });
-
-    await User.updateMany(
-      {},
-      { $pull: { declined_requests: { user: req.params.id } } }
-    );
-
-    return res.send("done");
-    let usr = await User.findOne({
-      id: req.params.id,
-    });
-
+    await User.updateMany({}, { $pull: { declined_requests: { user: req.params.id } } });
+    // removing user from Polls data:
     await Poll.updateMany({}, { $pull: { votes: { user: req.params.id } } });
+
+    console.log("removed the user from all records in nominations, captions, requests, declined_requests");
+
+    let usr = await User.findOne({where: {id: req.params.id}});
 
     await User.deleteOne({ _id: req.params.id });
 
@@ -345,11 +368,17 @@ const deleteProfile = async (req, res) => {
   }
 };
 
+
+// module.exports = {
+//   editProfile,
+//   writeCaption,
+//   addProfile,
+//   searchUsers,
+//   getProfile,
+//   deleteProfile,
+// };
+
 module.exports = {
-  editProfile,
-  writeCaption,
   addProfile,
-  searchUsers,
-  getProfile,
-  deleteProfile,
+  getProfile
 };
