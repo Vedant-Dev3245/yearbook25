@@ -1,5 +1,5 @@
 const {Sequelize, DataTypes} = require("sequelize");
-const sequelize = new Sequelize("postgres");
+const sequelize = new Sequelize(process.env.POSTGRES_DATABASE_URL);
 
 const User = sequelize.define(
     'User', 
@@ -47,7 +47,7 @@ const User = sequelize.define(
         },
 
         branchCode: {
-            type: DataTypes.STRING,
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false
         },
 
@@ -56,17 +56,25 @@ const User = sequelize.define(
         },
 
         requests: {
-            type: DataTypes.ARRAY(DataTypes.UUID)
+            type: DataTypes.ARRAY(DataTypes.JSON)
+            // requests JSON has the structure {writerID, caption}
         },
 
         declined_requests: {
-            type: DataTypes.ARRAY(DataTypes.UUID)
+            type: DataTypes.ARRAY(DataTypes.JSON)
+            // declined_requests JSON has the structure {writerID, caption}
+        },
+
+        captions: {
+            type: DataTypes.ARRAY(DataTypes.JSON)
+            // captions JSON has the structure {writerID, caption}
         }
     }
 );
 
 // IMPLEMENT THE BELOW CODE IN SEQUELIZE - SEARCHING FOR USERS THROUGH THEIR NAME OR ID:
-
+// This code block is basically telling MongoDB to search for records based on uID, name to make searches faster
+// Do we even require such a thing for PostgreSQL?
 // // UserSchema.index({name: 'text'})
 // var User = mongoose.model('User', UserSchema);
 

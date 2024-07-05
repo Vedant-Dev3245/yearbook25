@@ -8,35 +8,40 @@ const words = require("../bad-words.json");
 // Syncing the database.
 User.sync({force: true});
 
-/*
+
 const editProfile = async (req, res) => {
   try {
-    const session = await User.startSession();
-    session.startTransaction();
+    const session = await User.transaction();
+    try{
+      // Here we are trying to access the JWT token data to verify the BITS ID
+      const user = await User.findOne({where: {user_id: req.user.id}}, {transaction: session});
 
-    const user = await User.findById(req.user.id);
+      const imgUrl = req.body.imgUrl;
+      if (imgUrl != "") {
+        await user.update({imageUrl: imgUrl}, {where: {user_id: req.user.id}}, {transaction: session});
+      }
+  
+      var quote = req.body.quote;
+      const filter = new Filter({ placeHolder: "x" });
+      filter.addWords(...words);
+      quote = filter.clean(quote);
+  
+      if (quote != "") {
+        await user.update({quote: quote}, {where: {user_id: req.user.id}}, {transaction: session});
+      }
+  
+      await session.commit();
 
-    const imgUrl = req.body.imgUrl;
-    if (imgUrl != "") {
-      user.imageUrl = imgUrl;
+      console.log("Transaction was succesful", user);
+      return res.send({
+        msg: "Successfully Updated",
+        user: user
+      });
+    }catch(err){
+      console.log("Some error occurred during the transaction", err);
+      await session.rollback();
     }
 
-    var quote = req.body.quote;
-    const filter = new Filter({ placeHolder: "x" });
-    filter.addWords(...words);
-    quote = filter.clean(quote);
-
-    if (quote != "") {
-      user.quote = quote;
-    }
-
-    await user.save();
-    await session.commitTransaction();
-    session.endSession();
-
-    return res.send({
-      msg: "Successfully Updated",
-    });
   } catch (err) {
     return res.status(400).send({
       status: "failure",
@@ -45,12 +50,14 @@ const editProfile = async (req, res) => {
   }
 };
 
+
 const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
     const writerId = req.user.id;
     const targetId = req.params.id;
-    // console.log(caption, writerId, receiverId);
+    
+    console.log(caption, writerId, receiverId);
 
     if (writerId == targetId) {
       return res.send({
@@ -59,45 +66,37 @@ const writeCaption = async (req, res) => {
       });
     }
 
-    const session = await User.startSession();
-    session.startTransaction();
+    const session = await User.transaction();
+
     const filter = new Filter({ placeHolder: "x" });
     filter.addWords(...words);
     caption = filter.clean(caption);
 
-    // const receiver = await User.findById(receiverId).session(session)
-    // let temp = []
-    // console.log(receiver.nominatedby)
-    // receiver.nominatedby.forEach(x => temp.push(x.id))
-    // console.log(temp)
-    // console.log(writerId)
-    // if (!temp.includes(writerId)) {
-    //     session.endSession();
-    //     return res.status(403).send({
-    //         error: "You're not nominated to write the caption!"
-    //     })
-    // }
+    const writer = await User.findOne({where: {user_id: writerId}}, {transaction: session});
 
-    const writer = await User.findById(writerId).session(session);
-
+    // Creating a temporary array to copy the ID's from Nominated JSON Array, and checking if Writer is Nominated.
     let temp = [];
     writer.nominatedby.forEach((x) => temp.push(x.id));
+
     if (!temp.includes(targetId)) {
-      session.endSession();
+      session.rollback();
       return res.status(403).send({
         error: "You're not nominated to write the caption!",
       });
     }
 
     if (caption === "") {
-      session.endSession();
+      session.rollback();
       return res.send({
         error: "Please enter a valid caption!",
       });
     } else {
-      const writer = await User.findById(writerId).session(session);
-      const receiver = await User.findById(targetId).session(session);
+      
+      const writer = await User.findOne({where: {user_id: writerId}}, {transaction: session});
+      const receiver = await User.findOne({where: {user_id: receiverId}}, {transaction: session});
+
       const captions = receiver.captions;
+
       //checking if a caption has already been written or not, then we'll update otherwise push a new one
       if (captions.find((o) => o.user == writer.id)) {
         for (let i = 0; i < captions.length; i++) {
@@ -105,10 +104,12 @@ const writeCaption = async (req, res) => {
             captions[i].caption = caption;
           }
         }
-        await receiver.updateOne({ captions: captions }).session(session);
-        await session.commitTransaction();
-        session.endSession();
+        
+        // Passing the created captions object as the new entry.
+        await user.update({captions: captions}, {where: {user_id: receiverId}}, {transaction: session});
+        await session.commit();
         return res.send({ success: "Succesfully Updated" });
+
       } else {
         await receiver
           .updateOne({
@@ -138,7 +139,7 @@ const writeCaption = async (req, res) => {
     });
   }
 };
-*/
+
 
 const addProfile = async (req, res) => {
   try {
@@ -338,7 +339,7 @@ const getProfile = async (req, res) => {
   }
 };
 
-
+/*
 const deleteProfile = async (req, res) => {
   try {
     // removing user from nomination lists of others.
@@ -367,7 +368,7 @@ const deleteProfile = async (req, res) => {
     });
   }
 };
-
+*/
 
 // module.exports = {
 //   editProfile,
@@ -380,5 +381,6 @@ const deleteProfile = async (req, res) => {
 
 module.exports = {
   addProfile,
-  getProfile
+  getProfile,
+  editProfile
 };
