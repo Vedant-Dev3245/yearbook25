@@ -4,9 +4,11 @@ const Poll = require("../models/poll");
 const jwt = require("jsonwebtoken");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
+const { Sequelize } = require("sequelize");
 
 // Syncing the database.
 User.sync({force: true});
+Poll.sync({force: true});
 
 
 const editProfile = async (req, res) => {
@@ -98,41 +100,38 @@ const writeCaption = async (req, res) => {
       const captions = receiver.captions;
 
       //checking if a caption has already been written or not, then we'll update otherwise push a new one
-      if (captions.find((o) => o.user == writer.id)) {
+
+      // Case where the caption already exists, and we have to replace it:
+      if (captions.find((o) => o.user == writer.user_id)) {
         for (let i = 0; i < captions.length; i++) {
           if (captions[i].user == writer.id) {
             captions[i].caption = caption;
+            // If user.update command below doesn't work, alternatively we might have to do this:
+            //await receiver.save({transaction: session});
           }
         }
         
         // Passing the created captions object as the new entry.
         await user.update({captions: captions}, {where: {user_id: receiverId}}, {transaction: session});
+        
         await session.commit();
         return res.send({ success: "Succesfully Updated" });
 
       } else {
-        await receiver
-          .updateOne({
-            $push: {
-              captions: {
-                $each: [
-                  {
-                    user: writer,
-                    caption: caption,
-                  },
-                ],
-              },
-            },
-          })
-          .session(session);
-        await session.commitTransaction();
-        session.endSession();
-        return res.send({
-          success: "Succesfully Added",
-        });
+
+        // Case where the caption did not exist and we have to push a new element into the captions array
+        receiver.captions.push({"user": writer.user_id, "caption": caption});
+
+        await receiver.save({transaction: session});
+        await session.commit();
+        
+        console.log("succesfully added the caption", receiver.captions)
+        return res.send({success: "Succesfully Added"});
       }
     }
   } catch (err) {
+    await session.rollback();
+    console.log("There was an error", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -274,30 +273,7 @@ const searchUsers = async (req, res) => {
 const getProfile = async (req, res) => {
   try {
     const user = await User.findOne({ where: { user_id: req.params.id}})
-      // .populate({
-      //   path: "captions",
-      //   populate: [
-      //     {
-      //       path: "user",
-      //     },
-      //   ],
-      // })
-      // .populate({
-      //   path: "requests",
-      //   populate: [
-      //     {
-      //       path: "user",
-      //     },
-      //   ],
-      // })
-      // .populate({
-      //   path: "declined_requests",
-      //   populate: [
-      //     {
-      //       path: "user",
-      //     },
-      //   ],
-      // });
+    // !!! In this route check if nominations, requests, declined_requests all show up correctly.
 
     if (!user) {
       return res.status(400).send();
@@ -305,17 +281,17 @@ const getProfile = async (req, res) => {
 
     console.log(user);
 
-    // !!! Fix the captions population in the response with the new database design.
-    // let captions = [];
-    // user.captions.forEach((element) => {
-    //   captions.push({
-    //     id: element.user.id,
-    //     bitsId: element.user.bitsId,
-    //     name: element.user.name,
-    //     caption: element.caption,
-    //     imageUrl: element.user.imageUrl,
-    //   });
-    // });
+
+    let captions = [];
+    user.captions.forEach((element) => {
+      captions.push({
+        id: element.user.id,
+        bitsId: element.user.bitsId,
+        name: element.user.name,
+        caption: element.caption,
+        imageUrl: element.user.imageUrl,
+      });
+    });
 
     return res.send({
       user: {
@@ -324,14 +300,14 @@ const getProfile = async (req, res) => {
         bitsId: user.bitsId,
         discipline: user.branchCode,
         quote: user.quote,
-        captions: user.captions,
+        captions: captions,
         nominatedby: user.nominatedby,
         requests: user.requests,
         declined_requests: user.declined_requests,
       },
     });
   } catch (err) {
-    console.log(err);
+    console.log("There was an error", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -339,28 +315,62 @@ const getProfile = async (req, res) => {
   }
 };
 
-/*
+
 const deleteProfile = async (req, res) => {
   try {
-    // removing user from nomination lists of others.
-    await User.updateMany({}, { $pull: { nominatedby: { id: req.params.id } } });
-    // removing user's posts on others' message wall.
-    await User.updateMany({}, { $pull: { captions: { user: req.params.id } } });
-    // removing user's requests to other profiles.
-    await User.updateMany({}, { $pull: { requests: { user: req.params.id } } });
-    await User.updateMany({}, { $pull: { declined_requests: { user: req.params.id } } });
-    // removing user from Polls data:
-    await Poll.updateMany({}, { $pull: { votes: { user: req.params.id } } });
+    const users = await User.findAll();
+    const session1 = await User.transaction();
+
+    try{
+      for(const user of users){
+        // removing user from nomination lists of others.
+        const updatedNominations = user.nominatedby.filter(nomination => nomination.id != req.params.id)
+        user.nominatedby=updatedNominations;
+        // removing user's posts on others' message wall.
+        const updatedCaptions = user.captions.filter(caption => caption.user.id != req.params.id)
+        user.captions=updatedCaptions;
+        // removing user's requests to other profiles.
+        const updatedRequests = user.requests.filter(request => request.user.id != req.params.id)
+        user.requests=updatedRequests;
+        const updatedDeclinedRequests = user.declined_requests.filter(declinedrequest => declinedrequest.id != req.params.id)
+        user.declined_requests=updatedDeclinedRequests;
+
+        await user.save({transaction: session1});
+      }
+      await session1.commit();
+      console.log("Session1 was succesful");
+    }catch(err){
+      await session1.rollback();
+      console.log("Session1 was unsuccesful", err);
+    }
+
+    const polls = await Poll.findAll();
+    const session2 = await Poll.transaction();
+
+    try{
+      for(const poll of polls){
+        // removing the user's votes from all the polls:
+        const updatedVotes = poll.votes.filter(vote => vote.user.id != req.params.id)
+        poll.votes = updatedVotes;
+        poll.totalCount = poll.votes.length;
+
+        await poll.save({transaction: session2});
+      }
+
+      await session2.commit();
+      console.log("Session2 was succesful");
+    }catch(err){
+      await session2.rollback();
+      console.log("Session2 was unsuccesful", err);
+    }
 
     console.log("removed the user from all records in nominations, captions, requests, declined_requests");
 
-    let usr = await User.findOne({where: {id: req.params.id}});
+    // Delete query 
+    await User.destroy({where: { user_id: req.params.id }});
+    console.log("Delete Execution Succesful: Profile has been Deleted");
+    return res.send({detail: "Profile deleted"});
 
-    await User.deleteOne({ _id: req.params.id });
-
-    return res.send({
-      detail: "Profile deleted",
-    });
   } catch (err) {
     return res.status(500).send({
       status: "failure",
@@ -368,19 +378,13 @@ const deleteProfile = async (req, res) => {
     });
   }
 };
-*/
 
-// module.exports = {
-//   editProfile,
-//   writeCaption,
-//   addProfile,
-//   searchUsers,
-//   getProfile,
-//   deleteProfile,
-// };
 
 module.exports = {
+  editProfile,
+  writeCaption,
   addProfile,
+  /*searchUsers,*/
   getProfile,
-  editProfile
+  deleteProfile,
 };
