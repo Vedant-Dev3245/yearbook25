@@ -2,22 +2,20 @@ const { response } = require("express");
 const express = require("express");
 const router = express.Router();
 const Poll = require("../models/poll");
-const { User, Search } = require("../models/user");
+const { User } = require("../models/user");
 
 const allPolls = async (req, res) => {
-  const questions = await Poll.find({})
-    .select(["ques", "totalCount", "votes"])
-    .populate({ path: "votes", populate: { path: "user" } });
-  return res.status(200).json({ questions });
+
+  const polls = await Poll.findAll()
+  
+  return res.status(200).json({ polls });
 };
 
 const getPoll = async (req, res) => {
   try {
     const pollID = req.params.id;
-    const poll = await Poll.findById(pollID).populate({
-      path: "votes",
-      populate: { path: "user" },
-    });
+
+    const poll = await Poll.findByPk(pollID)
 
     if (!poll) {
       return res.status(404).json({ msg: `No poll found by the ID ${pollID}` });
@@ -35,13 +33,13 @@ const createPoll = async (req, res) => {
     const ques = req.body.question;
     const branch = req.body.branch;
 
-    const users_all = await User.find({});
+    const users_all = await User.findAll();
 
     const poll = await Poll.create({
-      ques: ques,
+      question: ques,
       branch: branch,
       votes: users_all.map((user) => {
-        return { user: user, count: 0, hasVoted: false };
+        return { user: user.user_id, count: 0, hasVoted: false };
       }),
     });
 
@@ -58,11 +56,11 @@ const updatePoll = async (req, res) => {
     const pollID = req.params.id;
     const question = req.body.question;
 
-    const poll = await Poll.findByIdAndUpdate(
-      pollID,
-      { ques: question },
-      { new: true, runValidators: true }
-    );
+    const poll = await Poll.findByPk(pollID);
+
+    poll.question = question;
+    await poll.save();
+
     if (!poll) {
       return res.status(404).json({ msg: `No poll found with ID ${pollID}` });
     }
@@ -78,7 +76,9 @@ const deletePoll = async (req, res) => {
   try {
     const pollID = req.params.id;
 
-    const poll = await Poll.findByIdAndDelete(pollID);
+    // const poll = await Poll.findByPk(pollID);
+    await Poll.destroy({where: {poll_id: pollID}});
+
     if (!poll) {
       return res
         .status(404)
@@ -98,7 +98,7 @@ const votePoll = async (req, res) => {
     const targetId = req.body.targetId;
     const pollId = req.params.id;
 
-    const poll = await Poll.findById(pollId);
+    const poll = await Poll.findByPk(pollId);
 
     if (!poll)
       return res
@@ -126,6 +126,7 @@ const votePoll = async (req, res) => {
     voterUser.hasVoted = true;
 
     poll.save();
+
     return res.status(200).json({ msg: "voted for user", poll: poll });
   } catch (error) {
     console.log(error);
@@ -136,10 +137,15 @@ const votePoll = async (req, res) => {
 const leaderboard = async (req, res) => {
   try {
     const response = [];
-    const polls = await Poll.find({
-      totalCount: { $gte: 1 },
-      "votes.1": { $exists: true },
+
+    const polls = await Poll.findAll({
+      where: {
+        totalCount:{
+          [Op.gte]: 1,  
+        }
+      }
     });
+
     for (var j = 0; j < polls.length; j++) {
       var votes = polls[j].votes;
 
@@ -153,7 +159,8 @@ const leaderboard = async (req, res) => {
         }
       }
 
-      let user = await User.findById(votes[maxIndex].user);
+      let user = await User.findByPk(votes[maxIndex].user);
+
       response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].ques });
     }
 
