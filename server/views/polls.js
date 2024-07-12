@@ -1,8 +1,9 @@
 const { response } = require("express");
 const express = require("express");
 const router = express.Router();
-const Poll = require("../models/poll");
+const { Poll } = require("../models/poll");
 const { User } = require("../models/user");
+const { Op } = require("sequelize");
 
 const allPolls = async (req, res) => {
 
@@ -76,8 +77,7 @@ const deletePoll = async (req, res) => {
   try {
     const pollID = req.params.id;
 
-    // const poll = await Poll.findByPk(pollID);
-    await Poll.destroy({where: {poll_id: pollID}});
+    const poll = await Poll.findByPk(pollID);
 
     if (!poll) {
       return res
@@ -85,7 +85,9 @@ const deletePoll = async (req, res) => {
         .json({ msg: `No poll found with the id ${pollID}` });
     }
 
-    res.status(200).json({ msg: `Poll with ID ${pollID} deleted` });
+    await Poll.destroy({where: {poll_id: pollID}});
+
+    res.status(200).json({ msg: `Poll with ID ${pollID} was deleted` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });
@@ -109,7 +111,7 @@ const votePoll = async (req, res) => {
       return res.status(400).json({ msg: "Send the target id" });
 
     const voterUser = poll.votes.find((voter) => voter.user == voterId);
-    const targetUser = poll.votes.find((voter) => voter.user == targetId);
+    const targetUser = poll.votes.find((target) => target.user == targetId);
 
     if (voterId == targetId) {
       return res.status(400).json({ msg: "You cannot vote for yourself" });
@@ -118,14 +120,24 @@ const votePoll = async (req, res) => {
     if (!voterUser || !targetUser) {
       return res.status(500).json({ msg: "report to admin" });
     }
-    if (voterUser.hasVoted != false)
+
+    if (voterUser.hasVoted){
       return res.status(400).json({ msg: "You have already voted" });
+    }
 
     poll.totalCount = poll.totalCount + 1;
+    
     targetUser.count = targetUser.count + 1;
     voterUser.hasVoted = true;
 
-    poll.save();
+    poll.set('votes', poll.votes); // setting the column 'votes' manually to our local variable poll.votes
+    poll.changed('votes', true); // telling sequelize manually that this column has changed and needs updating.
+
+    poll.save().then(() => {
+      console.log("Success");
+    }).catch((err) => {
+      console.log("Failure", err);
+    });
 
     return res.status(200).json({ msg: "voted for user", poll: poll });
   } catch (error) {
@@ -161,7 +173,7 @@ const leaderboard = async (req, res) => {
 
       let user = await User.findByPk(votes[maxIndex].user);
 
-      response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].ques });
+      response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });
     }
 
     return res.status(200).json({ response });

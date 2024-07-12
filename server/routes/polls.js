@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const Poll = require("../models/poll");
-const { User, Search } = require("../models/user");
+const { Poll } = require("../models/poll");
+const { User } = require("../models/user");
 const {
   allPolls,
   getPoll,
