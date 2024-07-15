@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback, memo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import {
@@ -9,7 +9,6 @@ import {
   Text,
   FormLabel,
   FormControl,
-  FormHelperText,
   Button,
   Textarea,
   SimpleGrid,
@@ -18,11 +17,78 @@ import {
   useMediaQuery,
   Alert,
   AlertIcon,
-  Link,
+  HStack,
+  VStack,
+  Select
 } from "@chakra-ui/react";
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import { css } from '@emotion/react';
+
+const customSelectStyles = css`
+option {
+  background-color: #242323;
+  color: white;
+}
+`;
+
+const Message = memo(({ id, message, handleMessageChange }) => {
+  const maxLength = 140;
+
+  const handleChange = useCallback((e) => {
+    const value = e.target.value.slice(0, maxLength);
+    handleMessageChange(id, value);
+  }, [id, handleMessageChange]);
+
+  const charactersLeft = maxLength /* - message.length */; // can't figure it out
+  return (
+    <FormControl isRequired>
+      <FormLabel>Message</FormLabel>
+      <Textarea
+        value={message}
+        onChange={handleChange}
+        placeholder='Enter your message here'
+        maxLength={maxLength}
+      />
+      <Box color={charactersLeft < 0 ? 'red' : 'inherit'} fontSize="sm" mt={1}>
+        {charactersLeft >= 0 ? `${charactersLeft} characters left` : `Exceeded by ${Math.abs(charactersLeft)} characters`}
+      </Box>
+    </FormControl>
+  );
+});
+
+const SeniorSelect = memo(({ id, selectedSenior, handleSeniorChange }) => {
+  const handleChange = useCallback((e) => {
+      handleSeniorChange(id, e.target.value);
+  }, [id, handleSeniorChange]);
+
+  return (
+      <FormControl>
+          <FormLabel>Senior</FormLabel>
+          <Select placeholder='Select' value={selectedSenior} onChange={handleChange} css={customSelectStyles}> 
+              <option value="shwetabh">Shwetabh</option>
+              <option value="niket">Niket</option>
+          </Select>
+      </FormControl>
+  );
+});
+
+const ClubSelect = memo(({ id, selectedClub, handleClubChange }) => {
+  const handleChange = useCallback((e) => {
+      handleClubChange(id, e.target.value);
+  }, [id, handleClubChange]);
+
+  return (
+      <FormControl>
+          <FormLabel>club/ department</FormLabel>
+          <Select placeholder='Select' value={selectedClub} onChange={handleChange} css={customSelectStyles}>
+              <option value="SARC">SARC</option>
+              <option value="WSC">WSC</option>
+          </Select>
+      </FormControl>
+  );
+});
 
 export default function Junior() {
   const validID = new RegExp(
@@ -94,7 +160,7 @@ export default function Junior() {
       }
     } else {
       setValid(false);
-      alert("Please enter a valid BITS ID (eg. 2020A7PS0923P");
+      alert("Please enter a valid BITS ID (eg. 2023A7PS0923P");
     }
   }
   const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
@@ -150,11 +216,42 @@ export default function Junior() {
     e.preventDefault();
     validate(e);
   }
+
+  // Senior Cards
+  const [cards, setCards] = useState([{ id: 1, size: 'lg' }]);
+  const handleClick = () => {
+    setCards(cards => {
+      // Minimize all cards
+      const minimizedCards = cards.map(card => ({ ...card, size: 'sm' }));
+      // Add a new card
+      return [{ id: cards.length + 1, size: 'lg' }, ...minimizedCards];
+    });
+  };
+
+  const handleMessageChange = useCallback((id, newMessage) => {
+    setCards(cards => cards.map(card =>
+      card.id === id ? { ...card, message: newMessage } : card
+    ));
+  }, []);
+
+  const handleSeniorChange = useCallback((id, newSenior) => {
+    setCards(cards => cards.map(card =>
+      card.id === id ? { ...card, selectedSenior: newSenior } : card
+    ));
+  }, []);
+
+  const handleClubChange = useCallback((id, newClub) => {
+    setCards(cards => cards.map(card =>
+      card.id === id ? { ...card, selectedClub: newClub } : card
+    ));
+  }, []);
+
   return (
     <Flex
       flexDirection={isSmallerThan900 ? "column" : "row"}
-      minHeight="100vh"
+      h={isSmallerThan900 ? "100%" : "100vh"}
       bg="black"
+      overflow="hidden"
     >
       <Flex
         w={isSmallerThan900 ? "100%" : "60%"}
@@ -168,18 +265,35 @@ export default function Junior() {
         <Box
           boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
           bg="#242323"
-          w="80%"
+          w={isSmallerThan900 ? "100%" : "70%"}
+          h={isSmallerThan900 ? "130%" : "90%"}
           color="white"
-          border="3px"  
+          border="3px"
           borderStyle="solid"
           borderColor="white.300"
-          borderRadius="20px"
-          marginBlock={isSmallerThan900 ? "2rem" : 0}
+          borderRadius={isSmallerThan900 ? 0 : "20px 10px 10px 20px"}
+          sx={{
+            '::-webkit-scrollbar': {
+              width: '12px',
+              colorScheme: '#000000',
+              borderRadius: '10px'
+            },
+          }}
+          overflowY="scroll"
+          marginBlock={isSmallerThan900 ? "2rem" : "2rem"}
         >
-          <Box pl={isSmallerThan500 ? "1.2rem" : "3rem"}>
-            <Heading mt="5rem" fontSize={isSmallerThan1100 ? "3rem" : "3.6rem"}>
+          <Box
+            px={isSmallerThan500 ? "1.2rem" : "3rem"}
+            box-shadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
+            backdrop-filter="blur(20px)"
+            bg="#242323"
+          >
+            <Heading mt="3rem" fontSize={isSmallerThan1100 ? "3rem" : "3.6rem"}>
               senior shout-outs
             </Heading>
+            <Text mt="1rem" fontSize={isSmallerThan1100 ? "1rem" : "1.4rem"}>
+              hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun
+            </Text>
             <Box mt="2rem">
               <FormControl mt="4rem">
                 <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full">
@@ -272,6 +386,40 @@ export default function Junior() {
                   </GridItem>
                 </SimpleGrid>
               </FormControl>
+              <VStack spacing={3} alignItems="left" mt="1.5rem" mb="1rem">
+                <Button onClick={handleClick} w={isSmallerThan1100 ? "25%" : "20%"} mr="2rem">
+                  + Add Senior
+                </Button>
+                {cards.map(card => (
+                  <VStack
+                    key={card.id}
+                    w="100%"
+                    h={card.size === 'lg' ? '360px' : '250px'}
+                    bg="#242323"
+                    color="white"
+                    display="flex"
+                    alignItems="left"
+                    justifyContent="top"
+                    borderRadius="md"
+                    border="1px"
+                    borderStyle="solid"
+                    borderColor="white.300"
+                  >
+                    <Box m="2rem">
+                      <Heading> {card.size === 'lg' ? "Senior's Details" : ''} </Heading>
+                      {card.size === 'lg' ? <>
+                        <ClubSelect id={card.id} selectedClub={card.selectedClub} handleClubChange={handleClubChange} />
+                        <SeniorSelect id={card.id} selectedSenior={card.selectedSenior} handleSeniorChange={handleSeniorChange} />
+                      </> : <>
+                        <HStack>
+                          <ClubSelect id={card.id} selectedClub={card.selectedClub} handleClubChange={handleClubChange} />
+                          <SeniorSelect id={card.id} selectedSenior={card.selectedSenior} handleSeniorChange={handleSeniorChange} />
+                        </HStack> </>}
+                      <Message id={card.id} message={card.message} handleMessageChange={handleMessageChange} />
+                    </Box>
+                  </VStack>
+                ))}
+              </VStack>
             </Box>
           </Box>
         </Box>
@@ -332,19 +480,6 @@ export default function Junior() {
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
             {formInfo.id.toUpperCase()}
           </Box>
-          <Box
-            fontSize="1.8rem"
-            color="#B3B3B3"
-            letterSpacing="-0.1rem"
-            fontFamily="Gilmer"
-            fontWeight="700"
-            w="60%"
-            marginInline="auto"
-            marginBlock="2rem"
-            lineHeight="1.8rem"
-          >
-            {' "' + formInfo.quote + '" '}
-          </Box>
           <Button
             disabled={isDisabled}
             className="button"
@@ -359,6 +494,7 @@ export default function Junior() {
             p="2.4rem 3.2rem"
             fontSize="2rem"
             colorScheme="blackAlpha"
+            mt={isSmallerThan900 ? "3rem" : "2rem"}
           >
             submit
           </Button>
