@@ -10,6 +10,7 @@ const arr = [
   "f20220471@pilani.bits-pilani.ac.in",
   "f20221264@pilani.bits-pilani.ac.in",
   "f20230327@pilani.bits-pilani.ac.in",
+  "f20230833@pilani.bits-pilani.ac.in",
   //20Batch
   "f20200616@pilani.bits-pilani.ac.in",
   "f20201658@pilani.bits-pilani.ac.in",
