@@ -21,5 +21,3 @@ RUN chown -R app:app $APP_HOME
 USER app
 
 CMD ["npm", "start"]
-
-# ENTRYPOINT ["/home/app/web/entrypoint.sh"]
