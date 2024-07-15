@@ -129,12 +129,14 @@ const nominateUser = async (req, res) => {
       }
       try{
 
-        // if(sender.captions == null){
-        //   sender.captions = [];
-        // }
-
         sender.captions.push({"user": receiver, "caption": newCap});
         sender.requests = requests;
+
+        sender.set('captions', sender.captions);
+        sender.changed('captions', true);
+        sender.set('requests', sender.requests);
+        sender.changed('requests', true);
+  
 
         await sender.save();
 
@@ -160,22 +162,21 @@ const nominateUser = async (req, res) => {
         }
       }
       
-      // if(sender.captions == null){
-      //   sender.captions = [];
-      // }
-
       sender.captions.push({"user": receiver, "caption": newCap});
       sender.declined_requests = declined_requests;
     
+      sender.set('captions', sender.captions);
+      sender.changed('captions', true);
+      sender.set('declined_requests', sender.declined_requests);
+      sender.changed('declined_requests', true);
+
       await sender.save();
 
     }
 
-    // if(receiver.nominatedby == null){
-    //   receiver.nominatedby = [];
-    // }
-    
     receiver.nominatedby.push({"name": senderName, "id": senderId});
+    receiver.set('nominatedby', receiver.nominatedby);
+    receiver.changed('nominatedby', true);
     await receiver.save();
 
     // await session.commit();

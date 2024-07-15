@@ -1,4 +1,5 @@
 const { response } = require("express");
+const { postgresClient } = require("../server");
 const express = require("express");
 const router = express.Router();
 const { Poll } = require("../models/poll");
@@ -60,6 +61,8 @@ const updatePoll = async (req, res) => {
     const poll = await Poll.findByPk(pollID);
 
     poll.question = question;
+    poll.set('question', poll.question);
+    poll.changed('question', true);
     await poll.save();
 
     if (!poll) {
@@ -133,11 +136,7 @@ const votePoll = async (req, res) => {
     poll.set('votes', poll.votes); // setting the column 'votes' manually to our local variable poll.votes
     poll.changed('votes', true); // telling sequelize manually that this column has changed and needs updating.
 
-    poll.save().then(() => {
-      console.log("Success");
-    }).catch((err) => {
-      console.log("Failure", err);
-    });
+    poll.save();
 
     return res.status(200).json({ msg: "voted for user", poll: poll });
   } catch (error) {
