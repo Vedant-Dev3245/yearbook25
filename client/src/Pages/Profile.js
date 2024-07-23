@@ -107,6 +107,7 @@ export default function Profile(props) {
         captions={user.captions}
         nominatedby={user.nominatedby}
         name={user.name}
+        bitsId={user.bitsId}
         id={params.id}
       />
     </Box>
