@@ -4,7 +4,7 @@ import {
     Text,
 } from '@chakra-ui/react';
 import "./Tags.css";
-export default function tags(props) {
+export default function Tags(props) {
     const colors = ['red', 'green', 'blue', 'pink'];
     const color = colors[Math.floor(Math.random() * colors.length)];
     return (

@@ -1,7 +1,8 @@
 import React from "react";
 import Masonry from "react-masonry-css";
 import Cards from "./Cards";
-import { Box, useMediaQuery, Text } from "@chakra-ui/react";
+import { Box, useMediaQuery, Text, SimpleGrid } from "@chakra-ui/react";
+import ClubCards from "./ClubCards";
 
 export default function Wall(props) {
   const [isSmallerThan800] = useMediaQuery("(max-width: 800px)");
@@ -34,6 +35,36 @@ export default function Wall(props) {
       setTitle(false);
     }
   }, [capt]);
+
+  /* junior club cards temp */
+  const clubsData = [
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Mime Club',
+      seniorOptions: ['Option 1', 'Option 2', 'Option 3'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Wall Street Club',
+      seniorOptions: ['Option A', 'Option B', 'Option C'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Student Alumni Relations Cell',
+      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'WSC',
+      seniorOptions: ['Option A', 'Option B', 'Option C'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'SARC',
+      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
+    },
+  ];
+
 
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
@@ -88,8 +119,17 @@ export default function Wall(props) {
           columnClassName="my-masonry-grid_column"
         >
           {cards}
-        </Masonry></> : <></>}
-
+        </Masonry></> : <Box m="4rem">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+          {clubsData.map((clubData, index) => (
+            <ClubCards
+              key={index} 
+              imgUrl={clubData.imgUrl}
+              commitment={clubData.commitment}
+              seniorOptions={clubData.seniorOptions}
+            />
+          ))}
+        </SimpleGrid></Box>}
     </Box>
   );
 }
