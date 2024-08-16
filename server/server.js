@@ -1,18 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const {Sequelize} = require("sequelize");
-const {connectPostgres} = require("./db/postgres")
-const cors = require("cors");
-const { User } = require("./models/user");
-const app = express();
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
+const cors = require("cors");
+
+const {postgresClient} = require("./db/postgres")
+
+const app = express();
 const port = process.env.PORT || 3001;
 
 // POSTGRESQL
-
-const postgresClient = connectPostgres();
+try{
+  postgresClient.authenticate();
+  console.log("Connection has been established succesfully");
+}catch(err){
+    console.log("Unable to connect to the database", err);
+}
 
 // COOKIES
 

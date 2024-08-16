@@ -1,5 +1,5 @@
 const { response } = require("express");
-const { postgresClient } = require("../server");
+const { postgresClient } = require("../db/postgres");
 const express = require("express");
 const router = express.Router();
 const { Poll } = require("../models/poll");

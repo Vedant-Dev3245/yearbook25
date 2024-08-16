@@ -1,13 +1,12 @@
 const { User } = require("../models/user");
-const { postgresClient } = require("../server");
+const { postgresClient } = require("../db/postgres");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
 const { request } = require("express");
 
 const sendRequest = async (req, res) => {
   try {
-    // const senderId = req.user.id;
-    const senderId = req.body.id;
+    const senderId = req.user.id;
     const targetId = req.body.targetId;
 
     var caption = req.body.caption;

@@ -1,9 +1,16 @@
 const {Sequelize, DataTypes} = require("sequelize");
-const sequelize = new Sequelize("postgres");
+const { postgresClient } = require("../db/postgres");
 
-const Poll = sequelize.define(
+const Poll = postgresClient.define(
   'Poll',
   {
+    poll_id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      allowNull: false,
+      primaryKey: true
+    },
+
     question:{
       type: DataTypes.STRING,
       allowNull: false
@@ -20,7 +27,8 @@ const Poll = sequelize.define(
     },
 
     votes:{
-      type: DataTypes.ARRAY(DataTypes.JSON)
+      type: DataTypes.ARRAY(DataTypes.JSON),
+      defaultValue: []
     }
     // votes JSON has the structure: {user:userid, count:number defining number of votes the user has got, hasVoted: status of whether the user has voted}
   }

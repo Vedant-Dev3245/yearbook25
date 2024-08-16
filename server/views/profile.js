@@ -1,6 +1,6 @@
 const { User } = require("../models/user");
 const { Poll } = require("../models/poll");
-const { postgresClient } = require("../server");
+const { postgresClient } = require("../db/postgres");
 const jwt = require("jsonwebtoken");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");

@@ -1,7 +1,8 @@
 const {Sequelize, DataTypes} = require("sequelize");
-const sequelize = new Sequelize(process.env.POSTGRES_DATABASE_URL);
+const { postgresClient } = require("../db/postgres");
 
-const User = sequelize.define(
+
+const User = postgresClient.define(
     'User', 
     {
         user_id:{
@@ -38,8 +39,9 @@ const User = sequelize.define(
             allowNull: false
         },
 
-        nominatedby: { // the user is nominated by who
-            type: DataTypes.ARRAY(DataTypes.STRING)
+        nominatedby: { // JSON: {name, id}
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
         },
 
         quote: {
@@ -48,7 +50,7 @@ const User = sequelize.define(
 
         branchCode: {
             type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false
+            allowNull: false,
         },
 
         commitments:{
@@ -56,36 +58,23 @@ const User = sequelize.define(
         },
 
         requests: {
-            type: DataTypes.ARRAY(DataTypes.JSON)
-            // requests JSON has the structure {writerID, caption}
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // requests JSON has the structure {user, caption}
         },
 
         declined_requests: {
-            type: DataTypes.ARRAY(DataTypes.JSON)
-            // declined_requests JSON has the structure {writerID, caption}
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // declined_requests JSON has the structure {user, caption}
         },
 
         captions: {
-            type: DataTypes.ARRAY(DataTypes.JSON)
-            // captions JSON has the structure {writerID, caption}
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // captions JSON has the structure {user, caption}
         }
     }
 );
-
-// IMPLEMENT THE BELOW CODE IN SEQUELIZE - SEARCHING FOR USERS THROUGH THEIR NAME OR ID:
-// This code block is basically telling MongoDB to search for records based on uID, name to make searches faster
-// Do we even require such a thing for PostgreSQL?
-// // UserSchema.index({name: 'text'})
-// var User = mongoose.model('User', UserSchema);
-
-// const searchSchema = new mongoose.Schema({
-//     uId: String,
-//     name: String,
-//     bitsId: String
-// });
-// searchSchema.index({ name: "text", bitsId: "text" })//adding name as an index for searching the Search collection
-// var Search = mongoose.model('Search', searchSchema);
-
-// module.exports = { User, Search }
 
 module.exports = {User};
