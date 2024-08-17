@@ -3,7 +3,7 @@ const { postgresClient } = require("../db/postgres");
 
 
 const User = postgresClient.define(
-    'User', 
+    'user', 
     {
         user_id:{
             type: DataTypes.UUID,
@@ -74,6 +74,9 @@ const User = postgresClient.define(
             defaultValue: []
             // captions JSON has the structure {user, caption}
         }
+    },
+    {
+        tableName: "alluser"
     }
 );
 

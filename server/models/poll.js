@@ -2,7 +2,7 @@ const {Sequelize, DataTypes} = require("sequelize");
 const { postgresClient } = require("../db/postgres");
 
 const Poll = postgresClient.define(
-  'Poll',
+  'poll',
   {
     poll_id:{
       type: DataTypes.UUID,
@@ -31,6 +31,9 @@ const Poll = postgresClient.define(
       defaultValue: []
     }
     // votes JSON has the structure: {user:userid, count:number defining number of votes the user has got, hasVoted: status of whether the user has voted}
+  },
+  {
+    tableName: "poll"
   }
 )
 

@@ -55,7 +55,7 @@ const sendRequest = async (req, res) => {
     });
 
   } catch (err) {
-    console.log("There was an erorr: ", err);
+    console.log("There was an erorr: sendRequest", err);
 
     return res.send({
       status: "failure",
@@ -66,16 +66,24 @@ const sendRequest = async (req, res) => {
 
 const allRequests = async (req, res) => {
   try {
-    // const senderId = req.user.id;
-    const senderId = req.body.id;
+    const senderId = req.user.id;
+    // const senderId = req.body.id;
     const sender = await User.findByPk(senderId)
+    let requests = {};
+    let declined_requests = {};
+
+    if(sender){
+      requests = sender.requests || {};
+      declined_requests = sender.declined_requests || {};
+    }
 
     return res.send({
       status: "success",
-      requests: sender.requests,
-      declined_requests: sender.declined_requests,
+      requests: requests,
+      declined_requests: declined_requests,
     });
   } catch (err) {
+    console.log("There was an erorr: allRequests", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -185,6 +193,7 @@ const nominateUser = async (req, res) => {
       msg: "Friend nominated successfully!",
     });
   } catch (err) {
+    console.log("There was an erorr: nominateUser", err);
     return res.send({
       status: "failure",
       msg: err.message,
@@ -225,7 +234,7 @@ const declineRequest = async (req, res) => {
       success: "Succesfully declined",
     });
   } catch (err) {
-    throw(err);
+    console.log("There was an erorr: declineRequest", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",

@@ -157,22 +157,27 @@ const leaderboard = async (req, res) => {
       }
     });
 
-    for (var j = 0; j < polls.length; j++) {
-      var votes = polls[j].votes;
+    if(!polls){
+      for (var j = 0; j < polls.length; j++) {
+        var votes = polls[j].votes;
 
-      var maximumValue = votes[0].count;
-      var maxIndex = 0;
+        var maximumValue = votes[0].count;
+        var maxIndex = 0;
 
-      for (var i = 1; i < votes.length; i++) {
-        if (votes[i].count > maximumValue) {
-          maxIndex = i;
-          maximumValue = votes[i].count;
+        for (var i = 1; i < votes.length; i++) {
+          if (votes[i].count > maximumValue) {
+            maxIndex = i;
+            maximumValue = votes[i].count;
+          }
         }
+
+        let user = await User.findByPk(votes[maxIndex].user);
+
+        response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });
       }
-
-      let user = await User.findByPk(votes[maxIndex].user);
-
-      response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });
+    }
+    else{
+        response.push({message: "no data yet"})
     }
 
     return res.status(200).json({ response });

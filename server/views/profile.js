@@ -2,6 +2,7 @@ const { User } = require("../models/user");
 const { Poll } = require("../models/poll");
 const { postgresClient } = require("../db/postgres");
 const jwt = require("jsonwebtoken");
+const {v4: isUuid} = require("uuid");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
 const { Sequelize } = require("sequelize");
@@ -48,6 +49,7 @@ const editProfile = async (req, res) => {
     }
 
   } catch (err) {
+    console.log("there was an error - edit profile", err);
     return res.status(400).send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -127,7 +129,7 @@ const writeCaption = async (req, res) => {
       }
     }
   } catch (err) {
-    console.log("There was an error", err);
+    console.log("There was an error - captions", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -180,15 +182,17 @@ const addProfile = async (req, res) => {
 
       const new_vote = { user: user.user_id, count: 0, hasVoted: false };
 
-      await Poll.findAll()
-                .then((results) => {
-                  results.map((poll) => {
-                  poll.votes.push(new_vote);
-                  poll.set('votes', poll.votes);
-                  poll.changed('votes', true);
-                  poll.save();
-                });
-      });
+      if(!Poll.findAll()){
+        await Poll.findAll()
+                  .then((results) => {
+                    results.map((poll) => {
+                    poll.votes.push(new_vote);
+                    poll.set('votes', poll.votes);
+                    poll.changed('votes', true);
+                    poll.save();
+                  });
+        });
+      }
 
       // Creating a JWT token for the created user:
 
@@ -209,7 +213,7 @@ const addProfile = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    console.log("There was an error - addProfile", err);
     return res.status(500).send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -238,7 +242,17 @@ const searchUsers = async (req, res) => {
 
 const getProfile = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { user_id: req.params.id}})
+    const userId = req.params.id;
+
+    if(!userId || !isUuid(userId)){
+      console.log("This is not a valid userID - getProfile", userId);
+      return res.status(400).send({
+        status: "failure",
+        msg: "Invalid userID or missing UserID"
+      })
+    }
+
+    const user = await User.findByPk(userId);
 
     if (!user) {
       return res.status(400).send({
@@ -276,7 +290,7 @@ const getProfile = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log("There was an error", err);
+    console.log("There was an error - getprofile", err);
     return res.send({
       status: "failure",
       msg: "There was an error, Please try after some time",
@@ -352,6 +366,7 @@ const deleteProfile = async (req, res) => {
     return res.send({detail: "Profile deleted"});
 
   } catch (err) {
+    console.log("There was an error - deleteProfile", err);
     return res.status(500).send({
       status: "failure",
       msg: "There was an error, Please try after some time",
