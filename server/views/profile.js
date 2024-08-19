@@ -251,7 +251,8 @@ const getProfile = async (req, res) => {
         msg: "Invalid userID or missing UserID"
       })
     }
-
+    console.log("This is the UserID: ", userId);
+    
     const user = await User.findByPk(userId);
 
     if (!user) {
