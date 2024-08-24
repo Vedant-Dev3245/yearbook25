@@ -51,7 +51,9 @@ router.post("/google", async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email: payload.email });
+    const user = await User.findOne({where: {email: payload.email}});
+
+    console.log("THIs is from auth, the user is: ", user);
 
     if (!user) {
       return res.send({
@@ -63,7 +65,7 @@ router.post("/google", async (req, res) => {
 
     const jwt_token = jwt.sign(
       {
-        id: user.id,
+        id: user.user_id,
         bitsId: user.bitsId,
         branchCode: user.branchCode,
         email: payload.email,
@@ -73,7 +75,7 @@ router.post("/google", async (req, res) => {
     );
     return res.send({
       authorised: 1,
-      user: user.id,
+      user: user.user_id,
       token: jwt_token,
       exists: true,
     });

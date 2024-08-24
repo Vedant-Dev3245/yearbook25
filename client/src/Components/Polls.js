@@ -23,8 +23,9 @@ export default function Polls(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/polls`,
     })
       .then(function (response) {
-        setPollsData(response.data.questions);
-        console.log(response.data.questions);
+        console.log(response);
+        setPollsData(response?.data?.polls);
+        console.log(response.data.polls);
       })
       .catch(function (error) {
         console.log(error);
@@ -34,14 +35,14 @@ export default function Polls(props) {
   //     setPollsData(props.questions)
   // })
 
-  const pollsCards = pollsData.map((questions, index) => {
+  const pollsCards = pollsData?.map((questions, index) => {
     const number = (index + 1).toString().padStart(2, "0");
     return (
       <PollsCards
-        key={questions._id}
+        key={questions.poll_id}
         number={number}
-        id={questions._id}
-        pollqn={questions.ques}
+        id={questions.poll_id}
+        pollqn={questions.question}
       />
     );
   });

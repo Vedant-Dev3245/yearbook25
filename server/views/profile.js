@@ -197,18 +197,18 @@ const addProfile = async (req, res) => {
       // Creating a JWT token for the created user:
 
       const token = jwt.sign(
-        { id: user.id, bitsId, email: user.email, branchCode },
+        { id: user.user_id, bitsId, email: user.email, branchCode },
         process.env.TOKEN_KEY,
         { expiresIn: "180d" }
       );
 
       // dev testing
-      console.log("the user is created: ", usr);
+      console.log("the user is created: ", user);
       console.log("The JWT token is: ", token);
 
       return res.send({
         detail: "Profile created",
-        id: user.id,
+        id: user.user_id,
         token: token,
       });
     }

@@ -20,7 +20,7 @@ export default function Wall(props) {
         caption={person.caption}
         img={person.imageUrl}
         bitsId={person.bitsId}
-        key={person.id}
+        key={person.user_id}
       />
     );
   });

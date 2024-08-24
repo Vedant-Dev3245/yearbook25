@@ -34,9 +34,7 @@ function StatsCards({ user }) {
         <div className="bitsid">
           <h3>
             {user.bitsId} |{" "}
-            {user.bitsId.indexOf("PS") === -1
-              ? user.bitsId.slice(4, 8)
-              : user.bitsId[4] + user.bitsId[5]}
+            {user.branchCode}
           </h3>
         </div>
         <div className="pollqn">
