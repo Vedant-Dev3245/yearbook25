@@ -9,13 +9,43 @@ export default function newDevs() {
         default: 3,
         1200: 2,
         800: 1
-      };
+    };
     return (
         <>
             <Masonry width="100%" marginInline="auto" breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column2">
-            <DevCards
+                <DevCards
+                    img="../images/ananya.jpg"
+                    name="ananya shankar"
+                    caption="design team | 2023B1A3PS0836P"
+                    twitter="https://x.com/AnanyaS10355303"
+                    github=""
+                    linkedin="http://www.linkedin.com/in/ananya-shankar20"
+                    spotify="https://open.spotify.com/user/yfc61ut0zdhh3vmpblix2q1gj?si=efe7d15ec71c4da1"
+                    text="carrying design team"
+                />
+                <DevCards
+                    img="../images/dev.jpg"
+                    name="dev satish"
+                    caption="frontend guy | 2023B1A4PS0833P"
+                    twitter=""
+                    github="https://www.linkedin.com/in/dev-satish/"
+                    linkedin="https://github.com/Dev-Satish-01"
+                    spotify="https://open.spotify.com/user/1oziia7t09x2x1hqyuyktwo8w?si=531838d197504380"
+                    text="i tried"
+                />
+                <DevCards
+                    img="../images/prithvi.jpg"
+                    name="prithvi gowda"
+                    caption="database manager | 2023A3PS0327P"
+                    twitter=""
+                    github="https://github.com/prithvi05prism"
+                    linkedin="https://www.linkedin.com/in/prithvi-gowda-c/"
+                    spotify="https://open.spotify.com/user/8m5wwm07knxfm47geod9njb52?si=f8002970d7f64ba4"
+                    text="can't figure out docker"
+                />
+                <DevCards
                     img="../images/himanshu.jpeg"
                     name="himanshu kumar"
                     caption="frontend captain | 2022A8PS0557P"
@@ -34,7 +64,7 @@ export default function newDevs() {
                     linkedin="https://www.linkedin.com/in/rakshit-sakhuja-61ab00138/"
                     spotify="https://open.spotify.com/user/dvpfwr821jtdbk0zqm9tmk1p6"
                     text="Damn bro took only two weeks to complete this project"
-                 />
+                />
                 <DevCards
                     img="../images/nabisha.jpeg"
                     name="nabisha obaid"
@@ -55,7 +85,7 @@ export default function newDevs() {
                     spotify="https://open.spotify.com/playlist/6PaRU0RIuVDuSIBQoq2Yp8?si=PGMZpcDGRCuJOBikw2QYnw&utm_source=whatsapp"
                     text="You can. End of Story"
                 />
-               <DevCards
+                <DevCards
                     img="../images/shwetabh.png"
                     name="shwetabh niket"
                     caption="inclusive | 2021B5A70923P"
@@ -95,7 +125,7 @@ export default function newDevs() {
                     spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
                     text="retiring from cursing compres after this semester.."
                 />
-                  <DevCards
+                <DevCards
                     img="../images/jai.jpeg"
                     name="jai vr"
                     caption="hustler | 2022A8PS1264"
@@ -105,7 +135,7 @@ export default function newDevs() {
                     spotify="https://open.spotify.com/album/0yMLTRxwcDN5XHjP5w8jAH?si=wrdfhONORHCp8gvSQ72CDQ&utm_source=copy-link"
                     text="I work for the sound from my keyboard :)"
                 />
-                                
+
             </Masonry>
         </>
     )
