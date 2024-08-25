@@ -8,17 +8,17 @@ const words = require("../bad-words.json");
 const { Sequelize } = require("sequelize");
 
 // Syncing the database.
-User.sync({force: true});
-Poll.sync({force: true});
+User.sync({alter: true});
+Poll.sync({alter: true});
 
 
 const editProfile = async (req, res) => {
   try {
     try{
       // Here we are trying to access the JWT token data to verify the BITS ID
-      // const userId = req.user.id;
-      const userId = req.body.id;
-      const user = await User.findOne({where: {user_id: userId}});
+      const userId = req.user.id;
+      // const userId = req.body.id;
+      const user = await User.findByPk(userId);
 
       const imgUrl = req.body.imgUrl;
       if (imgUrl != "") {
