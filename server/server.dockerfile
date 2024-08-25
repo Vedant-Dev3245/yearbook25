@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:20
 
 RUN apt-get update \
     && apt-get install -y netcat-traditional
@@ -21,5 +21,3 @@ RUN chown -R app:app $APP_HOME
 USER app
 
 CMD ["npm", "start"]
-
-# ENTRYPOINT ["/home/app/web/entrypoint.sh"]

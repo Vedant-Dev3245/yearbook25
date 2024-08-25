@@ -1,23 +1,23 @@
 const { response } = require("express");
+const { postgresClient } = require("../db/postgres");
 const express = require("express");
 const router = express.Router();
-const Poll = require("../models/poll");
-const { User, Search } = require("../models/user");
+const { Poll } = require("../models/poll");
+const { User } = require("../models/user");
+const { Op } = require("sequelize");
 
 const allPolls = async (req, res) => {
-  const questions = await Poll.find({})
-    .select(["ques", "totalCount", "votes"])
-    .populate({ path: "votes", populate: { path: "user" } });
-  return res.status(200).json({ questions });
+
+  const polls = await Poll.findAll()
+  
+  return res.status(200).json({ polls });
 };
 
 const getPoll = async (req, res) => {
   try {
     const pollID = req.params.id;
-    const poll = await Poll.findById(pollID).populate({
-      path: "votes",
-      populate: { path: "user" },
-    });
+
+    const poll = await Poll.findByPk(pollID)
 
     if (!poll) {
       return res.status(404).json({ msg: `No poll found by the ID ${pollID}` });
@@ -35,13 +35,13 @@ const createPoll = async (req, res) => {
     const ques = req.body.question;
     const branch = req.body.branch;
 
-    const users_all = await User.find({});
+    const users_all = await User.findAll();
 
     const poll = await Poll.create({
-      ques: ques,
+      question: ques,
       branch: branch,
       votes: users_all.map((user) => {
-        return { user: user, count: 0, hasVoted: false };
+        return { user: user.user_id, count: 0, hasVoted: false };
       }),
     });
 
@@ -58,11 +58,13 @@ const updatePoll = async (req, res) => {
     const pollID = req.params.id;
     const question = req.body.question;
 
-    const poll = await Poll.findByIdAndUpdate(
-      pollID,
-      { ques: question },
-      { new: true, runValidators: true }
-    );
+    const poll = await Poll.findByPk(pollID);
+
+    poll.question = question;
+    poll.set('question', poll.question);
+    poll.changed('question', true);
+    await poll.save();
+
     if (!poll) {
       return res.status(404).json({ msg: `No poll found with ID ${pollID}` });
     }
@@ -78,14 +80,17 @@ const deletePoll = async (req, res) => {
   try {
     const pollID = req.params.id;
 
-    const poll = await Poll.findByIdAndDelete(pollID);
+    const poll = await Poll.findByPk(pollID);
+
     if (!poll) {
       return res
         .status(404)
         .json({ msg: `No poll found with the id ${pollID}` });
     }
 
-    res.status(200).json({ msg: `Poll with ID ${pollID} deleted` });
+    await Poll.destroy({where: {poll_id: pollID}});
+
+    res.status(200).json({ msg: `Poll with ID ${pollID} was deleted` });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "something went wrong" });
@@ -98,7 +103,7 @@ const votePoll = async (req, res) => {
     const targetId = req.body.targetId;
     const pollId = req.params.id;
 
-    const poll = await Poll.findById(pollId);
+    const poll = await Poll.findByPk(pollId);
 
     if (!poll)
       return res
@@ -109,7 +114,7 @@ const votePoll = async (req, res) => {
       return res.status(400).json({ msg: "Send the target id" });
 
     const voterUser = poll.votes.find((voter) => voter.user == voterId);
-    const targetUser = poll.votes.find((voter) => voter.user == targetId);
+    const targetUser = poll.votes.find((target) => target.user == targetId);
 
     if (voterId == targetId) {
       return res.status(400).json({ msg: "You cannot vote for yourself" });
@@ -118,14 +123,21 @@ const votePoll = async (req, res) => {
     if (!voterUser || !targetUser) {
       return res.status(500).json({ msg: "report to admin" });
     }
-    if (voterUser.hasVoted != false)
+
+    if (voterUser.hasVoted){
       return res.status(400).json({ msg: "You have already voted" });
+    }
 
     poll.totalCount = poll.totalCount + 1;
+    
     targetUser.count = targetUser.count + 1;
     voterUser.hasVoted = true;
 
+    poll.set('votes', poll.votes); // setting the column 'votes' manually to our local variable poll.votes
+    poll.changed('votes', true); // telling sequelize manually that this column has changed and needs updating.
+
     poll.save();
+
     return res.status(200).json({ msg: "voted for user", poll: poll });
   } catch (error) {
     console.log(error);
@@ -136,25 +148,36 @@ const votePoll = async (req, res) => {
 const leaderboard = async (req, res) => {
   try {
     const response = [];
-    const polls = await Poll.find({
-      totalCount: { $gte: 1 },
-      "votes.1": { $exists: true },
-    });
-    for (var j = 0; j < polls.length; j++) {
-      var votes = polls[j].votes;
 
-      var maximumValue = votes[0].count;
-      var maxIndex = 0;
-
-      for (var i = 1; i < votes.length; i++) {
-        if (votes[i].count > maximumValue) {
-          maxIndex = i;
-          maximumValue = votes[i].count;
+    const polls = await Poll.findAll({
+      where: {
+        totalCount:{
+          [Op.gte]: 1,  
         }
       }
+    });
 
-      let user = await User.findById(votes[maxIndex].user);
-      response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].ques });
+    if(!polls){
+      for (var j = 0; j < polls.length; j++) {
+        var votes = polls[j].votes;
+
+        var maximumValue = votes[0].count;
+        var maxIndex = 0;
+
+        for (var i = 1; i < votes.length; i++) {
+          if (votes[i].count > maximumValue) {
+            maxIndex = i;
+            maximumValue = votes[i].count;
+          }
+        }
+
+        let user = await User.findByPk(votes[maxIndex].user);
+
+        response.push({ id: user.id, name: user.name, votes: maximumValue, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });
+      }
+    }
+    else{
+        response.push({message: "no data yet"})
     }
 
     return res.status(200).json({ response });

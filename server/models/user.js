@@ -1,73 +1,83 @@
-const mongoose = require('mongoose')
-//this file determines the user model and schema
-var UserSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        uppercase: true
-    },
-    imageUrl: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    personalEmail: {
-        type: String
-    },
-    phone: {
-        type: String
-    },
-    bitsId: {
-        type: String,
-        required: true
-    },
-    nominatedby: { // the user is nominated by who
-        type: Array
-    },
-    quote: {
-        type: String
-    },
-    branchCode: [{
-        type: String,
-        required: true
-    }],
-    captions: [{
-        user: {
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: "User",
-            required: true
+const {Sequelize, DataTypes} = require("sequelize");
+const { postgresClient } = require("../db/postgres");
+
+
+const User = postgresClient.define(
+    'user', 
+    {
+        user_id:{
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
+            primaryKey: true
         },
-        caption: { type: String, required: true }
-    }],
-    requests: [{
-        user: {
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: "User",
-            required: true
+
+        name:{
+            type: DataTypes.STRING,
+            allowNull: false
         },
-        caption: { type: String, required: true }
-    }],
-    declined_requests: [{
-        user: {
-            type: mongoose.SchemaTypes.ObjectId,
-            ref: "User",
-            required: true
+
+        imageUrl:{
+            type: DataTypes.STRING
         },
-        caption: { type: String, required: true }
-    }],
-})
 
+        email:{
+            type: DataTypes.STRING,
+            allowNull: false
+        },
 
-// UserSchema.index({name: 'text'})
-var User = mongoose.model('User', UserSchema);
+        personalEmail:{
+            type: DataTypes.STRING
+        },
 
-const searchSchema = new mongoose.Schema({
-    uId: String,
-    name: String,
-    bitsId: String
-});
-searchSchema.index({ name: "text", bitsId: "text" })//adding name as an index for searching the Search collection
-var Search = mongoose.model('Search', searchSchema);
+        phone:{
+            type: DataTypes.STRING
+        },
 
-module.exports = { User, Search }
+        bitsId: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+
+        nominatedby: { // JSON: {name, id}
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+        },
+
+        quote: {
+            type: DataTypes.STRING
+        },
+
+        branchCode: {
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: false,
+        },
+
+        commitments:{
+            type: DataTypes.ARRAY(DataTypes.UUID)
+        },
+
+        requests: {
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // requests JSON has the structure {user, caption}
+        },
+
+        declined_requests: {
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // declined_requests JSON has the structure {user, caption}
+        },
+
+        captions: {
+            type: DataTypes.ARRAY(DataTypes.JSON),
+            defaultValue: []
+            // captions JSON has the structure {user, caption}
+        }
+    },
+    {
+        tableName: "alluser"
+    }
+);
+
+module.exports = {User};

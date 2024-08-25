@@ -16,14 +16,13 @@ export default function Profile(props) {
   const [loading, setLoading] = React.useState(true);
   const [user, setUser] = React.useState({
     captions: [],
-    discipline: "",
+    branchCode: [],
     email: "",
     imageUrl: "",
     name: "",
     nominatedby: [],
     quote: "",
-    __v: 0,
-    _id: "",
+    user_id: "",
     bitsId: "",
   });
   React.useEffect(() => {
@@ -47,6 +46,7 @@ export default function Profile(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}`,
     })
       .then(function (response) {
+        console.log("this is from the front end, the response.data is: ", response.data);
         setUser(response.data.user)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
@@ -96,11 +96,7 @@ export default function Profile(props) {
         name={user.name}
         quote={user.quote}
         id={user.bitsId}
-        discipline={
-          user.bitsId.indexOf("PS") === -1
-            ? user.bitsId.slice(4, 8)
-            : user.bitsId[4] + user.bitsId[5]
-        }
+        discipline={user.branchCode}
         imgUrl={user.imageUrl}
       />
       <Interact

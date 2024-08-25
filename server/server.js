@@ -1,28 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const { User } = require("./models/user");
-const app = express();
 const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
+const cors = require("cors");
+
+const {postgresClient} = require("./db/postgres")
+
+const app = express();
 const port = process.env.PORT || 3001;
 
-// MONGODB
-
-mongoose
-  .connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => {
-    console.log("MongoDB connection error:", err.message);
-  });
+// POSTGRESQL
+try{
+  postgresClient.authenticate();
+  console.log("Connection has been established succesfully");
+}catch(err){
+    console.log("Unable to connect to the database", err);
+}
 
 // COOKIES
 

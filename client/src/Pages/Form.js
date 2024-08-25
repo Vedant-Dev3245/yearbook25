@@ -23,6 +23,7 @@ import {
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
+import jwtDecode from "jwt-decode";
 
 export default function Form() {
   const validID = new RegExp(
@@ -77,9 +78,13 @@ export default function Form() {
         })
           .then(function (response) {
             if (response.data.detail === "Profile created") {
-              localStorage.setItem("user", response.data.id);
+              const decodedToken = jwtDecode(response.data.token);
+              // localStorage.setItem("user", response.data.id);
+              console.log("This is the UUID of the created user: ", decodedToken.id);
+              localStorage.setItem("user", decodedToken.id);
               localStorage.setItem("token", response.data.token);
-              navigate(`/profile/${response.data.id}`);
+              // navigate(`/profile/${response.data.id}`);
+              navigate(`/profile/${decodedToken.id}`);
             }
             console.log(response);
           })

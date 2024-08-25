@@ -4,10 +4,30 @@ services:
     image: sarc-client:latest
     ports:
       - 3000:3000
+    networks:
+      - app-tier
+
   yearbook-backend:
     image: sarc-server:latest
     ports:
       - 8000:8000
+    networks:
+      - app-tier
+
+  yearbookdb:
+    image: postgres
+    networks:
+      - app-tier
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testingyearbook
+      - POSTGRES_HOSTNAME=yearbookdb
+    ports:
+      - 5000:5432
+    volumes:
+      - yearbookdbing:/var/lib/postgresql/data
+
   nginx:
     container_name: sarc_nginx
     image: nginx:mainline-alpine
@@ -17,3 +37,10 @@ services:
       - "1337:80"
     depends_on:
       - yearbook-backend
+
+networks:
+  app-tier:
+  
+volumes:
+  nginx:
+  yearbookdbing:
