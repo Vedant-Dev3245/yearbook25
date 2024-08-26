@@ -68,7 +68,7 @@ export default function Profile(props) {
 
   return (
     <Box
-      bg="linear-gradient(144.31deg, #050505 9%, #07111B 32.99%, #130D1F 50.05%, #130C1E 82.44%, #020202 92.26%)"
+      bg="linear-gradient(144deg, #050505 9%, #081018 32.99%, #110B1B 50.05%, #060508 82.44%, #020202 92.26%)"
       color="white"
       overflowX="hidden"
       overflowY="hidden"
@@ -98,12 +98,15 @@ export default function Profile(props) {
         id={user.bitsId}
         discipline={user.branchCode}
         imgUrl={user.imageUrl}
+        /* commitments={user.commitments} (seniors)*/
       />
       <Interact
         captions={user.captions}
         nominatedby={user.nominatedby}
         name={user.name}
+        bitsId={user.bitsId}
         id={params.id}
+        /* commitments={user.commitments} (juniors)*/
       />
     </Box>
   );
