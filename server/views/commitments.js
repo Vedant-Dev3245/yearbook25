@@ -46,6 +46,7 @@ const updateUserCommitments = async(req, res) => {
     }
 }
 
+// Filtering based on commitment isn't working, pls fix
 const searchByCommitment = async(req, res) => {
     const commitment_id = req.params.id;
     const commitment = await Commitment.findByPk(commitment_id);
