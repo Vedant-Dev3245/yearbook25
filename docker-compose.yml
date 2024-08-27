@@ -38,7 +38,7 @@ services:
     container_name: sarc_nginx
     image: nginx:mainline-alpine
     volumes:
-      - ./nginx:/etc/nginx/conf.d
+      - ./server/nginx:/etc/nginx/conf.d
     ports:
       - "1337:80"
     depends_on:
