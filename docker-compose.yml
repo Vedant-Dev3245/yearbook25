@@ -2,6 +2,9 @@ version: '3'
 services:
   yearbook-frontend:
     image: sarc-client:latest
+    build: 
+      context: .
+      dockerfile: client/client.dockerfile
     ports:
       - 3000:3000
     networks:
@@ -9,6 +12,9 @@ services:
 
   yearbook-backend:
     image: sarc-server:latest
+    build: 
+      context: .
+      dockerfile: server/server.dockerfile
     ports:
       - 8000:8000
     networks:

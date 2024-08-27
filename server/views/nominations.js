@@ -93,8 +93,8 @@ const allRequests = async (req, res) => {
 
 const nominateUser = async (req, res) => {
   try {
-    // const senderId = req.user.id;
-    const senderId = req.body.id;
+    const senderId = req.user.id;
+    // const senderId = req.body.id;
     const receiverId = req.body.receiverId;
 
     // const session = await postgresClient.transaction();
@@ -203,8 +203,8 @@ const nominateUser = async (req, res) => {
 
 const declineRequest = async (req, res) => {
   try {
-    // senderId = req.user.id;
-    const senderId = req.body.id;
+    const senderId = req.user.id;
+    // const senderId = req.body.id;
     const receiverId = req.body.receiverId;
 
     const sender = await User.findByPk(senderId);

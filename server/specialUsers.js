@@ -58,6 +58,8 @@ const arr = [
   "f20221171@pilani.bits-pilani.ac.in",
   "f20220115@pilani.bits-pilani.ac.in",
   "f20220590@pilani.bits-pilani.ac.in",
+  //23Batch
+  
 
   // Special Cases
   "anhadvirsm@gmail.com",
