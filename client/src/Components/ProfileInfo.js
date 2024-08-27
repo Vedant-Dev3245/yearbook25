@@ -266,7 +266,9 @@ export default function ProfileInfo(props) {
             maxH="480px" maxW="550px"
           >
             <ModalHeader
-              fontSize={isSmallerThan800 ? "1rem" : "1.6rem"}
+              fontSize={isSmallerThan800 ? "1rem" : "2rem"}
+              textAlign="center"
+              fontWeight={1100}
             >
               update your profile
             </ModalHeader>
@@ -274,6 +276,7 @@ export default function ProfileInfo(props) {
             <ModalBody
               mt="-0.5rem"
               fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+              textAlign="center"
               color="#B3B3B3"
               mb="1rem"
               maxH="500px" maxW="550px"
@@ -283,6 +286,7 @@ export default function ProfileInfo(props) {
                 <Link
                   fontWeight={800}
                   textDecor="underline"
+                  color="#FFF"
                   href="https://shreyakhubber.notion.site/shreyakhubber/Yearbook-Portal-a40d3dfec7714184b04812205daf62e6"
                 >
                   document
@@ -306,7 +310,8 @@ export default function ProfileInfo(props) {
                       htmlFor="file"
                       textAlign={"center"}
                       fontWeight="700"
-                      fontSize={isSmallerThan800 ? "0.4rem" : "0.6rem"}
+                      fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+                      pb={2}
                     >
                       {" "}
                       please upload a 1080*1080 <br /> image to avoid cuts

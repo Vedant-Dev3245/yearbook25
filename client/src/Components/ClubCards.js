@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Search2Icon } from "@chakra-ui/icons";
 import { FaUsers } from "react-icons/fa";
-import Search from "./Search"
+import ClubSearch from "./ClubSearch"
 export default function ClubCards(props) {
     const [selectedOption, setSelectedOption] = useState('');
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
@@ -82,8 +82,14 @@ export default function ClubCards(props) {
                 fill="#100B18"
             >
                 <VStack mt={12} alignItems="flex-start" ml={6}>
-                    <Box fontSize="40px" fontWeight="bold" mt={4} text-align="center">
-                        <Text>
+                    <Box
+                        fontSize="40px"
+                        fontWeight="bold"
+                        mt={4}
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Text textAlign="center">
                             {props.commitment}
                         </Text>
                     </Box>
@@ -98,14 +104,14 @@ export default function ClubCards(props) {
                             </option>
                         ))}
                     </Select> */}
-                    <Flex position="absolute" top="70%" className="searchIcon" backdropFilter="blur(20px)" borderRadius={"0.6rem"} w={isSmallerThan800 ? "80%" : "80%"} border="1px solid #FFF" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center" boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <Search />  </Flex>
+                    <Flex position="absolute" top="70%" className="searchIcon" backdropFilter="blur(20px)" borderRadius={"0.6rem"} w={isSmallerThan800 ? "80%" : "80%"} border="1px solid #FFF" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center" boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <ClubSearch />  </Flex>
                     <Flex
                         position="absolute"
                         top="20px"
                         right="40px"
                         display="flex"
                         gridGap="10px"
-                        alignItems="center">  
+                        alignItems="center">
                         <FaUsers
                             filter="drop-shadow(0px 0px 15px #2094FF)"
                             color="#DAE6FF"
@@ -116,7 +122,7 @@ export default function ClubCards(props) {
                         </Text>
                     </Flex>
                 </VStack>
-            </Box>
-        </Box>
+            </Box >
+        </Box >
     );
 };
