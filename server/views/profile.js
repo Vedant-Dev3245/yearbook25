@@ -1,5 +1,6 @@
 const { User } = require("../models/user");
 const { Poll } = require("../models/poll");
+const { Commitment } = require("../models/commitment")
 const { postgresClient } = require("../db/postgres");
 const jwt = require("jsonwebtoken");
 const {v4: isUuid} = require("uuid");
@@ -10,6 +11,7 @@ const { Sequelize } = require("sequelize");
 // Syncing the database.
 User.sync({alter: true});
 Poll.sync({alter: true});
+Commitment.sync({alter: true});
 
 
 const editProfile = async (req, res) => {
@@ -60,8 +62,8 @@ const editProfile = async (req, res) => {
 const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
-    // const writerId = req.user.id;
-    const writerId = req.body.id;
+    const writerId = req.user.id;
+    // const writerId = req.body.id;
     const targetId = req.params.id;
     
     if (writerId == targetId) {
@@ -329,7 +331,7 @@ const deleteProfile = async (req, res) => {
         await user.save();
       }
     }catch(err){
-      throw(err);
+      console.log("There was an error - deleteProfile", err);
       return res.status(500).send({
         status: "failure",
         msg: "Something went wrong"
@@ -354,7 +356,7 @@ const deleteProfile = async (req, res) => {
       }
 
     }catch(err){
-      throw(err);
+      console.log("There was an error - deleteProfile", err);
       return res.status(500).send({
         status: "failure",
         msg: "Something went wrong"
