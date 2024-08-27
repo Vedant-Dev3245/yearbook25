@@ -3,7 +3,6 @@ import Form from "./Pages/Form"
 import Home from "./Pages/Home"
 import Profile from "./Pages/Profile"
 import Junior from "./Pages/JuniorForm"
-import Preview from "./Pages/Preview"
 import Developers from "./Pages/Developers"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 function App() {
@@ -15,7 +14,6 @@ function App() {
         <Route path="/form" element={<Form />} />
         <Route path="/junior" element={<Junior />} />
         <Route path="/developers" element={<Developers />} />
-        <Route path="/preview/:id" element={<Preview />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="*" element={<Home />} />
       </Routes>
