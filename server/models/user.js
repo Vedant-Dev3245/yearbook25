@@ -73,6 +73,11 @@ const User = postgresClient.define(
             type: DataTypes.ARRAY(DataTypes.JSON),
             defaultValue: []
             // captions JSON has the structure {user, caption}
+        },
+
+        senior: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     },
     {

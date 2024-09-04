@@ -153,7 +153,7 @@ const addProfile = async (req, res) => {
       });
     } else {
       const bitsId = req.body.id;
-
+      
       let branchCode = bitsId.substring(4, bitsId.length - 4);
 
       if (branchCode.includes("B")) {
@@ -178,6 +178,7 @@ const addProfile = async (req, res) => {
         quote: quote,
         branchCode: branchCode,
         imageUrl: req.body.imgUrl,
+        senior: senior
       });
 
       // Updating all the existing Polls with the new User's data:
