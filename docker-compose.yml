@@ -11,6 +11,7 @@ services:
       - app-tier
 
   yearbook-backend:
+    container_name: yearbook-backend
     image: sarc-server:latest
     build: 
       context: .
@@ -43,6 +44,8 @@ services:
       - "1337:80"
     depends_on:
       - yearbook-backend
+    networks:
+      - app-tier
 
 networks:
   app-tier:
