@@ -9,13 +9,15 @@ const { request } = require("express");
 
 const allCommitments = async(req, res) =>{
     try{
-        const commitments = await Commitment.findAll()
+        const commitments = await Commitment.findAll({
+            attributes: ['commitment_id', 'commitment_name'],
+        })
         return res.status(200).json(commitments);
-    }catch(err){
+    }catch(error){
         res.status(500).send({
             status: "failure",
-            msg: "Some error occurred",
-            error: err
+            msg: "[allCommitments Route] An error occurred",
+            error: error
         })
     }
 }

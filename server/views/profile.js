@@ -153,7 +153,7 @@ const addProfile = async (req, res) => {
       });
     } else {
       const bitsId = req.body.id;
-
+      
       let branchCode = bitsId.substring(4, bitsId.length - 4);
 
       if (branchCode.includes("B")) {
