@@ -182,6 +182,4 @@ const deleteCommitment = async(req, res) => {
     }
 }
 
-
-
 module.exports = { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment};

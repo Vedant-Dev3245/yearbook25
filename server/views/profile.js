@@ -9,9 +9,12 @@ const words = require("../bad-words.json");
 const { Sequelize } = require("sequelize");
 
 // Syncing the database.
-User.sync({alter: true});
-Poll.sync({alter: true});
-Commitment.sync({alter: true});
+// User.sync({alter: true});
+// Poll.sync({alter: true});
+// Commitment.sync({alter: true});
+User.sync({force: true});
+Poll.sync({force: true});
+Commitment.sync({force: true});
 
 
 const editProfile = async (req, res) => {
@@ -153,7 +156,17 @@ const addProfile = async (req, res) => {
       });
     } else {
       const bitsId = req.body.id;
-      
+      const stringyear = bitsId.substring(0,4);
+      const year = Number(stringyear);
+
+      let senior = false;
+
+      if(year<=2021){
+        senior = true;
+      }
+      console.log("[addProfile Route] This was the year: ", year);
+      console.log("[addProfile Route] This is the senior status: ", senior);
+
       let branchCode = bitsId.substring(4, bitsId.length - 4);
 
       if (branchCode.includes("B")) {
@@ -178,6 +191,7 @@ const addProfile = async (req, res) => {
         quote: quote,
         branchCode: branchCode,
         imageUrl: req.body.imgUrl,
+        senior: senior
       });
 
       // Updating all the existing Polls with the new User's data:

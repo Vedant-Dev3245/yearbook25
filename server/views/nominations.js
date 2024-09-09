@@ -242,5 +242,4 @@ const declineRequest = async (req, res) => {
   }
 };
 
-
 module.exports = { allRequests, nominateUser, declineRequest, sendRequest };
