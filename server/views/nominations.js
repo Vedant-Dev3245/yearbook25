@@ -44,7 +44,7 @@ const sendRequest = async (req, res) => {
       });
     }
 
-    target.requests.push({"user": senderId, "caption": caption});
+    target.requests.push({"user": senderId, "name": sender.name, "caption": caption});
     target.set('requests', target.requests);
     target.changed('requests', true);
     await target.save();
@@ -136,7 +136,7 @@ const nominateUser = async (req, res) => {
       }
       try{
 
-        sender.captions.push({"user": receiver, "caption": newCap});
+        sender.captions.push({"user": receiverId, "name": receiver.name,  "caption": newCap});
         sender.requests = requests;
 
         sender.set('captions', sender.captions);
@@ -169,7 +169,7 @@ const nominateUser = async (req, res) => {
         }
       }
       
-      sender.captions.push({"user": receiver, "caption": newCap});
+      sender.captions.push({"user": receiverId, "name": receiver.name,  "caption": newCap});
       sender.declined_requests = declined_requests;
     
       sender.set('captions', sender.captions);

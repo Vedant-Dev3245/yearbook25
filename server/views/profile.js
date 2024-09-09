@@ -251,7 +251,7 @@ const searchUsers = async (req, res) => {
   try {
 
     const search_term = req.query.name;
-    const query = `SELECT * FROM ALLUSER WHERE NAME LIKE :search_value`;
+    const query = `SELECT * FROM ALLUSER WHERE NAME ILIKE :search_value`;
     const searchvalue = `%{search_term}%`;
 
     const [results, metadata] = await postgresClient.query(query, {
