@@ -35,7 +35,8 @@ router.post("/google", async (req, res) => {
       requiredAudience: process.env.AUDIENCE,
     });
 
-    // await User.create({ email: "f20230327@pilani.bits-pilani.ac.in", name: "PRITHVI GOWDA C", bitsId: "2023A3PS0327P", branchCode: ["A3"] })
+    await User.create({ email: "f20230327@pilani.bits-pilani.ac.in", name: "PRITHVI GOWDA C", bitsId: "2023A3PS0327P", branchCode: ["A3"] })
+    await User.create({ email: "f20230833@pilani.bits-pilani.ac.in", name: "DEV SATISH", bitsId: "2023B1PS0833P", branchCode: ["B1"] })
 
     const payload = ticket.getPayload();
     const email = payload.email;
@@ -43,7 +44,7 @@ router.post("/google", async (req, res) => {
     if (
       !privileged.includes(email) && (email[10] != "p" ||
       (email.substring(0, 5) != "f2020" &&
-        email.substring(0, 5) != "h2022"))
+        email.substring(0, 5) != "h2022" && email.substring(0, 5) != "f2021" && email.substring(0, 5) != "f2022" && email.substring(0, 5) != "f2023"))
     ) {
       //checking if a user is eligible to login, some special users are also mentioned in specialUsers.js file
       return res.send({

@@ -457,7 +457,6 @@ export default function ProfileInfo(props) {
                 {commitments.map((commitment, index) => (
                   <Tags key={index} commitments={commitment} />
                 ))} </HStack></> : <></>}
-
         </VStack>
       </Flex>
 

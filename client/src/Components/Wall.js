@@ -64,7 +64,6 @@ export default function Wall(props) {
       seniorOptions: ['Option X', 'Option Y', 'Option Z'],
     },
   ];
-
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
       {props.bitsId.charAt(3) === '0' ? <>

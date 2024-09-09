@@ -48,25 +48,28 @@ const updateUserCommitments = async(req, res) => {
     }
 }
 
-// Filtering based on commitment isn't working, pls fix
-const searchByCommitment = async(req, res) => {
+const searchByCommitment = async (req, res) => {
     const commitment_id = req.params.id;
-    const commitment = await Commitment.findByPk(commitment_id);
+    console.log("this is the commitment_id: ", commitment_id);
 
-    console.log("the commitment is: ", commitment);
+    const required_users = [];
 
-    try{
-        const users = await findAll({
-            where: {
-                Commitments: {
-                    [Op.contains]: commitment
+    try {
+        const users = await User.findAll();
+        for (const user of users){
+            for(const commitment of user.commitments){
+                if(commitment.commitment_id == commitment_id){
+                    required_users.push(user);
                 }
             }
-        })
+        }
 
-        res.status(200).json(users);
+        console.log("users is: ", required_users);
 
-    }catch(err){
+        return res.status(200).json(required_users);
+
+    } catch (err) {
+        console.log("[searchByCommitment Route] An error occurred: ", err);
         res.status(500).send({
             status: "failure",
             msg: "Some error occurred",
@@ -181,7 +184,5 @@ const deleteCommitment = async(req, res) => {
         })
     }
 }
-
-
 
 module.exports = { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment};

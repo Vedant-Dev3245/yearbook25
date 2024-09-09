@@ -18,6 +18,9 @@ export default function Interact(props) {
   const [ownProfile, setOwnProfile] = React.useState();
   const barItems = document.querySelectorAll(".barItems");
 
+  function isSenior() {
+    return (props.bitsId.charAt(3) === '1')
+  }
   function removeActive() {
     for (let i = 0; i < barItems.length; i++) {
       if (
