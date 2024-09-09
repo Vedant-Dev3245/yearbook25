@@ -55,7 +55,7 @@ const sendRequest = async (req, res) => {
     });
 
   } catch (err) {
-    console.log("There was an erorr: sendRequest", err);
+    console.log("[sendRequest Route] There was an erorr: ", err);
 
     return res.send({
       status: "failure",

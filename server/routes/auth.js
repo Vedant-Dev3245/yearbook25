@@ -69,6 +69,7 @@ router.post("/google", async (req, res) => {
         bitsId: user.bitsId,
         branchCode: user.branchCode,
         email: payload.email,
+        senior: user.senior
       },
       process.env.TOKEN_KEY,
       { expiresIn: "180d" }
