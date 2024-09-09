@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const {v4: isUuid} = require("uuid");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
-const { Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 
 // Syncing the database.
 User.sync({alter: true});
@@ -260,6 +260,9 @@ const searchUsers = async (req, res) => {
     let results = await User.findAll({
       attributes: ['user_id', 'name', 'bitsId'],
       where: {
+        user_id: {
+          [Op.not]: req.user.id
+        },
         name: {
           [Op.like]: search_value
         }
