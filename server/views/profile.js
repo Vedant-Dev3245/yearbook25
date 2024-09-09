@@ -12,17 +12,17 @@ const { Sequelize } = require("sequelize");
 // User.sync({alter: true});
 // Poll.sync({alter: true});
 // Commitment.sync({alter: true});
+// For Dev testing:
 User.sync({force: true});
 Poll.sync({force: true});
 Commitment.sync({force: true});
 
-
 const editProfile = async (req, res) => {
   try {
     try{
-      // Here we are trying to access the JWT token data to verify the BITS ID
       const userId = req.user.id;
-      // const userId = req.body.id;
+      // const userId = req.body.id; // for POSTMAN testing
+
       const user = await User.findByPk(userId);
 
       const imgUrl = req.body.imgUrl;
@@ -45,19 +45,26 @@ const editProfile = async (req, res) => {
 
       await user.save();
 
-      return res.send({
-        msg: "Successfully Updated",
+      return res.status(200).send({
+        status: "success",
+        message: "Successfully Updated",
         user: user
       });
-    }catch(err){
-      console.log("Some error occurred during the transaction", err);
+    }catch(error){
+      console.log("[editProfile Route] An error has occurred: ", error);
+      return res.status(400).send({
+        status: "failure",
+        message: "[editProfile Route] An error has occurred",
+        error: error
+      })
     }
 
-  } catch (err) {
-    console.log("there was an error - edit profile", err);
+  } catch (error) {
+    console.log("[editProfile Route] An error has occurred: ", error);
     return res.status(400).send({
       status: "failure",
-      msg: "There was an error, Please try after some time",
+      message: "There was an error, Please try after some time",
+      error: error
     });
   }
 };
@@ -65,8 +72,10 @@ const editProfile = async (req, res) => {
 const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
+
     const writerId = req.user.id;
-    // const writerId = req.body.id;
+    // const writerId = req.body.id; // for POSTMAN testing
+
     const targetId = req.params.id;
     
     if (writerId == targetId) {
