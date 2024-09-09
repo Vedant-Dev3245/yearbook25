@@ -44,7 +44,7 @@ const sendRequest = async (req, res) => {
       });
     }
 
-    target.requests.push({"user": senderId, "name": sender.name, "caption": caption});
+    target.requests.push({"user": sender, "caption": caption});
     target.set('requests', target.requests);
     target.changed('requests', true);
     await target.save();
@@ -136,7 +136,7 @@ const nominateUser = async (req, res) => {
       }
       try{
 
-        sender.captions.push({"user": receiverId, "name": receiver.name,  "caption": newCap});
+        sender.captions.push({"user": receiver, "caption": newCap});
         sender.requests = requests;
 
         sender.set('captions', sender.captions);
@@ -169,7 +169,7 @@ const nominateUser = async (req, res) => {
         }
       }
       
-      sender.captions.push({"user": receiverId, "name": receiver.name,  "caption": newCap});
+      sender.captions.push({"user": receiver, "caption": newCap});
       sender.declined_requests = declined_requests;
     
       sender.set('captions', sender.captions);
@@ -181,7 +181,7 @@ const nominateUser = async (req, res) => {
 
     }
 
-    receiver.nominatedby.push({"name": senderName, "id": senderId});
+    receiver.nominatedby.push({"name": senderName, "id": senderId, "user": sender});
     receiver.set('nominatedby', receiver.nominatedby);
     receiver.changed('nominatedby', true);
     await receiver.save();
@@ -206,6 +206,7 @@ const declineRequest = async (req, res) => {
     const senderId = req.user.id;
     // const senderId = req.body.id;
     const receiverId = req.body.receiverId;
+    const receiver = await User.findByPk(receiverId);
 
     const sender = await User.findByPk(senderId);
 
@@ -219,7 +220,7 @@ const declineRequest = async (req, res) => {
       }
     }
     
-    sender.declined_requests.push({"user": receiverId, "caption": newCap});
+    sender.declined_requests.push({"user": receiver, "caption": newCap});
     sender.requests = requests;
 
     sender.set('declined_requests', sender.declined_requests);
