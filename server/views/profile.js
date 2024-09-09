@@ -248,22 +248,36 @@ const addProfile = async (req, res) => {
 };
 
 const searchUsers = async (req, res) => {
-  try {
-
+  try{
     const search_term = req.query.name;
-    const query = `SELECT * FROM ALLUSER WHERE NAME ILIKE :search_value`;
-    const searchvalue = `%{search_term}%`;
 
-    const [results, metadata] = await postgresClient.query(query, {
-      replacements: { search_value: searchvalue},
-      type: postgresClient.QueryTypes.SELECT
+    if(!search_term){
+      res.status(400).send({ message: "search term is required"});
+    }
+
+    let query = `SELECT * FROM ALLUSER WHERE NAME ILIKE :search_value`
+    console.log("search_term[0]: ", search_term[0]);
+    
+    if(search_term[0] == '2'){
+      query = `SELECT * FROM ALLUSER WHERE BITSID LIKE :search_value`
+    }
+
+    const search_value = `%${search_term}%`;
+
+    let [results, metadata] = await postgresClient.query(query, {
+      replacements: {search_value: search_value},
+      type: Sequelize.QueryTypes.SELECT
     });
 
-      return res.send({users: results});
-  } catch (e) {
+    console.log("These are the results: ", results);
+    console.log("These are the metadata: ", metadata);
+    return res.status(200).send(results);
+
+  }catch(e){
+    console.log(e);
     res.status(500).send({ message: e.message });
   }
-};
+}
 
 const getProfile = async (req, res) => {
   try {
