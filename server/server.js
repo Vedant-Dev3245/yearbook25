@@ -68,5 +68,5 @@ app.use("/commitments", isAuthenticated, commitmentRoutes);
 
 
 app.get("/test", async (req, res) => {
-  return res.send({ all, msg: "ok" });
+  return res.send({ msg: "ok" });
 });
