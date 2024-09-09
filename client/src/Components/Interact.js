@@ -95,88 +95,109 @@ export default function Interact(props) {
         flexWrap="wrap"
         borderBottom="1px solid rgba(217, 217, 217, 0.1)"
       >
-        <Flex
-          onClick={makeWallActive}
-          cursor="pointer"
-          alignItems="center"
-          p="1rem"
-          className="wall active barItems"
-        >
-          <FiFeather
-            filter="drop-shadow(0px 0px 15px #2094FF"
-            fontSize="1.2rem"
-          />
-          <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
-            {ownProfile ? "your wall" : "wall"}
-          </Text>
-        </Flex>
-        <Flex
-          display={ownProfile ? "flex" : "none"}
-          onClick={makeNominActive}
-          cursor="pointer"
-          alignItems="center"
-          p="1rem"
-          className="nomin barItems"
-        >
-          <FiAnchor
-            filter="drop-shadow(0px 0px 15px #2094FF"
-            fontSize="1.2rem"
-          />
-          <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
-            nominate your friends
-          </Text>
-        </Flex>
-        <Flex
-          display={ownProfile ? "flex" : "none"}
-          onClick={makeNotifActive}
-          cursor="pointer"
-          alignItems="center"
-          p="1rem"
-          className="notif barItems"
-        >
-          <FiBell filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
-          <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
-            notifications
-          </Text>
-        </Flex>
-        <Flex
-          display={ownProfile ? "flex" : "none"}
-          onClick={makePollsActive}
-          cursor="pointer"
-          alignItems="center"
-          p="1rem"
-          className="polls barItems"
-        >
-          <FiActivity
-            filter="drop-shadow(0px 0px 15px #2094FF"
-            fontSize="1.2rem"
-          />
-          <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
-            polls
-          </Text>
-        </Flex>
-        <Flex
-          display={ownProfile ? "flex" : "none"}
-          onClick={makeStatsActive}
-          cursor="pointer"
-          alignItems="center"
-          p="1rem"
-          className="stats barItems"
-        >
-          <FiBarChart2
-            filter="drop-shadow(0px 0px 15px #2094FF"
-            fontSize="1.2rem"
-          />
-          <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
-            leaderboard
-          </Text>
-        </Flex>
+        {props.bitsId.charAt(3) === '0' ? <>
+          <Flex
+            onClick={makeWallActive}
+            cursor="pointer"
+            alignItems="center"
+            p="1rem"
+            className="wall active barItems"
+          >
+            <FiFeather
+              filter="drop-shadow(0px 0px 15px #2094FF"
+              fontSize="1.2rem"
+            />
+            <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+              {ownProfile ? "your wall" : "wall"}
+            </Text>
+          </Flex>
+          <Flex
+            display={ownProfile ? "flex" : "none"}
+            onClick={makeNominActive}
+            cursor="pointer"
+            alignItems="center"
+            p="1rem"
+            className="nomin barItems"
+          >
+            <FiAnchor
+              filter="drop-shadow(0px 0px 15px #2094FF"
+              fontSize="1.2rem"
+            />
+            <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+              nominate your friends
+            </Text>
+          </Flex>
+          <Flex
+            display={ownProfile ? "flex" : "none"}
+            onClick={makeNotifActive}
+            cursor="pointer"
+            alignItems="center"
+            p="1rem"
+            className="notif barItems"
+          >
+            <FiBell filter="drop-shadow(0px 0px 15px #2094FF" fontSize="1.2rem" />
+            <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+              notifications
+            </Text>
+          </Flex>
+          <Flex
+            display={ownProfile ? "flex" : "none"}
+            onClick={makePollsActive}
+            cursor="pointer"
+            alignItems="center"
+            p="1rem"
+            className="polls barItems"
+          >
+            <FiActivity
+              filter="drop-shadow(0px 0px 15px #2094FF"
+              fontSize="1.2rem"
+            />
+            <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+              polls
+            </Text>
+          </Flex>
+          <Flex
+            display={ownProfile ? "flex" : "none"}
+            onClick={makeStatsActive}
+            cursor="pointer"
+            alignItems="center"
+            p="1rem"
+            className="stats barItems"
+          >
+            <FiBarChart2
+              filter="drop-shadow(0px 0px 15px #2094FF"
+              fontSize="1.2rem"
+            />
+            <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+              leaderboard
+            </Text>
+          </Flex></> :
+          <>
+            <Flex
+              onClick={makeWallActive}
+              cursor="pointer"
+              alignItems="center"
+              p="1rem"
+              className="wall active barItems"
+            >
+              <FiFeather
+                filter="drop-shadow(0px 0px 15px #2094FF"
+                fontSize="1.2rem"
+              />
+              <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
+                {ownProfile ? "your wall" : "wall"}
+              </Text>
+            </Flex>
+          </>
+        }
       </Flex>
       <Box display={wallActive ? "block" : "none"}>
         <Wall
           ownProfile={ownProfile}
           makeNominActive={makeNominActive}
           captions={props.captions}
+          bitsId={props.bitsId}
+          commitments={props.commitments}
         />
       </Box>
       <Box display={nominateActive && ownProfile ? "block" : "none"}>

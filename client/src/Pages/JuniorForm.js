@@ -1,0 +1,411 @@
+import React, { useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import {
+  Box,
+  Input,
+  Flex,
+  Heading,
+  Text,
+  FormLabel,
+  FormControl,
+  Button,
+  SimpleGrid,
+  GridItem,
+  Image,
+  useMediaQuery,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
+import { storage } from "../Firebase";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
+import JuniorClub from "../Components/JuniorClub";
+
+export default function Junior() {
+  const validID = new RegExp(
+    "[202][0-4][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
+  );
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location.state;
+  useEffect(() => {
+    if (data === undefined || data === null) {
+      navigate("/");
+    }
+  }, [data, navigate]);
+  const [formInfo, setFormInfo] = React.useState({
+    /* firstName: 'shwetabh', */
+    firstName: data.given_name ? data.given_name : "",
+    /* lastName: 'niket', */
+    lastName: data.family_name ? data.family_name : "",
+    id: "",
+    email: data ? data.email : "",
+    // email: 'f20210923@pilani.bits-pilani.ac.in',
+    pEmail: "",
+    imgUrl: "",
+    phone: "",
+  });
+  const [img, setImg] = React.useState();
+  const [isDisabled, setIsDisabled] = React.useState(false);
+  const [imgExist, setImgExist] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  // const [emailErr, setEmailErr] = React.useState(false);
+  const [valid, setValid] = React.useState(false);
+
+  function validate(e) {
+    if (validID.test(formInfo.id)) {
+      setValid(true);
+      // console.log(valid);
+      if (
+        formInfo.id !== "" &&
+        formInfo.phone !== "" &&
+        formInfo.pEmail !== "" &&
+        imgExist
+      ) {
+        // ) {
+        e.target.disabled = true;
+        axios({
+          method: "POST",
+          // url: 'some/api',
+          url: `${process.env.REACT_APP_BACKEND_URL}/auth/add`,
+          data: { ...formInfo, token: localStorage.token },
+        })
+          .then(function (response) {
+            if (response.data.detail === "Profile created") {
+              localStorage.setItem("user", response.data.id);
+              localStorage.setItem("token", response.data.token);
+              navigate(`/profile/${response.data.id}`);
+            }
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+        }, 2000);
+      }
+    } else {
+      setValid(false);
+      alert("Please enter a valid BITS ID (eg. 2023A7PS0923P");
+    }
+  }
+  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+  const [isSmallerThan1100] = useMediaQuery("(max-width: 1100px)");
+  const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
+
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormInfo((prevFormInfo) => {
+      if (name === "id") {
+        return {
+          ...prevFormInfo,
+          [name]: value.toUpperCase(),
+        };
+      } else {
+        return {
+          ...prevFormInfo,
+          [name]: value,
+        };
+      }
+    });
+  }
+  function onImageChange(e) {
+    const imageFile = e.target.files[0];
+    setImg(URL.createObjectURL(imageFile));
+    setImgExist(true);
+    const uniqueFileName = `${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
+    const storageRef = ref(storage, `files/${uniqueFileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setIsDisabled(true);
+      },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setIsDisabled(false);
+          setFormInfo((prevFormInfo) => {
+            return {
+              ...prevFormInfo,
+              imgUrl: downloadURL,
+            };
+          });
+        });
+      }
+    );
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    validate(e);
+  }
+
+  return (
+    <Flex
+      flexDirection={isSmallerThan900 ? "column" : "row"}
+      h={isSmallerThan900 ? "100%" : "100vh"}
+      bg="black"
+      overflow="hidden"
+      className="noselect"
+    >
+      <Flex
+        w={isSmallerThan900 ? "100%" : "60%"}
+        backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')"
+        bgPosition="center"
+        bgRepeat="no-repeat"
+        bgSize="cover"
+        align="center"
+        justify="center"
+      >
+        <Box
+          boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
+          bg="#242323"
+          w={isSmallerThan900 ? "100%" : "70%"}
+          h={isSmallerThan900 ? "130%" : "90%"}
+          color="white"
+          border="3px"
+          borderStyle="solid"
+          borderColor="white.300"
+          borderRadius={isSmallerThan900 ? 0 : "20px 10px 10px 20px"}
+          sx={{
+            '::-webkit-scrollbar': {
+              width: '12px',
+              colorScheme: '#000000',
+              borderRadius: '10px'
+            },
+          }}
+          overflowY="scroll"
+          marginBlock={isSmallerThan900 ? "2rem" : "2rem"}
+        >
+          <Box
+            px={isSmallerThan500 ? "1.2rem" : "3rem"}
+            box-shadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
+            backdrop-filter="blur(20px)"
+            bg="#242323"
+          >
+            <Heading mt="3rem" fontSize={isSmallerThan1100 ? "3rem" : "3.6rem"}>
+              junior login
+            </Heading>
+            <Text mt="1rem" fontSize={isSmallerThan1100 ? "0.9rem" : "1.2rem"}>
+              hey let's make something good for the graduating batch and idk why are you so free and reading this lol jk have fun
+            </Text>
+            <Box mt="2rem">
+              <FormControl mt="4rem">
+                <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full">
+                  <GridItem colSpan={1}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="firstName"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      first name
+                    </FormLabel>
+                    <Input
+                      disabled={true}
+                      opacity="1 !important"
+                      id="firstName"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      w="80%"
+                      placeholder="enter your first name here"
+                      name="firstName"
+                      type="text"
+                      value={formInfo.firstName}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={1}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="lastName"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      last name
+                    </FormLabel>
+                    <Input
+                      disabled={true}
+                      opacity="1 !important"
+                      id="lastName"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      w="80%"
+                      placeholder="enter your last name here"
+                      name="lastName"
+                      type="text"
+                      value={formInfo.lastName}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="email"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      personal email
+                    </FormLabel>
+                    <Input
+                      pattern="f20[1-2]\d\d\d\d\d@pilani\.bits-pilani\.ac\.in"
+                      opacity="1 !important"
+                      w="90%"
+                      id="email"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      placeholder="enter your personal mail here"
+                      name="pEmail"
+                      type="text"
+                      value={formInfo.pEmail}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="id"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      bits id
+                    </FormLabel>
+                    <Input
+                      w="90%"
+                      id="id"
+                      pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      placeholder="enter your id number here"
+                      name="id"
+                      type="text"
+                      value={formInfo.id}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="phone"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      phone
+                    </FormLabel>
+                    <Input
+                      w="90%"
+                      id="phone"
+                      pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      placeholder="enter your 10 digit phone number here"
+                      name="phone"
+                      type="number"
+                      value={formInfo.phone}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <JuniorClub />
+                  </GridItem>
+                </SimpleGrid>
+              </FormControl>
+            </Box>
+          </Box>
+        </Box>
+      </Flex>
+      <Flex
+        color="white"
+        w={isSmallerThan900 ? "100%" : "40%"}
+        bg="#242323"
+        textAlign="center"
+        justify="center"
+      >
+        <Box spacing={2}>
+          <Box mt="8rem">
+            {" "}
+            <Input
+              cursor="pointer"
+              id="file"
+              type="file"
+              onChange={onImageChange}
+              accept="image/*"
+              position="absolute"
+              right="100vw"
+              overflow="hidden"
+            />
+            <FormLabel htmlFor="file" position="relative">
+              <Text
+                display={imgExist ? "none" : "block"}
+                textAlign="center"
+                fontWeight="600"
+              >
+                insert picture here
+              </Text>
+              <Image
+                src={imgExist ? img : "../images/pic.png"}
+                margin="auto"
+                cursor="pointer"
+                w="300px"
+                h="300px"
+                borderRadius="48px"
+              />
+            </FormLabel>
+          </Box>
+          <Box
+            fontFamily="Gilmer"
+            fontSize="3rem"
+            mt="2rem"
+            fontWeight="800"
+            lineHeight="2.8rem"
+          >
+            {formInfo.firstName.toUpperCase()} <br />
+            {formInfo.lastName == undefined
+              ? ""
+              : formInfo.lastName.toUpperCase()}
+          </Box>
+          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600">
+            {formInfo.email}
+          </Box>
+          <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
+            {formInfo.id.toUpperCase()}
+          </Box>
+          <Button
+            disabled={isDisabled}
+            className="button"
+            onClick={handleSubmit}
+            mb={isSmallerThan900 ? "3rem" : "0"}
+            _hover={{
+              transform: "translate(-2px, -2px)",
+              bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+            }}
+            bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+            fontWeight="700"
+            p="2.4rem 2.8rem"
+            fontSize="2rem"
+            colorScheme="blackAlpha"
+            mt={isSmallerThan900 ? "3rem" : "2rem"}
+            borderRadius="10px"
+          >
+            register
+          </Button>
+        </Box>
+      </Flex>
+      <Alert
+        bg="#242323"
+        color="white"
+        status="error"
+        display={error ? "block" : "none"}
+        position="absolute"
+        w="40%"
+        bottom="0"
+        right="0"
+      >
+        <AlertIcon />
+        Please enter all the fields.
+      </Alert>
+    </Flex>
+  );
+}
