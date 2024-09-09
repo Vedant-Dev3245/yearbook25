@@ -68,7 +68,5 @@ app.use("/commitments", isAuthenticated, commitmentRoutes);
 
 
 app.get("/test", async (req, res) => {
-  const all = await User.find({});
-
   return res.send({ all, msg: "ok" });
 });
