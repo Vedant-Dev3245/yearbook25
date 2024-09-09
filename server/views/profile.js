@@ -9,13 +9,13 @@ const words = require("../bad-words.json");
 const { Sequelize } = require("sequelize");
 
 // Syncing the database.
-// User.sync({alter: true});
-// Poll.sync({alter: true});
-// Commitment.sync({alter: true});
+User.sync({alter: true});
+Poll.sync({alter: true});
+Commitment.sync({alter: true});
 // For Dev testing:
-User.sync({force: true});
-Poll.sync({force: true});
-Commitment.sync({force: true});
+// User.sync({force: true});
+// Poll.sync({force: true});
+// Commitment.sync({force: true});
 
 const editProfile = async (req, res) => {
   try {
