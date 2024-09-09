@@ -98,9 +98,9 @@ export default function Profile(props) {
         quote={user.quote}
         id={user.bitsId}
         discipline={
-          user.bitsId.indexOf("PS") === -1
+          user.bitsId/* .indexOf("PS") === -1
             ? user.bitsId.slice(4, 8)
-            : user.bitsId[4] + user.bitsId[5]
+            : user.bitsId[4] + user.bitsId[5] */
         }
         imgUrl={user.imageUrl}
         commitments={user.commitments}

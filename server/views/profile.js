@@ -200,7 +200,6 @@ const addProfile = async (req, res) => {
         quote: quote,
         branchCode: branchCode,
         imageUrl: req.body.imgUrl,
-        senior: senior
       });
 
       // Updating all the existing Polls with the new User's data:

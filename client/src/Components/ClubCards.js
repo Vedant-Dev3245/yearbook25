@@ -32,7 +32,6 @@ export default function ClubCards(props) {
             bgSize="cover"
             align="center"
             justify="center"
-
         >
             <Box
                 position="relative"
@@ -73,7 +72,7 @@ export default function ClubCards(props) {
             <Box
                 borderWidth="1px"
                 borderRadius="24px"
-                overflow="hidden"
+                overflow="visible"
                 p={4}
                 position="relative"
                 h="320"

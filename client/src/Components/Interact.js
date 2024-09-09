@@ -98,7 +98,7 @@ export default function Interact(props) {
         flexWrap="wrap"
         borderBottom="1px solid rgba(217, 217, 217, 0.1)"
       >
-        {props.bitsId.charAt(3) === '1' ? <>
+        {props.bitsId.charAt(3) === '0' ? <>
           <Flex
             onClick={makeWallActive}
             cursor="pointer"
@@ -200,6 +200,7 @@ export default function Interact(props) {
           makeNominActive={makeNominActive}
           captions={props.captions}
           bitsId={props.bitsId}
+          commitments={props.commitments}
         />
       </Box>
       <Box display={nominateActive && ownProfile ? "block" : "none"}>

@@ -24,7 +24,7 @@ import JuniorClub from "../Components/JuniorClub";
 
 export default function Junior() {
   const validID = new RegExp(
-    "[2021-2024][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
+    "[202][0-4][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
   );
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,11 +35,10 @@ export default function Junior() {
     }
   }, [data, navigate]);
   const [formInfo, setFormInfo] = React.useState({
-    firstName: 'shwetabh',
-    /* firstName: data.given_name ? data.given_name : "", */
-    lastName: 'niket',
-    /* lastName: data.family_name ? data.family_name : "", */
-    quote: "",
+    /* firstName: 'shwetabh', */
+    firstName: data.given_name ? data.given_name : "",
+    /* lastName: 'niket', */
+    lastName: data.family_name ? data.family_name : "",
     id: "",
     email: data ? data.email : "",
     // email: 'f20210923@pilani.bits-pilani.ac.in',
@@ -60,7 +59,6 @@ export default function Junior() {
       // console.log(valid);
       if (
         formInfo.id !== "" &&
-        formInfo.quote !== "" &&
         formInfo.phone !== "" &&
         formInfo.pEmail !== "" &&
         imgExist
@@ -286,6 +284,27 @@ export default function Junior() {
                       name="id"
                       type="text"
                       value={formInfo.id}
+                    />
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="phone"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      phone
+                    </FormLabel>
+                    <Input
+                      w="90%"
+                      id="phone"
+                      pattern="20[1-2]\d[A-B][1-8]([A-B][1-5])?PS\d\d\d\dP"
+                      onChange={handleChange}
+                      p="1.2rem 0.8rem"
+                      placeholder="enter your 10 digit phone number here"
+                      name="phone"
+                      type="number"
+                      value={formInfo.phone}
                     />
                   </GridItem>
                   <GridItem colSpan={2}>

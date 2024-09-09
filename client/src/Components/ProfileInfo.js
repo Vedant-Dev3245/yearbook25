@@ -24,15 +24,16 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 import React from "react";
-import { Icon } from "@chakra-ui/react";
+import { Icon, Spinner } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
 import { TbPencil } from "react-icons/tb";
 import axios from "axios";
-import { Spinner } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Tags from "./Tags"
+import TagSearch from "./TagSearch";
 
 export default function ProfileInfo(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -235,9 +236,7 @@ export default function ProfileInfo(props) {
       setSubmitToggle(true);
     }
   }
-
-  /* senior club tag temp */
-  const commitments = ['SARC', 'WSC', 'Comdey Club', 'Department of Sponz','PIEDS', 'CEL', 'Mechanical Engineering Assoc'];
+  const commitments = ['SARC', 'WSC', 'Mechanical Engineering Assoc'];
   return (
     <Flex
       className="infoFlex"
@@ -257,6 +256,7 @@ export default function ProfileInfo(props) {
           backgroundSize={"cover"}
           borderRadius="20px"
           maxH="500px" maxW="550px"
+          overflow="visible"
         >
           <Box
             border="3px solid #FFFFFF"
@@ -264,6 +264,7 @@ export default function ProfileInfo(props) {
             backdropFilter="blur(47.5676px)"
             bgColor="#1D1E22"
             maxH="480px" maxW="550px"
+            overflow="visible"
           >
             <ModalHeader
               fontSize={isSmallerThan800 ? "1rem" : "2rem"}
@@ -343,7 +344,7 @@ export default function ProfileInfo(props) {
                       w="90%"
                       maxLength="140"
                       borderColor="#444"
-                      size="sm"
+                      size="md"
                       resize="none"
                       id="quote"
                       onChange={handleChange}
@@ -360,26 +361,20 @@ export default function ProfileInfo(props) {
                     </FormHelperText>
                   </Box>
                 </Flex>
-                <HStack spacing={1} mx="1rem" wrap="wrap">
-                  {commitments.map((commitment, index) => (
-                    <Tags key={index} commitments={commitment} />
-                  ))} </HStack>
-                <Flex justifyContent={"center"}>
-                  <Button
-                    disabled={isDisabled}
-                    onClick={handleSubmit}
-                    _hover={{
-                      transform: "translate(-2px, -2px)",
-                      bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
-                    }}
-                    bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
-                    fontWeight="700"
-                    p="1.6rem 2rem"
-                    fontSize="1.2rem"
-                    colorScheme="blackAlpha"
-                  >
-                    submit
-                  </Button>
+                <Flex justifyContent="center">
+                  <Flex
+                    className="searchIcon"
+                    backdropFilter="blur(20px)"
+                    borderRadius={"0.6rem"}
+                    w={isSmallerThan800 ? "80%" : "80%"}
+                    border="1px solid #FFF"
+                    p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"}
+                    justifyContent="space-between"
+                    alignItems="center"
+                    boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)">
+                    <TagSearch />
+                    <Search2Icon color='#B3B3B3' fontSize="1rem" />
+                  </Flex>
                 </Flex>
               </FormControl>
             </ModalBody>
@@ -445,21 +440,23 @@ export default function ProfileInfo(props) {
           >
             {props.id} | {props.discipline}
           </Text>
-          <Box w="80%">
-            <Text
-              textAlign={isSmallerThan800 ? "center" : "left"}
-              mt={isSmallerThan800 ? "0.4rem" : "1rem"}
-              color="#DAE6FF"
-              fontWeight="700"
-              fontSize="1.2rem"
-            >
-              {props.quote}
-            </Text>
-          </Box>
-          <HStack spacing={1} max-width="200px">
-            {commitments.map((commitment, index) => (
-              <Tags key={index} commitments={commitment} />
-            ))} </HStack>
+          {props.id.charAt(3)==="0" ? /* backendd */
+            <>
+              <Box w="80%">
+                <Text
+                  textAlign={isSmallerThan800 ? "center" : "left"}
+                  mt={isSmallerThan800 ? "0.4rem" : "1rem"}
+                  color="#DAE6FF"
+                  fontWeight="700"
+                  fontSize="1.2rem"
+                >
+                  {props.quote}
+                </Text>
+              </Box>
+              <HStack spacing={1} max-width="200px">
+                {commitments.map((commitment, index) => (
+                  <Tags key={index} commitments={commitment} />
+                ))} </HStack></> : <></>}
         </VStack>
       </Flex>
 

@@ -33,12 +33,12 @@ export default function Home() {
           localStorage.setItem("user", response.data.user);
           localStorage.setItem("token", response.data.token);
           setLoading(false);
-          // navigate(`/profile/${response.data.user}`);  /* ORIGINAL */
-          // navigate("/form", { state: userObject }); /* FORM TEST */
-          navigate("/junior", { state: userObject });
+          navigate(`/profile/${response.data.user}`);  /* ORIGINAL */
+          // navigate("/form", { state: userObject });
+          // navigate("/junior", { state: userObject });
         } else {
-          // navigate("/form", { state: userObject }); /* FORM TEST */
-          navigate("/junior", { state: userObject });
+          navigate("/form", { state: userObject });
+          // navigate("/junior", { state: userObject });
         }
       }
     });

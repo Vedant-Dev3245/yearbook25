@@ -21,7 +21,7 @@ export default function Wall(props) {
         caption={person.caption}
         img={person.imageUrl}
         bitsId={person.bitsId}
-        key={person.user_id}
+        key={person.id}
       />
     );
   });
@@ -55,20 +55,18 @@ export default function Wall(props) {
     },
     {
       imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'WSC',
+      commitment: 'Dance Club',
       seniorOptions: ['Option A', 'Option B', 'Option C'],
     },
     {
       imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'SARC',
+      commitment: 'Gambling Club',
       seniorOptions: ['Option X', 'Option Y', 'Option Z'],
     },
   ];
-
-
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
-      {props.bitsId.charAt(3) === '1' ? <>
+      {props.bitsId.charAt(3) === '0' ? <>
         <Box
           fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
           display={props.ownProfile && title ? "block" : "none"}
