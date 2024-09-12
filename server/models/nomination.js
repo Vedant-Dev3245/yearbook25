@@ -1,29 +1,30 @@
 const { DataTypes } = require('sequelize');
 const { postgresClient } = require('../db/postgres');
 
-const Commitment = postgresClient.define(
-    'Commitment', 
+const Nomination = postgresClient.define(
+    'Nomination',
     {
-        commitmentID:{
+        nominationID:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
             primaryKey: true
         },
 
-        commitment_imageUrl:{
-            type: DataTypes.STRING
+        nominatorID:{
+            type: DataTypes.UUID,
+            allowNull: false
         },
 
-        commitment_name:{
-            type: DataTypes.STRING,
+        targetID:{
+            type: DataTypes.UUID,
             allowNull: false
         }
     },
 
     {
-        tableName: "ycommitment"
+        tableName: "ynomination"
     }
 );
 
-module.exports = {Commitment};
+module.exports = { Nomination };
