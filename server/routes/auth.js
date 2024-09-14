@@ -50,7 +50,7 @@ router.post("/google", async (req, res) => {
         authorised: 0,
       });
     }
-
+    console.log("The email is: ", email);
     const user = await User.findOne({where: {email: payload.email}});
 
     console.log("THIs is from auth, the user is: ", user);

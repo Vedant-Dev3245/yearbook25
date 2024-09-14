@@ -47,11 +47,10 @@ export default function Profile(props) {
     })
       .then(function (response) {
         console.log("this is from the front end, the response.data is: ", response.data);
-        setUser(response.data.user)
+        setUser(response.data)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
-          window.localStorage.setItem("userName", response.data.user.name);
-          window.localStorage.setItem('nominatedBy', JSON.stringify(response.data.user.nominatedby))
+          window.localStorage.setItem("userName", response.data.name);
         }
       })
       .catch(function (error) {

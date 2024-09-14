@@ -17,7 +17,7 @@ const addProfile = async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
-        email: req.user.email,
+        email: req.body.email,
       },
     });
 

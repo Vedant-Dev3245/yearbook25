@@ -97,6 +97,7 @@ const sendRequest = async (req, res) => {
 
 const allRequests = async (req, res) => {
   try {
+    console.log("[allRequests Route] This is the req.user: ", req.user);
     const senderID = req.user.id;
     // const senderID = req.body.id;
 
