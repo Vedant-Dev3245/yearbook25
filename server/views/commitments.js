@@ -31,8 +31,8 @@ const allCommitments = async (req, res) => {
 
 const updateUserCommitments = async (req, res) => {
     try {
-        // const userid = req.user.id;
-        const userid = req.body.id;
+        const userid = req.user.id;
+        // const userid = req.body.id;
         const user = await User.findByPk(userid);
 
         if (!user) {

@@ -15,8 +15,8 @@ const words = require("../bad-words.json");
 
 const sendRequest = async (req, res) => {
   try {
-    // const senderId = req.user.id;
-    const senderID = req.body.id;
+    const senderId = req.user.id;
+    // const senderID = req.body.id;
     const targetID = req.body.targetId;
 
     var caption = req.body.caption;
@@ -97,8 +97,8 @@ const sendRequest = async (req, res) => {
 
 const allRequests = async (req, res) => {
   try {
-    // const senderID = req.user.id;
-    const senderID = req.body.id;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
 
     const requests = await Caption.findAll({
         where: {
@@ -141,8 +141,8 @@ const allRequests = async (req, res) => {
 
 const nominateUser = async (req, res) => {
   try {
-    // const senderID = req.user.id;
-    const senderID = req.body.id;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
     const receiverID = req.body.receiverId;
 
     const target = await User.findByPk(receiverID);
@@ -220,8 +220,8 @@ const nominateUser = async (req, res) => {
 
 const declineRequest = async (req, res) => {
   try {
-    // senderId = req.user.id;
-    const senderID = req.body.id;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
     const receiverID = req.body.receiverId;
 
     const nomination = await Nomination.findOne({where: {

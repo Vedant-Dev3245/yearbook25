@@ -17,7 +17,7 @@ const addProfile = async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
-        email: req.body.email,
+        email: req.user.email,
       },
     });
 
@@ -112,8 +112,8 @@ const addProfile = async (req, res) => {
 
 const editProfile = async (req, res) => {
   try {
-    // const userID = req.user.id;
-    const userID = req.body.id; // for POSTMAN testing
+    const userID = req.user.id;
+    // const userID = req.body.id; // for POSTMAN testing
     const user = await User.findByPk(userID);
 
     if(!user){
@@ -229,7 +229,7 @@ const searchUsers = async (req, res) => {
       attributes: ['userID', 'name', 'bitsId'],
       where: {
         userID: {
-          [Op.not]: req.body.id // req.user.id for production and req.body.id for testing
+          [Op.not]: req.user.id // req.user.id for production and req.body.id for testing
         },
         [Op.or]: [
           {
@@ -263,8 +263,8 @@ const searchUsers = async (req, res) => {
 const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
-    // const writerID = req.user.id;
-    const writerID = req.body.id;
+    const writerID = req.user.id;
+    // const writerID = req.body.id;
     const targetID = req.params.id;
     
     if (writerID == targetID) {
