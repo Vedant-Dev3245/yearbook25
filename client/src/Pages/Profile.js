@@ -46,11 +46,11 @@ export default function Profile(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}`,
     })
       .then(function (response) {
-        console.log("this is from the front end, the response.data is: ", response.data);
+        console.log("this is from the front end, the response.data is: ", response.data.user);
         setUser(response.data)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
-          window.localStorage.setItem("userName", response.data.name);
+          window.localStorage.setItem("userName", response.data.user.name);
         }
       })
       .catch(function (error) {
