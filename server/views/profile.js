@@ -168,8 +168,16 @@ const getProfile = async (req, res) => {
         include: [{
           model: User,
           as: 'writer'
-        }]
-      }]
+        }]},
+        {
+          model: Nomination,
+          as: 'nominatedby',
+          include: [{
+            model: User,
+            as: 'nominator'
+          }]
+        }
+      ]
     });
 
     if (!user) {
