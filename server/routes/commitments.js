@@ -1,13 +1,20 @@
 const router = require("express").Router();
-const { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment} = require("../views/commitments");
 const { isAdmin } = require("../middleware/auth");
 
+const { 
+    allCommitments, 
+    updateUserCommitments, 
+    searchByCommitment, 
+    addCommitment, 
+    editCommitment, 
+    deleteCommitment
+} = require("../views/commitments");
 
+router.get("/:id", searchByCommitment);
 router.post("/", isAdmin, addCommitment);
 router.get("/", allCommitments);
-router.get("/:id", searchByCommitment);
-router.post("/user", updateUserCommitments);
-router.delete("/", isAdmin, deleteCommitment);
-router.put("/", isAdmin, editCommitment)
+router.post("/user", isAdmin, updateUserCommitments);
+router.delete("/:id", isAdmin, deleteCommitment);
+router.put("/", isAdmin, editCommitment);
 
 module.exports = router;
