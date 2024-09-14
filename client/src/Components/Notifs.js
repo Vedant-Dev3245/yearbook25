@@ -44,12 +44,14 @@ export default function Nominate(props) {
     return (
       <ReqCard
         name={person.user.name.toLowerCase()}
-        key={person.user._id}
-        id={person.user._id}
+        key={person.user}
+        id={person.user}
         caption={person.caption}
       />
     );
   });
+  /* const cardsReq = []; */
+  console.log(reqestsUser)
 
   return (
     <Box width="90%" marginInline="auto">
