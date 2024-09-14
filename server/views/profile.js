@@ -165,10 +165,14 @@ const getProfile = async (req, res) => {
       include: [{
         model: Caption,
         as: 'captions',
+        where: {
+          status: 1,
+        },
         include: [{
           model: User,
           as: 'writer'
-        }]},
+        }
+        ]},
         {
           model: Nomination,
           as: 'nominatedby',
