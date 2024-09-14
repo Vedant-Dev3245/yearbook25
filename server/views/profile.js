@@ -310,8 +310,7 @@ const writeCaption = async (req, res) => {
         error: "Please enter a valid caption!",
       });
     }else{
-      
-      const writer = await User.findByPk(writerID);
+    
       const receiver = await User.findByPk(targetID);
 
       if(!receiver){
@@ -364,7 +363,8 @@ const writeCaption = async (req, res) => {
         const newcaption = await Caption.create({
           writerID: writerID,
           targetID: targetID,
-          caption: caption
+          caption: caption,
+          status: 1
         });
 
         console.log("The caption was created: ", newcaption);
