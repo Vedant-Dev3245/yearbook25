@@ -30,8 +30,8 @@ export default function Search(props) {
                 })
                     .then(function (response) {
                         let tempArray = [];
-                        response.data.users.forEach(element => {
-                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.uId}` });
+                        response.data.forEach(element => {
+                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.userID}` });
                         });
                         callback(tempArray);
                     })

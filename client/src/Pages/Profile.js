@@ -48,11 +48,12 @@ export default function Profile(props) {
       url: `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}`,
     })
       .then(function (response) {
-        setUser(response.data.user)
+        setUser(response.data)
+        console.log(response.data)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
-          window.localStorage.setItem("userName", response.data.user.name);
-          window.localStorage.setItem('nominatedBy', JSON.stringify(response.data.user.nominatedby))
+          window.localStorage.setItem("userName", response.data.name);
+          window.localStorage.setItem('nominatedBy', JSON.stringify(response.data.nominatedby))
         }
       })
       .catch(function (error) {
@@ -66,6 +67,10 @@ export default function Profile(props) {
       window.location.reload();
     }
   }, [params.id, navigate]);
+
+  React.useEffect(() => {
+    console.log(user)
+  }, [user]);
 
   return (
     <Box

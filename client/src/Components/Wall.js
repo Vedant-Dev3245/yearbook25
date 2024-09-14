@@ -16,17 +16,19 @@ export default function Wall(props) {
   const cards = Array.from(capt).map((person, index) => {
     return (
       <Cards
-        name={person.name}
+        name={person.writer.name}
         index={index}
         caption={person.caption}
-        img={person.imageUrl}
-        bitsId={person.bitsId}
+        img={person.writer.imageUrl}
+        bitsId={person.writer.bitsId}
         key={person.id}
       />
     );
   });
   React.useEffect(() => {
     setCapt(props.captions);
+    console.log("caasdasd")
+    console.log(props.captions)
   }, [props.captions]);
   React.useEffect(() => {
     if (capt.length === 0) {

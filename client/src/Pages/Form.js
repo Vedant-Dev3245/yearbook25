@@ -61,13 +61,17 @@ export default function Form() {
   function validate(e) {
     if (validID.test(formInfo.id)) {
       setValid(true);
-      // console.log(valid);
       if (
-        formInfo.id !== "" &&
-        /* formInfo.quote !== "" && */
-        formInfo.phone !== "" &&
-        formInfo.pEmail !== "" &&
-        imgExist
+        (data.email.charAt(4) === "1" || data.email.charAt(4) === "0")
+          ? formInfo.id !== "" &&
+            formInfo.quote !== "" &&
+            formInfo.phone !== "" &&
+            formInfo.pEmail !== "" &&
+            imgExist
+          : formInfo.id !== "" &&
+            formInfo.phone !== "" &&
+            formInfo.email !== "" &&
+            imgExist
       ) {
         // ) {
         e.target.disabled = true;
@@ -78,7 +82,7 @@ export default function Form() {
           data: { ...formInfo, token: localStorage.token },
         })
           .then(function (response) {
-            if (response.data.detail === "Profile created") {
+            if (response.status === 200) {
               const decodedToken = jwtDecode(response.data.token);
               // localStorage.setItem("user", response.data.id);
               console.log("This is the UUID of the created user: ", decodedToken.id);

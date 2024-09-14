@@ -9,7 +9,8 @@ import {
   ModalCloseButton,
   Text,
   VStack,
-  HStack,
+  Wrap,
+  WrapItem,
   Image,
   FormLabel,
   Textarea,
@@ -34,6 +35,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Tags from "./Tags"
 import TagSearch from "./TagSearch";
+import jwtDecode from "jwt-decode";
 
 export default function ProfileInfo(props) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -236,7 +238,8 @@ export default function ProfileInfo(props) {
       setSubmitToggle(true);
     }
   }
-  const commitments = ['SARC', 'WSC', 'Mechanical Engineering Assoc'];
+  const commitments = ['SARC', 'Nirmaan', 'Team Robocon'];
+
   return (
     <Flex
       className="infoFlex"
@@ -247,7 +250,7 @@ export default function ProfileInfo(props) {
       p="1.2rem 0rem"
       justifyContent="space-between"
     >
-      <Modal isOpen={isOpen} scrollBehavior="inside">
+      <Modal isOpen={isOpen} scrollBehavior="inside" w="80%">
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           color="white"
@@ -255,7 +258,7 @@ export default function ProfileInfo(props) {
           backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')"
           backgroundSize={"cover"}
           borderRadius="20px"
-          maxH="500px" maxW="550px"
+          maxH={isSmallerThan800 ? "420px" : "500px"} maxW={isSmallerThan800 ? "400px" : "550px"}
           overflow="visible"
         >
           <Box
@@ -263,11 +266,11 @@ export default function ProfileInfo(props) {
             borderRadius="20px"
             backdropFilter="blur(47.5676px)"
             bgColor="#1D1E22"
-            maxH="480px" maxW="550px"
+            maxH={isSmallerThan800 ? "400px" : "480px"} maxW={isSmallerThan800 ? "400px" : "550px"}
             overflow="visible"
           >
             <ModalHeader
-              fontSize={isSmallerThan800 ? "1rem" : "2rem"}
+              fontSize={isSmallerThan800 ? "1.8rem" : "2rem"}
               textAlign="center"
               fontWeight={1100}
             >
@@ -276,7 +279,7 @@ export default function ProfileInfo(props) {
             <ModalCloseButton onClick={handleClose} />
             <ModalBody
               mt="-0.5rem"
-              fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+              fontSize={isSmallerThan800 ? "0.8rem" : "0.8rem"}
               textAlign="center"
               color="#B3B3B3"
               mb="1rem"
@@ -311,11 +314,10 @@ export default function ProfileInfo(props) {
                       htmlFor="file"
                       textAlign={"center"}
                       fontWeight="700"
-                      fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+                      fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
                       pb={2}
                     >
-                      {" "}
-                      please upload a 1080*1080 <br /> image to avoid cuts
+                      <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
                       <Image
                         src={imgExist ? img : props.imgUrl}
                         margin="auto"
@@ -337,6 +339,7 @@ export default function ProfileInfo(props) {
                       htmlFor="quote"
                       fontSize="16px"
                       fontWeight="600"
+                      textAlign="center"
                     >
                       yearbook quote
                     </FormLabel>
@@ -361,12 +364,12 @@ export default function ProfileInfo(props) {
                     </FormHelperText>
                   </Box>
                 </Flex>
-                <Flex justifyContent="center">
+                <Flex justifyContent="center" spacing={10}>
                   <Flex
                     className="searchIcon"
                     backdropFilter="blur(20px)"
                     borderRadius={"0.6rem"}
-                    w={isSmallerThan800 ? "80%" : "80%"}
+                    w={isSmallerThan800 ? "80%" : "60%"}
                     border="1px solid #FFF"
                     p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"}
                     justifyContent="space-between"
@@ -375,6 +378,23 @@ export default function ProfileInfo(props) {
                     <TagSearch />
                     <Search2Icon color='#B3B3B3' fontSize="1rem" />
                   </Flex>
+                  <Flex justifyContent={"center"} pl="2rem">
+                    <Button
+                      disabled={isDisabled}
+                      onClick={handleSubmit}
+                      _hover={{
+                        transform: "translate(-2px, -2px)",
+                        bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+                      }}
+                      bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+                      fontWeight="700"
+                      p="1.6rem 2rem"
+                      fontSize="1.2rem"
+                      colorScheme="blackAlpha"
+                    >
+                      submit
+                    </Button>
+                  </Flex>
                 </Flex>
               </FormControl>
             </ModalBody>
@@ -382,17 +402,20 @@ export default function ProfileInfo(props) {
         </ModalContent>
       </Modal>
       <Flex
-        alignItems="center"
+        alignItems={isSmallerThan800 ? "left" : "center"}
         flexDirection={isSmallerThan800 ? "column" : "row"}
-        justifyContent="center"
+        justifyContent={isSmallerThan800 ? "left" : "center"}
+        ml={isSmallerThan800 ? "1rem" : "3rem"}
       >
         <Box
           className="imageCont"
           bg={`url("${props.imgUrl}")`}
           backgroundPosition={"center"}
           backgroundSize={"cover"}
-          minWidth="15rem"
-          minHeight="15rem"
+          maxHeight={isSmallerThan800 ? "10rem" : ""}
+          maxWidth={isSmallerThan800 ? "10rem" : ""}
+          minHeight={isSmallerThan800 ? "" : "15rem"}
+          minWidth={isSmallerThan800 ? "" : "15rem"}
           position="relative"
           bgColor="grey"
           borderRadius="50%"
@@ -408,26 +431,24 @@ export default function ProfileInfo(props) {
               display={showEdit ? "block" : "none"}
               top="0"
               right="0px"
-              p="1rem"
-              h="4rem"
-              w="
-                4rem"
+              p={isSmallerThan800 ? "0.5rem" : "1rem"}
+              h={isSmallerThan800 ? "2.5rem" : "4rem"}
+              w={isSmallerThan800 ? "2.5rem" : "4rem"}
               className="pencil"
             >
-              <Icon w="2rem" h="2rem" as={TbPencil} />
+              <Icon w={isSmallerThan800 ? "1.4rem" : "2rem"} h={isSmallerThan800 ? "1.5rem" : "2rem"} as={TbPencil} />
             </Box>
           }
         </Box>
         <VStack
-          alignItems={isSmallerThan800 ? "center" : "baseline"}
-          ml={isSmallerThan800 ? "0" : "3rem"}
+          alignItems={isSmallerThan800 ? "left" : "baseline"}
           mt={isSmallerThan800 ? "1rem" : "4rem"}
+          ml={isSmallerThan800 ? "" : "3rem"}
         >
           <Text
             color="white"
             fontWeight={700}
             letterSpacing="0.08rem"
-            textAlign={isSmallerThan800 ? "center" : ""}
             fontSize="2.2rem"
           >
             {props.name.toLowerCase()}
@@ -440,11 +461,11 @@ export default function ProfileInfo(props) {
           >
             {props.id} | {props.discipline}
           </Text>
-          {props.id.charAt(3)==="0" ? /* backendd */
+          {props.id.charAt(3) === "0" ?
             <>
               <Box w="80%">
                 <Text
-                  textAlign={isSmallerThan800 ? "center" : "left"}
+                  textAlign="left"
                   mt={isSmallerThan800 ? "0.4rem" : "1rem"}
                   color="#DAE6FF"
                   fontWeight="700"
@@ -453,10 +474,13 @@ export default function ProfileInfo(props) {
                   {props.quote}
                 </Text>
               </Box>
-              <HStack spacing={1} max-width="200px">
+              <Wrap spacing={1}>
                 {commitments.map((commitment, index) => (
-                  <Tags key={index} commitments={commitment} />
-                ))} </HStack></> : <></>}
+                  <WrapItem key={index}>
+                    <Tags commitments={commitment} />
+                  </WrapItem>
+                ))}
+              </Wrap></> : <></>}
         </VStack>
       </Flex>
 
@@ -482,7 +506,7 @@ export default function ProfileInfo(props) {
           </Box>
         )
       }
-
+      {!ownProfile ? 
       <Box
         w="max-content"
         whiteSpace={"nowrap"}
@@ -496,99 +520,101 @@ export default function ProfileInfo(props) {
         padding="0.6rem 1rem"
         borderRadius="20px"
         fontWeight="700"
-        onClick={ownProfile ? handleLogout : nominate}
+        onClick={nominate}
       >
-        {ownProfile ? "logout" : "nominate this user"}
+        nominate this user
         <Spinner
           size="lg"
           mt="1rem"
           position="absolute"
           display={spin ? "block" : "none"}
         />
+      </Box> : <></>
+}
 
-        {/* Requesting people to write on their wall-Modal open for that */}
-        <Modal isOpen={isOpenRequest}>
-          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-          <ModalContent
-            backdropFilter="blur(47.5676px)"
-            bgColor="#1D1E22"
-            color="white"
-            p="1.4rem"
-          >
-            <ModalHeader mt="2rem" fontSize="2rem">
-              write caption for {props.name}
-            </ModalHeader>
-            <ModalCloseButton onClick={handleCloseRequest} />
-            <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
-              <Textarea
-                type="text"
-                name="caption"
-                placeholder="enter your caption!"
-                onChange={handleChangeRequest}
-              />
-              <Text fontWeight="600" color="#B3B3B3" mt="1rem">
-                You must accept these guidelines before writing a caption<br /><br />
-                1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
-                2. Offensive quotes will not be accepted. Your quote must not defame or criticize any individual.<br />
-                3. Please refrain from using any expletives.<br />
-              </Text>
-              <br />
-              <Checkbox onChange={toggleSubmit}>
-                I accept these terms.
-              </Checkbox>
-              <Flex justifyContent="center">
-                <Button
-                  onClick={sendRequest}
-                  _hover={{
-                    transform: "translate(-2px, -2px)",
-                    bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
-                  }}
-                  bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
-                  fontWeight="700"
-                  mt="3rem"
-                  p="1.2rem 1.6rem"
-                  fontSize="1.4rem"
-                  colorScheme="blackAlpha"
-                  isDisabled={submitToggle}
-                >
-                  request
-                </Button>
-              </Flex>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        {/* Requesting people to write on their wall-Modal open for that */}
+      {/* Requesting people to write on their wall-Modal open for that */}
+      <Modal isOpen={isOpenRequest}>
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalContent
+          backdropFilter="blur(47.5676px)"
+          bgColor="#1D1E22"
+          color="white"
+          p="1.4rem"
+        >
+          <ModalHeader mt="2rem" fontSize="2rem">
+            write caption for {props.name}
+          </ModalHeader>
+          <ModalCloseButton onClick={handleCloseRequest} />
+          <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
+            <Textarea
+              type="text"
+              name="caption"
+              placeholder="enter your caption!"
+              onChange={handleChangeRequest}
+            />
+            <Text fontWeight="600" color="#B3B3B3" mt="1rem">
+              You must accept these guidelines before writing a caption<br /><br />
+              1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
+              2. Offensive quotes will not be accepted. Your quote must not defame or criticize any individual.<br />
+              3. Please refrain from using any expletives.<br />
+            </Text>
+            <br />
+            <Checkbox onChange={toggleSubmit}>
+              I accept these terms.
+            </Checkbox>
+            <Flex justifyContent="center">
+              <Button
+                onClick={sendRequest}
+                _hover={{
+                  transform: "translate(-2px, -2px)",
+                  bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+                }}
+                bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+                fontWeight="700"
+                mt="3rem"
+                p="1.2rem 1.6rem"
+                fontSize="1.4rem"
+                colorScheme="blackAlpha"
+                isDisabled={submitToggle}
+              >
+                request
+              </Button>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      {/* Requesting people to write on their wall-Modal open for that */}
 
-        <Alert
-          bg="#242323"
-          color="white"
-          status="success"
-          display={!isSmallerThan800 && res ? "block" : "none"}
-          position="absolute"
-          w="100%"
-          whiteSpace={"normal"}
-          bottom="-8rem"
-          left="0"
-          borderRadius="20px"
-        >
-          <AlertIcon />
-          {msg}
-        </Alert>
-        <Alert
-          bg="#242323"
-          color="white"
-          status="success"
-          display={isSmallerThan800 && res ? "block" : "none"}
-          position="fixed"
-          w="60%"
-          top="8rem"
-          left="20%"
-          borderRadius="20px"
-        >
-          <AlertIcon />
-          {msg}
-        </Alert>
-      </Box>
+      <Alert
+        bg="#242323"
+        color="white"
+        status="success"
+        display={!isSmallerThan800 && res ? "block" : "none"}
+        position="absolute"
+        w="100%"
+        whiteSpace={"normal"}
+        bottom="-8rem"
+        left="0"
+        borderRadius="20px"
+      >
+        <AlertIcon />
+        {msg}
+      </Alert>
+      <Alert
+        bg="#242323"
+        color="white"
+        status="success"
+        display={isSmallerThan800 && res ? "block" : "none"}
+        position="fixed"
+        w="60%"
+        top="8rem"
+        left="20%"
+        borderRadius="20px"
+      >
+        <AlertIcon />
+        {msg}
+      </Alert>
+
     </Flex >
   );
 }
