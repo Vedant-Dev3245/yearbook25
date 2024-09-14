@@ -15,7 +15,7 @@ const words = require("../bad-words.json");
 
 const sendRequest = async (req, res) => {
   try {
-    const senderId = req.user.id;
+    const senderID = req.user.id;
     // const senderID = req.body.id;
     const targetID = req.body.targetId;
 
