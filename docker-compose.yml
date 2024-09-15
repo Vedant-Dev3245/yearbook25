@@ -1,51 +1,51 @@
 version: '3'
 services:
-  yearbook-frontend:
-    image: sarc-client:latest
+  # yearbook-frontend:
+  #   image: sarc-client:latest
+  #   build: 
+  #     context: .
+  #     dockerfile: client/client.dockerfile
+  #   ports:
+  #     - 3000:3000
+  #   networks:
+  #     - app-tier
+
+  yearbook-backend:
+    container_name: yearbook-backend
+    image: sarc-server:latest
     build: 
       context: .
-      dockerfile: client/client.dockerfile
+      dockerfile: server/server.dockerfile
     ports:
-      - 3000:3000
+      - 8000:8000
     networks:
       - app-tier
 
-  # yearbook-backend:
-  #   container_name: yearbook-backend
-  #   image: sarc-server:latest
-  #   build: 
-  #     context: .
-  #     dockerfile: server/server.dockerfile
-  #   ports:
-  #     - 8000:8000
-  #   networks:
-  #     - app-tier
+  yearbookdb:
+    image: postgres
+    networks:
+      - app-tier
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=testingyearbook
+      - POSTGRES_HOSTNAME=yearbookdb
+    ports:
+      - 5000:5432
+    volumes:
+      - yearbookdbing:/var/lib/postgresql/data
 
-  # yearbookdb:
-  #   image: postgres
-  #   networks:
-  #     - app-tier
-  #   environment:
-  #     - POSTGRES_USER=postgres
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_DB=testingyearbook
-  #     - POSTGRES_HOSTNAME=yearbookdb
-  #   ports:
-  #     - 5000:5432
-  #   volumes:
-  #     - yearbookdbing:/var/lib/postgresql/data
-
-  # nginx:
-  #   container_name: sarc_nginx
-  #   image: nginx:mainline-alpine
-  #   volumes:
-  #     - ./server/nginx:/etc/nginx/conf.d
-  #   ports:
-  #     - "1337:80"
-  #   depends_on:
-  #     - yearbook-backend
-  #   networks:
-  #     - app-tier
+  nginx:
+    container_name: sarc_nginx
+    image: nginx:mainline-alpine
+    volumes:
+      - ./server/nginx:/etc/nginx/conf.d
+    ports:
+      - "1337:80"
+    depends_on:
+      - yearbook-backend
+    networks:
+      - app-tier
 
 networks:
   app-tier:
