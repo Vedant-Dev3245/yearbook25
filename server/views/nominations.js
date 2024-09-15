@@ -1,243 +1,276 @@
-const { User } = require("../models/user");
+const { alterSync } = require('../db/sync');
 const { postgresClient } = require("../db/postgres");
+const { Op, Model } = require("sequelize");
+
+const {User} = require('../models/user');
+const {Caption} = require('../models/caption');
+const {Commitment} = require('../models/commitment');
+const {Nomination} = require('../models/nomination');
+const {Poll} = require('../models/poll');
+const {Vote} = require('../models/vote');
+
+const jwt = require("jsonwebtoken");
 const Filter = require("bad-words");
 const words = require("../bad-words.json");
-const { request } = require("express");
 
 const sendRequest = async (req, res) => {
   try {
-    const senderId = req.user.id;
-    const targetId = req.body.targetId;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
+    const targetID = req.body.targetId;
 
     var caption = req.body.caption;
 
-    if (senderId == targetId) {
-      return res.send({
-        status: "failure",
-        msg: "You can't write for yourself",
-      });
+    if (senderID == targetID) {
+        return res.status(403).send({
+            status: "failure", 
+            message: "You can't write for yourself",
+        });
     }
 
     if(caption==null){
-      return res.send({
-        status: "failure",
-        msg: "Please enter a caption",
+        console.log("[sendRequest Route] There is no caption sent");
+        return res.status(400).send({
+            status: "failure",
+            message: "Please enter a caption",
       })
     }
 
-    const sender = await User.findByPk(senderId);
-    const target = await User.findByPk(targetId);
+    const sender = await User.findByPk(senderID);
+    const target = await User.findByPk(targetID);
+
+    if(!target){
+        console.log("The target user doesn't exist");
+        return res.status(400).send({
+            status: "failure",
+            message: "The target User doesn't exist"
+        })
+    }
 
     const filter = new Filter({ placeHolder: "x" });
     filter.addWords(...words);
     caption = filter.clean(caption);
 
-    if (
-      target.requests.find((o) => o.user == senderId) ||
-      target.declined_requests.find((o) => o.user == senderId) ||
-      target.nominatedby.find((o) => o.user == senderId)
-    ) {
-      console.log("Request has already been sent by" + senderId + " to " + targetId);
+    const caption_record = await Caption.findOne({where: {
+        [Op.and]: [
+            {writerID: senderID},
+            {targetID: targetID}
+        ]
+    }})
+
+    if (caption_record) {
+        if(caption_record.caption !== caption){
+            caption_record.caption = caption;
+            await caption_record.save();
+        }
+      console.log("[sendRequest Route] Request has already been sent by " + sender.name + " to " + target.name);
+      console.log(caption_record.toJSON())
       return res.status(500).send({
         status: "failure",
-        msg: "You have already sent a request to this user",
+        message: "You have already sent a request to this user",
       });
+    }else{
+        const new_caption = await Caption.create({
+            writerID: senderID,
+            targetID: targetID,
+            caption: caption,
+            status: 0
+        });
+
+        console.log("[sendRequest Route] Request sent succesfully: ", new_caption.toJSON());
+
+        return res.send({
+          status: "success",
+          message: "Request sent successfully!",
+        });
     }
-
-    target.requests.push({"user": senderId, "caption": caption});
-    target.set('requests', target.requests);
-    target.changed('requests', true);
-    await target.save();
-
-    return res.send({
-      status: "success",
-      msg: "Request sent successfully!",
-    });
-
   } catch (err) {
-    console.log("There was an erorr: sendRequest", err);
+    console.log("[sendRequest Route] There was an erorr: ", err);
 
-    return res.send({
+    return res.status(500).send({
       status: "failure",
-      msg: "There was an error, Please try after some time",
+      message: "There was an error, Please try after some time",
+      error: err
     });
   }
 };
 
 const allRequests = async (req, res) => {
   try {
-    const senderId = req.user.id;
-    // const senderId = req.body.id;
-    const sender = await User.findByPk(senderId)
-    let requests = {};
-    let declined_requests = {};
+    console.log("[allRequests Route] This is the req.user: ", req.user);
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
 
-    if(sender){
-      requests = sender.requests || {};
-      declined_requests = sender.declined_requests || {};
-    }
+    const requests = await Caption.findAll({
+        where: {
+            [Op.and]: [
+                {targetID: senderID},
+                {status: 0}
+            ]
+        },
+        include: {
+            model: User,
+            as: 'writer',
+            attributes: ['name', 'bitsId', 'imageUrl', 'quote']
+        }
+    });
 
-    return res.send({
+    const declined_requests = await Caption.findAll({where: {
+        [Op.and]: [
+            {targetID: senderID},
+            {status: -1}
+        ]
+    }});
+
+    console.log("The requests are: ", requests);
+    console.log("The declined_requests are: ", declined_requests);
+
+    return res.status(200).send({
       status: "success",
       requests: requests,
       declined_requests: declined_requests,
     });
   } catch (err) {
-    console.log("There was an erorr: allRequests", err);
-    return res.send({
+    console.log("[allRequests Route] There was an error: ", err);
+    return res.status(500).send({
       status: "failure",
-      msg: "There was an error, Please try after some time",
+      message: "There was an error, Please try after some time",
+      error: err
     });
   }
 };
 
 const nominateUser = async (req, res) => {
   try {
-    const senderId = req.user.id;
-    // const senderId = req.body.id;
-    const receiverId = req.body.receiverId;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
+    const receiverID = req.body.receiverId;
 
-    // const session = await postgresClient.transaction();
-  
-    const receiver = await User.findByPk(receiverId);
-    const sender = await User.findByPk(senderId);
+    const target = await User.findByPk(receiverID);
 
-    const senderName = sender.name;
-
-    if (receiver.nominatedby!==null && receiver.nominatedby.find((obj) => obj.id == senderId)) {
-      return res.send({
-        status: "failure",
-        msg: "User has already been nominated!",
-      });
+    if(!target){
+        console.log("The target user doesn't exist");
+        res.status(403).send({
+            status: "failure",
+            message: "The target user doesn't exist"
+        })
     }
 
-    if (receiverId == senderId) {
-      return res.send({
-        status: "failure",
-        msg: "You can't nominate yourself",
-      });
+    const nomination = await Nomination.findOne({where: {
+        [Op.and]: [
+            {nominatorID: senderID},
+            {targetID: receiverID}
+        ]
+    }})
+
+    if (nomination){
+        console.log("Target has already been nominated!!");
+        return res.status(403).send({
+            status: "failure",
+            message: "User has already been nominated!",
+         });
     }
+
+    if (receiverID == senderID) {
+        console.log("[nominateUser Route] You can't nominate yourself!!!");
+        return res.status(403).send({
+            status: "failure",
+            message: "You can't nominate yourself",
+        });
+    }
+
+    const new_nomination = await Nomination.create({
+        nominatorID: senderID,
+        targetID: receiverID
+    });
+
+    console.log("New nomination has been created: ", new_nomination);
 
     // Handling the cases where request was already sent by the targetUser: 
 
-    if (sender.requests!==null && sender.requests.find((o) => o.user == receiverId)) {
-      const requests = sender.requests;
-      let newCap;
-      for (let i = 0; i < requests.length; i++) {
-        if (requests[i].user == receiverId) {
-          newCap = requests[i].caption;
+    const request = await Caption.findOne({where: {
+        [Op.and]: [
+            {writerID: receiverID},
+            {targetID: senderID}
+        ]
+    }});
 
-          const filter = new Filter({ placeHolder: "x" });
-          filter.addWords(...words);
-          newCap = filter.clean(newCap);
-
-          requests.splice(i, 1);
-        }
-      }
-      try{
-
-        sender.captions.push({"user": receiver, "caption": newCap});
-        sender.requests = requests;
-
-        sender.set('captions', sender.captions);
-        sender.changed('captions', true);
-        sender.set('requests', sender.requests);
-        sender.changed('requests', true);
-  
-
-        await sender.save();
-
-      }catch(err){
-        console.log("Some error occured ", err);
-        return res.status(500).send({"message": "An error occured"});
-      }
+    if(request){
+        request.status = 1;
+        await request.save();
+        console.log("Caption updated to approved status.");
+        return res.status(200).send({
+            status: "success",
+            message: "Target has been nominated and Caption approved"
+        });
+    }else{
+        return res.status(200).send({
+            status: "success",
+            message: "Target has been nominated"
+        })
     }
-    
-    
-    else if (sender.declined_requests!==null && sender.declined_requests.find((o) => o.user == receiverId)) {
-      const declined_requests = sender.declined_requests;
-      let newCap;
-      for (let i = 0; i < declined_requests.length; i++) {
-        if (declined_requests[i].user === receiverId) {
-          newCap = declined_requests[i].caption;
-
-          const filter = new Filter({ placeHolder: "x" });
-          filter.addWords(...words);
-          newCap = filter.clean(newCap);
-          
-          declined_requests.splice(i, 1);
-        }
-      }
-      
-      sender.captions.push({"user": receiver, "caption": newCap});
-      sender.declined_requests = declined_requests;
-    
-      sender.set('captions', sender.captions);
-      sender.changed('captions', true);
-      sender.set('declined_requests', sender.declined_requests);
-      sender.changed('declined_requests', true);
-
-      await sender.save();
-
-    }
-
-    receiver.nominatedby.push({"name": senderName, "id": senderId});
-    receiver.set('nominatedby', receiver.nominatedby);
-    receiver.changed('nominatedby', true);
-    await receiver.save();
-
-    // await session.commit();
-
-    return res.send({
-      status: "success",
-      msg: "Friend nominated successfully!",
-    });
   } catch (err) {
-    console.log("There was an erorr: nominateUser", err);
-    return res.send({
+    console.log("[nominateUser Route] An error occurred: ", err);
+    return res.status(400).send({
       status: "failure",
-      msg: err.message,
+      message: "There was an error, please try again after sometime",
+      error: err
     });
   }
 };
 
 const declineRequest = async (req, res) => {
   try {
-    const senderId = req.user.id;
-    // const senderId = req.body.id;
-    const receiverId = req.body.receiverId;
+    const senderID = req.user.id;
+    // const senderID = req.body.id;
+    const receiverID = req.body.receiverId;
 
-    const sender = await User.findByPk(senderId);
+    const nomination = await Nomination.findOne({where: {
+        [Op.and]: [
+            {nominatorID: senderID},
+            {targetID: receiverID}
+        ]
+    }});
 
-    const requests = sender.requests;
-    let newCap;
+    if(nomination){
+        await Nomination.destroy({where: {
+            [Op.and]: [
+                {nominatorID: senderID},
+                {targetID: receiverID}
+            ]
+        }});
 
-    for (let i = 0; i < requests.length; i++) {
-      if (requests[i].user === receiverId) {
-        newCap = requests[i].caption;
-        requests.splice(i, 1);
-      }
+        console.log("[declineRequest Route] The Nomination has been removed successfully");
     }
-    
-    sender.declined_requests.push({"user": receiverId, "caption": newCap});
-    sender.requests = requests;
 
-    sender.set('declined_requests', sender.declined_requests);
-    sender.set('requests', sender.requests);
-  
-    sender.changed('requests', true);
-    sender.changed('declined_requests', true);
+    const caption = await Caption.findOne({where: {
+        [Op.and]: [
+            {writerID: receiverID},
+            {targetID: senderID}
+        ]
+    }});
 
-    await sender.save();
+    if(!caption){
+        console.log("[declineRequest Route] The request or user doesn't exist anymore");
+        return res.status(403).send({
+            status: "failure",
+            message: "The user or the request doesn't exist anymore"
+        });
+    }else{
+        caption.status = -1;
+        await caption.save();
 
-    return res.send({
-      success: "Succesfully declined",
-    });
-  } catch (err) {
-    console.log("There was an erorr: declineRequest", err);
-    return res.send({
+        return res.status(200).send({
+            status: "success",
+            message: "The request was declined successfully"
+        })
+    }
+  }catch(err){
+    console.log("[declineRequest Route] There was an error: ", err);
+    return res.status(400).send({
       status: "failure",
-      msg: "There was an error, Please try after some time",
+      message: "There was an error, Please try after some time",
+      error: err
     });
   }
 };

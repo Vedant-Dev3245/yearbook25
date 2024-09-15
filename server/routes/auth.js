@@ -51,7 +51,7 @@ router.post("/google", async (req, res) => {
         authorised: 0,
       });
     }
-
+    console.log("The email is: ", email);
     const user = await User.findOne({where: {email: payload.email}});
 
     console.log("THIs is from auth, the user is: ", user);
@@ -66,10 +66,11 @@ router.post("/google", async (req, res) => {
 
     const jwt_token = jwt.sign(
       {
-        id: user.user_id,
+        id: user.userID,
         bitsId: user.bitsId,
         branchCode: user.branchCode,
         email: payload.email,
+        senior: user.senior
       },
       process.env.TOKEN_KEY,
       { expiresIn: "180d" }

@@ -4,17 +4,29 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const cors = require("cors");
 
-const {postgresClient} = require("./db/postgres")
+const {Sequelize} = require("sequelize");
+const {postgresClient} = require("./db/postgres");
+const associatedModels = require('./models/index');
+const {alterSync, forceSync} = require('./db/sync');
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 // POSTGRESQL
+// Setting Up Database and Models: 
+
 try{
   postgresClient.authenticate();
   console.log("Connection has been established succesfully");
 }catch(err){
     console.log("Unable to connect to the database", err);
+}
+
+try{
+  alterSync(postgresClient);
+  console.log("Models have been synced succesfully");
+}catch(error){
+  console.log("An error occurred while trying to sync models: ", error);
 }
 
 // COOKIES
@@ -35,7 +47,7 @@ app.use(
 app.use(cors());
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
@@ -68,7 +80,5 @@ app.use("/commitments", isAuthenticated, commitmentRoutes);
 
 
 app.get("/test", async (req, res) => {
-  const all = await User.find({});
-
-  return res.send({ all, msg: "ok" });
+  return res.json({ "Message": "endpoint is working fine." });
 });

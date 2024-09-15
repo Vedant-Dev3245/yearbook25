@@ -68,6 +68,8 @@ const arr = [
   "kumarh664@gmail.com",
   "devsatish08@gmail.com",
   "prithvi05prism@gmail.com",
+  "devsatish08@gmail.com",
+  "devtempacc08@gmail.com"
 ];
 
 module.exports = arr;
