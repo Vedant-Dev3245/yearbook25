@@ -367,7 +367,11 @@ const writeCaption = async (req, res) => {
           status: 1
         });
 
+        nomination.status = 1;
+        await nomination.save();
+
         console.log("The caption was created: ", newcaption);
+        console.log("The nomination now is: ", nomination);
 
         return res.status(200).send({
           status: "success",
