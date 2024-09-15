@@ -234,9 +234,10 @@ const leaderboard = async (req, res) => {
         limit: 1
       });
 
-      let user = await User.findByPk(result.targetID);
-
-      response.push({ id: user.userID, name: user.name, votes: result.dataValues.count, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });
+      if(result){
+        let user = await User.findByPk(result.targetID);
+        response.push({ id: user.userID, name: user.name, votes: result.dataValues.count, imageUrl: user.imageUrl, bitsId: user.bitsId, pollQuestion: polls[j].question });  
+      }
     }
 
     console.log("The leaderboard response is: ", response);
