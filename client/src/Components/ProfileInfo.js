@@ -174,7 +174,7 @@ export default function ProfileInfo(props) {
       .then(function (res) {
         console.log(nominateData);
         console.log(res);
-        setMsg(res.data.msg);
+        setMsg(res.message);
         setIsOpenRequest(false);
         setRes(true);
         setSpin(false);
@@ -183,8 +183,13 @@ export default function ProfileInfo(props) {
         }, 3000);
       })
       .catch(function (err) {
+        setMsg("User has already been nominated!");
+        setRes(true)
         console.log(err);
-        setSpin(false);
+        setSpin(false)
+        setTimeout(() => {
+          setRes(false)
+        }, 3000);
       });
   }
   // console.log(localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1);
@@ -588,13 +593,13 @@ export default function ProfileInfo(props) {
       <Alert
         bg="#242323"
         color="white"
-        status="success"
-        display={!isSmallerThan800 && res ? "block" : "none"}
+        status={res ? "error" : "success"}
+        display={!isSmallerThan800 && res ? "flex" : "none"}
         position="absolute"
-        w="100%"
+        w="20%"
         whiteSpace={"normal"}
-        bottom="-8rem"
-        left="0"
+        top="14rem"
+        right="6rem"
         borderRadius="20px"
       >
         <AlertIcon />
@@ -603,8 +608,8 @@ export default function ProfileInfo(props) {
       <Alert
         bg="#242323"
         color="white"
-        status="success"
-        display={isSmallerThan800 && res ? "block" : "none"}
+        status={res ? "error" : "success"}
+        display={isSmallerThan800 && res ? "flex" : "none"}
         position="fixed"
         w="60%"
         top="8rem"

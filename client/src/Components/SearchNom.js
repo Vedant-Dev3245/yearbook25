@@ -75,7 +75,7 @@ export default function Search(props) {
             })
             .then(function(res){
                 console.log(res);
-                setMsg( res.data.msg);
+                setMsg(res.message);
                 setRes(true)
                 setSpin(false)
                 setLabel("")
@@ -85,7 +85,7 @@ export default function Search(props) {
             }, 3000);
             })
             .catch(function(err){
-                setMsg( err.message);
+                setMsg("User has already been nominated!");
                 setRes(true)
                 console.log(err);
                 setSpin(false)
@@ -119,7 +119,7 @@ export default function Search(props) {
                 <AlertIcon />
                 You can not nominate yourself ;)
             </Alert>
-            <Alert bg="#242323" color="white" status='success' display={res ? "block" : "none"} position="absolute" w="40%" bottom="-5rem" left="0">
+            <Alert bg="#242323" color="white" status={res ? "error" : "success"} display={res ? "flex" : "none"} position="absolute" w="40%" bottom="-5rem" left="0">
                 <AlertIcon />
                 {msg}
             </Alert>
