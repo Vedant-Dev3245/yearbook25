@@ -97,7 +97,7 @@ export default function Cards(props) {
           margin={0}
         />
         <Text fontWeight={"600"} fontSize="0.9rem">
-          {props.name/* .toLowerCase() */}
+          {props.name.toLowerCase()}
         </Text>
       </Flex>
 

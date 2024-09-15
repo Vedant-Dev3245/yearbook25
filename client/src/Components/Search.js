@@ -35,7 +35,7 @@ export default function Search(props) {
                     .then(function (response) {
                         let tempArray = [];
                         response.data.forEach(element => {
-                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.user_id}` });
+                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.userID}` });
                         });
                         /* console.log(response.data) */
                         callback(tempArray);

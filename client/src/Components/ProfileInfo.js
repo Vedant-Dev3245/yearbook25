@@ -412,10 +412,10 @@ export default function ProfileInfo(props) {
           bg={`url("${props.imgUrl}")`}
           backgroundPosition={"center"}
           backgroundSize={"cover"}
-          maxHeight={isSmallerThan800 ? "10rem" : ""}
-          maxWidth={isSmallerThan800 ? "10rem" : ""}
-          minHeight={isSmallerThan800 ? "" : "15rem"}
-          minWidth={isSmallerThan800 ? "" : "15rem"}
+          minWidth={isSmallerThan800 ? "10rem" : "15rem"}
+          minHeight={isSmallerThan800 ? "10rem" : "15rem"}
+          maxW={isSmallerThan800 ? "10rem" : ""}
+          maxH={isSmallerThan800 ? "10rem" : ""}
           position="relative"
           bgColor="grey"
           borderRadius="50%"
@@ -506,31 +506,31 @@ export default function ProfileInfo(props) {
           </Box>
         )
       }
-      {!ownProfile ? 
-      <Box
-        w="max-content"
-        whiteSpace={"nowrap"}
-        textAlign="center"
-        position="relative"
-        mt={isSmallerThan800 ? "2rem" : "0"}
-        cursor={"pointer"}
-        bgColor="rgba(255, 255, 255, 0.1)"
-        fontSize="1rem"
-        border="0.6px solid #C9C9C9"
-        padding="0.6rem 1rem"
-        borderRadius="20px"
-        fontWeight="700"
-        onClick={nominate}
-      >
-        nominate this user
-        <Spinner
-          size="lg"
-          mt="1rem"
-          position="absolute"
-          display={spin ? "block" : "none"}
-        />
-      </Box> : <></>
-}
+      {!ownProfile ?
+        <Box
+          w="max-content"
+          whiteSpace={"nowrap"}
+          textAlign="center"
+          position="relative"
+          mt={isSmallerThan800 ? "2rem" : "0"}
+          cursor={"pointer"}
+          bgColor="rgba(255, 255, 255, 0.1)"
+          fontSize="1rem"
+          border="0.6px solid #C9C9C9"
+          padding="0.6rem 1rem"
+          borderRadius="20px"
+          fontWeight="700"
+          onClick={nominate}
+        >
+          nominate this user
+          <Spinner
+            size="lg"
+            mt="1rem"
+            position="absolute"
+            display={spin ? "block" : "none"}
+          />
+        </Box> : <></>
+      }
 
       {/* Requesting people to write on their wall-Modal open for that */}
       <Modal isOpen={isOpenRequest}>
