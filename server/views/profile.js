@@ -174,8 +174,12 @@ const getProfile = async (req, res) => {
         }
         ]},
         {
+          required: false,
           model: Nomination,
           as: 'nominatedby',
+          where: {
+            status: 1
+          },
           include: [{
             model: User,
             as: 'nominator'
