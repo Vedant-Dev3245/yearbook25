@@ -76,7 +76,7 @@ app.use("/auth", authRoutes);
 app.use("/polls", isAuthenticated, pollRoutes);
 app.use("/nominations", isAuthenticated, nominationRoutes);
 app.use("/profiles", isAuthenticated, profileRoutes);
-app.use("/commitments", isAuthenticated, commitmentRoutes);
+app.use("/commitments", commitmentRoutes);
 
 
 app.get("/test", async (req, res) => {

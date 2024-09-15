@@ -11,7 +11,7 @@ const {
 } = require("../views/commitments");
 
 router.get("/:id", searchByCommitment);
-router.post("/", isAdmin, addCommitment);
+router.post("/", addCommitment);
 router.get("/", allCommitments);
 router.post("/user", isAdmin, updateUserCommitments);
 router.delete("/:id", isAdmin, deleteCommitment);
