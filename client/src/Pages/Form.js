@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import {
@@ -19,7 +19,22 @@ import {
   Alert,
   AlertIcon,
   Link,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  InputGroup,
+  InputLeftElement,
+  Checkbox,
+  CheckboxGroup,
+  VStack,
+  HStack,
+  IconButton,
 } from "@chakra-ui/react";
+import { ChevronDownIcon, CloseIcon, SearchIcon } from '@chakra-ui/icons';
 import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
@@ -37,6 +52,7 @@ export default function Form() {
       navigate("/");
     }
   }, [data, navigate]);
+  const [clubsData, setClubsData] = useState([]);
   const [formInfo, setFormInfo] = React.useState({
     // firstName: 'shwetabh',
     firstName: data.given_name ? data.given_name : "",
@@ -64,14 +80,14 @@ export default function Form() {
       if (
         (data.email.charAt(4) === "1" || data.email.charAt(4) === "0")
           ? formInfo.id !== "" &&
-            formInfo.quote !== "" &&
-            formInfo.phone !== "" &&
-            formInfo.pEmail !== "" &&
-            imgExist
+          formInfo.quote !== "" &&
+          formInfo.phone !== "" &&
+          formInfo.pEmail !== "" &&
+          imgExist
           : formInfo.id !== "" &&
-            formInfo.phone !== "" &&
-            formInfo.email !== "" &&
-            imgExist
+          formInfo.phone !== "" &&
+          formInfo.email !== "" &&
+          imgExist
       ) {
         // ) {
         e.target.disabled = true;
@@ -160,6 +176,49 @@ export default function Form() {
     e.preventDefault();
     validate(e);
   }
+
+  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  React.useEffect(() => {
+    axios({
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+      url: `${process.env.REACT_APP_BACKEND_URL}/commitments`,
+    })
+      .then(function (response) {
+        console.log(response.data)
+        const commitmentNames = response.data.map(item => item.commitment_name);
+        setClubsData(commitmentNames);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  const handleSelect = (values) => {
+    setSelectedOptions(values);
+    setFormInfo((prevFormInfo) => ({
+      ...prevFormInfo,
+      commitments: values,  // Update formInfo.commitments with selectedOptions
+    }));
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleDeselect = (option) => {
+    setSelectedOptions(selectedOptions.filter((item) => item !== option));
+  };
+
+  const filteredOptions = clubsData.filter((option) =>
+    option.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Flex
       flexDirection={isSmallerThan900 ? "column" : "row"}
@@ -187,7 +246,7 @@ export default function Form() {
           marginBlock={isSmallerThan900 ? "2rem" : 0}
         >
           <Box pl={isSmallerThan500 ? "1.2rem" : "3rem"}>
-            <Heading mt="5rem" fontSize={isSmallerThan1100 ? "3rem" : "3.6rem"}>
+            <Heading mt="2rem" fontSize={isSmallerThan1100 ? "3rem" : "3.6rem"}>
               join your{" "}
               <Box fontStyle="italic" display="inline" fontFamily="EB Garamond">
                 batchies
@@ -315,7 +374,6 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-
                   <GridItem colSpan={2}>
                     <FormLabel
                       cursor="pointer"
@@ -338,9 +396,114 @@ export default function Form() {
                       name="quote"
                       value={formInfo.quote}
                     />
-                    <FormHelperText mt="0.4rem" mb="6rem">
+                    <FormHelperText mt="0.4rem" mb="0rem">
                       {formInfo.quote.length}/140 characters used
                     </FormHelperText>
+                  </GridItem>
+                  <GridItem colSpan={2}>
+                    <FormLabel
+                      cursor="pointer"
+                      htmlFor="commitments"
+                      fontSize="20px"
+                      fontWeight="600"
+                    >
+                      campus commitments
+                    </FormLabel>
+                    <Button
+                      w="90%"
+                      justifyContent="flex-start"
+                      onClick={onOpen}
+                      bg="#242323"
+                      color="gray.400"
+                      fontWeight="400"
+                      borderWidth="1px"
+                      borderColor="gray"
+                      p="1.2rem 0.8rem"
+                      _hover={{ borderColor: 'gray.300', bg: "#242323" }}
+                    >
+                      choose club/ department
+                      <Box ml="auto">
+                        <ChevronDownIcon />
+                      </Box>
+                    </Button>
+                    <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                      <ModalOverlay
+                        bg="rgba(0, 0, 0, 0.6)"
+                        backdropFilter="blur(20px)"
+                        zIndex="modal"
+                      />
+                      <ModalContent
+                        bg="#242323"
+                        maxW="56rem"
+                        h={isSmallerThan900 ? "fit-content" : "90%"}
+                        color="white"
+                        p="0.6rem"
+                        borderRadius="20px"
+                        borderColor="#4B4B4B" borderWidth="3px"
+                      >
+                        <ModalHeader fontSize="24px" fontWeight="700">campus commitments</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                          <InputGroup mb={1}>
+                            <InputLeftElement
+                              pointerEvents="none"
+                              children={<SearchIcon color="gray.300" />}
+                            />
+                            <Input
+                              placeholder="search club/ department"
+                              value={searchTerm}
+                              onChange={handleSearch}
+                            />
+                          </InputGroup>
+                          <Box mt="2rem">
+                            <CheckboxGroup value={selectedOptions} onChange={handleSelect}>
+                              <HStack align="start" spacing={4} justify="space-between">
+                                {[0, 1, 2].map((colIdx) => (
+                                  <VStack key={colIdx} align="start" spacing={2} width="70%">
+                                    {clubsData
+                                      .filter((_, idx) => idx % 3 === colIdx)
+                                      .map((option, idx) => (
+                                        <Checkbox key={idx} value={option}>
+                                          {option}
+                                        </Checkbox>
+                                      ))}
+                                  </VStack>
+                                ))}
+                              </HStack>
+                            </CheckboxGroup>
+                          </Box>
+                        </ModalBody>
+                      </ModalContent>
+                    </Modal>
+                    <Box pt={4}>
+                      {selectedOptions.length > 0 ? (
+                        <HStack align="start" mt={2} spacing={2} flexWrap="wrap" mb={2}>
+                          {selectedOptions.map((option, idx) => (
+                            <HStack key={idx} spacing={1}>
+                              <Box
+                                bg="#edf2f7"
+                                color="black"
+                                p={2}
+                                spacing={2}
+                                width="100%"
+                                display="flex"
+                                alignItems="center"
+                                borderRadius="md"
+                              ><Box flex="1">{option}</Box>
+                                <IconButton
+                                  icon={<CloseIcon />}
+                                  color="#242323"
+                                  size="xs"
+                                  onClick={() => handleDeselect(option)}
+                                />
+                              </Box>
+                            </HStack>
+                          ))}
+                        </HStack>
+                      ) : (
+                        <Box mt={2}></Box>
+                      )}
+                    </Box>
                   </GridItem>
                 </SimpleGrid>
               </FormControl>
