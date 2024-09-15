@@ -33,9 +33,12 @@ export default function Home() {
           localStorage.setItem("user", response.data.user);
           localStorage.setItem("token", response.data.token);
           setLoading(false);
-          navigate(`/profile/${response.data.user}`);
+          navigate(`/profile/${response.data.user}`);  /* ORIGINAL */
+          // navigate("/form", { state: userObject });
+          // navigate("/junior", { state: userObject });
         } else {
           navigate("/form", { state: userObject });
+          // navigate("/junior", { state: userObject });
         }
       }
     });
@@ -113,6 +116,6 @@ export default function Home() {
       <FAQ />
       <OptIn />
       <Footer />
-    // </Box>
+    </Box>
   );
 }

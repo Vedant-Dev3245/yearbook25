@@ -27,7 +27,7 @@ import jwtDecode from "jwt-decode";
 
 export default function Form() {
   const validID = new RegExp(
-    "2020[ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
+    "[202][0-4][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
   );
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +49,7 @@ export default function Form() {
     pEmail: "",
     imgUrl: "",
     phone: "",
+    commitments: [],
   });
   const [img, setImg] = React.useState();
   const [isDisabled, setIsDisabled] = React.useState(false);
@@ -63,7 +64,7 @@ export default function Form() {
       // console.log(valid);
       if (
         formInfo.id !== "" &&
-        formInfo.quote !== "" &&
+        /* formInfo.quote !== "" && */
         formInfo.phone !== "" &&
         formInfo.pEmail !== "" &&
         imgExist

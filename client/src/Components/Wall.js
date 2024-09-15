@@ -1,7 +1,8 @@
 import React from "react";
 import Masonry from "react-masonry-css";
 import Cards from "./Cards";
-import { Box, useMediaQuery, Text } from "@chakra-ui/react";
+import { Box, useMediaQuery, Text, SimpleGrid } from "@chakra-ui/react";
+import ClubCards from "./ClubCards";
 
 export default function Wall(props) {
   const [isSmallerThan800] = useMediaQuery("(max-width: 800px)");
@@ -20,7 +21,7 @@ export default function Wall(props) {
         caption={person.caption}
         img={person.imageUrl}
         bitsId={person.bitsId}
-        key={person.user_id}
+        key={person.id}
       />
     );
   });
@@ -35,59 +36,98 @@ export default function Wall(props) {
     }
   }, [capt]);
 
+  /* junior club cards temp */
+  const clubsData = [
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Mime Club',
+      seniorOptions: ['Option 1', 'Option 2', 'Option 3'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Wall Street Club',
+      seniorOptions: ['Option A', 'Option B', 'Option C'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Student Alumni Relations Cell',
+      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Dance Club',
+      seniorOptions: ['Option A', 'Option B', 'Option C'],
+    },
+    {
+      imgUrl: 'https://via.placeholder.com/100',
+      commitment: 'Gambling Club',
+      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
+    },
+  ];
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
-      <Box
-        fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
-        display={props.ownProfile && title ? "block" : "none"}
-        fontWeight="800"
-      >
-        <Text
-          display={"inline"}
-          fontFamily="EB Garamond"
-          fontStyle="italic"
-          textDecoration={"underline"}
-          cursor="pointer"
-          onClick={props.makeNominActive}
+      {props.bitsId.charAt(3) === '0' ? <>
+        <Box
+          fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
+          display={props.ownProfile && title ? "block" : "none"}
+          fontWeight="800"
         >
-          nominate
-        </Text>{" "}
-        your friends to write a caption for you
-      </Box>
-      <Box
-        fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
-        display={!props.ownProfile && title ? "block" : "none"}
-        fontWeight="800"
-      >
-        hey, you should write a{" "}
-        <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-          caption
-        </Text>{" "}
-        for your friend, <br /> ask them to{" "}
-        <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-          nominate
-        </Text>{" "}
-        you!{" "}
-      </Box>
-      {capt.length !== 0 && (
-        <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">
-          your{" "}
-          <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-            friends
+          <Text
+            display={"inline"}
+            fontFamily="EB Garamond"
+            fontStyle="italic"
+            textDecoration={"underline"}
+            cursor="pointer"
+            onClick={props.makeNominActive}
+          >
+            nominate
           </Text>{" "}
-          have something to say...
+          your friends to write a caption for you
         </Box>
-      )}
+        <Box
+          fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
+          display={!props.ownProfile && title ? "block" : "none"}
+          fontWeight="800"
+        >
+          hey, you should write a{" "}
+          <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
+            caption
+          </Text>{" "}
+          for your friend, <br /> ask them to{" "}
+          <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
+            nominate
+          </Text>{" "}
+          you!{" "}
+        </Box>
+        {capt.length !== 0 && (
+          <Box fontSize={isSmallerThan800 ? "1.5rem" : "3rem"} fontWeight="800">
+            your{" "}
+            <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
+              friends
+            </Text>{" "}
+            have something to say...
+          </Box>
+        )}
 
-      <Masonry
-        width="100%"
-        marginInline="auto"
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {cards}
-      </Masonry>
+        <Masonry
+          width="100%"
+          marginInline="auto"
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {cards}
+        </Masonry></> : <Box m="4rem">
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+          {clubsData.map((clubData, index) => (
+            <ClubCards
+              key={index} 
+              imgUrl={clubData.imgUrl}
+              commitment={clubData.commitment}
+              seniorOptions={clubData.seniorOptions}
+            />
+          ))}
+        </SimpleGrid></Box>}
     </Box>
   );
 }
