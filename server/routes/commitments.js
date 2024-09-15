@@ -13,7 +13,7 @@ const {
 router.get("/:id", searchByCommitment);
 router.post("/", addCommitment);
 router.get("/", allCommitments);
-router.post("/user", isAdmin, updateUserCommitments);
+router.post("/user", updateUserCommitments);
 router.delete("/:id", isAdmin, deleteCommitment);
 router.put("/", isAdmin, editCommitment);
 
