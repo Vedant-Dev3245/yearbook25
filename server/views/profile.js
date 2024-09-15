@@ -163,6 +163,7 @@ const getProfile = async (req, res) => {
     const userID = req.params.id
     const user = await User.findByPk(userID, {
       include: [{
+        required: false,
         model: Caption,
         as: 'captions',
         where: {
