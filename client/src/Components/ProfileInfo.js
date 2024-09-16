@@ -23,6 +23,7 @@ import {
   Link,
   Alert,
   AlertIcon,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { Icon, Spinner } from "@chakra-ui/react";
@@ -38,7 +39,7 @@ import TagSearch from "./TagSearch";
 import jwtDecode from "jwt-decode";
 
 export default function ProfileInfo(props) {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [isOpenRequest, setIsOpenRequest] = React.useState(false);
   const [ownProfile, setOwnProfile] = React.useState();
   const [showEdit, setShowEdit] = React.useState();
@@ -134,16 +135,6 @@ export default function ProfileInfo(props) {
       });
   }
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-  React.useEffect(() => {
-    setIsOpen(false);
-  }, [window.location.href]);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
   // console.log(props.img)
   // console.log(props.img.data)
   function handleLogout() {
@@ -227,7 +218,6 @@ export default function ProfileInfo(props) {
   }
   const handleOpenRequest = () => {
     setIsOpenRequest(true);
-    setIsOpen(false);
   };
   const handleCloseRequest = () => {
     setIsOpenRequest(false);
@@ -255,7 +245,7 @@ export default function ProfileInfo(props) {
       p="1.2rem 0rem"
       justifyContent="space-between"
     >
-      <Modal isOpen={isOpen} scrollBehavior="inside" w="80%">
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" w="80%">
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           color="white"
@@ -281,7 +271,7 @@ export default function ProfileInfo(props) {
             >
               update your profile
             </ModalHeader>
-            <ModalCloseButton onClick={handleClose} />
+            <ModalCloseButton />
             <ModalBody
               mt="-0.5rem"
               fontSize={isSmallerThan800 ? "0.8rem" : "0.8rem"}
@@ -431,7 +421,7 @@ export default function ProfileInfo(props) {
           {
             <Box
               cursor={"pointer"}
-              onClick={handleOpen}
+              onClick={onOpen}
               position="absolute"
               display={showEdit ? "block" : "none"}
               top="0"
