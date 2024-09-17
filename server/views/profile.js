@@ -93,7 +93,29 @@ const addProfile = async (req, res) => {
       console.log("The user is created: ", user.toJSON());
       console.log("The JWT token is: ", token);
 
-      return res.send({
+      // adding Commitments for the user: 
+
+      const commitments = req.body.commitments;
+      if (!commitments) {
+          console.log("[addProfile Route] Commitments body data is empty");
+      }else{
+        for(const returncommitment of commitments){
+          let commitmentID = returncommitment.commitmentID;
+          let commitment = await Commitment.findByPk(commitmentID); 
+          await user.addCommitment(commitment);
+        }
+
+        const updated_user = await User.findByPk(user.userID, {
+          include:{
+              model: Commitment,
+              as: 'commitments'
+          }
+        });
+
+        console.log("User commitments have been updated: ", updated_user)
+      }
+
+      return res.status(200).send({
         message: "Profile created",
         id: user.userID,
         token: token,
@@ -139,6 +161,29 @@ const editProfile = async (req, res) => {
     }
   
     await user.save();
+
+    // editing Commitments for the user: 
+      
+    const commitments = req.body.commitments;
+    if (!commitments) {
+        console.log("[editProfile Route] Commitments body data is empty");
+    }else{
+      await user.setCommitments([]);
+      for(const returncommitment of commitments){
+        let commitmentID = returncommitment.commitmentID;
+        let commitment = await Commitment.findByPk(commitmentID); 
+        await user.addCommitment(commitment);
+      }
+
+      const updated_user = await User.findByPk(user.userID, {
+        include:{
+            model: Commitment,
+            as: 'commitments'
+        }
+      });
+
+      console.log("User commitments have been updated: ", updated_user)
+    }
   
     console.log("User updated succesfully, user: ", user);
     return res.status(200).send({
@@ -184,6 +229,10 @@ const getProfile = async (req, res) => {
             model: User,
             as: 'nominator'
           }]
+        },
+        {
+          model: Commitment,
+          as: 'commitments'
         }
       ]
     });
