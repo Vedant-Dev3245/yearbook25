@@ -108,6 +108,7 @@ const searchByCommitment = async (req, res) => {
 }
 
 const addCommitment = async (req, res) => {
+    console.log("[addCommitment] Hello This ROUTE IS ACTIVE");
     const commitment = req.body.name;
     const imgUrl = req.body.imgUrl;
 
