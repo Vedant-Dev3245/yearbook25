@@ -111,6 +111,7 @@ const addCommitment = async (req, res) => {
     const commitment = req.body.name;
     const imgUrl = req.body.imgUrl;
 
+    console.log("[addCommitment Route] The request body data is: ", req.body);
     try{
         const check = await Commitment.findOne({ where: { commitment_name: commitment } });
 
@@ -118,17 +119,17 @@ const addCommitment = async (req, res) => {
             console.log("The commitment already exists: ", check);
             return res.status(400).send({
                 message: "Commitment already exists"
-            })
+            });
         } else {
             const newCommitment = await Commitment.create({
                 commitment_name: commitment,
                 commitment_imageUrl: imgUrl
-            })
-
+            });
+            console.log("[addCommitments Route] New Commitment created: ", newCommitment);
             return res.status(200).send({
                 status: "success",
                 commitment: newCommitment
-            })
+            });
         }
     }catch(err){
         console.log("[addCommitment Route] There was an error: ", err);
