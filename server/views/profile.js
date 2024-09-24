@@ -101,6 +101,7 @@ const addProfile = async (req, res) => {
       if (!commitments) {
           console.log("[addProfile Route] Commitments body data is empty");
       }else{
+        await user.setCommitments([]);
         for(const returncommitment of commitments){
           let commitmentID = returncommitment.commitmentID;
           let commitment = await Commitment.findByPk(commitmentID); 
