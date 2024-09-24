@@ -72,6 +72,7 @@ const addProfile = async (req, res) => {
         quote: quote,
         branchCode: branchCode,
         imageUrl: req.body.imgUrl,
+        senior: senior
       });
 
       // Creating a JWT token for the created user:
@@ -80,7 +81,8 @@ const addProfile = async (req, res) => {
         id: user.userID, 
         bitsID: user.bitsId, 
         email: user.email, 
-        branchCode: user.branchCode 
+        branchCode: user.branchCode,
+        senior: senior
       },
         process.env.TOKEN_KEY,
         { 
