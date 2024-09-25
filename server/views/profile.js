@@ -107,6 +107,7 @@ const addProfile = async (req, res) => {
       }else{
         await user.setCommitments([]);
         for(const returncommitment of commitments){
+          console.log("[settingCommitments] This is the current commitment: ", returncommitment);
           let commitmentID = returncommitment.commitmentID;
           let commitment = await Commitment.findByPk(commitmentID); 
           await user.addCommitment(commitment);
