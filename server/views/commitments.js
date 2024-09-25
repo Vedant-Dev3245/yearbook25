@@ -28,57 +28,57 @@ const allCommitments = async (req, res) => {
     }
 }
 
-// const updateUserCommitments = async (req, res) => {
-//     try {
-//         const userid = req.user.id;
-//         // const userid = req.body.id;
-//         const user = await User.findByPk(userid);
+const updateUserCommitments = async (req, res) => {
+    try {
+        const userid = req.user.id;
+        // const userid = req.body.id;
+        const user = await User.findByPk(userid);
 
-//         if (!user) {
-//             console.log("[updateUserCommitments Route] User not found.");
-//             return res.status(400).send({
-//                 status: "failure",
-//                 message: "[updateUserCommitments Route] User not found"
-//             })
-//         }
+        if (!user) {
+            console.log("[updateUserCommitments Route] User not found.");
+            return res.status(400).send({
+                status: "failure",
+                message: "[updateUserCommitments Route] User not found"
+            })
+        }
 
-//         const commitments = req.body.commitments;
-//         if (!commitments) {
-//             console.log("[updateUserCommitments Route] Commitments body data is empty");
-//             return res.status(400).send({
-//                 status: "failure",
-//                 message: "[updateUserCommitments Route] Commitments data missing in the request body"
-//             })
-//         }
+        const commitments = req.body.commitments;
+        if (!commitments) {
+            console.log("[updateUserCommitments Route] Commitments body data is empty");
+            return res.status(400).send({
+                status: "failure",
+                message: "[updateUserCommitments Route] Commitments data missing in the request body"
+            })
+        }
 
-//         for(const returncommitment of commitments){
-//             let commitmentID = returncommitment.commitmentID;
-//             let commitment = await Commitment.findByPk(commitmentID); 
-//             await user.addCommitment(commitment);
-//         }
+        for(const returncommitment of commitments){
+            let commitmentID = returncommitment.commitmentID;
+            let commitment = await Commitment.findByPk(commitmentID); 
+            await user.addCommitment(commitment);
+        }
 
-//         const updated_user = await User.findByPk(userid, {
-//             include:{
-//                 model: Commitment,
-//                 as: 'commitments'
-//             }
-//         });
+        const updated_user = await User.findByPk(userid, {
+            include:{
+                model: Commitment,
+                as: 'commitments'
+            }
+        });
 
-//         console.log("User commitments have been updated: ", updated_user)
-//         res.status(200).send({
-//             status: "success",
-//             message: "commitments for the user have been updated.",
-//             user: updated_user
-//         })
+        console.log("User commitments have been updated: ", updated_user)
+        res.status(200).send({
+            status: "success",
+            message: "commitments for the user have been updated.",
+            user: updated_user
+        })
 
-//     } catch (error) {
-//         console.log("[updateUserCommitments Route] An error has occurred: ", error);
-//         return res.status(500).send({
-//             status: "failure",
-//             msg: "[updateUserCommitments Route] An error has occurred"
-//         })
-//     }
-// }
+    } catch (error) {
+        console.log("[updateUserCommitments Route] An error has occurred: ", error);
+        return res.status(500).send({
+            status: "failure",
+            msg: "[updateUserCommitments Route] An error has occurred"
+        })
+    }
+}
 
 const searchByCommitment = async (req, res) => {
     const commitment_id = req.params.id;
@@ -214,4 +214,4 @@ const deleteCommitment = async (req, res) => {
     }
 }
 
-module.exports = { allCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment};
+module.exports = { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment};

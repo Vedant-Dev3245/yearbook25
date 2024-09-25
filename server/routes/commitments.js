@@ -3,6 +3,7 @@ const {isAdmin} = require("../middleware/auth")
 const { 
     allCommitments,  
     searchByCommitment, 
+    updateUserCommitments,
     addCommitment, 
     editCommitment, 
     deleteCommitment
@@ -10,7 +11,7 @@ const {
 
 router.post("/", addCommitment);
 router.get("/", allCommitments);
-// router.post("/user", updateUserCommitments);
+router.post("/user", updateUserCommitments);
 router.delete("/:id", deleteCommitment);
 router.get("/:id", searchByCommitment);
 router.put("/", editCommitment);
