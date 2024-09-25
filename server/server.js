@@ -74,7 +74,7 @@ const { isAuthenticated } = require("./middleware/auth");
 
 app.use("/auth", authRoutes);
 app.use("/polls", isAuthenticated, pollRoutes);
-app.use("/nominations", isAuthenticated, nominationRoutes);
+app.use("/nominations", nominationRoutes);
 app.use("/profiles", profileRoutes);
 app.use("/commitments", commitmentRoutes);
 
