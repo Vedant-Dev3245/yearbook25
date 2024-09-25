@@ -1,4 +1,3 @@
-const { alterSync } = require('../db/sync');
 const { postgresClient } = require("../db/postgres");
 const { Op, Model } = require("sequelize");
 
