@@ -1,8 +1,7 @@
 const router = require("express").Router();
 const {isAdmin} = require("../middleware/auth")
 const { 
-    allCommitments, 
-    updateUserCommitments, 
+    allCommitments,  
     searchByCommitment, 
     addCommitment, 
     editCommitment, 
@@ -11,7 +10,7 @@ const {
 
 router.post("/", addCommitment);
 router.get("/", allCommitments);
-router.post("/user", updateUserCommitments);
+// router.post("/user", updateUserCommitments);
 router.delete("/:id", deleteCommitment);
 router.get("/:id", searchByCommitment);
 router.put("/", editCommitment);
