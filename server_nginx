@@ -1,0 +1,44 @@
+# Virtual Host configuration for example.com
+#
+# You can move that to a different file under sites-available/ and symlink that
+# to sites-enabled/ to enable it.
+#
+server {
+	server_name yearbook-api.bits-sarc.in;
+
+	index index index.htm index.html;
+
+	location / {
+		proxy_pass http://localhost:1337;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_read_timeout 300s;
+		proxy_connect_timeout 75s;
+	}
+
+
+
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/yearbook-api.bits-sarc.in/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/yearbook-api.bits-sarc.in/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = yearbook-api.bits-sarc.in) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+	listen 80;
+	listen [::]:80;
+	server_name yearbook-api.bits-sarc.in;
+    return 404; # managed by Certbot
+
+
+}
