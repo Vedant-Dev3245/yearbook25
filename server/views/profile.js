@@ -57,9 +57,13 @@ const addProfile = async (req, res) => {
       // Quote Filtering:
 
       var quote = req.body.quote;
-      const filter = new Filter({ placeHolder: "x" });
-      filter.addWords(...words);
-      quote = filter.clean(quote);
+      if(quote){
+        const filter = new Filter({ placeHolder: "x" });
+        filter.addWords(...words);
+        quote = filter.clean(quote);
+      }else{
+        quote = "junior can't have quotes";
+      }
 
       // Creating the user:
 
