@@ -81,11 +81,11 @@ const updateUserCommitments = async (req, res) => {
 }
 
 const searchByCommitment = async (req, res) => {
-    const commitment_id = req.params.id;
-    console.log("this is the commitment_id: ", commitment_id);
+    const commitment_name = req.body.name;
+    console.log("this is the commitment_name: ", commitment_name);
 
     try {
-        const commitment = await Commitment.findByPk(commitment_id, {
+        const commitment = await Commitment.findOne({where: {commitment_name: commitment_name}}, {
             include:{
                 model: User,
                 as: 'members'
