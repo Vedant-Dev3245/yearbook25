@@ -11,6 +11,7 @@ const arr = [
   "f20221264@pilani.bits-pilani.ac.in",
   "f20230327@pilani.bits-pilani.ac.in",
   "f20230833@pilani.bits-pilani.ac.in",
+
   //20Batch
   "f20200616@pilani.bits-pilani.ac.in",
   "f20201658@pilani.bits-pilani.ac.in",
@@ -23,6 +24,7 @@ const arr = [
   "f20200817@pilani.bits-pilani.ac.in",
   "f20201638@pilani.bits-pilani.ac.in",
   "f20201855@pilani.bits-pilani.ac.in",
+
   //21Batch
   "f20212758@pilani.bits-pilani.ac.in",
   "f20212528@pilani.bits-pilani.ac.in",
@@ -38,14 +40,17 @@ const arr = [
   "f20212588@pilani.bits-pilani.ac.in",
   "f20212435@pilani.bits-pilani.ac.in",
   "studentalumnirelationscell@gmail.com",
+
   //18Batch
   "f20180385@pilani.bits-pilani.ac.in",
   "f20180432@pilani.bits-pilani.ac.in",
   "f20180306@pilani.bits-pilani.ac.in",
   "f20180936@pilani.bits-pilani.ac.in",
+
   //Vertical Transfer Students
   "h20171082@pilani.bits-pilani.ac.in",
   "h20171187@pilani.bits-pilani.ac.in",
+
   //22Batch
   "f20221591@pilani.bits-pilani.ac.in",
   "f20220478@pilani.bits-pilani.ac.in",
@@ -59,6 +64,7 @@ const arr = [
   "f20221171@pilani.bits-pilani.ac.in",
   "f20220115@pilani.bits-pilani.ac.in",
   "f20220590@pilani.bits-pilani.ac.in",
+  
   //23Batch
   
 

@@ -57,9 +57,13 @@ const addProfile = async (req, res) => {
       // Quote Filtering:
 
       var quote = req.body.quote;
-      const filter = new Filter({ placeHolder: "x" });
-      filter.addWords(...words);
-      quote = filter.clean(quote);
+      if(quote){
+        const filter = new Filter({ placeHolder: "x" });
+        filter.addWords(...words);
+        quote = filter.clean(quote);
+      }else{
+        quote = "junior can't have quotes";
+      }
 
       // Creating the user:
 
@@ -72,6 +76,7 @@ const addProfile = async (req, res) => {
         quote: quote,
         branchCode: branchCode,
         imageUrl: req.body.imgUrl,
+        senior: senior
       });
 
       // Creating a JWT token for the created user:
@@ -80,7 +85,8 @@ const addProfile = async (req, res) => {
         id: user.userID, 
         bitsID: user.bitsId, 
         email: user.email, 
-        branchCode: user.branchCode 
+        branchCode: user.branchCode,
+        senior: senior
       },
         process.env.TOKEN_KEY,
         { 
@@ -93,7 +99,30 @@ const addProfile = async (req, res) => {
       console.log("The user is created: ", user.toJSON());
       console.log("The JWT token is: ", token);
 
-      return res.send({
+      // adding Commitments for the user: 
+
+      const commitments = req.body.commitments;
+      if (!commitments) {
+          console.log("[addProfile Route] Commitments body data is empty");
+      }else{
+        await user.setCommitments([]);
+        for(const returncommitment of commitments){
+          console.log("[settingCommitments] This is the current commitment: ", returncommitment);
+          let commitment = await Commitment.findOne({where: {commitment_name: returncommitment}})
+          await user.addCommitment(commitment);
+        }
+
+        const updated_user = await User.findByPk(user.userID, {
+          include:{
+              model: Commitment,
+              as: 'commitments'
+          }
+        });
+
+        console.log("User commitments have been updated: ", updated_user)
+      }
+
+      return res.status(200).send({
         message: "Profile created",
         id: user.userID,
         token: token,
@@ -139,6 +168,29 @@ const editProfile = async (req, res) => {
     }
   
     await user.save();
+
+    // editing Commitments for the user: 
+      
+    const commitments = req.body.commitments;
+    if (!commitments) {
+        console.log("[editProfile Route] Commitments body data is empty");
+    }else{
+      await user.setCommitments([]);
+      for(const returncommitment of commitments){
+        let commitmentID = returncommitment.commitmentID;
+        let commitment = await Commitment.findByPk(commitmentID); 
+        await user.addCommitment(commitment);
+      }
+
+      const updated_user = await User.findByPk(user.userID, {
+        include:{
+            model: Commitment,
+            as: 'commitments'
+        }
+      });
+
+      console.log("User commitments have been updated: ", updated_user)
+    }
   
     console.log("User updated succesfully, user: ", user);
     return res.status(200).send({
@@ -174,12 +226,20 @@ const getProfile = async (req, res) => {
         }
         ]},
         {
+          required: false,
           model: Nomination,
           as: 'nominatedby',
+          where: {
+            status: 1
+          },
           include: [{
             model: User,
             as: 'nominator'
           }]
+        },
+        {
+          model: Commitment,
+          as: 'commitments'
         }
       ]
     });
@@ -367,7 +427,11 @@ const writeCaption = async (req, res) => {
           status: 1
         });
 
+        nomination.status = 1;
+        await nomination.save();
+
         console.log("The caption was created: ", newcaption);
+        console.log("The nomination now is: ", nomination);
 
         return res.status(200).send({
           status: "success",

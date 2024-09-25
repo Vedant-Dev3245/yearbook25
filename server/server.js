@@ -67,13 +67,13 @@ app.listen(port, () => console.log("Listening at port " + port));
 
 const authRoutes = require("./routes/auth");
 const nominationRoutes = require("./routes/nominations");
-const pollRoutes = require("./routes/polls");
+// const pollRoutes = require("./routes/polls");
 const profileRoutes = require("./routes/profile");
 const commitmentRoutes = require("./routes/commitments")
 const { isAuthenticated } = require("./middleware/auth");
 
 app.use("/auth", authRoutes);
-app.use("/polls", isAuthenticated, pollRoutes);
+// app.use("/polls", isAuthenticated, pollRoutes);
 app.use("/nominations", isAuthenticated, nominationRoutes);
 app.use("/profiles", isAuthenticated, profileRoutes);
 app.use("/commitments", isAuthenticated, commitmentRoutes);
