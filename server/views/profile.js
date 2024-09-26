@@ -62,7 +62,7 @@ const addProfile = async (req, res) => {
         filter.addWords(...words);
         quote = filter.clean(quote);
       }else{
-        quote = "junior can't have quotes";
+        quote = "";
       }
 
       // Creating the user:
