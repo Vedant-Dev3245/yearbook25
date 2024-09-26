@@ -38,33 +38,11 @@ export default function Wall(props) {
   }, [capt]);
 
   /* junior club cards temp */
-  const clubsData = [
-    {
-      imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'Mime Club',
-      seniorOptions: ['Option 1', 'Option 2', 'Option 3'],
-    },
-    {
-      imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'Wall Street Club',
-      seniorOptions: ['Option A', 'Option B', 'Option C'],
-    },
-    {
-      imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'Student Alumni Relations Cell',
-      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
-    },
-    {
-      imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'Dance Club',
-      seniorOptions: ['Option A', 'Option B', 'Option C'],
-    },
-    {
-      imgUrl: 'https://via.placeholder.com/100',
-      commitment: 'Gambling Club',
-      seniorOptions: ['Option X', 'Option Y', 'Option Z'],
-    },
-  ];
+  const clubsData = props.commitments.map((commitment) => ({
+    commitment: commitment.commitment_name,
+    seniorOptions: commitment.ymemberlist.userID
+  }));
+  
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
       {props.bitsId.charAt(3) === '0' ? <>
@@ -123,7 +101,6 @@ export default function Wall(props) {
           {clubsData.map((clubData, index) => (
             <ClubCards
               key={index} 
-              imgUrl={clubData.imgUrl}
               commitment={clubData.commitment}
               seniorOptions={clubData.seniorOptions}
             />
