@@ -9,13 +9,13 @@ export default function Devs() {
         default: 3,
         1200: 2,
         800: 1
-      };
+    };
     return (
         <>
             <Masonry width="100%" marginInline="auto" breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column2">
-            <DevCards
+                <DevCards
                     img="../images/shwetabh.png"
                     name="shwetabh niket"
                     caption="frontend captain | 2021B5PS0923P"
@@ -26,6 +26,16 @@ export default function Devs() {
                     text="i just wanted to make you laugh :/"
                 />
                 <DevCards
+                    img="../images/keshri.jpeg"
+                    name="aryan keshri"
+                    caption="my coord | 2021B3A71260P"
+                    twitter="https://twitter.com/aryankeshri007?s=21"
+                    github="https://github.com/DankMemes4President"
+                    linkedin="https://www.linkedin.com/in/aryan-keshri-702a60222"
+                    spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
+                    text="retiring from cursing compres after this semester.."
+                />
+                <DevCards
                     img="../images/aryan.png"
                     name="aryan bakshi"
                     caption="multitasker | 2021A7PS0532P"
@@ -34,7 +44,7 @@ export default function Devs() {
                     linkedin="https://www.linkedin.com/in/aryan-bakshi-005b27222/"
                     spotify="https://open.spotify.com/track/7qiZfU4dY1lWllzX7mPBI3?si=12bf8c69f6954053"
                     text="if i was here, i'd know what to write."
-                 />
+                />
                 <DevCards
                     img="../images/patil.png"
                     name="aditya patil"
@@ -95,7 +105,7 @@ export default function Devs() {
                     spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
                     text="retiring from cursing compres after this semester.."
                 />
-                  <DevCards
+                <DevCards
                     img="../images/shreyaK.png"
                     name="shreya khubber"
                     caption="boss lady | 2020A8PS1807P"
@@ -105,7 +115,7 @@ export default function Devs() {
                     spotify="https://open.spotify.com/album/0yMLTRxwcDN5XHjP5w8jAH?si=wrdfhONORHCp8gvSQ72CDQ&utm_source=copy-link"
                     text="i don't think i did anything.."
                 />
-                                
+
             </Masonry>
         </>
     )

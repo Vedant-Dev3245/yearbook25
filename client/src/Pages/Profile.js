@@ -25,7 +25,8 @@ export default function Profile(props) {
     __v: 0,
     _id: "",
     bitsId: "",
-    /* commitments: ["SARC", "Mime Club", "Sponz"], */
+    commitments: [],
+    senior: false,
   });
   React.useEffect(() => {
     if (

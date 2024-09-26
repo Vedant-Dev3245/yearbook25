@@ -27,7 +27,6 @@ export default function Wall(props) {
   });
   React.useEffect(() => {
     setCapt(props.captions);
-    console.log("caasdasd")
     console.log(props.captions)
   }, [props.captions]);
   React.useEffect(() => {

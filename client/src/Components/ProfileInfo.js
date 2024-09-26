@@ -24,10 +24,10 @@ import {
   Alert,
   AlertIcon,
   useDisclosure,
+  HStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Spinner } from "@chakra-ui/react";
-import { Search2Icon } from "@chakra-ui/icons";
 import { TbPencil } from "react-icons/tb";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -35,12 +35,46 @@ import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Tags from "./Tags"
-import TagSearch from "./TagSearch";
-import jwtDecode from "jwt-decode";
+
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    border: 'none',
+    boxShadow: 'none',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    width: '300px',
+  }),
+  option: (provided) => ({
+    ...provided,
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '10px',
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: 'white',
+    color: 'black',
+    borderRadius: '4px',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: 'black',
+  }),
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+  dropdownIndicator: () => ({
+    display: 'none',
+  }),
+};
 
 export default function ProfileInfo(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isOpenRequest, setIsOpenRequest] = React.useState(false);
+  const { isOpen: isWriteOpen, onOpen: onWriteOpen, onClose: onWriteClose } = useDisclosure();
   const [ownProfile, setOwnProfile] = React.useState();
   const [showEdit, setShowEdit] = React.useState();
   const [spin, setSpin] = React.useState(false);
@@ -53,11 +87,14 @@ export default function ProfileInfo(props) {
   const [formInfo, setFormInfo] = React.useState({
     quote: "",
     imgUrl: "",
+    commitments: [],
   });
   const [img, setImg] = React.useState();
   const [submitToggle, setSubmitToggle] = React.useState(true);
   const navigate = useNavigate();
   const params = useParams();
+  const [clubsData, setClubsData] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -166,7 +203,6 @@ export default function ProfileInfo(props) {
         console.log(nominateData);
         console.log(res);
         setMsg(res.message);
-        setIsOpenRequest(false);
         setRes(true);
         setSpin(false);
         setTimeout(() => {
@@ -206,7 +242,6 @@ export default function ProfileInfo(props) {
     })
       .then(function (res) {
         console.log(res);
-        setIsOpenRequest(false);
         if (res.data.success) {
           window.location.reload();
         }
@@ -216,15 +251,6 @@ export default function ProfileInfo(props) {
         setSpin(false);
       });
   }
-  const handleOpenRequest = () => {
-    setIsOpenRequest(true);
-  };
-  const handleCloseRequest = () => {
-    setIsOpenRequest(false);
-  };
-  React.useEffect(() => {
-    setIsOpenRequest(false);
-  }, []);
 
   function toggleSubmit() {
     if (submitToggle) {
@@ -293,7 +319,74 @@ export default function ProfileInfo(props) {
                 before submitting your photo and quote for the yearbook portal.
               </Text>
               <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}>
-                <Flex justifyContent="space-between" mx="2rem">
+                {props.senior ?
+                  <Flex justifyContent="space-between" mx="2rem" alignItems="center">
+                    <Box>
+                      <Input
+                        cursor="pointer"
+                        id="file"
+                        type="file"
+                        onChange={onImageChange}
+                        accept="image/*"
+                        position="absolute"
+                        right="100vw"
+                        overflow="hidden"
+                      />
+                      <FormLabel
+                        htmlFor="file"
+                        textAlign={"center"}
+                        fontWeight="700"
+                        fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
+                        pb={2}
+                      >
+                        <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
+                        <Image
+                          src={imgExist ? img : props.imgUrl}
+                          margin="auto"
+                          cursor="pointer"
+                          w="6rem"
+                          h="6rem"
+                        />
+                        <Spinner
+                          size="lg"
+                          mt="1rem"
+                          position="absolute"
+                          display={spin2 ? "block" : "none"}
+                        />
+                      </FormLabel>
+                    </Box>
+                    <Box>
+                      <FormLabel
+                        cursor="pointer"
+                        htmlFor="quote"
+                        fontSize="16px"
+                        fontWeight="600"
+                        textAlign="center"
+                      >
+                        yearbook quote
+                      </FormLabel>
+                      <Textarea
+                        w="90%"
+                        maxLength="140"
+                        borderColor="#444"
+                        size="md"
+                        resize="none"
+                        id="quote"
+                        onChange={handleChange}
+                        p="0.8rem"
+                        placeholder="enter your yearbook quote here"
+                        name="quote"
+                        value={formInfo.quote}
+                      />
+                      <FormHelperText
+                        mt="0.4rem"
+                        mb={isSmallerThan800 ? "1rem" : "2rem"}
+                      >
+                        {formInfo.quote.length}/140 characters used
+                      </FormHelperText>
+                    </Box>
+                  </Flex>
+                  :
                   <Box>
                     <Input
                       cursor="pointer"
@@ -317,8 +410,8 @@ export default function ProfileInfo(props) {
                         src={imgExist ? img : props.imgUrl}
                         margin="auto"
                         cursor="pointer"
-                        w="6rem"
-                        h="6rem"
+                        w="8rem"
+                        h="8rem"
                       />
                       <Spinner
                         size="lg"
@@ -327,69 +420,25 @@ export default function ProfileInfo(props) {
                         display={spin2 ? "block" : "none"}
                       />
                     </FormLabel>
+
                   </Box>
-                  <Box>
-                    <FormLabel
-                      cursor="pointer"
-                      htmlFor="quote"
-                      fontSize="16px"
-                      fontWeight="600"
-                      textAlign="center"
-                    >
-                      yearbook quote
-                    </FormLabel>
-                    <Textarea
-                      w="90%"
-                      maxLength="140"
-                      borderColor="#444"
-                      size="md"
-                      resize="none"
-                      id="quote"
-                      onChange={handleChange}
-                      p="0.8rem"
-                      placeholder="enter your yearbook quote here"
-                      name="quote"
-                      value={formInfo.quote}
-                    />
-                    <FormHelperText
-                      mt="0.4rem"
-                      mb={isSmallerThan800 ? "1rem" : "2rem"}
-                    >
-                      {formInfo.quote.length}/140 characters used
-                    </FormHelperText>
-                  </Box>
-                </Flex>
-                <Flex justifyContent="center" spacing={10}>
-                  <Flex
-                    className="searchIcon"
-                    backdropFilter="blur(20px)"
-                    borderRadius={"0.6rem"}
-                    w={isSmallerThan800 ? "80%" : "60%"}
-                    border="1px solid #FFF"
-                    p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)">
-                    <TagSearch />
-                    <Search2Icon color='#B3B3B3' fontSize="1rem" />
-                  </Flex>
-                  <Flex justifyContent={"center"} pl="2rem">
-                    <Button
-                      disabled={isDisabled}
-                      onClick={handleSubmit}
-                      _hover={{
-                        transform: "translate(-2px, -2px)",
-                        bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
-                      }}
-                      bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
-                      fontWeight="700"
-                      p="1.6rem 2rem"
-                      fontSize="1.2rem"
-                      colorScheme="blackAlpha"
-                    >
-                      submit
-                    </Button>
-                  </Flex>
+                }
+                <Flex justifyContent={"center"}>
+                  <Button
+                    disabled={isDisabled}
+                    onClick={handleSubmit}
+                    _hover={{
+                      transform: "translate(-2px, -2px)",
+                      bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+                    }}
+                    bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+                    fontWeight="700"
+                    p="1.6rem 2rem"
+                    fontSize="1.2rem"
+                    colorScheme="blackAlpha"
+                  >
+                    submit
+                  </Button>
                 </Flex>
               </FormControl>
             </ModalBody>
@@ -495,7 +544,7 @@ export default function ProfileInfo(props) {
             padding="0.6rem 1rem"
             borderRadius="20px"
             fontWeight="700"
-            onClick={ownProfile ? handleLogout : handleOpenRequest}
+            onClick={ownProfile ? handleLogout : onWriteOpen}
           >
             write on their wall
           </Box>
@@ -528,7 +577,7 @@ export default function ProfileInfo(props) {
       }
 
       {/* Requesting people to write on their wall-Modal open for that */}
-      <Modal isOpen={isOpenRequest}>
+      <Modal isOpen={isWriteOpen} onClose={onWriteClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           backdropFilter="blur(47.5676px)"
@@ -539,7 +588,7 @@ export default function ProfileInfo(props) {
           <ModalHeader mt="2rem" fontSize="2rem">
             write caption for {props.name}
           </ModalHeader>
-          <ModalCloseButton onClick={handleCloseRequest} />
+          <ModalCloseButton />
           <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
             <Textarea
               type="text"
@@ -579,7 +628,6 @@ export default function ProfileInfo(props) {
         </ModalContent>
       </Modal>
       {/* Requesting people to write on their wall-Modal open for that */}
-
       <Alert
         bg="#242323"
         color="white"
@@ -609,7 +657,6 @@ export default function ProfileInfo(props) {
         <AlertIcon />
         {msg}
       </Alert>
-
     </Flex >
   );
 }

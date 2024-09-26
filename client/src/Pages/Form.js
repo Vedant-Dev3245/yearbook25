@@ -78,7 +78,7 @@ export default function Form() {
     if (validID.test(formInfo.id)) {
       setValid(true);
       if (
-        (data.email.charAt(4) === "1" || data.email.charAt(4) === "0")
+        (data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "f2021" || data.email.substring(0,5) === "h2023")
           ? formInfo.id !== "" &&
           formInfo.quote !== "" &&
           formInfo.phone !== "" &&
@@ -203,7 +203,7 @@ export default function Form() {
     setSelectedOptions(values);
     setFormInfo((prevFormInfo) => ({
       ...prevFormInfo,
-      commitments: values,  // Update formInfo.commitments with selectedOptions
+      commitments: values, 
     }));
   };
 
@@ -374,7 +374,7 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem colSpan={2} display={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "f2021" || data.email.substring(0,5) === "h2023" ? "block" : "none"}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="quote"
@@ -463,7 +463,7 @@ export default function Form() {
                                     {clubsData
                                       .filter((_, idx) => idx % 3 === colIdx)
                                       .map((option, idx) => (
-                                        <Checkbox key={idx} value={option}>
+                                        <Checkbox key={idx} value={option} alignItems="flex-start">
                                           {option}
                                         </Checkbox>
                                       ))}
@@ -561,7 +561,7 @@ export default function Form() {
               ? ""
               : formInfo.lastName.toUpperCase()}
           </Box>
-          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600">
+          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "h2023" ? "" : "1.8rem"}>
             {formInfo.email}
           </Box>
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
@@ -576,7 +576,8 @@ export default function Form() {
             w="60%"
             marginInline="auto"
             marginBlock="2rem"
-            lineHeight="1.8rem"
+            lineHeight="1.8rem"       
+            display={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "h2023" ? "block" : "none"}
           >
             {' "' + formInfo.quote + '" '}
           </Box>
