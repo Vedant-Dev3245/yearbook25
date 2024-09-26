@@ -314,7 +314,8 @@ const searchUsers = async (req, res) => {
               [Op.iLike]: search_value
             }
           }
-        ]
+        ],
+        senior: true
       }
     })
 
