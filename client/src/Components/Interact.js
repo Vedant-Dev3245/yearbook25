@@ -1,5 +1,17 @@
 import React from "react";
-import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  VStack,
+  Text,
+  useMediaQuery,
+  IconButton,
+  Drawer,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  useDisclosure
+} from "@chakra-ui/react";
 import { FiFeather, FiAnchor, FiBell, FiActivity, FiBarChart2 } from "react-icons/fi";
 
 import Wall from "./Wall";
@@ -18,9 +30,6 @@ export default function Interact(props) {
   const [ownProfile, setOwnProfile] = React.useState();
   const barItems = document.querySelectorAll(".barItems");
 
-  function isSenior() {
-    return (props.bitsId.charAt(3) === '1')
-  }
   function removeActive() {
     for (let i = 0; i < barItems.length; i++) {
       if (

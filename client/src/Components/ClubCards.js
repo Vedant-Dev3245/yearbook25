@@ -25,7 +25,7 @@ export default function ClubCards(props) {
             borderRadius="24px"
             border="solid 1px rgb(255, 255, 255, 0.1)"
             opacity="0.6"
-            background="url(../images/clubcardsbg.png)"
+            background=""
             backgroundSize="cover"
             bgPosition="center"
             bgRepeat="no-repeat"
@@ -36,25 +36,10 @@ export default function ClubCards(props) {
             <Box
                 position="relative"
             >
-                {/* <Image
-                    src={props.imgUrl}
-                    alt={props.commitment}
-                    borderRadius="full"
-                    boxSize="140px"
-                    position="absolute"
-                    top="-70px"
-                    left="23%"
-                    transform="translateX(-50%)"
-                    border="6px solid rgba(88, 92, 158, 0.65)"
-                    backdropFilter="blur(2px)"
-                    fill="#100B18"
-                    strokeWidth="4px"
-                    stroke="#FFF"
-                /> */}
                 <Box
                     position="absolute"
                     top="-70px"
-                    left="24%"
+                    left={isSmallerThan800 ? "28%" : "24%"}
                     transform="translateX(-50%)"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130" viewBox="0 0 130 130" fill="none">
@@ -75,7 +60,7 @@ export default function ClubCards(props) {
                 overflow="visible"
                 p={4}
                 position="relative"
-                h="320"
+                h={isSmallerThan800 ? "300" : "320"}
                 boxShadow="2px 2px 2px rgb(255, 255, 255, 0.2)"
                 border="solid 1px rgb(255, 255, 255, 0.1)"
                 fill="#100B18"
@@ -88,26 +73,15 @@ export default function ClubCards(props) {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        <Text textAlign="center">
-                            {props.commitment}
+                        <Text textAlign="left">
+                            {props.commitment.toLowerCase()}
                         </Text>
                     </Box>
-                    {/* <Select
-                        placeholder="Select option"
-                        value={selectedOption}
-                        onChange={handleSelectChange}
-                    >
-                        {dropdownOptions.map((option, index) => (
-                            <option key={index} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </Select> */}
-                    <Flex position="absolute" top="70%" className="searchIcon" backdropFilter="blur(20px)" borderRadius={"0.6rem"} w={isSmallerThan800 ? "80%" : "80%"} border="1px solid #FFF" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center" boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <ClubSearch />  </Flex>
+                    <Flex position="absolute" top="70%" className="searchIcon" backdropFilter="blur(20px)" borderRadius={"0.6rem"} w="80%" border="1px solid #FFF" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center" boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <ClubSearch />  </Flex>
                     <Flex
                         position="absolute"
                         top="20px"
-                        right="40px"
+                        right={isSmallerThan800 ? "30px" : "40px"}
                         display="flex"
                         gridGap="10px"
                         alignItems="center">

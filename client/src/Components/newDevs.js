@@ -86,16 +86,6 @@ export default function newDevs() {
                     text="You can. End of Story"
                 />
                 <DevCards
-                    img="../images/shwetabh.png"
-                    name="shwetabh niket"
-                    caption="inclusive | 2021B5A70923P"
-                    twitter="https://twitter.com/shwetabhNiket"
-                    github="https://github.com/nIMblEt06"
-                    linkedin="https://www.linkedin.com/in/niketshwetabh/"
-                    spotify="https://open.spotify.com/playlist/6mMuC8FzWIuEflOiTkGAUW?si=d4a6280cc03743da"
-                    text="i just wanted to make you laugh :/"
-                />
-                <DevCards
                     img="../images/prabhas.jpeg"
                     name="prabhas Kumar"
                     caption="sadboi | 2021A3PS1526P"
@@ -114,16 +104,6 @@ export default function newDevs() {
                     linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
                     spotify=""
                     text="Don’t let the Muggles get you down."
-                />
-                <DevCards
-                    img="../images/keshri.jpeg"
-                    name="aryan keshri"
-                    caption="my coord | 2021B3A71260P"
-                    twitter="https://twitter.com/aryankeshri007?s=21"
-                    github="https://github.com/DankMemes4President"
-                    linkedin="https://www.linkedin.com/in/aryan-keshri-702a60222"
-                    spotify="https://open.spotify.com/track/2DjpIAVeu7LKhnem3KY07Q?si=e7a8dbb3f03d4037"
-                    text="retiring from cursing compres after this semester.."
                 />
                 <DevCards
                     img="../images/jai.jpeg"

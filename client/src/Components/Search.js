@@ -6,6 +6,15 @@ import { useNavigate } from "react-router-dom"
 
 export default function Search(props) {
 
+    const customStyles = {
+        indicatorSeparator: () => ({
+          display: 'none',
+        }),
+        dropdownIndicator: () => ({
+          display: 'none',
+        }),
+      };
+
     const [option, setOption] = React.useState({})
     const navigate = useNavigate()
 
@@ -25,9 +34,10 @@ export default function Search(props) {
                 })
                     .then(function (response) {
                         let tempArray = [];
-                        response.data.users.forEach(element => {
-                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.uId}` });
+                        response.data.forEach(element => {
+                            tempArray.push({ label: `${element.name} ${element.bitsId} `, value: `${element.userID}` });
                         });
+                        /* console.log(response.data) */
                         callback(tempArray);
                     })
                     .catch(function (error) {
@@ -54,7 +64,8 @@ export default function Search(props) {
                 onChange={(e) => {
                     onSearchChange(e)
                 }}
-                defaultOptions={false} />
+                defaultOptions={false}
+                styles={customStyles} />
         </Flex>
     )
 }

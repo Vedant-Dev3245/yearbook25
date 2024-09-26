@@ -9,7 +9,8 @@ import {
   ModalCloseButton,
   Text,
   VStack,
-  HStack,
+  Wrap,
+  WrapItem,
   Image,
   FormLabel,
   Textarea,
@@ -22,10 +23,11 @@ import {
   Link,
   Alert,
   AlertIcon,
+  useDisclosure,
+  HStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Icon, Spinner } from "@chakra-ui/react";
-import { Search2Icon } from "@chakra-ui/icons";
 import { TbPencil } from "react-icons/tb";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -33,11 +35,46 @@ import { storage } from "../Firebase";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Tags from "./Tags"
-import TagSearch from "./TagSearch";
+
+const customStyles = {
+  control: (provided) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    border: 'none',
+    boxShadow: 'none',
+  }),
+  menu: (provided) => ({
+    ...provided,
+    backgroundColor: 'transparent',
+    width: '300px',
+  }),
+  option: (provided) => ({
+    ...provided,
+    backgroundColor: 'white',
+    color: 'black',
+    padding: '10px',
+  }),
+  multiValue: (provided) => ({
+    ...provided,
+    backgroundColor: 'white',
+    color: 'black',
+    borderRadius: '4px',
+  }),
+  multiValueLabel: (provided) => ({
+    ...provided,
+    color: 'black',
+  }),
+  indicatorSeparator: () => ({
+    display: 'none',
+  }),
+  dropdownIndicator: () => ({
+    display: 'none',
+  }),
+};
 
 export default function ProfileInfo(props) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [isOpenRequest, setIsOpenRequest] = React.useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen: isWriteOpen, onOpen: onWriteOpen, onClose: onWriteClose } = useDisclosure();
   const [ownProfile, setOwnProfile] = React.useState();
   const [showEdit, setShowEdit] = React.useState();
   const [spin, setSpin] = React.useState(false);
@@ -50,11 +87,14 @@ export default function ProfileInfo(props) {
   const [formInfo, setFormInfo] = React.useState({
     quote: "",
     imgUrl: "",
+    commitments: [],
   });
   const [img, setImg] = React.useState();
   const [submitToggle, setSubmitToggle] = React.useState(true);
   const navigate = useNavigate();
   const params = useParams();
+  const [clubsData, setClubsData] = useState([]);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -132,16 +172,6 @@ export default function ProfileInfo(props) {
       });
   }
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-  React.useEffect(() => {
-    setIsOpen(false);
-  }, [window.location.href]);
-
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
   // console.log(props.img)
   // console.log(props.img.data)
   function handleLogout() {
@@ -172,8 +202,7 @@ export default function ProfileInfo(props) {
       .then(function (res) {
         console.log(nominateData);
         console.log(res);
-        setMsg(res.data.msg);
-        setIsOpenRequest(false);
+        setMsg(res.message);
         setRes(true);
         setSpin(false);
         setTimeout(() => {
@@ -181,8 +210,13 @@ export default function ProfileInfo(props) {
         }, 3000);
       })
       .catch(function (err) {
+        setMsg("User has already been nominated!");
+        setRes(true)
         console.log(err);
-        setSpin(false);
+        setSpin(false)
+        setTimeout(() => {
+          setRes(false)
+        }, 3000);
       });
   }
   // console.log(localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1);
@@ -208,7 +242,6 @@ export default function ProfileInfo(props) {
     })
       .then(function (res) {
         console.log(res);
-        setIsOpenRequest(false);
         if (res.data.success) {
           window.location.reload();
         }
@@ -218,16 +251,6 @@ export default function ProfileInfo(props) {
         setSpin(false);
       });
   }
-  const handleOpenRequest = () => {
-    setIsOpenRequest(true);
-    setIsOpen(false);
-  };
-  const handleCloseRequest = () => {
-    setIsOpenRequest(false);
-  };
-  React.useEffect(() => {
-    setIsOpenRequest(false);
-  }, []);
 
   function toggleSubmit() {
     if (submitToggle) {
@@ -236,7 +259,8 @@ export default function ProfileInfo(props) {
       setSubmitToggle(true);
     }
   }
-  const commitments = ['SARC', 'WSC', 'Mechanical Engineering Assoc'];
+  const commitments = ['SARC', 'Nirmaan', 'Team Robocon'];
+
   return (
     <Flex
       className="infoFlex"
@@ -247,7 +271,7 @@ export default function ProfileInfo(props) {
       p="1.2rem 0rem"
       justifyContent="space-between"
     >
-      <Modal isOpen={isOpen} scrollBehavior="inside">
+      <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside" w="80%">
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           color="white"
@@ -255,7 +279,7 @@ export default function ProfileInfo(props) {
           backgroundImage="url('https://user-images.githubusercontent.com/69129797/182023922-d7ea77b0-0619-4775-af32-5b34dbe00e8b.png')"
           backgroundSize={"cover"}
           borderRadius="20px"
-          maxH="500px" maxW="550px"
+          maxH={isSmallerThan800 ? "420px" : "500px"} maxW={isSmallerThan800 ? "400px" : "550px"}
           overflow="visible"
         >
           <Box
@@ -263,20 +287,20 @@ export default function ProfileInfo(props) {
             borderRadius="20px"
             backdropFilter="blur(47.5676px)"
             bgColor="#1D1E22"
-            maxH="480px" maxW="550px"
+            maxH={isSmallerThan800 ? "400px" : "480px"} maxW={isSmallerThan800 ? "400px" : "550px"}
             overflow="visible"
           >
             <ModalHeader
-              fontSize={isSmallerThan800 ? "1rem" : "2rem"}
+              fontSize={isSmallerThan800 ? "1.8rem" : "2rem"}
               textAlign="center"
               fontWeight={1100}
             >
               update your profile
             </ModalHeader>
-            <ModalCloseButton onClick={handleClose} />
+            <ModalCloseButton />
             <ModalBody
               mt="-0.5rem"
-              fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+              fontSize={isSmallerThan800 ? "0.8rem" : "0.8rem"}
               textAlign="center"
               color="#B3B3B3"
               mb="1rem"
@@ -295,7 +319,74 @@ export default function ProfileInfo(props) {
                 before submitting your photo and quote for the yearbook portal.
               </Text>
               <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}>
-                <Flex justifyContent="space-between" mx="2rem">
+                {props.senior ?
+                  <Flex justifyContent="space-between" mx="2rem" alignItems="center">
+                    <Box>
+                      <Input
+                        cursor="pointer"
+                        id="file"
+                        type="file"
+                        onChange={onImageChange}
+                        accept="image/*"
+                        position="absolute"
+                        right="100vw"
+                        overflow="hidden"
+                      />
+                      <FormLabel
+                        htmlFor="file"
+                        textAlign={"center"}
+                        fontWeight="700"
+                        fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
+                        pb={2}
+                      >
+                        <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
+                        <Image
+                          src={imgExist ? img : props.imgUrl}
+                          margin="auto"
+                          cursor="pointer"
+                          w="6rem"
+                          h="6rem"
+                        />
+                        <Spinner
+                          size="lg"
+                          mt="1rem"
+                          position="absolute"
+                          display={spin2 ? "block" : "none"}
+                        />
+                      </FormLabel>
+                    </Box>
+                    <Box>
+                      <FormLabel
+                        cursor="pointer"
+                        htmlFor="quote"
+                        fontSize="16px"
+                        fontWeight="600"
+                        textAlign="center"
+                      >
+                        yearbook quote
+                      </FormLabel>
+                      <Textarea
+                        w="90%"
+                        maxLength="140"
+                        borderColor="#444"
+                        size="md"
+                        resize="none"
+                        id="quote"
+                        onChange={handleChange}
+                        p="0.8rem"
+                        placeholder="enter your yearbook quote here"
+                        name="quote"
+                        value={formInfo.quote}
+                      />
+                      <FormHelperText
+                        mt="0.4rem"
+                        mb={isSmallerThan800 ? "1rem" : "2rem"}
+                      >
+                        {formInfo.quote.length}/140 characters used
+                      </FormHelperText>
+                    </Box>
+                  </Flex>
+                  :
                   <Box>
                     <Input
                       cursor="pointer"
@@ -311,17 +402,16 @@ export default function ProfileInfo(props) {
                       htmlFor="file"
                       textAlign={"center"}
                       fontWeight="700"
-                      fontSize={isSmallerThan800 ? "0.4rem" : "0.8rem"}
+                      fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
                       pb={2}
                     >
-                      {" "}
-                      please upload a 1080*1080 <br /> image to avoid cuts
+                      <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
                       <Image
                         src={imgExist ? img : props.imgUrl}
                         margin="auto"
                         cursor="pointer"
-                        w="6rem"
-                        h="6rem"
+                        w="8rem"
+                        h="8rem"
                       />
                       <Spinner
                         size="lg"
@@ -330,51 +420,25 @@ export default function ProfileInfo(props) {
                         display={spin2 ? "block" : "none"}
                       />
                     </FormLabel>
+
                   </Box>
-                  <Box>
-                    <FormLabel
-                      cursor="pointer"
-                      htmlFor="quote"
-                      fontSize="16px"
-                      fontWeight="600"
-                    >
-                      yearbook quote
-                    </FormLabel>
-                    <Textarea
-                      w="90%"
-                      maxLength="140"
-                      borderColor="#444"
-                      size="md"
-                      resize="none"
-                      id="quote"
-                      onChange={handleChange}
-                      p="0.8rem"
-                      placeholder="enter your yearbook quote here"
-                      name="quote"
-                      value={formInfo.quote}
-                    />
-                    <FormHelperText
-                      mt="0.4rem"
-                      mb={isSmallerThan800 ? "1rem" : "2rem"}
-                    >
-                      {formInfo.quote.length}/140 characters used
-                    </FormHelperText>
-                  </Box>
-                </Flex>
-                <Flex justifyContent="center">
-                  <Flex
-                    className="searchIcon"
-                    backdropFilter="blur(20px)"
-                    borderRadius={"0.6rem"}
-                    w={isSmallerThan800 ? "80%" : "80%"}
-                    border="1px solid #FFF"
-                    p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)">
-                    <TagSearch />
-                    <Search2Icon color='#B3B3B3' fontSize="1rem" />
-                  </Flex>
+                }
+                <Flex justifyContent={"center"}>
+                  <Button
+                    disabled={isDisabled}
+                    onClick={handleSubmit}
+                    _hover={{
+                      transform: "translate(-2px, -2px)",
+                      bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+                    }}
+                    bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+                    fontWeight="700"
+                    p="1.6rem 2rem"
+                    fontSize="1.2rem"
+                    colorScheme="blackAlpha"
+                  >
+                    submit
+                  </Button>
                 </Flex>
               </FormControl>
             </ModalBody>
@@ -382,17 +446,20 @@ export default function ProfileInfo(props) {
         </ModalContent>
       </Modal>
       <Flex
-        alignItems="center"
+        alignItems={isSmallerThan800 ? "left" : "center"}
         flexDirection={isSmallerThan800 ? "column" : "row"}
-        justifyContent="center"
+        justifyContent={isSmallerThan800 ? "left" : "center"}
+        ml={isSmallerThan800 ? "1rem" : "3rem"}
       >
         <Box
           className="imageCont"
           bg={`url("${props.imgUrl}")`}
           backgroundPosition={"center"}
           backgroundSize={"cover"}
-          minWidth="15rem"
-          minHeight="15rem"
+          minWidth={isSmallerThan800 ? "10rem" : "15rem"}
+          minHeight={isSmallerThan800 ? "10rem" : "15rem"}
+          maxW={isSmallerThan800 ? "10rem" : ""}
+          maxH={isSmallerThan800 ? "10rem" : ""}
           position="relative"
           bgColor="grey"
           borderRadius="50%"
@@ -403,31 +470,29 @@ export default function ProfileInfo(props) {
           {
             <Box
               cursor={"pointer"}
-              onClick={handleOpen}
+              onClick={onOpen}
               position="absolute"
               display={showEdit ? "block" : "none"}
               top="0"
               right="0px"
-              p="1rem"
-              h="4rem"
-              w="
-                4rem"
+              p={isSmallerThan800 ? "0.5rem" : "1rem"}
+              h={isSmallerThan800 ? "2.5rem" : "4rem"}
+              w={isSmallerThan800 ? "2.5rem" : "4rem"}
               className="pencil"
             >
-              <Icon w="2rem" h="2rem" as={TbPencil} />
+              <Icon w={isSmallerThan800 ? "1.4rem" : "2rem"} h={isSmallerThan800 ? "1.5rem" : "2rem"} as={TbPencil} />
             </Box>
           }
         </Box>
         <VStack
-          alignItems={isSmallerThan800 ? "center" : "baseline"}
-          ml={isSmallerThan800 ? "0" : "3rem"}
+          alignItems={isSmallerThan800 ? "left" : "baseline"}
           mt={isSmallerThan800 ? "1rem" : "4rem"}
+          ml={isSmallerThan800 ? "" : "3rem"}
         >
           <Text
             color="white"
             fontWeight={700}
             letterSpacing="0.08rem"
-            textAlign={isSmallerThan800 ? "center" : ""}
             fontSize="2.2rem"
           >
             {props.name.toLowerCase()}
@@ -440,11 +505,11 @@ export default function ProfileInfo(props) {
           >
             {props.id} | {props.discipline}
           </Text>
-          {props.id.charAt(3)==="0" ? /* backendd */
+          {props.id.charAt(3) === "0" ?
             <>
               <Box w="80%">
                 <Text
-                  textAlign={isSmallerThan800 ? "center" : "left"}
+                  textAlign="left"
                   mt={isSmallerThan800 ? "0.4rem" : "1rem"}
                   color="#DAE6FF"
                   fontWeight="700"
@@ -453,10 +518,13 @@ export default function ProfileInfo(props) {
                   {props.quote}
                 </Text>
               </Box>
-              <HStack spacing={1} max-width="200px">
+              <Wrap spacing={1}>
                 {commitments.map((commitment, index) => (
-                  <Tags key={index} commitments={commitment} />
-                ))} </HStack></> : <></>}
+                  <WrapItem key={index}>
+                    <Tags commitments={commitment} />
+                  </WrapItem>
+                ))}
+              </Wrap></> : <></>}
         </VStack>
       </Flex>
 
@@ -476,119 +544,119 @@ export default function ProfileInfo(props) {
             padding="0.6rem 1rem"
             borderRadius="20px"
             fontWeight="700"
-            onClick={ownProfile ? handleLogout : handleOpenRequest}
+            onClick={ownProfile ? handleLogout : onWriteOpen}
           >
             write on their wall
           </Box>
         )
       }
+      {!ownProfile ?
+        <Box
+          w="max-content"
+          whiteSpace={"nowrap"}
+          textAlign="center"
+          position="relative"
+          mt={isSmallerThan800 ? "2rem" : "0"}
+          cursor={"pointer"}
+          bgColor="rgba(255, 255, 255, 0.1)"
+          fontSize="1rem"
+          border="0.6px solid #C9C9C9"
+          padding="0.6rem 1rem"
+          borderRadius="20px"
+          fontWeight="700"
+          onClick={nominate}
+        >
+          nominate this user
+          <Spinner
+            size="lg"
+            mt="1rem"
+            position="absolute"
+            display={spin ? "block" : "none"}
+          />
+        </Box> : <></>
+      }
 
-      <Box
-        w="max-content"
-        whiteSpace={"nowrap"}
-        textAlign="center"
-        position="relative"
-        mt={isSmallerThan800 ? "2rem" : "0"}
-        cursor={"pointer"}
-        bgColor="rgba(255, 255, 255, 0.1)"
-        fontSize="1rem"
-        border="0.6px solid #C9C9C9"
-        padding="0.6rem 1rem"
+      {/* Requesting people to write on their wall-Modal open for that */}
+      <Modal isOpen={isWriteOpen} onClose={onWriteClose}>
+        <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
+        <ModalContent
+          backdropFilter="blur(47.5676px)"
+          bgColor="#1D1E22"
+          color="white"
+          p="1.4rem"
+        >
+          <ModalHeader mt="2rem" fontSize="2rem">
+            write caption for {props.name}
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
+            <Textarea
+              type="text"
+              name="caption"
+              placeholder="enter your caption!"
+              onChange={handleChangeRequest}
+            />
+            <Text fontWeight="600" color="#B3B3B3" mt="1rem">
+              You must accept these guidelines before writing a caption<br /><br />
+              1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
+              2. Offensive quotes will not be accepted. Your quote must not defame or criticize any individual.<br />
+              3. Please refrain from using any expletives.<br />
+            </Text>
+            <br />
+            <Checkbox onChange={toggleSubmit}>
+              I accept these terms.
+            </Checkbox>
+            <Flex justifyContent="center">
+              <Button
+                onClick={sendRequest}
+                _hover={{
+                  transform: "translate(-2px, -2px)",
+                  bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
+                }}
+                bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
+                fontWeight="700"
+                mt="3rem"
+                p="1.2rem 1.6rem"
+                fontSize="1.4rem"
+                colorScheme="blackAlpha"
+                isDisabled={submitToggle}
+              >
+                request
+              </Button>
+            </Flex>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+      {/* Requesting people to write on their wall-Modal open for that */}
+      <Alert
+        bg="#242323"
+        color="white"
+        status={res ? "error" : "success"}
+        display={!isSmallerThan800 && res ? "flex" : "none"}
+        position="absolute"
+        w="20%"
+        whiteSpace={"normal"}
+        top="14rem"
+        right="6rem"
         borderRadius="20px"
-        fontWeight="700"
-        onClick={ownProfile ? handleLogout : nominate}
       >
-        {ownProfile ? "logout" : "nominate this user"}
-        <Spinner
-          size="lg"
-          mt="1rem"
-          position="absolute"
-          display={spin ? "block" : "none"}
-        />
-
-        {/* Requesting people to write on their wall-Modal open for that */}
-        <Modal isOpen={isOpenRequest}>
-          <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
-          <ModalContent
-            backdropFilter="blur(47.5676px)"
-            bgColor="#1D1E22"
-            color="white"
-            p="1.4rem"
-          >
-            <ModalHeader mt="2rem" fontSize="2rem">
-              write caption for {props.name}
-            </ModalHeader>
-            <ModalCloseButton onClick={handleCloseRequest} />
-            <ModalBody mt="0.5rem" fontSize="1rem" w="100%">
-              <Textarea
-                type="text"
-                name="caption"
-                placeholder="enter your caption!"
-                onChange={handleChangeRequest}
-              />
-              <Text fontWeight="600" color="#B3B3B3" mt="1rem">
-                You must accept these guidelines before writing a caption<br /><br />
-                1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
-                2. Offensive quotes will not be accepted. Your quote must not defame or criticize any individual.<br />
-                3. Please refrain from using any expletives.<br />
-              </Text>
-              <br />
-              <Checkbox onChange={toggleSubmit}>
-                I accept these terms.
-              </Checkbox>
-              <Flex justifyContent="center">
-                <Button
-                  onClick={sendRequest}
-                  _hover={{
-                    transform: "translate(-2px, -2px)",
-                    bg: "linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)",
-                  }}
-                  bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%)"
-                  fontWeight="700"
-                  mt="3rem"
-                  p="1.2rem 1.6rem"
-                  fontSize="1.4rem"
-                  colorScheme="blackAlpha"
-                  isDisabled={submitToggle}
-                >
-                  request
-                </Button>
-              </Flex>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
-        {/* Requesting people to write on their wall-Modal open for that */}
-
-        <Alert
-          bg="#242323"
-          color="white"
-          status="success"
-          display={!isSmallerThan800 && res ? "block" : "none"}
-          position="absolute"
-          w="100%"
-          whiteSpace={"normal"}
-          bottom="-8rem"
-          left="0"
-          borderRadius="20px"
-        >
-          <AlertIcon />
-          {msg}
-        </Alert>
-        <Alert
-          bg="#242323"
-          color="white"
-          status="success"
-          display={isSmallerThan800 && res ? "block" : "none"}
-          position="fixed"
-          w="60%"
-          top="8rem"
-          left="20%"
-          borderRadius="20px"
-        >
-          <AlertIcon />
-          {msg}
-        </Alert>
-      </Box>
+        <AlertIcon />
+        {msg}
+      </Alert>
+      <Alert
+        bg="#242323"
+        color="white"
+        status={res ? "error" : "success"}
+        display={isSmallerThan800 && res ? "flex" : "none"}
+        position="fixed"
+        w="60%"
+        top="8rem"
+        left="20%"
+        borderRadius="20px"
+      >
+        <AlertIcon />
+        {msg}
+      </Alert>
     </Flex >
   );
 }

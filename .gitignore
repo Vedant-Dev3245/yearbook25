@@ -139,3 +139,7 @@
 /server/.idea/
 server/.DS_Store
 /server/config/passport-setup.js
+
+
+/.dockerignore
+/client/package-lock.json
