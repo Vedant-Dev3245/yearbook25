@@ -259,7 +259,11 @@ export default function ProfileInfo(props) {
       setSubmitToggle(true);
     }
   }
-  const commitments = ['SARC', 'Nirmaan', 'Team Robocon'];
+
+  const tagsData = props.commitments.map((commitment) => ({
+    commitment: commitment.commitment_name,
+  }));
+  console.log(tagsData)
 
   return (
     <Flex
@@ -519,9 +523,9 @@ export default function ProfileInfo(props) {
                 </Text>
               </Box>
               <Wrap spacing={1}>
-                {commitments.map((commitment, index) => (
+                {tagsData.map((tagData, index) => (
                   <WrapItem key={index}>
-                    <Tags commitments={commitment} />
+                    <Tags commitment={tagData.commitment} />
                   </WrapItem>
                 ))}
               </Wrap></> : <></>}

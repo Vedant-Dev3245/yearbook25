@@ -37,7 +37,6 @@ export default function Wall(props) {
     }
   }, [capt]);
 
-  /* junior club cards temp */
   const clubsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
     seniorOptions: commitment.ymemberlist.userID
