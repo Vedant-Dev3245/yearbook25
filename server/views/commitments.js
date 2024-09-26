@@ -89,6 +89,9 @@ const searchByCommitment = async (req, res) => {
             include:{
                 model: User,
                 as: 'members',
+                where:{
+                    senior: true
+                },
                 attributes: ['name', 'bitsId']
             }
         });
