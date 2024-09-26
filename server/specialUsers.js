@@ -66,7 +66,19 @@ const arr = [
   "f20220590@pilani.bits-pilani.ac.in",
   
   //23Batch
-  
+  "f20230327@pilani.bits-pilani.ac.in",
+  "f20230833@pilani.bits-pilani.ac.in",
+  "f20230836@pilani.bits-pilani.ac.in",
+  "f20230949@pilani.bits-pilani.ac.in",
+  "f20230882@pilani.bits-pilani.ac.in",
+  "f20230856@pilani.bits-pilani.ac.in",
+  "f20231146@pilani.bits-pilani.ac.in",
+  "f20230470@pilani.bits-pilani.ac.in",
+  "f20230959@pilani.bits-pilani.ac.in",
+  "f20230704@pilani.bits-pilani.ac.in",
+  "f20230230@pilani.bits-pilani.ac.in",
+  "f20230253@pilani.bits-pilani.ac.in",
+  "f20230950@pilani.bits-pilani.ac.in",
 
   // Special Cases
   "anhadvirsm@gmail.com",
