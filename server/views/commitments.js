@@ -88,7 +88,8 @@ const searchByCommitment = async (req, res) => {
         const commitment = await Commitment.findOne({where: {commitment_name: commitment_name}}, {
             include:{
                 model: User,
-                as: 'members'
+                as: 'members',
+                attributes: ['name', 'bitsId']
             }
         });
 

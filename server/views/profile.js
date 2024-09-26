@@ -306,12 +306,14 @@ const searchUsers = async (req, res) => {
         [Op.or]: [
           {
             name: {
-              [Op.like]: search_value
+              [Op.like]: search_value,
+              [Op.collate]: 'utf8_general_ci'
             }
           },
           {
             bitsId: {
-              [Op.like]: search_value
+              [Op.like]: search_value,
+              [Op.collate]: 'utf8_general_ci'
             }
           }
         ]
