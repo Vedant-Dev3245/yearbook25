@@ -11,11 +11,7 @@ import { Search2Icon } from "@chakra-ui/icons";
 import { FaUsers } from "react-icons/fa";
 import ClubSearch from "./ClubSearch"
 export default function ClubCards(props) {
-    const [selectedOption, setSelectedOption] = useState('');
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
-    const handleSelectChange = (event) => {
-        setSelectedOption(event.target.value);
-    };
 
     return (
         <Box
@@ -33,7 +29,7 @@ export default function ClubCards(props) {
             align="center"
             justify="center"
         >
-            <Box
+            {/* <Box
                 position="relative"
             >
                 <Box
@@ -53,7 +49,7 @@ export default function ClubCards(props) {
                         </defs>
                     </svg>
                 </Box>
-            </Box>
+            </Box> */}
             <Box
                 borderWidth="1px"
                 borderRadius="24px"
@@ -65,7 +61,7 @@ export default function ClubCards(props) {
                 border="solid 1px rgb(255, 255, 255, 0.1)"
                 fill="#100B18"
             >
-                <VStack mt={12} alignItems="flex-start" ml={6}>
+                <VStack mt="1rem" alignItems="flex-start" ml={6}>
                     <Box
                         fontSize="40px"
                         fontWeight="bold"

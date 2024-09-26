@@ -10,7 +10,7 @@ export default function Tags(props) {
     return (
         <Box w="fit-content" fontWeight="bold" mt={2} className={`tags tags-${color}`}>
             <Text px={3} whiteSpace="nowrap">
-                {props.commitments.toLowerCase()}
+                {props.commitment.toLowerCase()}
             </Text>
         </Box>
     );

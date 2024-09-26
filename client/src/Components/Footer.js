@@ -117,7 +117,7 @@ export default function Footer() {
               paddingTop="1rem"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://bits-sarc.in" target="_blank">
@@ -128,7 +128,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link
@@ -143,7 +143,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://bits-sarc.in/#portfolio" target="_blank">
@@ -154,7 +154,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link
@@ -179,7 +179,7 @@ export default function Footer() {
               paddingTop="1rem"
               fontSize="1rem"
               fontWeight="600"
-              mt="1rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://yearbook.bits-sarc.in/#working">
@@ -190,7 +190,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://yearbook.bits-sarc.in/#walkthrough">
@@ -201,7 +201,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://yearbook.bits-sarc.in/developers">
@@ -212,7 +212,7 @@ export default function Footer() {
               cursor="pointer"
               fontSize="1rem"
               fontWeight="600"
-              mt="4rem"
+              mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
               <Link href="https://yearbook.bits-sarc.in/#faq">FAQ</Link>{" "}
