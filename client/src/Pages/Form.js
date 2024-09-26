@@ -400,7 +400,7 @@ export default function Form() {
                       {formInfo.quote.length}/140 characters used
                     </FormHelperText>
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem colSpan={2} mb="2rem">
                     <FormLabel
                       cursor="pointer"
                       htmlFor="commitments"

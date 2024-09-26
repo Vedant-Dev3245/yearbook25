@@ -95,6 +95,7 @@ export default function Interact(props) {
     removeActive();
     document.querySelector(".stats").classList.add("active");
   }
+  /* console.log(props.commitments) */
 
   return (
     <Box>
