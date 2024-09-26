@@ -1,14 +1,14 @@
 version: '3'
 services:
-  # yearbook-frontend:
-  #   image: sarc-client:latest
-  #   build: 
-  #     context: .
-  #     dockerfile: client/client.dockerfile
-  #   ports:
-  #     - 3000:3000
-  #   networks:
-  #     - app-tier
+  yearbook-frontend:
+    image: sarc-client:latest
+    build: 
+      context: .
+      dockerfile: client/client.dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - app-tier
 
   yearbook-backend:
     container_name: yearbook-backend
