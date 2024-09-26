@@ -1,10 +1,10 @@
-const {Sequelize, DataTypes} = require("sequelize");
-const {postgresClient} = require("../db/postgres");
+const { DataTypes } = require('sequelize');
+const { postgresClient } = require('../db/postgres');
 
 const Commitment = postgresClient.define(
     'Commitment', 
     {
-        commitment_id:{
+        commitmentID:{
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             allowNull: false,
@@ -19,6 +19,10 @@ const Commitment = postgresClient.define(
             type: DataTypes.STRING,
             allowNull: false
         }
+    },
+
+    {
+        tableName: "ycommitment"
     }
 );
 

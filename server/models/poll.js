@@ -1,10 +1,10 @@
-const {Sequelize, DataTypes} = require("sequelize");
+const { DataTypes } = require("sequelize");
 const { postgresClient } = require("../db/postgres");
 
 const Poll = postgresClient.define(
-  'poll',
+  'Poll',
   {
-    poll_id:{
+    pollID:{
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
@@ -14,26 +14,21 @@ const Poll = postgresClient.define(
     question:{
       type: DataTypes.STRING,
       allowNull: false
-      // !!! define alerts for "Question Field cannot be empty" and "Question cannot exceed 300 characters"
     },
 
-    totalCount:{
+    votesCount:{
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
 
-    branch:{
-      type: DataTypes.STRING
-    },
-
-    votes:{
-      type: DataTypes.ARRAY(DataTypes.JSON),
-      defaultValue: []
+    commitmentID:{
+      type: DataTypes.UUID,
+      allowNull: false
     }
-    // votes JSON has the structure: {user:userid, count:number defining number of votes the user has got, hasVoted: status of whether the user has voted}
   },
+
   {
-    tableName: "poll"
+    tableName: "ypoll"
   }
 )
 

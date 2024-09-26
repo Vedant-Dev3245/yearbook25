@@ -35,9 +35,6 @@ router.post("/google", async (req, res) => {
       requiredAudience: process.env.AUDIENCE,
     });
 
-    await User.create({ email: "f20230327@pilani.bits-pilani.ac.in", name: "PRITHVI GOWDA C", bitsId: "2023A3PS0327P", branchCode: ["A3"] })
-    await User.create({ email: "f20230833@pilani.bits-pilani.ac.in", name: "DEV SATISH", bitsId: "2023B1PS0833P", branchCode: ["B1"] })
-
     const payload = ticket.getPayload();
     const email = payload.email;
 
@@ -51,10 +48,8 @@ router.post("/google", async (req, res) => {
         authorised: 0,
       });
     }
-
+    console.log("The email is: ", email);
     const user = await User.findOne({where: {email: payload.email}});
-
-    console.log("THIs is from auth, the user is: ", user);
 
     if (!user) {
       return res.send({
@@ -64,19 +59,22 @@ router.post("/google", async (req, res) => {
       });
     }
 
+    console.log("This is from auth, the user exists and the data is: ", user);
+
     const jwt_token = jwt.sign(
       {
-        id: user.user_id,
+        id: user.userID,
         bitsId: user.bitsId,
         branchCode: user.branchCode,
         email: payload.email,
+        senior: user.senior
       },
       process.env.TOKEN_KEY,
       { expiresIn: "180d" }
     );
     return res.send({
       authorised: 1,
-      user: user.user_id,
+      user: user.userID,
       token: jwt_token,
       exists: true,
     });
