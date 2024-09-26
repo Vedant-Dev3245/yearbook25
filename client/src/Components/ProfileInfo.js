@@ -36,42 +36,6 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import Tags from "./Tags"
 
-const customStyles = {
-  control: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-    border: 'none',
-    boxShadow: 'none',
-  }),
-  menu: (provided) => ({
-    ...provided,
-    backgroundColor: 'transparent',
-    width: '300px',
-  }),
-  option: (provided) => ({
-    ...provided,
-    backgroundColor: 'white',
-    color: 'black',
-    padding: '10px',
-  }),
-  multiValue: (provided) => ({
-    ...provided,
-    backgroundColor: 'white',
-    color: 'black',
-    borderRadius: '4px',
-  }),
-  multiValueLabel: (provided) => ({
-    ...provided,
-    color: 'black',
-  }),
-  indicatorSeparator: () => ({
-    display: 'none',
-  }),
-  dropdownIndicator: () => ({
-    display: 'none',
-  }),
-};
-
 export default function ProfileInfo(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isWriteOpen, onOpen: onWriteOpen, onClose: onWriteClose } = useDisclosure();
@@ -93,8 +57,6 @@ export default function ProfileInfo(props) {
   const [submitToggle, setSubmitToggle] = React.useState(true);
   const navigate = useNavigate();
   const params = useParams();
-  const [clubsData, setClubsData] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -169,11 +131,12 @@ export default function ProfileInfo(props) {
       })
       .catch(function (error) {
         console.log(error);
+      })
+      .finally(() => {
+        onClose();
       });
   }
 
-  // console.log(props.img)
-  // console.log(props.img.data)
   function handleLogout() {
     localStorage.clear();
     navigate("/");
@@ -263,8 +226,7 @@ export default function ProfileInfo(props) {
   const tagsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
   }));
-  console.log(tagsData)
-
+  
   return (
     <Flex
       className="infoFlex"
