@@ -92,7 +92,7 @@ const searchByCommitment = async (req, res) => {
                 where:{
                     senior: true
                 },
-                attributes: ['name', 'bitsId']
+                attributes: ['userID', 'name', 'bitsId']
             }
         });
 

@@ -213,6 +213,7 @@ const getProfile = async (req, res) => {
   try {
     const userID = req.params.id
     const user = await User.findByPk(userID, {
+      attributes: ['userID', 'imageUrl', 'name', 'bitsId', 'quote', 'email', 'personalEmail', 'phone', 'branchCode', 'senior'],
       include: [{
         required: false,
         model: Caption,
@@ -247,7 +248,7 @@ const getProfile = async (req, res) => {
             where: {
               senior: true
             },
-            attributes: ['name', 'bitsId']
+            attributes: ['userID', 'name', 'bitsId']
           }
         }
       ]
