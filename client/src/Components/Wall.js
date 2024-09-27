@@ -39,8 +39,9 @@ export default function Wall(props) {
 
   const clubsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
-    seniorOptions: commitment.ymemberlist.userID
+    seniorOptions: commitment.members
   }));
+  /* console.log(clubsData[0].seniorOptions) */
   
   return (
     <Box w="90%" marginInline="auto" pb="4rem">

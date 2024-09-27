@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Box,
     Flex,
-    Image,
     Text,
     VStack,
+    Select,
     useMediaQuery
 } from '@chakra-ui/react';
-import { Search2Icon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom"
 import { FaUsers } from "react-icons/fa";
-import ClubSearch from "./ClubSearch"
 export default function ClubCards(props) {
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
-
+    const [option, setOption] = React.useState({})
+    const navigate = useNavigate()
+    const onSearchChange = (option) => {
+        if (option) {
+            setOption({ option })
+            localStorage.setItem("friend", option.userID)
+            navigate(`/profile/${option.uerID}`)
+        }
+    }
     return (
         <Box
             mt="5rem"
@@ -20,8 +27,7 @@ export default function ClubCards(props) {
             mix-blend-mode="overlay"
             borderRadius="24px"
             border="solid 1px rgb(255, 255, 255, 0.1)"
-            opacity="0.6"
-            background=""
+            opacity="0.9"
             backgroundSize="cover"
             bgPosition="center"
             bgRepeat="no-repeat"
@@ -54,18 +60,17 @@ export default function ClubCards(props) {
                 borderWidth="1px"
                 borderRadius="24px"
                 overflow="visible"
-                p={4}
                 position="relative"
                 h={isSmallerThan800 ? "300" : "320"}
                 boxShadow="2px 2px 2px rgb(255, 255, 255, 0.2)"
                 border="solid 1px rgb(255, 255, 255, 0.1)"
                 fill="#100B18"
             >
-                <VStack mt="1rem" alignItems="flex-start" ml={6}>
+                <VStack alignItems="flex-start" mx="2rem">
                     <Box
                         fontSize="40px"
                         fontWeight="bold"
-                        mt={4}
+                        mt="2.4rem"
                         justifyContent="center"
                         alignItems="center"
                     >
@@ -73,7 +78,46 @@ export default function ClubCards(props) {
                             {props.commitment.toLowerCase()}
                         </Text>
                     </Box>
-                    <Flex position="absolute" top="70%" className="searchIcon" backdropFilter="blur(20px)" borderRadius={"0.6rem"} w="80%" border="1px solid #FFF" p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"} justifyContent={"flex-start"} alignItems="center" boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"><Search2Icon color='#B3B3B3' fontSize="1rem" /> <ClubSearch />  </Flex>
+                    {/* <Flex
+                        position="absolute"
+                        top="70%"
+                        className="searchIcon"
+                        backdropFilter="blur(20px)"
+                        borderRadius={"0.6rem"}
+                        w="80%"
+                        border="1px solid #FFF"
+                        p={isSmallerThan800 ? "0.4rem 0.8rem" : "0.4rem 1rem"}
+                        justifyContent={"flex-start"}
+                        alignItems="center"
+                        boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)">
+                        <Search2Icon color='#B3B3B3' fontSize="1rem" />
+                        <ClubSearch />
+                    </Flex> */}
+                    <Select
+                        placeholder="search your senior"
+                        onChange={onSearchChange}
+                        background="transparent"
+                        position="absolute"
+                        top="75%"
+                        w="80%"
+                        fontSize="16px"
+                        borderRadius="10px"
+                        border="1px solid #FFF"
+                        boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
+                        backdropFilter="blur(20px)"
+                        sx={{
+                            option: {
+                                color: 'white',
+                                background: 'rgba(20, 14, 30, 0.87)',
+                            },
+                        }}
+                    >
+                        {props.seniorOptions.map((option) => (
+                            <option key={option.bitsId} value={option.bitsId}>
+                                {option.name} ({option.bitsId})
+                            </option>
+                        ))}
+                    </Select>
                     <Flex
                         position="absolute"
                         top="20px"
@@ -86,7 +130,7 @@ export default function ClubCards(props) {
                             color="#DAE6FF"
                             fontSize="1.2rem"
                         />
-                        <Text fontWeight={700} >
+                        <Text fontWeight={700}>
                             {props.seniorOptions.length} member{props.seniorOptions.length > 1 ? "s" : ""}
                         </Text>
                     </Flex>
