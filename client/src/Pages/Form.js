@@ -78,7 +78,7 @@ export default function Form() {
     if (validID.test(formInfo.id)) {
       setValid(true);
       if (
-        (data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "f2021" || data.email.substring(0,5) === "h2023")
+        (data.email.substring(0, 5) === "f2020" || data.email.substring(0, 5) === "f2021" || data.email.substring(0, 5) === "h2023")
           ? formInfo.id !== "" &&
           formInfo.quote !== "" &&
           formInfo.phone !== "" &&
@@ -203,7 +203,7 @@ export default function Form() {
     setSelectedOptions(values);
     setFormInfo((prevFormInfo) => ({
       ...prevFormInfo,
-      commitments: values, 
+      commitments: values,
     }));
   };
 
@@ -374,7 +374,7 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-                  <GridItem colSpan={2} display={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "f2021" || data.email.substring(0,5) === "h2023" ? "block" : "none"}>
+                  <GridItem colSpan={2} display={data.email.substring(0, 5) === "f2020" || data.email.substring(0, 5) === "f2021" || data.email.substring(0, 5) === "h2023" ? "block" : "none"}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="quote"
@@ -458,10 +458,10 @@ export default function Form() {
                           <Box mt="2rem">
                             <CheckboxGroup value={selectedOptions} onChange={handleSelect}>
                               <HStack align="start" spacing={4} justify="space-between">
-                                {[0, 1, 2].map((colIdx) => (
-                                  <VStack key={colIdx} align="start" spacing={2} width="70%">
+                                {[0, 1, 2].slice(0, isSmallerThan900 ? 2 : 3).map((colIdx) => (
+                                  <VStack key={colIdx} align="start" spacing={2} width={isSmallerThan900 ? "45%" : "30%"}>
                                     {clubsData
-                                      .filter((_, idx) => idx % 3 === colIdx)
+                                      .filter((_, idx) => idx % (isSmallerThan900 ? 2 : 3) === colIdx)
                                       .map((option, idx) => (
                                         <Checkbox key={idx} value={option} alignItems="flex-start">
                                           {option}
@@ -561,7 +561,7 @@ export default function Form() {
               ? ""
               : formInfo.lastName.toUpperCase()}
           </Box>
-          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "h2023" ? "" : "1.8rem"}>
+          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={data.email.substring(0, 5) === "f2020" || data.email.substring(0, 5) === "h2023" ? "" : "1.8rem"}>
             {formInfo.email}
           </Box>
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
@@ -576,8 +576,8 @@ export default function Form() {
             w="60%"
             marginInline="auto"
             marginBlock="2rem"
-            lineHeight="1.8rem"       
-            display={data.email.substring(0,5) === "f2020" || data.email.substring(0,5) === "h2023" ? "block" : "none"}
+            lineHeight="1.8rem"
+            display={data.email.substring(0, 5) === "f2020" || data.email.substring(0, 5) === "h2023" ? "block" : "none"}
           >
             {' "' + formInfo.quote + '" '}
           </Box>
