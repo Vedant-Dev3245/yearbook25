@@ -239,10 +239,12 @@ const getProfile = async (req, res) => {
           }]
         },
         {
+          required: false,
           model: Commitment,
           as: 'commitments',
           attributes: ['commitment_name', 'commitment_imageUrl'],
           include:{
+            required: false,
             model: User,
             as: 'members',
             where: {
