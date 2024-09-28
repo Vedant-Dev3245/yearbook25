@@ -27,16 +27,27 @@ export default function Devleopers() {
     <Box overflowX="hidden"
       bg="#141414"
       className="noselect landing">
-      <Flex justifyContent={"center"} alignItems="center" position="fixed" zIndex="26" w="100%" h="100vh" display={loading ? "flex" : "none"} bg='blackAlpha.400'
-        backdropFilter='blur(10px)'><ScaleLoader
+      <Flex
+        justifyContent={"center"}
+        alignItems="center"
+        position="fixed"
+        zIndex="26"
+        w="100%"
+        h="100vh"
+        display={loading ? "flex" : "none"}
+        bg='blackAlpha.400'
+        backdropFilter='blur(10px)'
+      >
+        <ScaleLoader
           color="#D4D4D4"
           loading={loading}
           size={60}
           speedMultiplier={0.7}
-        /></Flex>
+        />
+      </Flex>
       <Navbar />
       <Box w="90%" marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
-        <VStack spacing="1rem" marginInline="auto" >
+        <VStack spacing="1rem" marginInline="auto" mx="2rem">
           <Text fontWeight={800} fontSize={isSmallerThan800 ? "1.8rem" : "4rem"} color="white">
             meet the team 🌱</Text>
           <New />

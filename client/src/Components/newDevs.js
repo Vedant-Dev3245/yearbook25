@@ -28,12 +28,12 @@ export default function newDevs() {
                 <DevCards
                     img="../images/dev.jpg"
                     name="dev satish"
-                    caption="frontend guy | 2023B1A4PS0833P"
-                    twitter=""
+                    caption="tech guy | 2023B1A4PS0833P"
+                    twitter="https://x.com/devtech08"
                     github="https://www.linkedin.com/in/dev-satish/"
                     linkedin="https://github.com/Dev-Satish-01"
                     spotify="https://open.spotify.com/user/1oziia7t09x2x1hqyuyktwo8w?si=531838d197504380"
-                    text="i tried"
+                    text="its not gambling if you know you're gonna win"
                 />
                 <DevCards
                     img="../images/prithvi.jpg"
@@ -43,7 +43,7 @@ export default function newDevs() {
                     github="https://github.com/prithvi05prism"
                     linkedin="https://www.linkedin.com/in/prithvi-gowda-c/"
                     spotify="https://open.spotify.com/user/8m5wwm07knxfm47geod9njb52?si=f8002970d7f64ba4"
-                    text="can't figure out docker"
+                    text="we do things not because they are easy, but because we thought they would be easy"
                 />
                 <DevCards
                     img="../images/himanshu.jpeg"

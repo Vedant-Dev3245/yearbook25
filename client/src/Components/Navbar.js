@@ -119,7 +119,7 @@ export default function Navbar() {
                 width={"2rem"}
               />
               <MenuList color="white" bgColor="#141414">
-                <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
+                <MenuItem bgColor="#141414">
                   <Link
                     fontSize="s"
                     width="100%"
@@ -129,7 +129,7 @@ export default function Navbar() {
                     home
                   </Link>
                 </MenuItem>
-                <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
+                <MenuItem color="white" bgColor="#141414">
                   <Link
                     fontSize="s"
                     fontWeight="600"
@@ -140,12 +140,12 @@ export default function Navbar() {
                     about
                   </Link>
                 </MenuItem>
-                <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
+                <MenuItem color="white" bgColor="#141414">
                   <Link fontSize="s" fontWeight="600" href="#contact" width="100%">
                     contact
                   </Link>
                 </MenuItem>
-                <MenuItem _focus={{ color: "#141414", bgColor: "#D2D2D2" }}>
+                <MenuItem color="white" bgColor="#141414">
                   <Link fontSize="s" fontWeight="600" onClick={gotodevelopers} width="100%">
                     developers
                   </Link>
