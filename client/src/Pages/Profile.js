@@ -118,6 +118,7 @@ export default function Profile(props) {
         bitsId={user.bitsId}
         id={params.id}
         commitments={user.commitments}
+        senior={user.senior}
       />
     </Box>
   );

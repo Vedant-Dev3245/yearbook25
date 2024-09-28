@@ -211,6 +211,7 @@ export default function Interact(props) {
           captions={props.captions}
           bitsId={props.bitsId}
           commitments={props.commitments}
+          senior={props.senior}
         />
       </Box>
       <Box display={nominateActive && ownProfile ? "block" : "none"}>

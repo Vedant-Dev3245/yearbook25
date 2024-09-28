@@ -42,10 +42,10 @@ export default function Wall(props) {
     seniorOptions: commitment.members
   }));
   /* console.log(clubsData[0].seniorOptions) */
-  
+
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
-      {props.bitsId.charAt(3) === '0' ? <>
+      {props.senior ? <>
         <Box
           fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
           display={props.ownProfile && title ? "block" : "none"}
@@ -96,16 +96,18 @@ export default function Wall(props) {
           columnClassName="my-masonry-grid_column"
         >
           {cards}
-        </Masonry></> : <Box m="4rem">
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
-          {clubsData.map((clubData, index) => (
-            <ClubCards
-              key={index} 
-              commitment={clubData.commitment}
-              seniorOptions={clubData.seniorOptions}
-            />
-          ))}
-        </SimpleGrid></Box>}
+        </Masonry></> :
+        <Box m={isSmallerThan800 ? "2rem" : "4rem"}>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+            {clubsData.map((clubData, index) => (
+              <ClubCards
+                key={index}
+                commitment={clubData.commitment}
+                seniorOptions={clubData.seniorOptions}
+              />
+            ))}
+          </SimpleGrid>
+        </Box>}
     </Box>
   );
 }
