@@ -116,7 +116,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  captions in 2022
+                  captions in 2023
                 </Text>
               </Box>
               <Box w="70%">
@@ -178,7 +178,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  visits in 2022
+                  visits in 2023
                 </Text>
               </Box>
             </Flex>
