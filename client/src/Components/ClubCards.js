@@ -78,7 +78,7 @@ export default function ClubCards(props) {
                             alignItems="center"
                         >
                             <Text textAlign="left">
-                                {props.commitment.toLowerCase()}
+                                {props.commitment}
                             </Text>
                         </Box>
                         {/* <Flex

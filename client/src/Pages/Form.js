@@ -207,9 +207,13 @@ export default function Form() {
     }));
   };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
   };
+
+  const filteredClubs = clubsData.filter((club) =>
+    club.toLowerCase().includes(searchTerm)
+  );
 
   const handleDeselect = (option) => {
     setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -460,11 +464,11 @@ export default function Form() {
                               <HStack align="start" spacing={4} justify="space-between">
                                 {[0, 1, 2].slice(0, isSmallerThan900 ? 2 : 3).map((colIdx) => (
                                   <VStack key={colIdx} align="start" spacing={2} width={isSmallerThan900 ? "45%" : "30%"}>
-                                    {clubsData
+                                    {filteredClubs
                                       .filter((_, idx) => idx % (isSmallerThan900 ? 2 : 3) === colIdx)
                                       .map((option, idx) => (
-                                        <Checkbox key={idx} value={option} alignItems="flex-start">
-                                          {option}
+                                        <Checkbox key={idx} value={option}>
+                                          <Text>{option}</Text>
                                         </Checkbox>
                                       ))}
                                   </VStack>
