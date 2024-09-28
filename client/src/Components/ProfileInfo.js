@@ -27,6 +27,7 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
+import jwtDecode from 'jwt-decode';
 import { Icon, Spinner } from "@chakra-ui/react";
 import { TbPencil } from "react-icons/tb";
 import axios from "axios";
@@ -57,6 +58,8 @@ export default function ProfileInfo(props) {
   const [submitToggle, setSubmitToggle] = React.useState(true);
   const navigate = useNavigate();
   const params = useParams();
+  const token = localStorage.getItem('token')
+  const decodedToken = jwtDecode(token);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -522,6 +525,7 @@ export default function ProfileInfo(props) {
           textAlign="center"
           position="relative"
           mt={isSmallerThan800 ? "2rem" : "0"}
+          display={decodedToken.senior ? "block" : "none"}
           cursor={"pointer"}
           bgColor="rgba(255, 255, 255, 0.1)"
           fontSize="1rem"
