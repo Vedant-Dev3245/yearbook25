@@ -227,7 +227,7 @@ export default function ProfileInfo(props) {
   const tagsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
   }));
-  
+
   return (
     <Flex
       className="infoFlex"
@@ -413,10 +413,10 @@ export default function ProfileInfo(props) {
         </ModalContent>
       </Modal>
       <Flex
-        alignItems={isSmallerThan800 ? "left" : "center"}
+        alignItems={isSmallerThan800 ? "center" : "center"}
         flexDirection={isSmallerThan800 ? "column" : "row"}
         justifyContent={isSmallerThan800 ? "left" : "center"}
-        ml={isSmallerThan800 ? "1rem" : "3rem"}
+        ml={isSmallerThan800 ? "" : "3rem"}
       >
         <Box
           className="imageCont"
@@ -434,25 +434,23 @@ export default function ProfileInfo(props) {
           bgPosition={"center"}
           bgSize="cover"
         >
-          {
-            <Box
-              cursor={"pointer"}
-              onClick={onOpen}
-              position="absolute"
-              display={showEdit ? "block" : "none"}
-              top="0"
-              right="0px"
-              p={isSmallerThan800 ? "0.5rem" : "1rem"}
-              h={isSmallerThan800 ? "2.5rem" : "4rem"}
-              w={isSmallerThan800 ? "2.5rem" : "4rem"}
-              className="pencil"
-            >
-              <Icon w={isSmallerThan800 ? "1.4rem" : "2rem"} h={isSmallerThan800 ? "1.5rem" : "2rem"} as={TbPencil} />
-            </Box>
-          }
+          <Box
+            cursor={"pointer"}
+            onClick={onOpen}
+            position="absolute"
+            display={showEdit ? "block" : "none"}
+            top="0"
+            right="0px"
+            p={isSmallerThan800 ? "0.5rem" : "1rem"}
+            h={isSmallerThan800 ? "2.5rem" : "4rem"}
+            w={isSmallerThan800 ? "2.5rem" : "4rem"}
+            className="pencil"
+          >
+            <Icon w={isSmallerThan800 ? "1.4rem" : "2rem"} h={isSmallerThan800 ? "1.5rem" : "2rem"} as={TbPencil} />
+          </Box>
         </Box>
         <VStack
-          alignItems={isSmallerThan800 ? "left" : "baseline"}
+          alignItems={isSmallerThan800 ? "center" : "baseline"}
           mt={isSmallerThan800 ? "1rem" : "4rem"}
           ml={isSmallerThan800 ? "" : "3rem"}
         >
@@ -472,7 +470,7 @@ export default function ProfileInfo(props) {
           >
             {props.id} | {props.discipline}
           </Text>
-          {props.id.charAt(3) === "0" ?
+          {props.senior ?
             <>
               <Box w="80%">
                 <Text
