@@ -11,15 +11,17 @@ import { useNavigate } from "react-router-dom"
 import { FaUsers } from "react-icons/fa";
 export default function ClubCards(props) {
     const [isSmallerThan800] = useMediaQuery('(max-width: 800px)')
-    const [option, setOption] = React.useState({})
     const navigate = useNavigate()
-    const onSearchChange = (option) => {
-        if (option) {
-            setOption({ option })
-            localStorage.setItem("friend", option.userID)
-            navigate(`/profile/${option.uerID}`)
+    const onSearchChange = (event) => {
+        const selectedBitsId = event.target.value;
+        const selectedOption = props.seniorOptions.find(option => option.bitsId === selectedBitsId);
+        if (selectedOption) {
+            console.log(selectedOption);
+            localStorage.setItem('friend', selectedOption.userID);
+            navigate(`/profile/${selectedOption.userID}`);
         }
-    }
+    };
+
     return (
         <Box
             mt="5rem"
@@ -113,7 +115,7 @@ export default function ClubCards(props) {
                         }}
                     >
                         {props.seniorOptions.map((option) => (
-                            <option key={option.bitsId} value={option.bitsId}>
+                            <option key={option.bitsId} value={option.bitsId} userID={option.userID}>
                                 {option.name} ({option.bitsId})
                             </option>
                         ))}
