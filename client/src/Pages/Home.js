@@ -101,7 +101,7 @@ export default function Home() {
         bg="#242323"
         color="white"
         status="error"
-        display={auth ? "none" : "block"}
+        display={auth ? "none" : "flex"}
         position="absolute"
         w="40%"
         top="12rem"
