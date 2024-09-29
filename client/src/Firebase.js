@@ -8,13 +8,13 @@ import { getStorage } from "firebase/storage";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDk1XasHDQT8vgNPzwRFIs9GIOWM_KNNpM",
-  authDomain: "yearbook-images.firebaseapp.com",
-  projectId: "yearbook-images",
-  storageBucket: "yearbook-images.appspot.com",
-  messagingSenderId: "397807638358",
-  appId: "1:397807638358:web:db403439178ac0c0f528f7",
-  measurementId: "G-VKK72PQPBP"
+  apiKey: "AIzaSyAdY6DADp2j9TsSTXLo3ClhgNsZoU2fF1w",
+  authDomain: "sarc-yearbook2025.firebaseapp.com",
+  projectId: "sarc-yearbook2025",
+  storageBucket: "sarc-yearbook2025.appspot.com",
+  messagingSenderId: "82672622767",
+  appId: "1:82672622767:web:98502c7ff6a99390e4885a",
+  measurementId: "G-8L50BRNM5L"
 };
 
 // Initialize Firebase
