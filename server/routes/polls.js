@@ -1,7 +1,5 @@
-const express = require("express");
-const router = express.Router();
-const { Poll } = require("../models/poll");
-const { User } = require("../models/user");
+const router = require("express").Router();
+const { isAdmin } = require("../middleware/auth");
 const {
   allPolls,
   getPoll,
@@ -11,7 +9,6 @@ const {
   votePoll,
   leaderboard,
 } = require("../views/polls");
-const { isAdmin } = require("../middleware/auth");
 
 router.get("/leaderboard", leaderboard);
 router.get("/", allPolls);
