@@ -46,8 +46,8 @@ export default function Devleopers() {
         />
       </Flex>
       <Navbar />
-      <Box w="90%" marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
-        <VStack spacing="1rem" marginInline="auto" mx="2rem">
+      <Box w={isSmallerThan800 ? "" : "90%"} marginInline="auto" pb="4rem" mt="7rem" mb="5rem">
+        <VStack spacing="1rem" marginInline="auto" mx={isSmallerThan800 ? "" : "2rem"}>
           <Text fontWeight={800} fontSize={isSmallerThan800 ? "1.8rem" : "4rem"} color="white">
             meet the team 🌱</Text>
           <New />

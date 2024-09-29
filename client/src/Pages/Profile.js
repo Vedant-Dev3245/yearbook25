@@ -110,6 +110,7 @@ export default function Profile(props) {
         }
         imgUrl={user.imageUrl}
         commitments={user.commitments}
+        senior={user.senior}
       />
       <Interact
         captions={user.captions}

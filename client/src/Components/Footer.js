@@ -13,13 +13,13 @@ import { FaFacebook, FaTwitter, FaLinkedin, FaInstagram } from "react-icons/fa";
 export default function Footer() {
   const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
   return (
-    <Box>
+    <Box mt="10rem">
       <Box
         bg={isSmallerThan800 ? "none" : "url('../images/Frame 47.png')"}
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
         overflowX={isSmallerThan800 ? "none" : "hidden"}
-        mt={isSmallerThan800 ? "-5rem" : "-6.5rem"}
+        mt={isSmallerThan800 ? "-5rem" : "2rem"}
         borderBlock={
           isSmallerThan800
             ? "2px solid rgba(255, 255, 255, 0.25)"
@@ -31,7 +31,7 @@ export default function Footer() {
           pb="2rem"
           justifyContent="space-between"
           backgroundSize="cover"
-          mt="3rem"
+          mt="0rem"
           ml={isSmallerThan800 ? "2rem" : "8rem"}
           mb="2rem"
           mr={isSmallerThan800 ? "2rem" : "-18rem"}

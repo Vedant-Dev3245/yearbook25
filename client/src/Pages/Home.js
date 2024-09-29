@@ -11,6 +11,7 @@ import FAQ from "../Components/FAQ";
 import Navbar from "../Components/Navbar";
 import ScaleLoader from "react-spinners/ScaleLoader";
 import OptIn from "../Components/OptIn";
+import Spotify from "../Components/Spotify";
 export default function Home() {
   function handleCallbackResponse(response) {
     var userObject = jwtDecode(response.credential);
@@ -100,7 +101,7 @@ export default function Home() {
         bg="#242323"
         color="white"
         status="error"
-        display={auth ? "none" : "block"}
+        display={auth ? "none" : "flex"}
         position="absolute"
         w="40%"
         top="12rem"
@@ -110,11 +111,12 @@ export default function Home() {
         Sorry, you are not authorised to log-in.
       </Alert>
       <Navbar />
-      <Hero />
+      <Hero />      
       <Working />
+      <OptIn />
+      <Spotify />
       <Walkthrough />
       <FAQ />
-      <OptIn />
       <Footer />
     </Box>
   );

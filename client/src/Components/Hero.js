@@ -74,7 +74,6 @@ export default function Hero() {
           {loggedIn && isSmallerThan900 ? (
             <Button
               onClick={gotoprofile}
-              mr={10}
               bg="linear-gradient(97.22deg, #B5D2FF -20.38%, #2094FF 22.55%, #C34FFA 54.73%, #FF6187 86.84%, #F8D548 106.95%);"
               _hover={{
                 transform: "translate(-2px, -2px)",
@@ -117,7 +116,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  captions in 2022
+                  captions in 2023
                 </Text>
               </Box>
               <Box w="70%">
@@ -179,7 +178,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  visits in 2022
+                  visits in 2023
                 </Text>
               </Box>
             </Flex>
