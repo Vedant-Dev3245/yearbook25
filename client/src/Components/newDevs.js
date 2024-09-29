@@ -37,7 +37,7 @@ export default function newDevs() {
                 />
                 <DevCards
                     img="../images/prithvi.jpg"
-                    name="prithvi gowda"
+                    name="prithvi gowda c"
                     caption="database manager | 2023A3PS0327P"
                     twitter=""
                     github="https://github.com/prithvi05prism"
