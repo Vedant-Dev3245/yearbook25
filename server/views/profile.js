@@ -141,7 +141,6 @@ const addProfile = async (req, res) => {
 const editProfile = async (req, res) => {
   try {
     const userID = req.user.id;
-    // const userID = req.body.id; // for POSTMAN testing
     const user = await User.findByPk(userID);
 
     if(!user){
@@ -154,46 +153,21 @@ const editProfile = async (req, res) => {
   
     const imgUrl = req.body.imgUrl;
   
-    if (imgUrl != "") {
+    if (imgUrl !== null) {
       user.imageUrl = imgUrl;
     }
     
-    if(quote){
+    if(quote !== null){
       var quote = req.body.quote;
       const filter = new Filter({ placeHolder: "x" });
       filter.addWords(...words);
       quote = filter.clean(quote);
-      
-      if (quote != "") {
+      if (quote !== "") {
         user.quote = quote;
       }
     }
   
     await user.save();
-
-    // editing Commitments for the user: 
-      
-    const commitments = req.body.commitments;
-    if (!commitments) {
-        console.log("[editProfile Route] Commitments body data is empty");
-    }else{
-      await user.setCommitments([]);
-      for(const returncommitment of commitments){
-        let commitmentID = returncommitment.commitmentID;
-        let commitment = await Commitment.findByPk(commitmentID); 
-        await user.addCommitment(commitment);
-      }
-
-      const updated_user = await User.findByPk(user.userID, {
-        include:{
-            model: Commitment,
-            as: 'commitments'
-        }
-      });
-
-      console.log("User commitments have been updated: ", updated_user)
-    }
-  
     console.log("User updated succesfully, user: ", user);
     return res.status(200).send({
       status: "success",
