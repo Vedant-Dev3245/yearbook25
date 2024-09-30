@@ -112,7 +112,6 @@ const searchByCommitment = async (req, res) => {
 }
 
 const addCommitment = async (req, res) => {
-    console.log("[addCommitment] Hello This ROUTE IS ACTIVE");
     const commitment = req.body.name;
     const imgUrl = req.body.imgUrl;
 
@@ -139,12 +138,46 @@ const addCommitment = async (req, res) => {
     }catch(err){
         console.log("[addCommitment Route] There was an error: ", err);
         return res.status(400).send({
-            status: "success",
+            status: "failure",
             message: "There was an error, please try after sometime",
             error: err
         })
     }
 
+}
+
+const bulkAddCommitments = async (req, res) => {
+    const commitments = req.body.commitments;
+    try{
+        var newCommitment = "empty";
+        if(!commitments){
+            console.log("[bulkAddCommitments Route] Commitments Body data is empty");
+            return res.status(400).send({
+                status: "failure",
+                message: "the commitments body data is empty"
+            });
+        }else{
+            for(commitment of commitments){
+                newCommitment = await Commitment.create({
+                    commitment_name: commitment
+                });
+                console.log("New commitment is created: ", newCommitment);
+            };
+
+            console.log("All Commitments were added a total of: ", commitments.len(), " commitments");
+            return res.status(200).send({
+                status: "success",
+                message: "All commitments were succesfully added"
+            });
+        };
+    }catch(error){
+        console.log("[bulkAddCommitments Route] There was an error: ", error);
+        return res.status(400).send({
+            status: "failure",
+            message: "There was an error, please try after sometime",
+            error: error
+        })
+    }
 }
 
 const editCommitment = async (req, res) => {
@@ -219,4 +252,4 @@ const deleteCommitment = async (req, res) => {
     }
 }
 
-module.exports = { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, editCommitment, deleteCommitment};
+module.exports = { allCommitments, updateUserCommitments, searchByCommitment, addCommitment, bulkAddCommitments, editCommitment, deleteCommitment};

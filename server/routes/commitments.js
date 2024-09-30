@@ -5,11 +5,13 @@ const {
     searchByCommitment, 
     updateUserCommitments,
     addCommitment, 
+    bulkAddCommitments,
     editCommitment, 
     deleteCommitment
 } = require("../views/commitments");
 
 router.post("/", isAdmin, addCommitment);
+router.post("/bulk", isAdmin, bulkAddCommitments);
 router.get("/", allCommitments);
 router.post("/user", updateUserCommitments);
 router.delete("/:id", isAdmin, deleteCommitment);
