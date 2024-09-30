@@ -219,10 +219,6 @@ export default function Form() {
     setSelectedOptions(selectedOptions.filter((item) => item !== option));
   };
 
-  const filteredOptions = clubsData.filter((option) =>
-    option.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   return (
     <Flex
       flexDirection={isSmallerThan900 ? "column" : "row"}
