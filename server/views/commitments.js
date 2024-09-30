@@ -150,6 +150,7 @@ const bulkAddCommitments = async (req, res) => {
     const commitments = req.body.commitments;
     try{
         var newCommitment = "empty";
+        var check = "empty";
         if(!commitments){
             console.log("[bulkAddCommitments Route] Commitments Body data is empty");
             return res.status(400).send({
@@ -158,13 +159,18 @@ const bulkAddCommitments = async (req, res) => {
             });
         }else{
             for(commitment of commitments){
-                newCommitment = await Commitment.create({
-                    commitment_name: commitment
-                });
-                console.log("New commitment is created: ", newCommitment);
+                check = await Commitment.findOne({ where: { commitment_name: commitment } });
+                if(check){
+                    console.log("The commitment with name ", commitment, " already exists !!!");
+                }else{
+                    newCommitment = await Commitment.create({
+                        commitment_name: commitment
+                    });
+                    console.log("New commitment is created: ", newCommitment);
+                }
             };
 
-            console.log("All Commitments were added a total of: ", commitments.len(), " commitments");
+            console.log("All Commitments were added");
             return res.status(200).send({
                 status: "success",
                 message: "All commitments were succesfully added"
