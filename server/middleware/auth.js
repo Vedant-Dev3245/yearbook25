@@ -17,6 +17,7 @@ const isAuthenticated = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
+    console.log("[isAdmin Middleware] This is the req.user: ", req.user);
     if (!privileged.includes(req.user.email)) {
         return res.status(401).json({ msg: "unauthorized" })
     }
