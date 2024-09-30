@@ -96,16 +96,6 @@ export default function newDevs() {
                     text="never touching web dev again"
                 />
                 <DevCards
-                    img="../images/shreyaimg.jpg"
-                    name="shreya nag"
-                    caption="wannabe magician | 2021A2PS2636P"
-                    twitter="https://twitter.com/ShreyaNag01?t=_IJFL1zQb7DUNABcgtz-Bw&s=09"
-                    github=""
-                    linkedin="https://www.linkedin.com/in/shreya-nag-573976245"
-                    spotify=""
-                    text="Don’t let the Muggles get you down."
-                />
-                <DevCards
                     img="../images/jai.jpeg"
                     name="jai vr"
                     caption="hustler | 2022A8PS1264"
