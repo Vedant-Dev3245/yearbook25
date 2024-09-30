@@ -153,7 +153,7 @@ export default function Interact(props) {
               notifications
             </Text>
           </Flex>
-          <Flex
+          {/* <Flex
             display={ownProfile ? "flex" : "none"}
             onClick={makePollsActive}
             cursor="pointer"
@@ -184,7 +184,7 @@ export default function Interact(props) {
             <Text ml="1rem" fontWeight="600" fontSize="1.1rem">
               leaderboard
             </Text>
-          </Flex></> :
+          </Flex> */}</> :
           <>
             <Flex
               onClick={makeWallActive}
