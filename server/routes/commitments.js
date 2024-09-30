@@ -10,7 +10,7 @@ const {
     deleteCommitment
 } = require("../views/commitments");
 
-router.post("/", isAdmin, addCommitment);
+router.post("/", addCommitment);
 router.post("/bulk", bulkAddCommitments);
 router.get("/", allCommitments);
 router.post("/user", updateUserCommitments);
