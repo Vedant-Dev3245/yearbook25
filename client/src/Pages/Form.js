@@ -439,7 +439,7 @@ export default function Form() {
                       <ModalContent
                         bg="#242323"
                         maxW="56rem"
-                        h={isSmallerThan900 ? "fit-content" : "90%"}
+                        h={isSmallerThan900 ? "100%" : "90%"}
                         color="white"
                         p="0.6rem"
                         borderRadius="20px"
@@ -447,7 +447,7 @@ export default function Form() {
                       >
                         <ModalHeader fontSize="24px" fontWeight="700">campus commitments</ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody>
+                        <ModalBody overflowY="auto" width="100%" height="90%">
                           <InputGroup mb={1}>
                             <InputLeftElement
                               pointerEvents="none"
@@ -467,8 +467,10 @@ export default function Form() {
                                     {filteredClubs
                                       .filter((_, idx) => idx % (isSmallerThan900 ? 2 : 3) === colIdx)
                                       .map((option, idx) => (
-                                        <Checkbox key={idx} value={option}>
-                                          <Text>{option}</Text>
+                                        <Checkbox key={idx} value={option} display="flex" alignItems="flex-start">
+                                          <Box display="flex" alignItems="flex-start" verticalAlign={"top"}>
+                                            <Text>{option}</Text>
+                                          </Box>
                                         </Checkbox>
                                       ))}
                                   </VStack>
