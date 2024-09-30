@@ -465,6 +465,7 @@ export default function Form() {
                                 {[0, 1, 2].slice(0, isSmallerThan900 ? 2 : 3).map((colIdx) => (
                                   <VStack key={colIdx} align="start" spacing={2} width={isSmallerThan900 ? "45%" : "30%"}>
                                     {filteredClubs
+                                      .sort((a, b) => a.localeCompare(b))
                                       .filter((_, idx) => idx % (isSmallerThan900 ? 2 : 3) === colIdx)
                                       .map((option, idx) => (
                                         <Checkbox key={idx} value={option} display="flex" alignItems="flex-start">
