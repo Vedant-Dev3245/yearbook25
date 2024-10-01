@@ -85,7 +85,7 @@ export default function ProfileInfo(props) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
     setImgExist(true);
-    console.log(`${localStorage.getItem("userName")}${uuidv4()}.${imageFile.name.split(".").pop()}`)
+    // console.log(`${localStorage.getItem("userName")}${uuidv4()}.${imageFile.name.split(".").pop()}`)
     const uniqueFileName = `${localStorage.getItem("userName")}${uuidv4()}.${imageFile.name.split(".").pop()}`; // generate unique filename
     const storageRef = ref(storage, `files/${uniqueFileName}`);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
@@ -116,6 +116,10 @@ export default function ProfileInfo(props) {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    if (!formInfo.imgUrl) {
+      console.log("Image URL is required.");
+      return;  // Prevent form submission
+    }
     let currentUser = localStorage.getItem("user");
     axios({
       method: "PATCH",
@@ -167,8 +171,8 @@ export default function ProfileInfo(props) {
     })
       .then(function (res) {
         console.log(nominateData);
-        console.log(res);
-        setMsg(res.message);
+        console.log(res.data.message);
+        setMsg(res.data.message);
         setRes(true);
         setSpin(false);
         setTimeout(() => {
@@ -600,7 +604,6 @@ export default function ProfileInfo(props) {
       <Alert
         bg="#242323"
         color="white"
-        status={res ? "error" : "success"}
         display={!isSmallerThan800 && res ? "flex" : "none"}
         position="absolute"
         w="20%"
@@ -615,7 +618,6 @@ export default function ProfileInfo(props) {
       <Alert
         bg="#242323"
         color="white"
-        status={res ? "error" : "success"}
         display={isSmallerThan800 && res ? "flex" : "none"}
         position="fixed"
         w="60%"

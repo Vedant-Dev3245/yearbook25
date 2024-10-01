@@ -9,7 +9,6 @@ export default function Nominate(props) {
   const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
 
   const cardsNom = Array.from(nominateArray).map((person) => {
-    console.log(person)
     return (
       <NominateCard
         name={person.nominator.name.toLowerCase()}
@@ -31,9 +30,7 @@ export default function Nominate(props) {
     })
       .then(function (response) {
         setRequestsUser(response.data.requests);
-
         console.log(response.data.requests);
-
       })
       .catch(function (error) {
         console.log(error);
@@ -41,7 +38,6 @@ export default function Nominate(props) {
   }, []);
 
   const cardsReq = reqestsUser.map((person) => {
-    console.log(person.user)
     return (
       <ReqCard
         name={person.writer.name.toLowerCase()}
@@ -51,8 +47,6 @@ export default function Nominate(props) {
       />
     );
   });
-  /* const cardsReq = []; */
-  console.log(reqestsUser)
 
   return (
     <Box width="90%" marginInline="auto">

@@ -27,7 +27,7 @@ export default function Wall(props) {
   });
   React.useEffect(() => {
     setCapt(props.captions);
-    console.log(props.captions)
+    // console.log(props.captions)
   }, [props.captions]);
   React.useEffect(() => {
     if (capt.length === 0) {
@@ -41,7 +41,6 @@ export default function Wall(props) {
     commitment: commitment.commitment_name,
     seniorOptions: commitment.members
   }));
-  /* console.log(clubsData[0].seniorOptions) */
 
   return (
     <Box w="90%" marginInline="auto" pb="4rem">
