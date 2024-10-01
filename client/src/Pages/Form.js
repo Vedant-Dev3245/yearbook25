@@ -83,10 +83,12 @@ export default function Form() {
           formInfo.quote !== "" &&
           formInfo.phone !== "" &&
           formInfo.pEmail !== "" &&
+          formInfo.imgUrl !== "" &&
           imgExist
           : formInfo.id !== "" &&
           formInfo.phone !== "" &&
           formInfo.email !== "" &&
+          formInfo.imgUrl !== "" &&
           imgExist
       ) {
         // ) {

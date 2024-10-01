@@ -116,6 +116,10 @@ export default function ProfileInfo(props) {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    if (!formInfo.imgUrl) {
+      console.log("Image URL is required.");
+      return;  // Prevent form submission
+    }
     let currentUser = localStorage.getItem("user");
     axios({
       method: "PATCH",
