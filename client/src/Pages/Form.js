@@ -224,6 +224,7 @@ export default function Form() {
       flexDirection={isSmallerThan900 ? "column" : "row"}
       minHeight="100vh"
       bg="black"
+      className="noselect"
     >
       <Flex
         w={isSmallerThan900 ? "100%" : "60%"}
@@ -237,7 +238,7 @@ export default function Form() {
         <Box
           boxShadow="0px 1px 24px 1px rgba(0, 0, 0, 0.15)"
           bg="#242323"
-          w="80%"
+          w={isSmallerThan900 ? "100%" : "80%"}
           color="white"
           border="3px"
           borderStyle="solid"
@@ -440,10 +441,12 @@ export default function Form() {
                         p="0.6rem"
                         borderRadius="20px"
                         borderColor="#4B4B4B" borderWidth="3px"
+                        className="noselect"
                       >
                         <ModalHeader fontSize="24px" fontWeight="700">campus commitments</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody overflowY="auto" width="100%" height="90%">
+                          <Text mt="-0.96rem" mb="0.5rem" fontSize="16px">once submitted commitments can't be changed</Text>
                           <InputGroup mb={1}>
                             <InputLeftElement
                               pointerEvents="none"

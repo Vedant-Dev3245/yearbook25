@@ -68,6 +68,7 @@ export default function ClubCards(props) {
                     boxShadow="2px 2px 2px rgb(255, 255, 255, 0.2)"
                     border="solid 1px rgb(255, 255, 255, 0.1)"
                     fill="#100B18"
+                    className="noselect"
                 >
                     <VStack alignItems="flex-start" mx="2rem">
                         <Box
