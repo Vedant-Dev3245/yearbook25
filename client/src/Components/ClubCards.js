@@ -72,9 +72,9 @@ export default function ClubCards(props) {
                 >
                     <VStack alignItems="flex-start" mx="2rem">
                         <Box
-                            fontSize="40px"
+                            fontSize={isSmallerThan800 ? "24px" : "40px"}
                             fontWeight="bold"
-                            mt="2.4rem"
+                            mt={isSmallerThan800 ? "4rem" : "2.4rem"}
                             justifyContent="center"
                             alignItems="center"
                         >

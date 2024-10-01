@@ -448,7 +448,7 @@ export default function Form() {
                         <ModalHeader fontSize="24px" fontWeight="700">campus commitments</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody overflowY="auto" width="100%" height="90%">
-                          <Text mt="-0.96rem" mb="0.5rem" fontSize="16px">once submitted commitments can't be changed</Text>
+                          <Text mt="-0.96rem" mb="0.5rem" fontSize="16px" fontWeight="600" color="#B3B3B3">note: once submitted commitments can't be changed.</Text>
                           <InputGroup mb={1}>
                             <InputLeftElement
                               pointerEvents="none"
