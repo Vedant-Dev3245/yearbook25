@@ -60,9 +60,9 @@ export default function Navbar() {
           w={isSmallerThan800 ? "88%" : "95%"}
           zIndex={10}
         >
-          <Text fontWeight="800" fontSize="2rem" color="white" p={3} pl={6}>
+          <Link fontWeight="800" fontSize="2rem" color="white" p={3} pl={6} href="https://yearbook.bits-sarc.in">
             SARC
-          </Text>
+          </Link>
           <Box
             display={isSmallerThan800 ? "none" : "flex"}
             justifyContent="space-between"
