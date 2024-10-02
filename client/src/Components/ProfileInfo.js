@@ -513,6 +513,7 @@ export default function ProfileInfo(props) {
         padding="0.6rem 1rem"
         borderRadius="20px"
         fontWeight="700"
+        display={decodedToken.senior ? "block" : "none"}
         onClick={() => ownProfile ? window.open('https://forms.gle/KwPk9tXNrUZykt4s5', '_blank') : onWriteOpen()}
       >
         {ownProfile ? "opt-in for the yearbook!" : "write on their wall"}
@@ -523,7 +524,6 @@ export default function ProfileInfo(props) {
         textAlign="center"
         position="relative"
         mt={isSmallerThan800 ? "2rem" : "0"}
-        display={decodedToken.senior ? "block" : "none"}
         cursor={"pointer"}
         bgColor="rgba(255, 255, 255, 0.1)"
         fontSize="1rem"
