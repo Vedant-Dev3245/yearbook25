@@ -182,7 +182,7 @@ const nominateUser = async (req, res) => {
     const new_nomination = await Nomination.create({
         nominatorID: senderID,
         targetID: receiverID,
-        status: 1
+        status: 0
     });
 
     console.log("New nomination has been created: ", new_nomination);

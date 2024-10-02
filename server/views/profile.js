@@ -212,7 +212,7 @@ const getProfile = async (req, res) => {
           model: Nomination,
           as: 'nominatedby',
           where: {
-            status: 1
+            status: 0
           },
           include: [{
             model: User,
