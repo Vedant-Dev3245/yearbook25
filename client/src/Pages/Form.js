@@ -71,8 +71,10 @@ export default function Form() {
   const [isDisabled, setIsDisabled] = React.useState(false);
   const [imgExist, setImgExist] = React.useState(false);
   const [error, setError] = React.useState(false);
-  // const [emailErr, setEmailErr] = React.useState(false);
   const [valid, setValid] = React.useState(false);
+  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
+  const [isSmallerThan1100] = useMediaQuery("(max-width: 1100px)");
+  const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
 
   const testSeniors = [
     "kumarh664@gmail.com",
@@ -83,11 +85,11 @@ export default function Form() {
   ];
   function isSeniorEmail() {
     return (
-        data.email.substring(0, 5) === "f2021" || 
-        data.email.substring(0, 5) === "h2023" || 
-        testSeniors.includes(data.email)
+      data.email.substring(0, 5) === "f2021" ||
+      data.email.substring(0, 5) === "h2023" ||
+      testSeniors.includes(data.email)
     );
-}
+  }
 
   function validate(e) {
     if (validID.test(formInfo.id)) {
@@ -140,9 +142,6 @@ export default function Form() {
       alert("Please enter a valid BITS ID (eg. 2020A7PS0923P");
     }
   }
-  const [isSmallerThan900] = useMediaQuery("(max-width: 900px)");
-  const [isSmallerThan1100] = useMediaQuery("(max-width: 1100px)");
-  const [isSmallerThan500] = useMediaQuery("(max-width: 500px)");
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -191,6 +190,10 @@ export default function Form() {
   }
   function handleSubmit(e) {
     e.preventDefault();
+    if (!correctId(formInfo)) {
+      alert("BITS ID and email do not match!");
+      return;
+    }
     validate(e);
   }
 
@@ -235,6 +238,19 @@ export default function Form() {
   const handleDeselect = (option) => {
     setSelectedOptions(selectedOptions.filter((item) => item !== option));
   };
+
+  function correctId() {
+    if (formInfo.id && data.email) {
+      const yearId = formInfo.id.slice(0, 4);  
+      const digitsId = formInfo.id.slice(8, 12);
+      const yearEmail = data.email.slice(1, 5);
+      const digitsEmail = data.email.slice(5, 9);
+      if (yearId === yearEmail && digitsId === digitsEmail) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   return (
     <Flex
