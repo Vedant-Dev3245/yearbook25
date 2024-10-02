@@ -77,6 +77,7 @@ app.use("/auth", authRoutes);
 app.use("/nominations", isAuthenticated, nominationRoutes);
 app.use("/profiles", isAuthenticated, profileRoutes);
 app.use("/commitments", commitmentRoutes);
+// Commitments Routes without isAuthenticated middleware because we need to pull allCommitments in the form and updateUserCommitments during account creation.
 
 
 app.get("/test", async (req, res) => {

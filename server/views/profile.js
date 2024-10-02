@@ -321,6 +321,51 @@ const searchUsers = async (req, res) => {
   }
 };
 
+const searchAllUsers = async (req, res) => {
+  try{
+    const search_term = req.query.name;
+
+    if(!search_term){
+      res.status(400).send({ message: "search term is required"});
+    }
+
+    const search_value = `%${search_term}%`;
+
+    let results = await User.findAll({
+      attributes: ['userID', 'name', 'bitsId'],
+      where: {
+        userID: {
+          [Op.not]: req.user.id // req.user.id for production and req.body.id for testing
+        },
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: search_value
+            }
+          },
+          {
+            bitsId: {
+              [Op.iLike]: search_value
+            }
+          }
+        ]
+      }
+    })
+
+    console.log("These are the results: ", JSON.stringify(results));
+
+    return res.status(200).send(results);
+
+  }catch(e){
+    console.log("[searchUsers Route] There was an error: ", e);
+    res.status(500).send({ 
+      status: "failure",
+      message: "There was an error",
+      error: e 
+    });
+  }
+};
+
 const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
@@ -445,6 +490,7 @@ module.exports = {
   writeCaption,
   addProfile,
   searchUsers,
+  searchAllUsers,
   getProfile,
   deleteProfile,
 };
