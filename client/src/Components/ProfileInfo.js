@@ -499,48 +499,74 @@ export default function ProfileInfo(props) {
               </Wrap></> : <></>}
         </VStack>
       </Flex>
-      <Box
-        mr={isSmallerThan800 ? "0" : "2rem"}
-        w="max-content"
-        whiteSpace={"nowrap"}
-        textAlign="center"
-        position="relative"
-        mt={isSmallerThan800 ? "2rem" : "0"}
-        cursor={"pointer"}
-        bgColor="rgba(255, 255, 255, 0.1)"
-        fontSize="1rem"
-        border="0.6px solid #C9C9C9"
-        padding="0.6rem 1rem"
-        borderRadius="20px"
-        fontWeight="700"
-        display={decodedToken.senior ? "block" : "none"}
-        onClick={() => ownProfile ? window.open('https://forms.gle/KwPk9tXNrUZykt4s5', '_blank') : onWriteOpen()}
-      >
-        {ownProfile ? "opt-in for the yearbook!" : "write on their wall"}
-      </Box>
-      <Box
-        w="max-content"
-        whiteSpace={"nowrap"}
-        textAlign="center"
-        position="relative"
-        mt={isSmallerThan800 ? "2rem" : "0"}
-        cursor={"pointer"}
-        bgColor="rgba(255, 255, 255, 0.1)"
-        fontSize="1rem"
-        border="0.6px solid #C9C9C9"
-        padding="0.6rem 1rem"
-        borderRadius="20px"
-        fontWeight="700"
-        onClick={ownProfile ? handleLogout : nominate}
-      >
-        {ownProfile ? "logout" : "nominate this user"}
-        <Spinner
-          size="lg"
-          mt="1rem"
-          position="absolute"
-          display={spin ? "block" : "none"}
-        />
-      </Box>
+      {decodedToken.senior ? <>
+        <Box
+          mr={isSmallerThan800 ? "0" : "2rem"}
+          w="max-content"
+          whiteSpace={"nowrap"}
+          textAlign="center"
+          position="relative"
+          mt={isSmallerThan800 ? "2rem" : "0"}
+          cursor={"pointer"}
+          bgColor="rgba(255, 255, 255, 0.1)"
+          fontSize="1rem"
+          border="0.6px solid #C9C9C9"
+          padding="0.6rem 1rem"
+          borderRadius="20px"
+          fontWeight="700"
+          onClick={() => ownProfile ? window.open('https://forms.gle/KwPk9tXNrUZykt4s5', '_blank') : onWriteOpen()}
+        >
+          {ownProfile ? "opt-in for the yearbook!" : "write on their wall"}
+        </Box>
+        <Box
+          w="max-content"
+          whiteSpace={"nowrap"}
+          textAlign="center"
+          position="relative"
+          mt={isSmallerThan800 ? "2rem" : "0"}
+          cursor={"pointer"}
+          bgColor="rgba(255, 255, 255, 0.1)"
+          fontSize="1rem"
+          border="0.6px solid #C9C9C9"
+          padding="0.6rem 1rem"
+          borderRadius="20px"
+          fontWeight="700"
+          onClick={ownProfile ? handleLogout : nominate}
+        >
+          {ownProfile ? "logout" : "nominate this user"}
+          <Spinner
+            size="lg"
+            mt="1rem"
+            position="absolute"
+            display={spin ? "block" : "none"}
+          />
+        </Box>
+      </> : <>
+        <Box
+          w="max-content"
+          whiteSpace={"nowrap"}
+          textAlign="center"
+          position="relative"
+          mt={isSmallerThan800 ? "2rem" : "0"}
+          cursor={"pointer"}
+          bgColor="rgba(255, 255, 255, 0.1)"
+          fontSize="1rem"
+          border="0.6px solid #C9C9C9"
+          padding="0.6rem 1rem"
+          borderRadius="20px"
+          fontWeight="700"
+          onClick={ownProfile ? handleLogout : onWriteOpen}
+        >
+          {ownProfile ? "logout" : "write on their wall"}
+          <Spinner
+            size="lg"
+            mt="1rem"
+            position="absolute"
+            display={spin ? "block" : "none"}
+          />
+        </Box>
+      </>}
+
 
 
       {/* Requesting people to write on their wall-Modal open for that */}
