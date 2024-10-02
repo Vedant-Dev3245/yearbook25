@@ -42,7 +42,7 @@ const addProfile = async (req, res) => {
         senior = true;
       }
 
-      if(email.substring(0,5) == "h2023"){
+      if(req.body.email.substring(0,5) == "h2023"){
         senior = true;
       }
       
