@@ -274,7 +274,7 @@ export default function ProfileInfo(props) {
             <ModalCloseButton />
             <ModalBody
               mt="-0.5rem"
-              fontSize={isSmallerThan800 ? "0.8rem" : "0.8rem"}
+              fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
               textAlign="center"
               color="#B3B3B3"
               mb="1rem"
@@ -294,7 +294,7 @@ export default function ProfileInfo(props) {
               </Text>
               <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}>
                 {props.senior ?
-                  <Flex justifyContent="space-between" mx="2rem" alignItems="center">
+                  <Flex justifyContent="space-between" mx={isSmallerThan800 ? "-0.8rem" : "2rem"} alignItems="center">
                     <Box>
                       <Input
                         cursor="pointer"
@@ -310,7 +310,7 @@ export default function ProfileInfo(props) {
                         htmlFor="file"
                         textAlign={"center"}
                         fontWeight="700"
-                        fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
+                        fontSize={isSmallerThan800 ? "0.5rem" : "0.8rem"}
                         pb={2}
                       >
                         <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
@@ -333,7 +333,7 @@ export default function ProfileInfo(props) {
                       <FormLabel
                         cursor="pointer"
                         htmlFor="quote"
-                        fontSize="16px"
+                        fontSize={isSmallerThan800 ? "0.8rem" : "1rem"}
                         fontWeight="600"
                         textAlign="center"
                       >
@@ -348,7 +348,7 @@ export default function ProfileInfo(props) {
                         id="quote"
                         onChange={handleChange}
                         p="0.8rem"
-                        placeholder="enter your yearbook quote here"
+                        placeholder="enter your yearbook quote"
                         name="quote"
                         value={formInfo.quote}
                       />
@@ -499,55 +499,49 @@ export default function ProfileInfo(props) {
               </Wrap></> : <></>}
         </VStack>
       </Flex>
+      <Box
+        mr={isSmallerThan800 ? "0" : "2rem"}
+        w="max-content"
+        whiteSpace={"nowrap"}
+        textAlign="center"
+        position="relative"
+        mt={isSmallerThan800 ? "2rem" : "0"}
+        cursor={"pointer"}
+        bgColor="rgba(255, 255, 255, 0.1)"
+        fontSize="1rem"
+        border="0.6px solid #C9C9C9"
+        padding="0.6rem 1rem"
+        borderRadius="20px"
+        fontWeight="700"
+        display={decodedToken.senior ? "block" : "none"}
+        onClick={() => ownProfile ? window.open('https://forms.gle/KwPk9tXNrUZykt4s5', '_blank') : onWriteOpen()}
+      >
+        {ownProfile ? "opt-in for the yearbook!" : "write on their wall"}
+      </Box>
+      <Box
+        w="max-content"
+        whiteSpace={"nowrap"}
+        textAlign="center"
+        position="relative"
+        mt={isSmallerThan800 ? "2rem" : "0"}
+        cursor={"pointer"}
+        bgColor="rgba(255, 255, 255, 0.1)"
+        fontSize="1rem"
+        border="0.6px solid #C9C9C9"
+        padding="0.6rem 1rem"
+        borderRadius="20px"
+        fontWeight="700"
+        onClick={ownProfile ? handleLogout : nominate}
+      >
+        {ownProfile ? "logout" : "nominate this user"}
+        <Spinner
+          size="lg"
+          mt="1rem"
+          position="absolute"
+          display={spin ? "block" : "none"}
+        />
+      </Box>
 
-      {
-        !ownProfile && (
-          <Box
-            mr={isSmallerThan800 ? "0" : "2rem"}
-            w="max-content"
-            whiteSpace={"nowrap"}
-            textAlign="center"
-            position="relative"
-            mt={isSmallerThan800 ? "2rem" : "0"}
-            cursor={"pointer"}
-            bgColor="rgba(255, 255, 255, 0.1)"
-            fontSize="1rem"
-            border="0.6px solid #C9C9C9"
-            padding="0.6rem 1rem"
-            borderRadius="20px"
-            fontWeight="700"
-            onClick={ownProfile ? handleLogout : onWriteOpen}
-          >
-            write on their wall
-          </Box>
-        )
-      }
-      {!ownProfile ?
-        <Box
-          w="max-content"
-          whiteSpace={"nowrap"}
-          textAlign="center"
-          position="relative"
-          mt={isSmallerThan800 ? "2rem" : "0"}
-          display={decodedToken.senior ? "block" : "none"}
-          cursor={"pointer"}
-          bgColor="rgba(255, 255, 255, 0.1)"
-          fontSize="1rem"
-          border="0.6px solid #C9C9C9"
-          padding="0.6rem 1rem"
-          borderRadius="20px"
-          fontWeight="700"
-          onClick={nominate}
-        >
-          nominate this user
-          <Spinner
-            size="lg"
-            mt="1rem"
-            position="absolute"
-            display={spin ? "block" : "none"}
-          />
-        </Box> : <></>
-      }
 
       {/* Requesting people to write on their wall-Modal open for that */}
       <Modal isOpen={isWriteOpen} onClose={onWriteClose}>
