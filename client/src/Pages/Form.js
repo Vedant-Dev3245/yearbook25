@@ -408,7 +408,7 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-                  <GridItem colSpan={2} display={isSeniorEmail ? "block" : "none"}>
+                  <GridItem colSpan={2} display={isSeniorEmail ? "block" : "none"} pb={data.email.charAt(0) === 'h' ? "1rem" : ""}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="quote"
@@ -434,7 +434,7 @@ export default function Form() {
                       {formInfo.quote.length}/140 characters used
                     </FormHelperText>
                   </GridItem>
-                  <GridItem colSpan={2} mb="2rem">
+                  <GridItem colSpan={2} mb="2rem" display={data.email.charAt(0) === 'h' ? "none" : "block"}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="commitments"
