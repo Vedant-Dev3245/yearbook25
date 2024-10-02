@@ -108,7 +108,7 @@ export default function Interact(props) {
         flexWrap="wrap"
         borderBottom="1px solid rgba(217, 217, 217, 0.1)"
       >
-        {props.bitsId.charAt(3) === '0' ? <>
+        {props.senior ? <>
           <Flex
             onClick={makeWallActive}
             cursor="pointer"
