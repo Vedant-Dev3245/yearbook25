@@ -41,6 +41,11 @@ const addProfile = async (req, res) => {
       if(year<=2021){
         senior = true;
       }
+
+      if(email.substring(0,5) == "h2023"){
+        senior = true;
+      }
+      
       console.log("[addProfile Route] This was the year: ", year);
       console.log("[addProfile Route] This is the senior status: ", senior);
 
