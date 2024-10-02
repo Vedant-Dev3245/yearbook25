@@ -274,7 +274,7 @@ export default function ProfileInfo(props) {
             <ModalCloseButton />
             <ModalBody
               mt="-0.5rem"
-              fontSize={isSmallerThan800 ? "0.8rem" : "0.8rem"}
+              fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
               textAlign="center"
               color="#B3B3B3"
               mb="1rem"
@@ -294,7 +294,7 @@ export default function ProfileInfo(props) {
               </Text>
               <FormControl mt={isSmallerThan800 ? "1rem" : "2rem"}>
                 {props.senior ?
-                  <Flex justifyContent="space-between" mx="2rem" alignItems="center">
+                  <Flex justifyContent="space-between" mx={isSmallerThan800 ? "-0.8rem" : "2rem"} alignItems="center">
                     <Box>
                       <Input
                         cursor="pointer"
@@ -310,7 +310,7 @@ export default function ProfileInfo(props) {
                         htmlFor="file"
                         textAlign={"center"}
                         fontWeight="700"
-                        fontSize={isSmallerThan800 ? "0.6rem" : "0.8rem"}
+                        fontSize={isSmallerThan800 ? "0.5rem" : "0.8rem"}
                         pb={2}
                       >
                         <Text pb="2">please upload a 1080*1080 <br /> image to avoid cuts</Text>
@@ -333,7 +333,7 @@ export default function ProfileInfo(props) {
                       <FormLabel
                         cursor="pointer"
                         htmlFor="quote"
-                        fontSize="16px"
+                        fontSize={isSmallerThan800 ? "0.8rem" : "1rem"}
                         fontWeight="600"
                         textAlign="center"
                       >
@@ -348,7 +348,7 @@ export default function ProfileInfo(props) {
                         id="quote"
                         onChange={handleChange}
                         p="0.8rem"
-                        placeholder="enter your yearbook quote here"
+                        placeholder="enter your yearbook quote"
                         name="quote"
                         value={formInfo.quote}
                       />
