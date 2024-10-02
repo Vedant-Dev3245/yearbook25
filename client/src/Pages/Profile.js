@@ -50,7 +50,7 @@ export default function Profile(props) {
     })
       .then(function (response) {
         setUser(response.data)
-        console.log(response.data)
+        // console.log(response.data)
         setLoading(false);
         if (params.id === window.localStorage.getItem("user")) {
           window.localStorage.setItem("userName", response.data.name);
@@ -69,9 +69,9 @@ export default function Profile(props) {
     }
   }, [params.id, navigate]);
 
-  React.useEffect(() => {
+  /* React.useEffect(() => {
     console.log(user)
-  }, [user]);
+  }, [user]); */
 
   return (
     <Box

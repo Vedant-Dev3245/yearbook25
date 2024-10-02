@@ -30,7 +30,7 @@ export default function Nominate(props) {
     })
       .then(function (response) {
         setRequestsUser(response.data.requests);
-        console.log(response.data.requests);
+        // console.log(response.data.requests);
       })
       .catch(function (error) {
         console.log(error);

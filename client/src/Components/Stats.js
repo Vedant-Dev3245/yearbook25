@@ -7,7 +7,8 @@ import StatsCards from "./StatsCards";
 export default function Stats() {
   const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
   const [leaders, setLeaders] = useState([]);
-  React.useEffect(() => {
+  // To enable Leaderboard uncomment the following
+  /* React.useEffect(() => {
     axios({
       method: "GET",
       headers: {
@@ -21,7 +22,7 @@ export default function Stats() {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, []); */
   const statCards = leaders.map((leader, index) => {
     return <StatsCards key={index} user={leader} />;
   });

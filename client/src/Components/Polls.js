@@ -3,18 +3,13 @@ import PollsCards from "./PollsCards";
 import "./Polls.css";
 import axios from "axios";
 import { Box, Text, useMediaQuery } from "@chakra-ui/react";
-// import Masonry from "react-masonry-css"
 
 export default function Polls(props) {
   const [pollsData, setPollsData] = useState([]);
   const [isSmallerThan800] = useMediaQuery("(max-width:800px)");
-  // const breakpointColumnsObj = {
-  //   default: 3,
-  //   700: 2,
-  //   500: 1
-  // };
 
-  React.useEffect(() => {
+  // To enable Polls uncomment the following
+  /* React.useEffect(() => {
     axios({
       method: "GET",
       headers: {
@@ -30,10 +25,7 @@ export default function Polls(props) {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
-  //   React.useEffect(()=>{
-  //     setPollsData(props.questions)
-  // })
+  }, []); */
 
   const pollsCards = pollsData?.map((questions, index) => {
     const number = (index + 1).toString().padStart(2, "0");
@@ -54,9 +46,9 @@ export default function Polls(props) {
         fontSize={isSmallerThan800 ? "1.5rem" : "3rem"}
         fontWeight="800"
       >
-your turn now,{" "}
+        your turn now,{" "}
         <Text display={"inline"} fontFamily="EB Garamond" fontStyle="italic">
-tell us who
+          tell us who
         </Text>
       </Box>
 
