@@ -236,7 +236,9 @@ export default function Form() {
   );
 
   const handleDeselect = (option) => {
-    setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    setSelectedOptions((prevSelectedOptions) =>
+      prevSelectedOptions.filter((item) => item !== option)
+    );
   };
 
   function correctId() {
