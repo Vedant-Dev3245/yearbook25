@@ -375,7 +375,6 @@ const writeCaption = async (req, res) => {
   try {
     var caption = req.body.caption;
     const writerID = req.user.id;
-    // const writerID = req.body.id;
     const targetID = req.params.id;
     
     if (writerID == targetID) {
