@@ -39,7 +39,7 @@ router.post("/google", async (req, res) => {
     const email = payload.email;
 
     if (
-      !privileged.includes(email) && (email[10] != "p" ||
+      !privileged.includes(email) && (/*email[10] != "p" ||*/
       (email.substring(0, 5) != "f2020" &&
         email.substring(0, 5) != "h2022" && email.substring(0, 5) != "h2023" && email.substring(0, 5) != "f2021" && email.substring(0, 5) != "f2022" && email.substring(0, 5) != "f2023"))
     ) {
