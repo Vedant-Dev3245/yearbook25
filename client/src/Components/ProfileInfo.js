@@ -55,7 +55,7 @@ export default function ProfileInfo(props) {
     commitments: [],
   });
   const [img, setImg] = React.useState();
-  const [submitToggle, setSubmitToggle] = React.useState(true);
+  const [submitToggle, setSubmitToggle] = React.useState(false);
   const navigate = useNavigate();
   const params = useParams();
   const token = localStorage.getItem('token')
@@ -223,17 +223,18 @@ export default function ProfileInfo(props) {
       });
   }
 
-  function toggleSubmit() {
-    if (submitToggle) {
-      setSubmitToggle(false);
-    } else {
-      setSubmitToggle(true);
-    }
-  }
+  const toggleSubmit = (e) => {
+    setSubmitToggle(e.target.checked);
+  };
 
   const tagsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
   }));
+
+  function writeModalClose() {
+    setSubmitToggle(false);
+    onWriteClose();
+  };
 
   return (
     <Flex
@@ -567,10 +568,8 @@ export default function ProfileInfo(props) {
         </Box>
       </>}
 
-
-
       {/* Requesting people to write on their wall-Modal open for that */}
-      <Modal isOpen={isWriteOpen} onClose={onWriteClose}>
+      <Modal isOpen={isWriteOpen} onClose={writeModalClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           backdropFilter="blur(47.5676px)"
@@ -612,7 +611,7 @@ export default function ProfileInfo(props) {
                 p="1.2rem 1.6rem"
                 fontSize="1.4rem"
                 colorScheme="blackAlpha"
-                isDisabled={submitToggle}
+                isDisabled={!submitToggle}
               >
                 request
               </Button>
