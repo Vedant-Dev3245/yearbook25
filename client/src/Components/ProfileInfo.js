@@ -481,7 +481,7 @@ export default function ProfileInfo(props) {
             <>
               <Box w="80%">
                 <Text
-                  textAlign="left"
+                  textAlign={isSmallerThan800 ? "center" : "left"}
                   mt={isSmallerThan800 ? "0.4rem" : "1rem"}
                   color="#DAE6FF"
                   fontWeight="700"
