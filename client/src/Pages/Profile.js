@@ -102,6 +102,7 @@ export default function Profile(props) {
       <ProfileInfo
         name={user.name}
         quote={user.quote}
+        userid={user.userID}
         id={user.bitsId}
         discipline={
           user.bitsId.indexOf("PS") === -1
