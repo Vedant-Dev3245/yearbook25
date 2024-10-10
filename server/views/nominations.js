@@ -22,6 +22,8 @@ const sendRequest = async (req, res) => {
     var caption = req.body.caption;
 
     if (senderID == targetID) {
+        console.log("This is the senderID: ", senderID);
+        console.log("This is the targetID: ", targetID);
         return res.status(403).send({
             status: "failure", 
             message: "You can't write for yourself",
