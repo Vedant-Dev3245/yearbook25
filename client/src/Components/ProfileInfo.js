@@ -55,22 +55,12 @@ export default function ProfileInfo(props) {
     commitments: [],
   });
   const [img, setImg] = React.useState();
-  const [submitToggle, setSubmitToggle] = React.useState(true);
+  const [submitToggle, setSubmitToggle] = React.useState(false);
   const navigate = useNavigate();
   const params = useParams();
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token);
-
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormInfo((prevFormInfo) => {
-      return {
-        ...prevFormInfo,
-        [name]: value,
-      };
-    });
-  }
-
+  
   React.useEffect(() => {
     if (window.location.href.includes(localStorage.getItem("user"))) {
       setShowEdit(true);
@@ -81,6 +71,16 @@ export default function ProfileInfo(props) {
     }
   }, [window.location.href]);
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormInfo((prevFormInfo) => {
+      return {
+        ...prevFormInfo,
+        [name]: value,
+      };
+    });
+  }
+  
   function onImageChange(e) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
@@ -114,6 +114,7 @@ export default function ProfileInfo(props) {
       }
     );
   }
+
   function handleSubmit(e) {
     e.preventDefault();
     if (!formInfo.imgUrl) {
@@ -150,15 +151,11 @@ export default function ProfileInfo(props) {
     document.location.reload();
   }
 
-  const [captionData, setCaptionData] = React.useState({
-    caption: "",
-    targetId: params.id,
-  });
   function nominate() {
     let nominateData = {
       senderId: localStorage.getItem("user"),
       senderName: localStorage.getItem("userName"),
-      receiverId: params.id,
+      receiverId: props.userid,
     }
     setSpin(true);
     axios({
@@ -189,51 +186,54 @@ export default function ProfileInfo(props) {
         }, 3000);
       });
   }
-  // console.log(localStorage.getItem("nominatedBy").search(localStorage.getItem('friend')) !== -1);
-
 
   function handleChangeRequest(event) {
     const { name, value } = event.target;
-    setCaptionData((prevCaptionData) => {
-      return {
-        ...prevCaptionData,
-        [name]: value,
-      };
-    });
+    console.log("name", name, "value", value)
+    setCaptionData(value);
   }
+
+  const [captionData, setCaptionData] = React.useState();
+
   function sendRequest() {
     axios({
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.token}`,
       },
-      url: localStorage.getItem("nominatedBy").search(params.id) !== -1 ? `${process.env.REACT_APP_BACKEND_URL}/profiles/${params.id}/caption` : `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
-      data: captionData,
+      url: localStorage.getItem("nominatedBy").search(props.userid) !== -1 ? `${process.env.REACT_APP_BACKEND_URL}/profiles/${props.userid}/caption` : `${process.env.REACT_APP_BACKEND_URL}/nominations/requests`,
+      data: {
+        caption: captionData,
+        targetId: props.userid,
+      },
     })
       .then(function (res) {
         console.log(res);
         if (res.data.success) {
           window.location.reload();
         }
+        onWriteClose();
       })
       .catch(function (err) {
         console.log(err);
+        alert(err)
         setSpin(false);
         onWriteClose();
       });
   }
 
-  function toggleSubmit() {
-    if (submitToggle) {
-      setSubmitToggle(false);
-    } else {
-      setSubmitToggle(true);
-    }
-  }
+  const toggleSubmit = (e) => {
+    setSubmitToggle(e.target.checked);
+  };
 
   const tagsData = props.commitments.map((commitment) => ({
     commitment: commitment.commitment_name,
   }));
+
+  function writeModalClose() {
+    setSubmitToggle(false);
+    onWriteClose();
+  };
 
   return (
     <Flex
@@ -481,7 +481,7 @@ export default function ProfileInfo(props) {
             <>
               <Box w="80%">
                 <Text
-                  textAlign="left"
+                  textAlign={isSmallerThan800 ? "center" : "left"}
                   mt={isSmallerThan800 ? "0.4rem" : "1rem"}
                   color="#DAE6FF"
                   fontWeight="700"
@@ -567,10 +567,8 @@ export default function ProfileInfo(props) {
         </Box>
       </>}
 
-
-
       {/* Requesting people to write on their wall-Modal open for that */}
-      <Modal isOpen={isWriteOpen} onClose={onWriteClose}>
+      <Modal isOpen={isWriteOpen} onClose={writeModalClose}>
         <ModalOverlay bg="blackAlpha.300" backdropFilter="blur(10px)" />
         <ModalContent
           backdropFilter="blur(47.5676px)"
@@ -612,7 +610,7 @@ export default function ProfileInfo(props) {
                 p="1.2rem 1.6rem"
                 fontSize="1.4rem"
                 colorScheme="blackAlpha"
-                isDisabled={submitToggle}
+                isDisabled={!submitToggle}
               >
                 request
               </Button>

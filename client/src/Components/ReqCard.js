@@ -19,7 +19,7 @@ export default function ReqCard(props) {
   const [res, setRes] = React.useState(false);
   // const[reqestsUser,setRequestsUser]=React.useState([])
   // const navigate = useNavigate()
-  console.log(props)
+  // console.log(props)
   const [captionData, setCaptionData] = React.useState({
     caption: "",
     receiverId: props.id,

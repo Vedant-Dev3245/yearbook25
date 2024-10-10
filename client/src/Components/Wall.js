@@ -89,7 +89,6 @@ export default function Wall(props) {
 
         <Masonry
           width="100%"
-          marginInline="auto"
           breakpointCols={breakpointColumnsObj}
           className="my-masonry-grid"
           columnClassName="my-masonry-grid_column"

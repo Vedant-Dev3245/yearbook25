@@ -16,7 +16,7 @@ export default function ClubCards(props) {
         const selectedBitsId = event.target.value;
         const selectedOption = props.seniorOptions.find(option => option.bitsId === selectedBitsId);
         if (selectedOption) {
-            console.log(selectedOption);
+            // console.log(selectedOption);
             localStorage.setItem('friend', selectedOption.userID);
             navigate(`/profile/${selectedOption.userID}`);
         }
@@ -117,7 +117,7 @@ export default function ClubCards(props) {
                             }}
                         >
                             {props.seniorOptions.map((option) => (
-                                <option key={option.bitsId} value={option.bitsId} userID={option.userID}>
+                                <option key={option.bitsId} value={option.bitsId}>
                                     {option.name} ({option.bitsId})
                                 </option>
                             ))}

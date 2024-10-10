@@ -17,7 +17,7 @@ export default function Hero() {
     setLoggedIn(true);
   }
   function gotoprofile() {
-    console.log(localStorage.getItem("user"));
+    // console.log(localStorage.getItem("user"));
     navigate(`/profile/${localStorage.getItem("user")}`);
   }
   return (

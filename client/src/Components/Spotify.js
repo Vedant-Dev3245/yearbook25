@@ -35,7 +35,6 @@ export default function Spotify() {
                 src="https://open.spotify.com/embed/playlist/6TusuJOaRieMEUnc0XbVEX?utm_source=generator&theme=0"
                 width="90%"
                 height="352"
-                allowfullscreen=""
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="lazy"
             ></iframe>
