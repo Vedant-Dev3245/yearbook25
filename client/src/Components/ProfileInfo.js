@@ -51,7 +51,7 @@ export default function ProfileInfo(props) {
   const [imgExist, setImgExist] = React.useState(false);
   const [formInfo, setFormInfo] = React.useState({
     quote: "",
-    imgUrl: "",
+    imgUrl: props.imageUrl,
     commitments: [],
   });
   const [img, setImg] = React.useState();
@@ -117,11 +117,8 @@ export default function ProfileInfo(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!formInfo.imgUrl) {
-      console.log("Image URL is required.");
-      return;  // Prevent form submission
-    }
     let currentUser = localStorage.getItem("user");
+    setTimeout(() => {
     axios({
       method: "PATCH",
       headers: {
@@ -143,6 +140,7 @@ export default function ProfileInfo(props) {
       .finally(() => {
         onClose();
       });
+  }, 5000); 
   }
 
   function handleLogout() {
