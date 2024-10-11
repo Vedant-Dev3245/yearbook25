@@ -95,7 +95,7 @@ export default function Form() {
     if (validID.test(formInfo.id)) {
       setValid(true);
       if (
-        (isSeniorEmail)
+        (isSeniorEmail())
           ? formInfo.id !== "" &&
           formInfo.quote !== "" &&
           formInfo.phone !== "" &&
