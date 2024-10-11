@@ -42,7 +42,7 @@ import jwtDecode from "jwt-decode";
 
 export default function Form() {
   const validID = new RegExp(
-    "[202][0-4][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2022H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2020D2PS[0-2][0-9][0-9][0-9]P"
+    "[202][0-4][ABD][1-9AB]([AB][1-9AB]|PS|TS)[0-2][0-9][0-9][0-9]P|2023H1[0-9][0-9][0-2][0-9][0-9][0-9]P|2021D2PS[0-2][0-9][0-9][0-9]P"
   );
   const navigate = useNavigate();
   const location = useLocation();
@@ -445,7 +445,7 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-                  <GridItem colSpan={2} display={isSeniorEmail ? "block" : "none"} pb={data.email.charAt(0) === 'h' ? "1rem" : ""}>
+                  <GridItem colSpan={2} display={isSeniorEmail() ? "block" : "none"} pb={data.email.charAt(0) === 'h' ? "1rem" : ""}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="quote"
@@ -647,7 +647,7 @@ export default function Form() {
               ? ""
               : formInfo.lastName.toUpperCase()}
           </Box>
-          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={isSeniorEmail ? "" : "1.8rem"}>
+          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={isSeniorEmail() ? "" : "1.8rem"}>
             {formInfo.email}
           </Box>
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
@@ -663,7 +663,7 @@ export default function Form() {
             marginInline="auto"
             marginBlock="2rem"
             lineHeight="1.8rem"
-            display={isSeniorEmail ? "block" : "none"}
+            display={isSeniorEmail() ? "block" : "none"}
           >
             {' "' + formInfo.quote + '" '}
           </Box>
