@@ -445,7 +445,7 @@ export default function Form() {
                       value={formInfo.phone}
                     />
                   </GridItem>
-                  <GridItem colSpan={2} display={isSeniorEmail ? "block" : "none"} pb={data.email.charAt(0) === 'h' ? "1rem" : ""}>
+                  <GridItem colSpan={2} display={isSeniorEmail() ? "block" : "none"} pb={data.email.charAt(0) === 'h' ? "1rem" : ""}>
                     <FormLabel
                       cursor="pointer"
                       htmlFor="quote"
@@ -647,7 +647,7 @@ export default function Form() {
               ? ""
               : formInfo.lastName.toUpperCase()}
           </Box>
-          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={isSeniorEmail ? "" : "1.8rem"}>
+          <Box fontSize="1.2rem" mt="1.6rem" color="#B3B3B3" fontWeight="600" pb={isSeniorEmail() ? "" : "1.8rem"}>
             {formInfo.email}
           </Box>
           <Box fontSize="1.2rem" color="#B3B3B3" fontWeight="600">
@@ -663,7 +663,7 @@ export default function Form() {
             marginInline="auto"
             marginBlock="2rem"
             lineHeight="1.8rem"
-            display={isSeniorEmail ? "block" : "none"}
+            display={isSeniorEmail() ? "block" : "none"}
           >
             {' "' + formInfo.quote + '" '}
           </Box>
