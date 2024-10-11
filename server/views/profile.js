@@ -157,13 +157,13 @@ const editProfile = async (req, res) => {
     }
   
     const imgUrl = req.body.imgUrl;
+    var quote = req.body.quote;
   
     if (imgUrl !== null) {
       user.imageUrl = imgUrl;
     }
     
     if(quote){
-      var quote = req.body.quote;
       const filter = new Filter({ placeHolder: "x" });
       filter.addWords(...words);
       quote = filter.clean(quote);
