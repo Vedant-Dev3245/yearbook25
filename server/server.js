@@ -25,7 +25,7 @@ try{
 }
 
 try{
-  forceSync(postgresClient);
+  alterSync(postgresClient);
   console.log("Models have been synced succesfully");
 }catch(error){
   console.log("An error occurred while trying to sync models: ", error);
