@@ -20,6 +20,7 @@ services:
       - 8000:8000
     networks:
       - app-tier
+    restart: always
 
   yearbookdb:
     image: postgres:16
@@ -34,6 +35,7 @@ services:
       - 5000:5432
     volumes:
       - yearbookdbing:/var/lib/postgresql/data
+    restart: always
 
   nginx:
     container_name: sarc_nginx
@@ -46,6 +48,7 @@ services:
       - yearbook-backend
     networks:
       - app-tier
+    restart: always
 
 networks:
   app-tier:

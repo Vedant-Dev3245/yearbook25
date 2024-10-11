@@ -9,6 +9,8 @@ const {postgresClient} = require("./db/postgres");
 const associatedModels = require('./models/index');
 const {alterSync, forceSync} = require('./db/sync');
 
+const {errorHandler, requestLogger} = require("./middleware/log")
+
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -62,6 +64,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // LISTEN
 
 app.listen(port, () => console.log("Listening at port " + port));
+
+// Error and Request logging middleware
+app.use(errorHandler);
+app.use(requestLogger);
 
 // ROUTES
 
