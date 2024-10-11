@@ -189,7 +189,7 @@ export default function ProfileInfo(props) {
 
   function handleChangeRequest(event) {
     const { name, value } = event.target;
-    console.log("name", name, "value", value)
+    // console.log("name", name, "value", value)
     setCaptionData(value);
   }
 
