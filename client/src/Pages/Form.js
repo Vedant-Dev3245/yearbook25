@@ -227,6 +227,41 @@ export default function Form() {
     }));
   };
 
+  const CustomCheckbox = ({ option, isChecked, onToggle }) => {
+    return (
+      <Box
+        display="flex"
+        alignItems="center"
+        cursor="pointer"
+        onClick={() => onToggle(option)}
+        border="2px solid"
+        borderColor="white"
+        width= {isSmallerThan900 ? "16px" : "20px"}
+        height={isSmallerThan900 ? "16px" : "20px"}
+        borderRadius="0.4rem"
+        justifyContent="center"
+        bg={isChecked ? "transparent" : "transparent"} 
+        flexShrink={0}
+      >
+        {isChecked && (
+          <Text fontSize="12px" color="white" lineHeight="20px">
+            ✓
+          </Text>
+        )}
+      </Box>
+    );
+  };
+
+  const handleToggle = (option) => {
+    let updatedValues;
+    if (selectedOptions.includes(option)) {
+      updatedValues = selectedOptions.filter((item) => item !== option);
+    } else {
+      updatedValues = [...selectedOptions, option];
+    }
+    handleSelect(updatedValues);
+  };
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
@@ -243,7 +278,7 @@ export default function Form() {
 
   function correctId() {
     if (formInfo.id && data.email) {
-      const yearId = formInfo.id.slice(0, 4);  
+      const yearId = formInfo.id.slice(0, 4);
       const digitsId = formInfo.id.slice(8, 12);
       const yearEmail = data.email.slice(1, 5);
       const digitsEmail = data.email.slice(5, 9);
@@ -497,16 +532,24 @@ export default function Form() {
                             <CheckboxGroup value={selectedOptions} onChange={handleSelect}>
                               <HStack align="start" spacing={4} justify="space-between">
                                 {[0, 1, 2].slice(0, isSmallerThan900 ? 2 : 3).map((colIdx) => (
-                                  <VStack key={colIdx} align="start" spacing={2} width={isSmallerThan900 ? "45%" : "30%"}>
+                                  <VStack
+                                    key={colIdx}
+                                    align="start"
+                                    spacing={2}
+                                    width={isSmallerThan900 ? "45%" : "30%"}
+                                  >
                                     {filteredClubs
                                       .sort((a, b) => a.localeCompare(b))
                                       .filter((_, idx) => idx % (isSmallerThan900 ? 2 : 3) === colIdx)
                                       .map((option, idx) => (
-                                        <Checkbox key={idx} value={option} display="flex" alignItems="flex-start">
-                                          <Box display="flex" alignItems="flex-start" verticalAlign={"top"}>
-                                            <Text>{option}</Text>
-                                          </Box>
-                                        </Checkbox>
+                                        <HStack key={idx} spacing={2} alignItems="center">
+                                          <CustomCheckbox
+                                            option={option}
+                                            isChecked={selectedOptions.includes(option)}
+                                            onToggle={handleToggle}
+                                          />
+                                          <Text fontSize="14px">{option}</Text>
+                                        </HStack>
                                       ))}
                                   </VStack>
                                 ))}
@@ -516,15 +559,15 @@ export default function Form() {
                         </ModalBody>
                       </ModalContent>
                     </Modal>
-                    <Box pt={4}>
+                    <Box pt={4} mr="1.2rem">
                       {selectedOptions.length > 0 ? (
-                        <HStack align="start" mt={2} spacing={2} flexWrap="wrap" mb={2}>
+                        <HStack align="start" mt={2} spacing={2} flexWrap="wrap" mb={2}> 
                           {selectedOptions.map((option, idx) => (
                             <HStack key={idx} spacing={1}>
                               <Box
                                 bg="#edf2f7"
                                 color="black"
-                                p={isSmallerThan900 ? "0.9" : "2"}
+                                p={isSmallerThan900 ? "1.4" : "2"}
                                 spacing={2}
                                 width="100%"
                                 display="flex"
@@ -532,7 +575,7 @@ export default function Form() {
                                 borderRadius="md"
                                 fontSize={isSmallerThan900 ? "12px" : "12px"}
                                 fontWeight="600"
-                              ><Box flex="1">{option}</Box>
+                              ><Box flex="1" pl="1">{option}</Box>
                                 <IconButton
                                   icon={<CloseIcon />}
                                   color="#242323"
