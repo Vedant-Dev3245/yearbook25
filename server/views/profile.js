@@ -285,7 +285,22 @@ const searchUsers = async (req, res) => {
     const search_term = req.query.name;
 
     if(!search_term){
-      res.status(400).send({ message: "search term is required"});
+      return res.status(400).send({ message: "search term is required"});
+    }
+
+    if(search_term == ""){
+      let results = await User.findAll({
+        attributes: ['userID', 'name', 'bitsId'],
+        where: {
+          userID: {
+            [Op.not]: req.user.id // req.user.id for production and req.body.id for testing
+          },
+          senior: true
+        }
+      });
+
+      return res.status(200).send(results);
+
     }
 
     const search_value = `%${search_term}%`;
