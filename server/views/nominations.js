@@ -152,7 +152,7 @@ const nominateUser = async (req, res) => {
 
     if(!target){
         console.log("The target user doesn't exist");
-        res.status(403).send({
+        return res.status(403).send({
             status: "failure",
             message: "The target user doesn't exist"
         })
