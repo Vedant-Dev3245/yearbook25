@@ -333,7 +333,7 @@ const searchUsers = async (req, res) => {
 
   }catch(e){
     console.log("[searchUsers Route] There was an error: ", e);
-    res.status(500).send({ 
+    return res.status(500).send({ 
       status: "failure",
       message: "There was an error",
       error: e 
@@ -346,7 +346,7 @@ const searchAllUsers = async (req, res) => {
     const search_term = req.query.name;
 
     if(!search_term){
-      res.status(400).send({ message: "search term is required"});
+      return res.status(400).send({ message: "search term is required"});
     }
 
     const search_value = `%${search_term}%`;
@@ -378,7 +378,7 @@ const searchAllUsers = async (req, res) => {
 
   }catch(e){
     console.log("[searchUsers Route] There was an error: ", e);
-    res.status(500).send({ 
+    return res.status(500).send({ 
       status: "failure",
       message: "There was an error",
       error: e 
@@ -427,7 +427,7 @@ const writeCaption = async (req, res) => {
       const receiver = await User.findByPk(targetID);
 
       if(!receiver){
-        console.log("The target doesn't exist");
+        console.log("[writeCaption Route] The target doesn't exist");
         return res.status(403).send({
           status: "failure",
           message: "The target user doesn't exist"

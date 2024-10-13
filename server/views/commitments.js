@@ -65,7 +65,7 @@ const updateUserCommitments = async (req, res) => {
         });
 
         console.log("User commitments have been updated: ", updated_user)
-        res.status(200).send({
+        return res.status(200).send({
             status: "success",
             message: "commitments for the user have been updated.",
             user: updated_user
@@ -103,7 +103,7 @@ const searchByCommitment = async (req, res) => {
 
     } catch (err) {
         console.log("[searchByCommitment Route] An error occurred: ", err);
-        res.status(500).send({
+        return res.status(500).send({
             status: "failure",
             msg: "Some error occurred",
             error: err
@@ -213,14 +213,14 @@ const editCommitment = async (req, res) => {
 
         console.log("The updated commitment is: ", commitment);
 
-        res.status(500).send({
+        return res.status(500).send({
             status: "success",
             message: "successfully updated commitment",
             commitment: commitment
         })
     } catch (err) {
         console.log("[editCommitment Route] There was an error: ", err);
-        res.status(400).send({
+        return res.status(400).send({
             status: "failure",
             message: "some error occurred",
             error: err
@@ -242,7 +242,7 @@ const deleteCommitment = async (req, res) => {
             })
         } else {
             console.log("The commitment doesn't exist");
-            res.status(400).send({
+            return res.status(400).send({
                 status: "failure",
                 message: "commitment doesn't exist"
             })
@@ -250,7 +250,7 @@ const deleteCommitment = async (req, res) => {
 
     } catch (err) {
         console.log("This is deleteCommitment Route: ", err);
-        res.status(400).send({
+        return res.status(400).send({
             status: "failure",
             message: "An error occured in deleting",
             error: err
