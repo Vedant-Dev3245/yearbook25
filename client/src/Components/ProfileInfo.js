@@ -214,7 +214,7 @@ export default function ProfileInfo(props) {
       })
       .catch(function (err) {
         console.log(err);
-        alert(err)
+        // alert(err)
         setSpin(false);
         onWriteClose();
       });
