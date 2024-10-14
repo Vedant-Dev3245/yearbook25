@@ -22,7 +22,7 @@ const addProfile = async (req, res) => {
     });
 
     if (user) {
-      console.log("User already exists: ", user.toJSON());
+      console.log("[addProfile Route] User already exists: ", user.userID);
       return res.status(400).send({
         status: "failure",
         message: "User Exists Already",
@@ -45,9 +45,6 @@ const addProfile = async (req, res) => {
       if(req.body.email.substring(0,5) == "h2023"){
         senior = true;
       }
-      
-      console.log("[addProfile Route] This was the year: ", year);
-      console.log("[addProfile Route] This is the senior status: ", senior);
 
       let branchCode = bitsId.substring(4, bitsId.length - 4);
 
@@ -99,10 +96,10 @@ const addProfile = async (req, res) => {
         }
       );
 
-      // Dev Testing: 
+      // // Dev Testing: 
 
-      console.log("The user is created: ", user.toJSON());
-      console.log("The JWT token is: ", token);
+      // console.log("The user is created: ", user.toJSON());
+      // console.log("The JWT token is: ", token);
 
       // adding Commitments for the user: 
 
@@ -116,15 +113,6 @@ const addProfile = async (req, res) => {
           let commitment = await Commitment.findOne({where: {commitment_name: returncommitment}})
           await user.addCommitment(commitment);
         }
-
-        const updated_user = await User.findByPk(user.userID, {
-          include:{
-              model: Commitment,
-              as: 'commitments'
-          }
-        });
-
-        console.log("User commitments have been updated: ", updated_user)
       }
 
       return res.status(200).send({
@@ -245,8 +233,6 @@ const getProfile = async (req, res) => {
       });
     }
 
-    console.log("This is the user: ", user.toJSON());
-
     return res.status(200).send(user.toJSON());
   } catch (err) {
     console.log("There was an error", err);
@@ -327,8 +313,6 @@ const searchUsers = async (req, res) => {
       }
     })
 
-    console.log("These are the results: ", JSON.stringify(results));
-
     return res.status(200).send(results);
 
   }catch(e){
@@ -371,8 +355,6 @@ const searchAllUsers = async (req, res) => {
         ]
       }
     })
-
-    console.log("These are the results: ", JSON.stringify(results));
 
     return res.status(200).send(results);
 
