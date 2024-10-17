@@ -332,10 +332,10 @@ export default function Form() {
               >
                 document
               </Link>{" "}
-              before submitting your photo and quote for the yearbook portal.
+              before submitting your photo and quote for the yearbook portal. yearbook quote and picture can be edited later
             </Text>
             <Box mt="2rem">
-              <FormControl mt="4rem">
+              <FormControl>
                 <SimpleGrid columns={2} columnGap={2} rowGap={4} w="full">
                   <GridItem colSpan={1}>
                     <FormLabel
