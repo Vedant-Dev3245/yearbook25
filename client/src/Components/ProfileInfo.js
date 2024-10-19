@@ -60,7 +60,7 @@ export default function ProfileInfo(props) {
   const params = useParams();
   const token = localStorage.getItem('token')
   const decodedToken = jwtDecode(token);
-  
+
   React.useEffect(() => {
     if (window.location.href.includes(localStorage.getItem("user"))) {
       setShowEdit(true);
@@ -80,7 +80,7 @@ export default function ProfileInfo(props) {
       };
     });
   }
-  
+
   function onImageChange(e) {
     const imageFile = e.target.files[0];
     setImg(URL.createObjectURL(imageFile));
@@ -119,28 +119,28 @@ export default function ProfileInfo(props) {
     e.preventDefault();
     let currentUser = localStorage.getItem("user");
     setTimeout(() => {
-    axios({
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`,
-      },
-      url: `${process.env.REACT_APP_BACKEND_URL}/profiles/edit`,
-      data: formInfo,
-    })
-      .then(function (response) {
-        if (response.data.msg === "Successfully Updated") {
-          let user = localStorage.getItem("user");
-          document.location.reload();
-        }
-        console.log(response);
+      axios({
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${localStorage.token}`,
+        },
+        url: `${process.env.REACT_APP_BACKEND_URL}/profiles/edit`,
+        data: formInfo,
       })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(() => {
-        onClose();
-      });
-  }, 5000); 
+        .then(function (response) {
+          if (response.data.msg === "Successfully Updated") {
+            let user = localStorage.getItem("user");
+            document.location.reload();
+          }
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .finally(() => {
+          onClose();
+        });
+    }, 5000);
   }
 
   function handleLogout() {
@@ -464,6 +464,7 @@ export default function ProfileInfo(props) {
             fontWeight={700}
             letterSpacing="0.08rem"
             fontSize="2.2rem"
+            textAlign="center"
           >
             {props.name.toLowerCase()}
           </Text>
@@ -488,13 +489,16 @@ export default function ProfileInfo(props) {
                   {props.quote}
                 </Text>
               </Box>
-              <Wrap spacing={1}>
-                {tagsData.map((tagData, index) => (
-                  <WrapItem key={index}>
-                    <Tags commitment={tagData.commitment} />
-                  </WrapItem>
-                ))}
-              </Wrap></> : <></>}
+              <Wrap spacing={1} justify="center">
+                {tagsData
+                  .sort((a, b) => a.commitment.length - b.commitment.length)
+                  .map((tagData, index) => (
+                    <WrapItem key={index}>
+                      <Tags commitment={tagData.commitment} />
+                    </WrapItem>
+                  ))}
+              </Wrap>
+            </> : <></>}
         </VStack>
       </Flex>
       {decodedToken.senior ? <>
@@ -582,9 +586,14 @@ export default function ProfileInfo(props) {
             <Textarea
               type="text"
               name="caption"
+              maxLength="1000"
               placeholder="enter your caption!"
               onChange={handleChangeRequest}
+              value={captionData}
             />
+            <Text mt="0.4rem" mb="0rem">
+              {captionData?.length || 0}/1000 characters used
+            </Text>
             <Text fontWeight="600" color="#B3B3B3" mt="1rem">
               You must accept these guidelines before writing a caption<br /><br />
               1. The quote must only be written in English. Refrain from using any other script or emojis.<br />
