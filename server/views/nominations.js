@@ -49,10 +49,6 @@ const sendRequest = async (req, res) => {
         })
     }
 
-    const filter = new Filter({ placeHolder: "x" });
-    filter.addWords(...words);
-    caption = filter.clean(caption);
-
     const caption_record = await Caption.findOne({where: {
         [Op.and]: [
             {writerID: senderID},

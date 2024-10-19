@@ -59,13 +59,6 @@ const addProfile = async (req, res) => {
       // Quote Filtering:
 
       var quote = req.body.quote;
-      if(quote){
-        const filter = new Filter({ placeHolder: "x" });
-        filter.addWords(...words);
-        quote = filter.clean(quote);
-      }else{
-        quote = "";
-      }
 
       // Creating the user:
 
@@ -152,9 +145,6 @@ const editProfile = async (req, res) => {
     }
     
     if(quote){
-      const filter = new Filter({ placeHolder: "x" });
-      filter.addWords(...words);
-      quote = filter.clean(quote);
       if (quote !== "") {
         user.quote = quote;
       }
@@ -380,10 +370,6 @@ const writeCaption = async (req, res) => {
         message: "You can't write for yourself",
       });
     };
-
-    const filter = new Filter({ placeHolder: "x" });
-    filter.addWords(...words);
-    caption = filter.clean(caption);
 
     const nomination = await Nomination.findOne({where: {
       [Op.and]: [
