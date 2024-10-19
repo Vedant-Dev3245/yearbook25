@@ -22,7 +22,7 @@ const Caption = postgresClient.define(
         },
 
         caption:{
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(1000),
         },
 
         status:{
