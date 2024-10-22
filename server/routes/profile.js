@@ -16,6 +16,6 @@ router.post("/:id/caption", writeCaption);
 router.get("/:id", getProfile);
 router.post("/", addProfile);
 router.patch("/edit", editProfile);
-router.delete("/:id", deleteProfile);
+router.delete("/:id", isAdmin, deleteProfile);
 
 module.exports = router;
