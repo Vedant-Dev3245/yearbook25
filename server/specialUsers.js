@@ -90,6 +90,7 @@ const arr = [
   "vedantjain250@gmail.com",
   "richeek10@gmail.com",
   "parasharsjoshi@gmail.com",
+  "abhinavinwallawallacity@gmail.com",
   "alumnicell@pilani.bits-pilani.ac.in"
 ];
 
