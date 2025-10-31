@@ -15,7 +15,16 @@ export default function newDevs() {
             <Masonry width="100%" marginInline="auto" breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column2">
-                
+                <DevCards
+                    img="../images/vedant.jpg"
+                    name="vedant jain"
+                    caption="full stack dreamer | 2024A7PS0555P"
+                    twitter=""
+                    github="https://github.com/Vedant-Dev3245"
+                    linkedin="https://www.linkedin.com/in/vedant-jain-6b443a204/"
+                    spotify="https://open.spotify.com/user/31qsmzpfzh6orcfs7oqnyxm4c2ye?si=4da85dfad26845c2"
+                    text="its not zeroes and ones, its dreams and nightmares"
+                />
                 <DevCards
                     img="../images/ananya.jpg"
                     name="ananya shankar"

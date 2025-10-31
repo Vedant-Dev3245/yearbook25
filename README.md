@@ -1,4 +1,4 @@
-# SARC-Yearbook-2024
+# SARC-Yearbook-2025
 
 ### Tech Stack
 - ExpressJS (With Sequelize ORM + PostgreSQL)
