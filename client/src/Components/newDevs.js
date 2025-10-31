@@ -15,6 +15,7 @@ export default function newDevs() {
             <Masonry width="100%" marginInline="auto" breakpointCols={breakpointColumnsObj}
                 className="my-masonry-grid"
                 columnClassName="my-masonry-grid_column2">
+                
                 <DevCards
                     img="../images/ananya.jpg"
                     name="ananya shankar"

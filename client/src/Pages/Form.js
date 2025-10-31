@@ -190,10 +190,10 @@ export default function Form() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    if (!correctId(formInfo)) {
-      alert("BITS ID and email do not match!");
-      return;
-    }
+    // if (!correctId(formInfo)) {
+    //   alert("BITS ID and email do not match!");
+    //   return;
+    // }
     validate(e);
   }
 
@@ -276,18 +276,18 @@ export default function Form() {
     );
   };
 
-  function correctId() {
-    if (formInfo.id && data.email) {
-      const yearId = formInfo.id.slice(0, 4);
-      const digitsId = formInfo.id.slice(8, 12);
-      const yearEmail = data.email.slice(1, 5);
-      const digitsEmail = data.email.slice(5, 9);
-      if (yearId === yearEmail && digitsId === digitsEmail) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // function correctId() {
+  //   if (formInfo.id && data.email) {
+  //     const yearId = formInfo.id.slice(0, 4);
+  //     const digitsId = formInfo.id.slice(8, 12);
+  //     const yearEmail = data.email.slice(1, 5);
+  //     const digitsEmail = data.email.slice(5, 9);
+  //     if (yearId === yearEmail && digitsId === digitsEmail) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   return (
     <Flex
