@@ -113,7 +113,7 @@ export default function Hero() {
                   fontSize={isSmallerThan900 ? "1.3rem" : "2.8rem"}
                   fontWeight="800"
                 >
-                  2.75k+
+                  3k+
                 </Text>
                 <Text
                   mt="-0.5rem"
