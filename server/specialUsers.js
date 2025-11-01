@@ -80,18 +80,18 @@ const arr = [
   // "f20230253@pilani.bits-pilani.ac.in",
   // "f20230950@pilani.bits-pilani.ac.in",
 
-  // // Special Cases
-  // "anhadvirsm@gmail.com",
-  // "karmanya49@gmail.com",
-  // "kumarh664@gmail.com",
-  // "devsatish08@gmail.com",
-  // "devtempacc08@gmail.com",
-  // "prithvi05prism@gmail.com",
-  // "vedantjain250@gmail.com",
-  // "richeek10@gmail.com",
-  // "parasharsjoshi@gmail.com",
-  // "abhinavinwallawallacity@gmail.com",
-  // "alumnicell@pilani.bits-pilani.ac.in"
+  // Special Cases
+  "anhadvirsm@gmail.com",
+  "karmanya49@gmail.com",
+  "kumarh664@gmail.com",
+  "devsatish08@gmail.com",
+  "devtempacc08@gmail.com",
+  "prithvi05prism@gmail.com",
+  "vedantjain250@gmail.com",
+  "richeek10@gmail.com",
+  "parasharsjoshi@gmail.com",
+  "abhinavinwallawallacity@gmail.com",
+  "alumnicell@pilani.bits-pilani.ac.in"
 ];
 
 module.exports = arr;

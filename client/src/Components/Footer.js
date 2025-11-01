@@ -120,7 +120,7 @@ export default function Footer() {
               mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
-              <Link href="https://bits-sarc.in" target="_blank">
+              <Link href="https://fierce-jeep-1d2.notion.site/Student-Alumni-Relations-Cell-Who-are-we-9fb9470c4ec14d59978ed9c98a440711" target="_blank">
                 initiatives
               </Link>
             </Box>
@@ -146,7 +146,7 @@ export default function Footer() {
               mt={isSmallerThan800 ? "1.2rem" : "2rem"}
               color="#B3B3B3"
             >
-              <Link href="https://bits-sarc.in/#portfolio" target="_blank">
+              <Link href="https://fierce-jeep-1d2.notion.site/Photo-Archive-cddd977931804e458b7eb0bb04a9288a" target="_blank">
                 gallery
               </Link>
             </Box>
@@ -158,7 +158,7 @@ export default function Footer() {
               color="#B3B3B3"
             >
               <Link
-                href="https://www.bitsaa.in/page/publications/bits-echo"
+                href="https://www.bitsaa.org/page/publications/bits-echo"
                 target="_blank"
               >
                 echo
@@ -251,7 +251,7 @@ export default function Footer() {
               backdropFilter={"blur(10px)"}
             >
               {" "}
-              <Link href="https://forms.gle/ioRbm9CiyC96shm67" target="_blank">
+              <Link href="https://docs.google.com/forms/d/e/1FAIpQLScccgluhNmWGLPJMHMEgGiDKqrmqVmxi1BctnZ3X4t7prP-sQ/viewform" target="_blank">
                 ask for help
               </Link>
             </Box>
