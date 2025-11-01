@@ -84,7 +84,7 @@ export default function Navbar() {
               fontWeight="600"
               color="white"
               p={4}
-              href="https://bits-sarc.in"
+              href="https://fierce-jeep-1d2.notion.site/Student-Alumni-Relations-Cell-Who-are-we-9fb9470c4ec14d59978ed9c98a440711"
               target="_blank"
             >
               about
@@ -134,7 +134,7 @@ export default function Navbar() {
                     fontSize="s"
                     fontWeight="600"
                     width="100%"
-                    href="https://bits-sarc.in"
+                    href="https://fierce-jeep-1d2.notion.site/Student-Alumni-Relations-Cell-Who-are-we-9fb9470c4ec14d59978ed9c98a440711"
                     target="_blank"
                   >
                     about
