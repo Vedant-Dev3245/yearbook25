@@ -33,6 +33,7 @@ export default function Hero() {
           width={isSmallerThan900 ? "90%" : "41%"}
           spacing={4}
           alignItems={isSmallerThan900 ? "center" : "baseline"}
+          mx={isSmallerThan900 ? "auto" : "1rem"}
         >
           <Text
             fontSize={isSmallerThan900 ? "2.5rem" : "4.6rem"}
@@ -64,6 +65,7 @@ export default function Hero() {
             lineHeight={isSmallerThan900 ? "1.3rem" : "1.7rem"}
             fontSize={isSmallerThan900 ? "0.9rem" : "1.1rem"}
             color="#B3B3B3"
+            
           >
             the yearbook portal is a gateway to your college memories where you
             can post crazy pictures and interesting captions for yourselves and
@@ -88,8 +90,11 @@ export default function Hero() {
             <Box
               id="signInDiv2"
               p={2}
-              mr={10}
               display={isSmallerThan900 ? "block !important" : "none"}
+              mr={isSmallerThan900 ? "0" : "10"}
+              mx={isSmallerThan900 ? "auto" : "0"}
+              // textAlign={isSmallerThan900 ? "center" : "left"}
+
             ></Box>
           )}
           <Flex
@@ -116,7 +121,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  captions in 2023
+                  captions in 2024
                 </Text>
               </Box>
               <Box w="70%">
@@ -178,7 +183,7 @@ export default function Hero() {
                   color="#B3B3B3"
                   fontWeight="500"
                 >
-                  visits in 2023
+                  visits in 2024
                 </Text>
               </Box>
             </Flex>
